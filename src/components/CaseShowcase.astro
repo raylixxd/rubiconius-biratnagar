@@ -77,5 +77,50 @@ const plates = commission.showcase ?? [];
         ))}
       </div>
     </div>
+
+    <div class="showcase-inspector__veil" data-showcase-veil aria-hidden="true" hidden></div>
+    <div
+      class="showcase-inspector"
+      data-showcase-inspector
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="inspector-title"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="inspector__shell" data-inspector-shell>
+        <div class="inspector__stage" data-inspector-stage>
+          <img class="inspector__fallback-img" data-inspector-img alt="" />
+        </div>
+        <aside class="inspector__body" data-lenis-prevent>
+          <div class="inspector__head">
+            <div class="inspector__meta-row">
+              <span class="inspector__swatch" data-inspector-swatch aria-hidden="true"></span>
+              <span class="inspector__index" data-inspector-index></span>
+              <span class="inspector__annot" data-inspector-annot></span>
+            </div>
+            <button type="button" class="inspector__close" data-inspector-close aria-label="Close plate inspector">
+              CLOSE &middot; ESC
+            </button>
+          </div>
+          <h3 id="inspector-title" class="inspector__title" data-inspector-title></h3>
+          <p class="inspector__spec" data-inspector-spec></p>
+          <div class="inspector__actions">
+            <button
+              type="button"
+              class="btn btn--accent"
+              data-fill
+              data-open-drawer
+              data-inspector-cta
+              data-drawer-context={commission.title}
+            >
+              <span class="btn__fill" aria-hidden="true"></span>
+              <span>Discuss This Detail</span>
+              <span class="btn__arrow" aria-hidden="true">&#8599;</span>
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
   </section>
 )}

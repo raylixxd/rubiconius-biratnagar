@@ -1,12 +1,14 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { scrollState } from '../scroll';
-import { initShowcasePlates, measureShowcasePlates, disposeShowcasePlates } from './plate';
+import { initShowcasePlates, measureShowcasePlates, disposeShowcasePlates, setShowcaseReveal } from './plate';
+import { mountShowcaseInspector } from './inspector';
 
 gsap.registerPlugin(ScrollTrigger);
 
 let showcaseCtx: gsap.Context | null = null;
 let mm: gsap.MatchMedia | null = null;
+let unmountInspector: (() => void) | null = null;
 
 const THEMES = {
   charcoal: { bg: [32, 32, 30], fg: [243, 239, 232], border: [243, 239, 232, 0.14] },
@@ -118,6 +120,17 @@ export function mountShowcase(root: ParentNode = document) {
         velocity: scrollState().velocity,
       }));
 
+      // Phase 6: Anamorphic Aperture Mask Reveal on Showcase Entry
+      const entryTrigger = ScrollTrigger.create({
+        trigger: showcaseEl,
+        start: 'top 92%',
+        end: 'top 12%',
+        scrub: 0.6,
+        onUpdate: (self) => setShowcaseReveal(self.progress),
+        onRefresh: (self) => setShowcaseReveal(self.progress),
+      });
+      setShowcaseReveal(entryTrigger.progress || 0);
+
       const onRefresh = () => {
         currentX = (gsap.getProperty(track, 'x') as number) || 0;
         measureShowcasePlates(viewport, track);
@@ -126,14 +139,19 @@ export function mountShowcase(root: ParentNode = document) {
 
       return () => {
         ScrollTrigger.removeEventListener('refresh', onRefresh);
+        entryTrigger.kill();
         anim.kill();
         disposeShowcasePlates();
       };
     });
   }, showcaseEl);
+
+  unmountInspector = mountShowcaseInspector(showcaseEl);
 }
 
 export function unmountShowcase() {
+  unmountInspector?.();
+  unmountInspector = null;
   disposeShowcasePlates();
   if (mm) {
     mm.revert();

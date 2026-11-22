@@ -2,6 +2,7 @@ import { gsap } from 'gsap';
 import { initScroll, resetScroll, resizeScroll, startScroll, stopScroll, clearPageScrollListeners } from './scroll';
 import { initReveals, ensureFontsReady, revertSplits } from './reveal';
 import { initGL, mountGL, unmountGL } from './gl';
+import { mountSeam, unmountSeam } from './gl/seam';
 import { mountShowcase, unmountShowcase } from './showcase';
 import { initCursor, initMagnetic } from './interactions';
 import { runLoader } from './loader';
@@ -52,6 +53,7 @@ function initPage() {
     initMagnetic(document);
   });
   mountGL(document);
+  mountSeam(document);
   mountShowcase(document);
   ready = true;
   pageFns.forEach(runPageFn);
@@ -89,6 +91,7 @@ export function cleanup() {
   clearPageScrollListeners();
   revertSplits();
   unmountShowcase();
+  unmountSeam();
   ctx?.revert();
   ctx = null;
   unmountGL();
