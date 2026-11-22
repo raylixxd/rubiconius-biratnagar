@@ -1,0 +1,358 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { commissions, site } from '../../data/site';
+
+const totalPlates = String(commissions.length).padStart(2, '0');
+---
+
+<Base
+  title="Works"
+  description="Completed residential architecture, custom millwork, and interior room dossiers across Biratnagar and Dharan by Rubiconius."
+>
+  <div class="works-root" data-works-root>
+    <!-- Works Monograph Hero & Typographic Switcher -->
+    <section class="works-hero wrap">
+      <div class="works-hero__bar">
+        <span class="section-kicker works-hero__kicker-text">Portfolio &middot; Biratnagar &amp; Dharan</span>
+        <div class="works-switcher" role="group" aria-label="View mode">
+          <button
+            type="button"
+            class="works-switcher__btn is-active"
+            data-works-view-btn="editorial"
+            aria-pressed="true"
+          >
+            Editorial
+          </button>
+          <span class="works-switcher__sep" aria-hidden="true">/</span>
+          <button
+            type="button"
+            class="works-switcher__btn"
+            data-works-view-btn="index"
+            aria-pressed="false"
+          >
+            Index
+          </button>
+        </div>
+      </div>
+
+      <h1 class="works-hero__title">
+        Proportion, natural daylight, and restrained millwork.
+      </h1>
+      <p class="works-hero__lead">
+        Guided by {site.founder}, each residence and private salon in Biratnagar and Dharan pairs honest Sal timber joinery, honed stone mass, and calibrated evening light.
+      </p>
+    </section>
+
+    <!-- Single Active View Stage (Zero DOM Duplication) -->
+    <div class="works-stage" data-works-stage>
+      <!-- EDITORIAL VIEW (Default Active) -->
+      <section
+        class="works-editorial wrap"
+        data-works-panel="editorial"
+        aria-label="Architectural Monograph Spreads"
+      >
+        {commissions.map((c, idx) => {
+          const num = String(idx + 1).padStart(2, '0');
+          const hasDedicatedDetail = Boolean(c.detailImage);
+          const layoutVariant = idx === 0 ? 'lead-asymmetric' : idx === 1 ? 'monumental-wide' : 'reversed-asymmetric';
+
+          return (
+            <article class={`works-spread works-spread--${layoutVariant}`} data-works-spread>
+              <header class="works-spread__bar">
+                <span class="works-spread__plate">{num} / {totalPlates}</span>
+                <span class="works-spread__meta-inline">{c.typology} &middot; {c.location} &middot; {c.year}</span>
+              </header>
+
+              {idx === 0 && (
+                <div class="works-spread__grid">
+                  <div class="works-spread__primary-col works-spread__primary-col--left">
+                    <a class="works-spread__frame works-spread__frame--4x3" href={`/works/${c.slug}/`} aria-label={`View ${c.title} dossier`}>
+                      <div class="works-spread__parallax" data-editorial-parallax>
+                        <Image
+                          class="project-photo works-spread__img"
+                          src={c.image}
+                          alt={c.alt}
+                          width={c.image.width}
+                          height={c.image.height}
+                          style={c.primaryObjectPosition ? `object-position: ${c.primaryObjectPosition};` : undefined}
+                          loading="eager"
+                          decoding="sync"
+                          fetchpriority="high"
+                        />
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="works-spread__aside-col works-spread__aside-col--bottom">
+                    <div class={`works-spread__detail-wrap ${hasDedicatedDetail ? '' : 'is-fallback-crop'}`}>
+                      {hasDedicatedDetail && c.detailImage ? (
+                        <div class="works-spread__frame works-spread__frame--4x5" aria-hidden="true">
+                          <Image
+                            class="project-photo works-spread__img"
+                            src={c.detailImage}
+                            alt=""
+                            width={c.detailImage.width}
+                            height={c.detailImage.height}
+                            loading="eager"
+                          />
+                        </div>
+                      ) : (
+                        <aside class="works-spec-plate" aria-label={`${c.title} material specification plate`}>
+                          <div class="works-spec-plate__head">
+                            <span>Plate {num} &middot; Palette</span>
+                            <span>{c.location} &middot; {c.year}</span>
+                          </div>
+                          <div class="works-spec-plate__chips" aria-hidden="true">
+                            {c.materials.map((m) => (
+                              <div class="works-spec-plate__chip-col">
+                                <span class="works-spec-plate__chip" style={`background-color: ${m.swatchHex};`}></span>
+                                <span class="works-spec-plate__hex">{m.swatchHex}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <dl class="works-spec-plate__rows">
+                            <div><dt>Scope</dt><dd>{c.scope}</dd></div>
+                            <div><dt>Focus</dt><dd>{c.focus}</dd></div>
+                            <div><dt>Typology</dt><dd>{c.typology}</dd></div>
+                          </dl>
+                        </aside>
+                      )}
+                    </div>
+
+                    <div class="study-card-meta">
+                      <span class="study-eyebrow">Study {num} &middot; {c.typology}</span>
+                      <h2 class="study-title">
+                        <a href={`/works/${c.slug}/`}>{c.title}</a>
+                      </h2>
+                      <p class="study-summary">{c.summary}</p>
+
+                      <div class="study-materiality">
+                        <span class="study-materiality__label">Materiality</span>
+                        <ul class="study-materiality__list">
+                          {c.materials.slice(0, 3).map((m) => (
+                            <li>
+                              <span class="material-swatch" style={`background-color: ${m.swatchHex};`} aria-hidden="true"></span>
+                              <span>{m.label}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <a class="study-dossier-link" href={`/works/${c.slug}/`}>
+                        <span>View Dossier</span>
+                        <span class="study-dossier-link__arrow" aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {idx === 1 && (
+                <div class="works-spread__wide">
+                  <a class="works-spread__frame works-spread__frame--16x9" href={`/works/${c.slug}/`} aria-label={`View ${c.title} dossier`}>
+                    <div class="works-spread__parallax" data-editorial-parallax>
+                      <Image
+                        class="project-photo works-spread__img"
+                        src={c.image}
+                        alt={c.alt}
+                        width={c.image.width}
+                        height={c.image.height}
+                        loading="eager"
+                        decoding="sync"
+                      />
+                    </div>
+                  </a>
+
+                  <div class="works-spread__caption-bar">
+                    <div class="study-card-meta">
+                      <span class="study-eyebrow">Study {num} &middot; {c.typology}</span>
+                      <h2 class="study-title">
+                        <a href={`/works/${c.slug}/`}>{c.title}</a>
+                      </h2>
+                      <p class="study-summary">{c.summary}</p>
+                    </div>
+
+                    <div class="works-spread__caption-right">
+                      <div class="study-materiality">
+                        <span class="study-materiality__label">Materiality</span>
+                        <ul class="study-materiality__list">
+                          {c.materials.map((m) => (
+                            <li>
+                              <span class="material-swatch" style={`background-color: ${m.swatchHex};`} aria-hidden="true"></span>
+                              <span>{m.label}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <a class="study-dossier-link" href={`/works/${c.slug}/`}>
+                        <span>View Dossier</span>
+                        <span class="study-dossier-link__arrow" aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {idx === 2 && (
+                <div class="works-spread__grid works-spread__grid--reversed">
+                  <div class="works-spread__aside-col works-spread__aside-col--top">
+                    <div class="study-card-meta">
+                      <span class="study-eyebrow">Study {num} &middot; {c.typology}</span>
+                      <h2 class="study-title">
+                        <a href={`/works/${c.slug}/`}>{c.title}</a>
+                      </h2>
+                      <p class="study-summary">{c.summary}</p>
+
+                      <div class="study-materiality">
+                        <span class="study-materiality__label">Materiality</span>
+                        <ul class="study-materiality__list">
+                          {c.materials.slice(0, 3).map((m) => (
+                            <li>
+                              <span class="material-swatch" style={`background-color: ${m.swatchHex};`} aria-hidden="true"></span>
+                              <span>{m.label}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <a class="study-dossier-link" href={`/works/${c.slug}/`}>
+                        <span>View Dossier</span>
+                        <span class="study-dossier-link__arrow" aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+
+                    <div class={`works-spread__detail-wrap ${hasDedicatedDetail ? '' : 'is-fallback-crop'}`}>
+                      {hasDedicatedDetail && c.detailImage ? (
+                        <div class="works-spread__frame works-spread__frame--4x5" aria-hidden="true">
+                          <Image
+                            class="project-photo works-spread__img"
+                            src={c.detailImage}
+                            alt=""
+                            width={c.detailImage.width}
+                            height={c.detailImage.height}
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <aside class="works-spec-plate" aria-label={`${c.title} material specification plate`}>
+                          <div class="works-spec-plate__head">
+                            <span>Plate {num} &middot; Palette</span>
+                            <span>{c.location} &middot; {c.year}</span>
+                          </div>
+                          <div class="works-spec-plate__chips" aria-hidden="true">
+                            {c.materials.map((m) => (
+                              <div class="works-spec-plate__chip-col">
+                                <span class="works-spec-plate__chip" style={`background-color: ${m.swatchHex};`}></span>
+                                <span class="works-spec-plate__hex">{m.swatchHex}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <dl class="works-spec-plate__rows">
+                            <div><dt>Scope</dt><dd>{c.scope}</dd></div>
+                            <div><dt>Focus</dt><dd>{c.focus}</dd></div>
+                            <div><dt>Typology</dt><dd>{c.typology}</dd></div>
+                          </dl>
+                        </aside>
+                      )}
+                    </div>
+                  </div>
+
+                  <div class="works-spread__primary-col works-spread__primary-col--right">
+                    <a class="works-spread__frame works-spread__frame--4x3" href={`/works/${c.slug}/`} aria-label={`View ${c.title} dossier`}>
+                      <div class="works-spread__parallax" data-editorial-parallax>
+                        <Image
+                          class="project-photo works-spread__img"
+                          src={c.image}
+                          alt={c.alt}
+                          width={c.image.width}
+                          height={c.image.height}
+                          loading="eager"
+                          decoding="sync"
+                        />
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+
+      <!-- INDEX VIEW (Hidden by Default — Zero Instructional Microcopy) -->
+      <section
+        class="works-index wrap"
+        data-works-panel="index"
+        aria-label="Architectural Directory Index"
+        hidden
+      >
+        <div class="works-index__col-labels" aria-hidden="true">
+          <span class="works-index__col-num">No.</span>
+          <span class="works-index__col-title">Study</span>
+          <span class="works-index__col-typ">Typology</span>
+          <span class="works-index__col-loc">Location</span>
+          <span class="works-index__col-yr">Year</span>
+        </div>
+
+        <div class="works-index__list" data-project-index>
+          {commissions.map((c, idx) => {
+            const num = String(idx + 1).padStart(2, '0');
+            return (
+              <a
+                class="works-index__row"
+                href={`/works/${c.slug}/`}
+                data-index-row
+                data-project-idx={idx}
+              >
+                <span class="works-index__num">{num}</span>
+                <h2 class="works-index__row-title">{c.title}</h2>
+                <span class="works-index__row-typ">{c.typology}</span>
+                <span class="works-index__row-loc">{c.location}</span>
+                <span class="works-index__row-meta-mobile">
+                  {c.typology} &middot; {c.location} &middot; {c.year}
+                </span>
+                <span class="works-index__row-yr">
+                  <span class="works-index__yr-text">{c.year}</span>
+                  <span class="works-index__arrow" aria-hidden="true">&rarr;</span>
+                </span>
+              </a>
+            );
+          })}
+        </div>
+
+        <!-- Fine-Pointer Desktop Cursor Preview (Strictly @media hover:hover & pointer:fine) -->
+        <div class="works-cursor-follow" data-cursor-follow aria-hidden="true">
+          <div class="works-cursor-follow__inner" data-cursor-follow-inner>
+            {commissions.map((c, idx) => (
+              <div class={`works-cursor-follow__slide ${idx === 0 ? 'is-active' : ''}`} data-follow-slide={idx}>
+                <Image
+                  class="project-photo"
+                  src={c.image}
+                  alt=""
+                  width={c.image.width}
+                  height={c.image.height}
+                  loading="eager"
+                />
+                <div class="works-cursor-follow__caption">
+                  <span>{c.typology}</span>
+                  <span>{c.location} &middot; {c.year}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Quiet Architectural Closing Transition to 3D Material Room -->
+    <section class="works-transition wrap" aria-label="Material Study Transition">
+      <span class="works-transition__eyebrow">Material Study</span>
+      <a class="works-transition__link" href="/showroom/">
+        <span>Enter the 3D Material Room</span>
+        <span class="works-transition__arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </section>
+  </div>
+</Base>

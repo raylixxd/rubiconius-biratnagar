@@ -1,0 +1,120 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { commissions, site } from '../../data/site';
+
+export function getStaticPaths() {
+  return commissions.map((commission, index) => ({
+    params: { slug: commission.slug },
+    props: { commission, nextCommission: commissions[(index + 1) % commissions.length] },
+  }));
+}
+
+const { commission, nextCommission } = Astro.props;
+const isPortrait = commission.image.height > commission.image.width;
+---
+<Base title={commission.title} description={commission.summary}>
+  <section class="inner-hero inner-hero--split wrap">
+    <div class="inner-hero__title-col">
+      <nav class="dossier-breadcrumb" aria-label="Breadcrumb" data-reveal="fade" data-intro>
+        <a href="/works/">Works</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{commission.title}</span>
+      </nav>
+      <p class="section-kicker dossier-kicker" data-reveal="fade" data-intro>
+        {commission.typology} &middot; {commission.location} &middot; {commission.year}
+      </p>
+      <h1 class="inner-hero__title" data-split="lines" data-intro>{commission.title}</h1>
+    </div>
+    <div class="inner-hero__lead-col">
+      <p class="hero__lead" data-reveal="up" data-intro data-delay="0.1">{commission.summary}</p>
+    </div>
+  </section>
+
+  <section class="case-spread case-grid wrap">
+    <figure class={`case-plate ${isPortrait ? 'is-portrait' : 'is-landscape'}`}>
+      <Image
+        class="project-photo"
+        src={commission.image}
+        alt={commission.alt}
+        width={commission.image.width}
+        height={commission.image.height}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </figure>
+
+    <aside class="case-aside">
+      <span class="section-kicker">Space Dossier</span>
+      <dl class="case-facts">
+        <div><dt>Typology</dt><dd>{commission.typology}</dd></div>
+        <div><dt>Location</dt><dd>{commission.location}</dd></div>
+        <div><dt>Year</dt><dd>{commission.year}</dd></div>
+        <div><dt>Scope</dt><dd>{commission.scope}</dd></div>
+        <div><dt>Studio</dt><dd>{site.name}</dd></div>
+      </dl>
+
+      <span class="section-kicker">Materiality</span>
+      <ul class="case-materials">
+        {commission.materials.map((m) => (
+          <li>
+            <span class="material-swatch" style={`background-color: ${m.swatchHex};`} aria-hidden="true"></span>
+            <span>{m.label}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div style="padding-top: 0.75rem;">
+        <button
+          class="btn btn--accent"
+          type="button"
+          data-fill
+          data-open-drawer
+          data-drawer-context={commission.title}
+        >
+          <span class="btn__fill" aria-hidden="true"></span>
+          <span>Commission a Similar Space</span>
+          <span class="btn__arrow" aria-hidden="true">&#8599;</span>
+        </button>
+      </div>
+    </aside>
+  </section>
+
+  <section class="case-story wrap">
+    <div class="case-story__grid">
+      {commission.narrative.map((section) => (
+        <div class="case-section">
+          <h2>{section.heading}</h2>
+          <p>{section.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="case-next">
+      <div class="case-next__header">
+        <span class="section-kicker">Next Room Study</span>
+        <a class="case-next__all draw" href="/works/">&larr; Return to Works</a>
+      </div>
+      <a class="case-next__card" href={`/works/${nextCommission.slug}/`}>
+        <div class="case-next__media">
+          <Image
+            class="project-photo"
+            src={nextCommission.image}
+            alt={nextCommission.alt}
+            width={nextCommission.image.width}
+            height={nextCommission.image.height}
+            loading="lazy"
+          />
+        </div>
+        <div class="case-next__meta">
+          <span class="case-next__sub">{nextCommission.typology} &middot; {nextCommission.location} &middot; {nextCommission.year}</span>
+          <h3 class="case-next__title">{nextCommission.title}</h3>
+          <span class="case-next__action">
+            <span>View Dossier</span>
+            <span class="case-next__arrow" aria-hidden="true">&rarr;</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+</Base>

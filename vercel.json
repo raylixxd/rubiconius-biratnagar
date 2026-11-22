@@ -1,0 +1,34 @@
+{
+  "redirects": [
+    {
+      "source": "/works/munal-residence",
+      "destination": "/works/fluted-master-suite/",
+      "statusCode": 301
+    },
+    {
+      "source": "/works/munal-residence/",
+      "destination": "/works/fluted-master-suite/",
+      "statusCode": 301
+    },
+    {
+      "source": "/works/dharan-foothills-villa",
+      "destination": "/works/formal-drawing-room/",
+      "statusCode": 301
+    },
+    {
+      "source": "/works/dharan-foothills-villa/",
+      "destination": "/works/formal-drawing-room/",
+      "statusCode": 301
+    },
+    {
+      "source": "/works/sal-kota-penthouse",
+      "destination": "/works/heritage-panelled-gallery/",
+      "statusCode": 301
+    },
+    {
+      "source": "/works/sal-kota-penthouse/",
+      "destination": "/works/heritage-panelled-gallery/",
+      "statusCode": 301
+    }
+  ]
+}

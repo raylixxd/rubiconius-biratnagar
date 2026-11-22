@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rubiconius.com.np/sitemap-index.xml

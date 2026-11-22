@@ -1,0 +1,191 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Homepage HTTP 200",
+      "ok": true,
+      "detail": "status=200"
+    },
+    {
+      "name": "Homepage top nav includes Showroom link",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Homepage Hero includes Walk 3D Showroom CTA",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Homepage includes inline #showroom-inline 3D section",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Inline 3D Showroom renders & pauses global OGL",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Site header does not collide with inline top bar",
+      "ok": true,
+      "detail": "barTop=77, headerBottom=-24"
+    },
+    {
+      "name": "Global OGL resumes cleanly after scrolling past inline showroom",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Single showroom WebGL canvas",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "Global OGL canvas paused/hidden on /showroom/",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Immersive layout hides site header & footer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "HUD uses Boska display font",
+      "ok": true,
+      "detail": "Boska, Georgia, serif"
+    },
+    {
+      "name": "HUD uses Switzer UI font",
+      "ok": true,
+      "detail": "Switzer, \"Plus Jakarta Sans\", Inter, system-ui, -apple-system, sans-serif"
+    },
+    {
+      "name": "Desktop hint copy exact",
+      "ok": true,
+      "detail": "Scroll to walk · Drag to look"
+    },
+    {
+      "name": "DPR capped <= 2",
+      "ok": true,
+      "detail": "dpr=1.5"
+    },
+    {
+      "name": "Desktop 0px horizontal overflow",
+      "ok": true,
+      "detail": "overflow=0"
+    },
+    {
+      "name": "Audio muted by default",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Camera moves smoothly across all 5 waypoints",
+      "ok": true,
+      "detail": "[[-0.45,1.56,7.15],[-0.851,1.48,3.959],[0.85,1.52,-0.054],[-0.203,1.54,-2.768],[0.15,1.58,-6.7]]"
+    },
+    {
+      "name": "Chapter 03 click glides to u≈0.50",
+      "ok": true,
+      "detail": "u=0.530"
+    },
+    {
+      "name": "Scroll hint auto-fades after first interaction",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Pin opens architectural drawer",
+      "ok": true,
+      "detail": "study=/works/sal-kota-penthouse/"
+    },
+    {
+      "name": "Drawer study link points to /works/sal-kota-penthouse/",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Drawer has WhatsApp finish inquiry link",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Escape closes drawer cleanly",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Sound toggle activates ambient room tone",
+      "ok": true,
+      "detail": "{\"enabled\":true,\"contextState\":\"running\",\"ambientActive\":true,\"ambientWanted\":true}"
+    },
+    {
+      "name": "10 ClientRouter Home <-> Showroom swaps leak 0 canvases & restore OGL",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "?debug=1 activates fly helper & logs cam/target",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Zero console errors on desktop",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Zero failed network requests",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Mobile 390x844 0px horizontal overflow",
+      "ok": true,
+      "detail": "overflow=0"
+    },
+    {
+      "name": "Mobile hint copy exact",
+      "ok": true,
+      "detail": "Swipe to walk"
+    },
+    {
+      "name": "Mobile homepage 0px horizontal overflow",
+      "ok": true,
+      "detail": "overflow=0"
+    },
+    {
+      "name": "Mobile homepage inline 3D renders cleanly",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Zero runtime errors on mobile",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "prefers-reduced-motion renders readable unpinned directory",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\10-home-hero.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\11-home-inline-3d-entry.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\12-home-inline-3d-sal.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\01-desktop-u000.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\02-desktop-u025.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\03-desktop-u050.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\04-desktop-u075.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\05-desktop-u100.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\06-desktop-drawer.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\07-mobile-entry.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\08-mobile-st01.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\13-mobile-home-inline-3d.png",
+    "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\rubiconius-biratnagar\\.shots\\showroom-qa\\09-reduced-motion.png"
+  ]
+}

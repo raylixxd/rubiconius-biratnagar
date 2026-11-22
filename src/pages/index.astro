@@ -1,0 +1,228 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { commissions, craftPlate, parquetPlate, site } from '../data/site';
+---
+<Base heroOverlay={true}>
+  <!-- Band 1: Full-Bleed Architectural Poster Hero -->
+  <section class="cinema-hero" aria-label="Rubiconius Architectural Monograph">
+    <div class="cinema-hero__bg" data-hero-plate>
+      <img
+        class="cinema-hero__poster"
+        src="/images/hero-poster.webp"
+        alt="Rubiconius architectural living room walkthrough showcasing custom timber millwork, stone surfaces, and warm evening illumination"
+        width="1600"
+        height="900"
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high"
+        data-critical
+      />
+      <video
+        class="cinema-hero__video"
+        data-hero-video
+        width="960"
+        height="540"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="/images/hero-poster.webp"
+        aria-hidden="true"
+      >
+        <source src="/videos/rubiconius-hero.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="cinema-hero__scrim" aria-hidden="true"></div>
+    <div class="arch-grid-lines arch-grid-lines--dark" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="cinema-hero__inner wrap">
+      <div class="cinema-hero__meta-top">
+        <span class="cinema-meta-pill">[ BIRATNAGAR &middot; DHARAN &middot; NEPAL ]</span>
+        <a class="cinema-meta-pill cinema-meta-pill--link" href={`tel:+${site.whatsappNumber}`}>
+          Direct Studio &middot; {site.phoneDisplay}
+        </a>
+      </div>
+
+      <div class="cinema-hero__body">
+        <div class="cinema-hero__copy">
+          <h1 class="cinema-hero__headline" data-text-reactive="words">
+            Quiet architecture<br />shaped in timber<br />and daylight.
+          </h1>
+          <p class="cinema-hero__sub">
+            Turnkey residential and executive interiors led by {site.founder} across Biratnagar and Dharan &mdash; disciplined millwork, honed stone, and calm spatial proportion.
+          </p>
+        </div>
+
+        <div class="cinema-hero__ctas">
+          <a class="cinema-pill-btn" href="/showroom/">
+            <span class="cinema-pill-btn__dot" aria-hidden="true">&#9654;</span>
+            <span data-text-reactive="roll">Explore 3D Study</span>
+          </a>
+          <button class="cinema-cta-btn" type="button" data-open-drawer>
+            <span data-text-reactive="roll">Ask on WhatsApp</span>
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="cinema-hero__bottom">
+        <div class="cinema-hero__wordmark">
+          <p class="cinema-hero__giant" data-text-reactive="proximity" aria-label={site.name}>
+            {site.name.toUpperCase()}
+          </p>
+        </div>
+        <div class="cinema-hero__foot">
+          <div class="cinema-hero__foot-left">
+            <a class="cinema-scroll-cue" href="#works">&darr; SCROLL TO EXPLORE WORKS</a>
+            <button
+              class="cinema-film-toggle"
+              type="button"
+              data-hero-video-toggle
+              aria-pressed="false"
+              aria-label="Pause background film"
+            >
+              Pause film
+            </button>
+          </div>
+          <span class="cinema-studio-tag">BIRATNAGAR &middot; DHARAN &middot; TURNKEY STUDIO</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="edge-tab" type="button" data-open-drawer aria-label="Open quick studio brief drawer">
+      <span>+ ENQUIRE</span>
+    </button>
+  </section>
+
+  <!-- Band 2: Selected Works (3-Column 4/5 Portrait Grid) -->
+  <section id="works" class="works-sec wrap">
+    <div class="section-head">
+      <span class="section-head__kicker">Selected Works</span>
+      <h2 class="section-head__title" data-text-reactive="words">Completed interiors tailored around how our clients live.</h2>
+    </div>
+
+    <div class="works-grid">
+      {commissions.map((c, idx) => (
+        <article class={`work-card ${idx === 0 ? 'work-card--lead' : ''}`}>
+          <a class="work-card__link" href={`/works/${c.slug}/`}>
+            <div class="work-card__media">
+              <Image
+                class="project-photo"
+                src={c.image}
+                alt={c.alt}
+                width={c.image.width}
+                height={c.image.height}
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            <div class="work-card__meta">
+              <div class="work-card__head">
+                <h3 class="work-card__title">{c.title}</h3>
+                <span class="work-card__year">{c.focus} &#8599;</span>
+              </div>
+              <p class="work-card__sub">{c.typology} &middot; {c.location} &middot; {c.year}</p>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Band 3: Capabilities & Handpicked Craft Diptych -->
+  <section class="atelier-band wrap">
+    <div class="atelier-band__copy">
+      <span class="section-kicker">What We Execute</span>
+      <h2 class="atelier-band__title" data-text-reactive="words">From carpentry and civil work to the final handpicked piece.</h2>
+      <ul class="services-ledger">
+        {site.services.map((srv) => (
+          <li>
+            <span class="services-ledger__idx">{srv.index}</span>
+            <div class="services-ledger__text">
+              <span class="services-ledger__name">{srv.name}</span>
+              <span class="services-ledger__detail">{srv.detail}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="atelier-band__right">
+      <figure class="atelier-band__visual">
+        <Image
+          class="project-photo"
+          src={craftPlate.image}
+          alt={craftPlate.alt}
+          width={craftPlate.image.width}
+          height={craftPlate.image.height}
+          loading="lazy"
+        />
+      </figure>
+      <div class="specimen-caption">
+        <span>{craftPlate.title}</span>
+        <span>{craftPlate.meta}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Band 4: Crossing the Rubicon Commitment & Verified Studio Facts -->
+  <section class="proof-sec wrap">
+    <div class="proof-sec__left">
+      <span class="section-kicker">Crossing the Rubicon</span>
+      <blockquote class="proof-sec__statement">
+        &ldquo;{site.commitmentQuote}&rdquo;
+      </blockquote>
+      <p class="proof-sec__attribution">{site.founder} &middot; Founder &amp; Principal Designer</p>
+
+      <div class="proof-sec__facts">
+        <div class="fact-cell">
+          <p class="fact-cell__num">Turnkey</p>
+          <p class="fact-cell__lbl">Spatial planning, millwork, lighting &amp; styling</p>
+        </div>
+        <div class="fact-cell">
+          <p class="fact-cell__num">Two Studios</p>
+          <p class="fact-cell__lbl">Munal Path, Biratnagar &amp; Gita Mandir Line, Dharan</p>
+        </div>
+        <div class="fact-cell">
+          <p class="fact-cell__num">Sun &ndash; Fri</p>
+          <p class="fact-cell__lbl">11 AM &ndash; 5 PM (Saturday closed)</p>
+        </div>
+        <div class="fact-cell">
+          <p class="fact-cell__num">981-2353149</p>
+          <p class="fact-cell__lbl">Direct WhatsApp &amp; phone (+977)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="proof-sec__right">
+      <figure class="proof-sec__visual">
+        <Image
+          class="project-photo"
+          src={parquetPlate.image}
+          alt={parquetPlate.alt}
+          width={parquetPlate.image.width}
+          height={parquetPlate.image.height}
+          loading="lazy"
+        />
+      </figure>
+      <div class="specimen-caption">
+        <span>Studio Material Board &middot; Sal Timber, Kota Stone &amp; Brass</span>
+        <span>Biratnagar &amp; Dharan Studios</span>
+      </div>
+    </div>
+
+    <div class="showroom-note-bar">
+      <p class="showroom-note-bar__copy">
+        Want to explore a standalone 3D material &amp; daylight concept study?
+      </p>
+      <a class="arch-cta" href="/showroom/">
+        <span>Open Material Study (3D)</span>
+        <span class="arch-cta__arrow" aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+  </section>
+</Base>

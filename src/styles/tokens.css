@@ -1,0 +1,137 @@
+/* Rubiconius Design Tokens & Self-Hosted Font Declarations */
+
+@font-face {
+  font-family: 'Boska';
+  src: url('/fonts/boska-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Boska';
+  src: url('/fonts/boska-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Boska';
+  src: url('/fonts/boska-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Boska';
+  src: url('/fonts/boska-500-italic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Boska';
+  src: url('/fonts/boska-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Boska';
+  src: url('/fonts/boska-700-italic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer-600-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Anton';
+  src: url('/fonts/anton-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Light Mineral Plaster Surface (WCAG AA/AAA) */
+  --c-bg: #EFECE6;
+  --c-surface: #E5E0D7;
+  --c-fg: #1C1917;
+  --c-muted: #4A443E;
+  --c-subtle: #5E564E;
+  --c-line: rgb(28 25 23 / 0.16);
+  --c-accent: #1F4336;
+  --c-accent-ink: #F3EFE8;
+  --c-bronze: #8A6A42;
+
+  /* Architectural Copper/Terracotta Conversion Accent (WCAG AA 4.75:1 vs #FFFFFF) */
+  --c-cta: #B85328;
+  --c-cta-hover: #9E441E;
+  --c-cta-ink: #FFFFFF;
+
+  /* Pure Obsidian Black Chrome (Loader, Page Curtain, Dark Overlay HUD) */
+  --c-dark-bg: #050505;
+  --c-dark-surface: #111111;
+  --c-dark-fg: #F3EFE8;
+  --c-dark-muted: #C6BEB2;
+  --c-dark-accent: #C9A97E;
+  --c-dark-line: rgb(243 239 232 / 0.18);
+  --c-curtain: #000000;
+
+  --f-display: 'Boska', Georgia, serif;
+  --f-body: 'Switzer', 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  --f-poster: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+
+  --t-mega: clamp(2.45rem, 1.4rem + 4.8vw, 6.25rem);
+  --t-xl: clamp(2rem, 1.25rem + 3vw, 3.85rem);
+  --t-l: clamp(1.45rem, 1.15rem + 1.2vw, 2.2rem);
+  --t-m: clamp(1.08rem, 0.98rem + 0.4vw, 1.3rem);
+  --t-body: clamp(0.98rem, 0.94rem + 0.2vw, 1.06rem);
+  --t-s: 0.875rem;
+  --t-xs: 0.8125rem;
+
+  --u: clamp(0.5rem, 0.35rem + 0.6vw, 1rem);
+  --gutter: clamp(1.15rem, 0.75rem + 1.8vw, 2.75rem);
+  --cols: 12;
+  --radius: 0px;
+
+  --ease-arch: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-monograph: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Path B High-Fashion Atelier Monograph Tokens */
+  --c-canvas: #F7F5F0;
+  --c-plaster: #EFECE6;
+  --c-ink-bronze: #1D2A22;
+  --c-mortar: #D8D3C9;
+  --c-brass: #C9A97E;
+
+  /* Real project photo unified editorial grading */
+  --photo-filter: saturate(0.82) contrast(1.05) brightness(0.96) sepia(0.05);
+
+  --z-gl: 0;
+  --z-content: 1;
+  --z-header: 50;
+  --z-drawer: 70;
+  --z-curtain: 90;
+  --z-loader: 100;
+}
