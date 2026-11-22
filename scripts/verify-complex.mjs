@@ -323,6 +323,12 @@ async function run() {
       report(`Mobile Check: ${route}`, status === 200 && overflow && mErrors.length === 0, `status=${status}`);
       if (route === '/works/heritage-panelled-gallery/') {
         await mPage.evaluate(() => document.getElementById('case-showcase')?.scrollIntoView({ behavior: 'instant' }));
+        try {
+          await mPage.waitForFunction(
+            () => Array.from(document.querySelectorAll('.showcase-plate__media img')).slice(0, 2).every((img) => img.complete && img.naturalWidth > 0),
+            { timeout: 6000 }
+          );
+        } catch {}
         await mPage.waitForTimeout(450);
         const mobileLight = await mPage.evaluate(() => {
           const sc = document.getElementById('case-showcase');
