@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import ShowroomStage from '../components/ShowroomStage.astro';
 import { commissions, craftPlate, parquetPlate, site } from '../data/site';
 ---
 <Base heroOverlay={true}>
@@ -11,8 +12,8 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
         class="cinema-hero__poster"
         src="/images/hero-poster.webp"
         alt="Rubiconius architectural living room walkthrough showcasing custom timber millwork, stone surfaces, and warm evening illumination"
-        width="1600"
-        height="900"
+        width="2560"
+        height="1440"
         loading="eager"
         decoding="sync"
         fetchpriority="high"
@@ -21,8 +22,8 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
       <video
         class="cinema-hero__video"
         data-hero-video
-        width="960"
-        height="540"
+        width="2560"
+        height="1440"
         autoplay
         muted
         loop
@@ -138,6 +139,7 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
           width={craftPlate.image.width}
           height={craftPlate.image.height}
           loading="lazy"
+          decoding="async"
         />
       </figure>
       <div class="specimen-caption">
@@ -185,6 +187,7 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
           width={parquetPlate.image.width}
           height={parquetPlate.image.height}
           loading="lazy"
+          decoding="async"
         />
       </figure>
       <div class="specimen-caption">
@@ -203,4 +206,6 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
       </a>
     </div>
   </section>
+
+  <ShowroomStage mode="inline" />
 </Base>

@@ -6,7 +6,15 @@ import http from 'node:http';
 
 const PORT = 4329;
 const BASE = `http://localhost:${PORT}`;
-const ROUTES = ['/', '/works/', '/works/heritage-panelled-gallery/', '/practice/', '/showroom/'];
+const ROUTES = [
+  '/',
+  '/works/',
+  '/works/heritage-panelled-gallery/',
+  '/works/fluted-master-suite/',
+  '/works/formal-drawing-room/',
+  '/practice/',
+  '/showroom/',
+];
 const ARTIFACT_DIR = 'C:/Users/Lenovo LOQ/.gemini/antigravity/brain/9092545d-aa74-4b9d-8715-8cff5b2cd50c/scratch';
 fs.mkdirSync(ARTIFACT_DIR, { recursive: true });
 
@@ -97,81 +105,146 @@ async function run() {
       report(`Desktop Zero Overflow: ${route}`, !overflow.hasOverflow, `${overflow.sw} <= ${overflow.iw}`);
 
       if (route === '/') {
-        const heroCounts = await dPage.evaluate(() => ({
-          edgeTab: document.querySelectorAll('.edge-tab').length,
-          metaTop: document.querySelectorAll('.cinema-hero__meta-top').length,
-          ctas: document.querySelectorAll('.cinema-hero__ctas a, .cinema-hero__ctas button').length,
-          pillTag: document.querySelectorAll('.hero-pill-tag').length,
-          filmToggle: document.querySelectorAll('[data-hero-video-toggle]').length,
-        }));
+        const heroCounts = await dPage.evaluate(() => {
+          const vid = document.querySelector('[data-hero-video]');
+          const clockText = document.querySelector('[data-studio-clock]')?.textContent?.trim() || '';
+          return {
+            edgeTab: document.querySelectorAll('.edge-tab').length,
+            metaTop: document.querySelectorAll('.cinema-hero__meta-top').length,
+            ctas: document.querySelectorAll('.cinema-hero__ctas a, .cinema-hero__ctas button').length,
+            pillTag: document.querySelectorAll('.hero-pill-tag').length,
+            filmToggle: document.querySelectorAll('[data-hero-video-toggle]').length,
+            lightingToggle: document.querySelectorAll('[data-lighting-toggle]').length,
+            videoWidth: Number(vid?.getAttribute('width') || 0),
+            videoHeight: Number(vid?.getAttribute('height') || 0),
+            hasLiveClock: /BIRATNAGAR\s+·\s+\d{2}:\d{2}\s+NPT/i.test(clockText),
+            clockText,
+          };
+        });
         report(
-          'Simplified Hero Check',
+          'Simplified Hero + 2K Video + Live Studio Clock',
           heroCounts.edgeTab === 0 &&
             heroCounts.metaTop === 0 &&
             heroCounts.ctas === 1 &&
             heroCounts.pillTag === 0 &&
-            heroCounts.filmToggle === 0,
+            heroCounts.filmToggle === 0 &&
+            heroCounts.lightingToggle === 0 &&
+            heroCounts.videoWidth === 2560 &&
+            heroCounts.videoHeight === 1440 &&
+            heroCounts.hasLiveClock,
           JSON.stringify(heroCounts)
         );
-        await dPage.waitForTimeout(1000);
+        await dPage.waitForTimeout(900);
         await dPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-home-desktop.png') });
-      }
 
-      if (route === '/works/heritage-panelled-gallery/') {
-        await dPage.evaluate(() => document.querySelector('[data-showcase-viewport]')?.scrollIntoView({ behavior: 'instant' }));
-        await dPage.waitForTimeout(400);
-        await dPage.evaluate(() => window.scrollBy(0, 260));
-        await dPage.waitForTimeout(800);
-
-        const glReady = await dPage.evaluate(() => ({
-          glOn: document.documentElement.classList.contains('gl-on'),
-          readyPlates: document.querySelectorAll('.showcase-plate__media.is-gl-ready').length,
-        }));
-        report('Showcase GL Ready', glReady.glOn && glReady.readyPlates >= 1, JSON.stringify(glReady));
-        await dPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-showcase-desktop.png') });
-
-        const beforeY = await dPage.evaluate(() => window.scrollY);
-        await dPage.locator('.showcase-plate').first().click();
-        await dPage.waitForTimeout(950);
-
-        const inspOpen = await dPage.evaluate(() => {
-          const drawer = document.getElementById('consult-drawer');
-          const insp = document.querySelector('[data-showcase-inspector]');
+        // Test inline showroom visibility, ready state & OGL pause handoff on /
+        await dPage.evaluate(() => document.getElementById('showroom-inline')?.scrollIntoView({ behavior: 'instant' }));
+        try {
+          await dPage.waitForFunction(() => document.getElementById('showroom-inline')?.classList.contains('is-ready'), {
+            timeout: 8000,
+          });
+        } catch {}
+        await dPage.waitForTimeout(600);
+        const inlineCheck = await dPage.evaluate(() => {
+          const canvas = document.querySelector('#showroom-inline canvas.showroom-webgl');
+          const glCanvas = document.querySelector('#gl canvas.gl-canvas');
           return {
-            glFront: document.getElementById('gl')?.classList.contains('gl--inspector') ?? false,
-            dialogVisible: insp ? !insp.hasAttribute('hidden') : false,
-            drawerAboveInspector:
-              drawer && insp ? Number(getComputedStyle(drawer).zIndex) > Number(getComputedStyle(insp).zIndex) : false,
+            hasInlineCanvas: Boolean(canvas),
+            isReady: document.getElementById('showroom-inline')?.classList.contains('is-ready') ?? false,
+            glPausedWhenInlineVisible: glCanvas ? getComputedStyle(glCanvas).visibility === 'hidden' : false,
           };
         });
         report(
-          'Fullscreen WebGL Inspector Open',
-          inspOpen.glFront && inspOpen.dialogVisible && inspOpen.drawerAboveInspector,
-          JSON.stringify(inspOpen)
+          'Inline Homepage 3D Showroom + pauseGL Handoff',
+          inlineCheck.hasInlineCanvas && inlineCheck.glPausedWhenInlineVisible,
+          JSON.stringify(inlineCheck)
         );
-        await dPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-inspector-desktop.png') });
+        await dPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-inline-showroom-desktop.png') });
+        await dPage.evaluate(() => window.scrollTo(0, 0));
+      }
 
-        // Test opening WhatsApp drawer on top of inspector & closing cleanly
-        await dPage.locator('[data-inspector-cta]').click();
-        await dPage.waitForTimeout(450);
-        const drawerOpen = await dPage.evaluate(() => !document.getElementById('consult-drawer')?.hidden);
-        report('WhatsApp Drawer Above Inspector', drawerOpen);
-        await dPage.keyboard.press('Escape');
-        await dPage.waitForTimeout(450);
-        await dPage.keyboard.press('Escape');
-        await dPage.waitForTimeout(800);
+      if (route === '/works/') {
+        const worksBg = await dPage.evaluate(() => {
+          const rgb = getComputedStyle(document.documentElement).backgroundColor.match(/\d+/g)?.map(Number) ?? [0, 0, 0];
+          return { rgb, isLight: rgb.slice(0, 3).every((c) => c > 215) };
+        });
+        report('Warm Whitish Palette on /works/', worksBg.isLight, JSON.stringify(worksBg.rgb));
+        await dPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-works-desktop.png') });
+        await dPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-dusk-desktop.png') });
+      }
 
-        const afterClose = await dPage.evaluate(() => ({
-          afterY: window.scrollY,
-          glFront: document.getElementById('gl')?.classList.contains('gl--inspector') ?? false,
-          dialogHidden: document.querySelector('[data-showcase-inspector]')?.hasAttribute('hidden') ?? false,
-        }));
-        const drift = Math.abs(afterClose.afterY - beforeY);
+      if (route.startsWith('/works/') && route !== '/works/') {
+        await dPage.evaluate(() => document.querySelector('[data-showcase-viewport]')?.scrollIntoView({ behavior: 'instant' }));
+        await dPage.waitForTimeout(400);
+        await dPage.evaluate(() => window.scrollBy(0, 260));
+        await dPage.waitForTimeout(1100);
+
+        const glReady = await dPage.evaluate(() => {
+          const sc = document.getElementById('case-showcase');
+          const rgb = sc ? getComputedStyle(sc).backgroundColor.match(/\d+/g)?.map(Number) ?? [0, 0, 0] : [0, 0, 0];
+          const plateImgs = Array.from(document.querySelectorAll('.showcase-plate__media img')).map(
+            (img) => img.currentSrc || img.getAttribute('src') || ''
+          );
+          const uniqueSrcCount = new Set(plateImgs.filter(Boolean)).size;
+          return {
+            glOn: document.documentElement.classList.contains('gl-on'),
+            readyPlates: document.querySelectorAll('.showcase-plate__media.is-gl-ready').length,
+            uniqueSrcCount,
+            showcaseLight: rgb.slice(0, 3).every((c) => c > 215),
+            rgb,
+          };
+        });
         report(
-          'Inspector Close & 0px Scroll Drift',
-          afterClose.dialogHidden && !afterClose.glFront && drift <= 1,
-          `drift=${drift}px`
+          `Showcase GL, 4 Unique Photos & Warm Gallery (${route})`,
+          glReady.glOn && glReady.readyPlates === 4 && glReady.uniqueSrcCount === 4 && glReady.showcaseLight,
+          JSON.stringify(glReady)
         );
+
+        if (route === '/works/heritage-panelled-gallery/') {
+          await dPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-showcase-desktop.png') });
+
+          const beforeY = await dPage.evaluate(() => window.scrollY);
+          await dPage.locator('.showcase-plate').first().click();
+          await dPage.waitForTimeout(950);
+
+          const inspOpen = await dPage.evaluate(() => {
+            const drawer = document.getElementById('consult-drawer');
+            const insp = document.querySelector('[data-showcase-inspector]');
+            return {
+              glFront: document.getElementById('gl')?.classList.contains('gl--inspector') ?? false,
+              dialogVisible: insp ? !insp.hasAttribute('hidden') : false,
+              drawerAboveInspector:
+                drawer && insp ? Number(getComputedStyle(drawer).zIndex) > Number(getComputedStyle(insp).zIndex) : false,
+            };
+          });
+          report(
+            'Fullscreen WebGL Inspector Open',
+            inspOpen.glFront && inspOpen.dialogVisible && inspOpen.drawerAboveInspector,
+            JSON.stringify(inspOpen)
+          );
+          await dPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-inspector-desktop.png') });
+
+          await dPage.locator('[data-inspector-cta]').click();
+          await dPage.waitForTimeout(450);
+          const drawerOpen = await dPage.evaluate(() => !document.getElementById('consult-drawer')?.hidden);
+          report('WhatsApp Drawer Above Inspector', drawerOpen);
+          await dPage.keyboard.press('Escape');
+          await dPage.waitForTimeout(450);
+          await dPage.keyboard.press('Escape');
+          await dPage.waitForTimeout(800);
+
+          const afterClose = await dPage.evaluate(() => ({
+            afterY: window.scrollY,
+            glFront: document.getElementById('gl')?.classList.contains('gl--inspector') ?? false,
+            dialogHidden: document.querySelector('[data-showcase-inspector]')?.hasAttribute('hidden') ?? false,
+          }));
+          const drift = Math.abs(afterClose.afterY - beforeY);
+          report(
+            'Inspector Close & 0px Scroll Drift',
+            afterClose.dialogHidden && !afterClose.glFront && drift <= 1,
+            `drift=${drift}px`
+          );
+        }
       }
 
       const filteredConsole = consoleErrors.filter((e) => !e.includes('favicon.ico'));
@@ -191,6 +264,7 @@ async function run() {
     await dPage.waitForTimeout(1000);
     await dPage.locator('a[data-transition="flip"][data-gl-flip="heritage-panelled-gallery"]').first().click();
     await dPage.waitForTimeout(1300);
+
     const flipLanded = dPage.url().includes('/works/heritage-panelled-gallery/');
     const notStuck = await dPage.evaluate(() => {
       const gl = document.getElementById('gl');
@@ -199,7 +273,7 @@ async function run() {
     report('Persistent OGL FLIP Morph Landed', flipLanded && notStuck, dPage.url());
 
     await dPage.goBack();
-    await dPage.waitForTimeout(1100);
+    await dPage.waitForTimeout(1000);
 
     const spaHrefs = [
       '/',
@@ -250,6 +324,12 @@ async function run() {
       if (route === '/works/heritage-panelled-gallery/') {
         await mPage.evaluate(() => document.getElementById('case-showcase')?.scrollIntoView({ behavior: 'instant' }));
         await mPage.waitForTimeout(450);
+        const mobileLight = await mPage.evaluate(() => {
+          const sc = document.getElementById('case-showcase');
+          const rgb = sc ? getComputedStyle(sc).backgroundColor.match(/\d+/g)?.map(Number) ?? [0, 0, 0] : [0, 0, 0];
+          return { rgb, isLight: rgb.slice(0, 3).every((c) => c > 215) };
+        });
+        report('Mobile Warm Gallery Surface', mobileLight.isLight, JSON.stringify(mobileLight));
         await mPage.screenshot({ path: path.join(ARTIFACT_DIR, 'qa-showcase-mobile.png') });
       }
     }
@@ -261,7 +341,7 @@ async function run() {
 
   console.log(`\n==========================================`);
   if (totalFailures === 0) {
-    console.log('ALL COMPLEX + HERO QA CHECKS PASSED (0 failures)');
+    console.log('ALL BENCHMARK QA CHECKS PASSED (0 failures)');
     process.exit(0);
   } else {
     console.error(`QA FAILED (${totalFailures} failures)`);

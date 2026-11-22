@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { showroom } from '../../data/site';
-import { isTouch, prefersReducedMotion } from '../env';
+import { getQualityTier, isTouch, prefersReducedMotion } from '../env';
 import { pauseGL, resumeGL } from '../gl';
 import { getScrollLimit, onScroll, resizeScroll, scrollState, scrollToTarget } from '../scroll';
 import { studioAudio } from '../audio';
@@ -102,7 +102,7 @@ export function mountShowroom(
     width / Math.max(1, height) < 0.85 ? Math.round(showroom.baseFov * 1.24) : showroom.baseFov;
   const camera = new THREE.PerspectiveCamera(resolveFov(w, h), w / h, 0.1, 120);
 
-  const initialDpr = Math.min(window.devicePixelRatio || 1, 1.5);
+  const initialDpr = getQualityTier() === 'high' ? Math.min(window.devicePixelRatio || 1, 1.5) : 1.0;
   const renderer = new THREE.WebGLRenderer({
     antialias: showroom.asset.type !== 'splat',
     powerPreference: 'high-performance',
@@ -124,6 +124,22 @@ export function mountShowroom(
 
   // Living ICG-style Atmosphere (PMREM studio reflections, swaying leaf shadows, sunbeam motes, shimmering water)
   const atmosphere = createLivingAtmosphere(scene, renderer);
+  const duskState = { v: document.documentElement.dataset.lighting === 'dusk' ? 1 : 0 };
+  atmosphere.setDusk(duskState.v);
+  window.addEventListener(
+    'rubiconius:lighting',
+    (e) => {
+      const dusk = Boolean((e as CustomEvent<{ dusk?: boolean }>).detail?.dusk);
+      gsap.to(duskState, {
+        v: dusk ? 1 : 0,
+        duration: 0.85,
+        ease: 'power2.out',
+        overwrite: true,
+        onUpdate: () => atmosphere.setDusk(duskState.v),
+      });
+    },
+    { signal }
+  );
 
   // Cached layout metrics (avoids forced reflows on every scroll frame)
   let stageW = host.clientWidth || window.innerWidth;
@@ -342,6 +358,7 @@ export function mountShowroom(
         loadedAsset = loaded;
         renderer.toneMapping = loaded.toneMapping;
         atmosphere.attachToLoadedScene(loaded.object3D);
+        pins.setOccluders(loaded.object3D);
 
         if (loaded.extractedWaypoints) {
           rail = new CameraRail(loaded.extractedWaypoints);

@@ -21,7 +21,7 @@ const plates = commission.showcase ?? [];
         <div class="case-showcase__hud">
           <div class="case-showcase__hud-left">
             <span class="showcase-hud__swatch" data-showcase-active-swatch aria-hidden="true"></span>
-            <span class="section-kicker">Material Study &middot; Architectural Elevation</span>
+            <span class="section-kicker showcase-hud__kicker">Material Study &middot; Architectural Elevation</span>
           </div>
           <div class="case-showcase__hud-right">
             <span class="showcase-hud__counter" data-showcase-counter>01 / {String(plates.length).padStart(2, '0')}</span>
@@ -39,6 +39,7 @@ const plates = commission.showcase ?? [];
             data-plate-id={plate.id}
             data-surface-theme={plate.surfaceTheme}
             data-swatch-hex={plate.swatchHex}
+            data-plate-spec={plate.materialSpec}
             role="button"
             tabindex="0"
             aria-label={`Inspect ${plate.index}: ${plate.title}`}
@@ -62,16 +63,19 @@ const plates = commission.showcase ?? [];
             </div>
 
             <div class="showcase-plate__meta" data-depth-front>
-              <div class="showcase-plate__toprow">
-                <span class="showcase-plate__annot">{plate.annotation}</span>
-                <div class="showcase-plate__badge">
-                  <span class="showcase-plate__swatch" style={`background-color: ${plate.swatchHex}`} aria-hidden="true"></span>
+              <div class="showcase-plate__datum">
+                <div class="showcase-plate__datum-left">
                   <span class="showcase-plate__idx">{plate.index}</span>
+                  <span class="showcase-plate__swatch" style={`background-color: ${plate.swatchHex}`} aria-hidden="true"></span>
+                  <span class="showcase-plate__annot">{plate.annotation}</span>
                 </div>
+                <span class="showcase-plate__inspect" aria-hidden="true">+ INSPECT</span>
               </div>
-              <h3 class="showcase-plate__heading" data-magnetic-headline>{plate.title}</h3>
-              <p class="showcase-plate__caption">{plate.caption}</p>
-              <p class="showcase-plate__spec">{plate.materialSpec}</p>
+
+              <div class="showcase-plate__cols">
+                <h3 class="showcase-plate__heading" data-magnetic-headline>{plate.title}</h3>
+                <p class="showcase-plate__caption">{plate.caption}</p>
+              </div>
             </div>
           </article>
         ))}

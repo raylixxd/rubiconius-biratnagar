@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { getQualityTier } from '../env';
 
 export type LivingAtmosphere = {
   update: (timeSec: number) => void;
+  setDusk: (v: number) => void;
   attachToLoadedScene: (root: THREE.Object3D) => void;
   dispose: () => void;
 };
@@ -223,8 +225,8 @@ export function createLivingAtmosphere(
     leafMat.dispose();
   });
 
-  // 3. Whisper-Soft Floating Golden Sunlight Dust Motes
-  const count = 140;
+  // 3. Whisper-Soft Floating Golden Sunlight Dust Motes (tier-scaled)
+  const count = getQualityTier() === 'high' ? 140 : 50;
   const positions = new Float32Array(count * 3);
   const scales = new Float32Array(count);
   const phases = new Float32Array(count);
@@ -305,6 +307,12 @@ export function createLivingAtmosphere(
 
   return {
     attachToLoadedScene,
+    setDusk: (v: number) => {
+      const t = Math.max(0, Math.min(1, v));
+      hemi.intensity = 0.95 + (0.28 - 0.95) * t;
+      key.intensity = 1.55 + (0.62 - 1.55) * t;
+      scene.environmentIntensity = 0.78 + (0.35 - 0.78) * t;
+    },
     update: (timeSec: number) => {
       leafUniforms.uTime.value = timeSec;
       dustUniforms.uTime.value = timeSec;

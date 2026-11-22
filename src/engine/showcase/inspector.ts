@@ -44,6 +44,7 @@ export function mountShowcaseInspector(showcaseEl: HTMLElement): () => void {
     activeTl = null;
     isAnimating = false;
     setGLFront('none');
+    document.getElementById('main')?.removeAttribute('inert');
     for (const p of getShowcasePlateItems()) {
       p.overrideRect = null;
       p.expand = 0;
@@ -125,16 +126,18 @@ export function mountShowcaseInspector(showcaseEl: HTMLElement): () => void {
     const plateId = plateEl.dataset.plateId || '';
     const swatchHex = plateEl.dataset.swatchHex || '#A77C4D';
     const index = plateEl.querySelector('.showcase-plate__idx')?.textContent?.trim() || '';
-    const annot = plateEl.querySelector('.showcase-plate__annot')?.textContent?.trim() || '';
+    const rawAnnot = plateEl.querySelector('.showcase-plate__annot')?.textContent?.trim() || '';
+    const cleanAnnot = rawAnnot.replace(/^[A-Z]+\s+\d+\s*[·•\-]\s*/i, '');
     const title = plateEl.querySelector('.showcase-plate__heading')?.textContent?.trim() || '';
-    const spec = plateEl.querySelector('.showcase-plate__spec')?.textContent?.trim() || '';
+    const spec = plateEl.dataset.plateSpec?.trim() || plateEl.querySelector('.showcase-plate__caption')?.textContent?.trim() || '';
     const img = plateEl.querySelector<HTMLImageElement>('img');
 
     if (swatchEl) swatchEl.style.backgroundColor = swatchHex;
     if (idxEl) idxEl.textContent = index;
-    if (annotEl) annotEl.textContent = annot;
+    if (annotEl) annotEl.textContent = cleanAnnot || rawAnnot;
     if (titleEl) titleEl.textContent = title;
     if (specEl) specEl.textContent = spec;
+    document.getElementById('main')?.setAttribute('inert', '');
     if (ctaBtn) {
       ctaBtn.dataset.drawerContext = baseContext ? `${baseContext} — ${title}` : title;
     }

@@ -94,7 +94,8 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                             alt=""
                             width={c.detailImage.width}
                             height={c.detailImage.height}
-                            loading="eager"
+                            loading="lazy"
+                            decoding="async"
                           />
                         </div>
                       ) : (
@@ -158,8 +159,8 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                         alt={c.alt}
                         width={c.image.width}
                         height={c.image.height}
-                        loading="eager"
-                        decoding="sync"
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   </a>
@@ -233,6 +234,7 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                             width={c.detailImage.width}
                             height={c.detailImage.height}
                             loading="lazy"
+                            decoding="async"
                           />
                         </div>
                       ) : (
@@ -268,8 +270,8 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                           alt={c.alt}
                           width={c.image.width}
                           height={c.image.height}
-                          loading="eager"
-                          decoding="sync"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </a>
@@ -333,7 +335,8 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                   alt=""
                   width={c.image.width}
                   height={c.image.height}
-                  loading="eager"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div class="works-cursor-follow__caption">
                   <span>{c.typology}</span>

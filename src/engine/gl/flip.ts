@@ -16,6 +16,7 @@ interface PendingFlip {
   rect: Rect;
   mesh: Mesh;
   program: Program;
+  blankTex: Texture;
   unhook: () => void;
 }
 
@@ -34,7 +35,10 @@ export function cancelFlip() {
     try {
       pendingFlip.unhook();
       const ctx = getGLContext(false);
-      if (ctx && pendingFlip.mesh.parent) ctx.scene.removeChild(pendingFlip.mesh);
+      if (ctx) {
+        if (pendingFlip.mesh.parent) ctx.scene.removeChild(pendingFlip.mesh);
+        if (pendingFlip.blankTex?.texture) ctx.gl.deleteTexture(pendingFlip.blankTex.texture);
+      }
       pendingFlip.program.remove?.();
     } catch {}
     pendingFlip = null;
@@ -115,7 +119,7 @@ export function bindFlipClicks() {
         });
 
         setGLFront('flip');
-        pendingFlip = { slug, rect, mesh, program, unhook };
+        pendingFlip = { slug, rect, mesh, program, blankTex: blank, unhook };
       } catch {
         cancelFlip();
       }

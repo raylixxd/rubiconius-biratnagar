@@ -22,6 +22,7 @@ export class TactileCamera {
 
   private pinAnchor: THREE.Vector3 | null = null;
   private pinAimBlend = 0;
+  private desiredLook = new THREE.Vector3();
   private blendedLook = new THREE.Vector3();
   private hasBlendedLook = false;
 
@@ -128,16 +129,16 @@ export class TactileCamera {
     const targetPinBlend = this.pinAnchor ? 0.38 : 0;
     this.pinAimBlend += (targetPinBlend - this.pinAimBlend) * (1 - Math.exp(-5.0 * dt));
 
-    const desiredLook = railLook.clone();
+    this.desiredLook.copy(railLook);
     if (this.pinAnchor && this.pinAimBlend > 0.002) {
-      desiredLook.lerp(this.pinAnchor, this.pinAimBlend);
+      this.desiredLook.lerp(this.pinAnchor, this.pinAimBlend);
     }
 
     if (!this.hasBlendedLook) {
-      this.blendedLook.copy(desiredLook);
+      this.blendedLook.copy(this.desiredLook);
       this.hasBlendedLook = true;
     } else {
-      this.blendedLook.lerp(desiredLook, 1 - Math.exp(-10.0 * dt));
+      this.blendedLook.lerp(this.desiredLook, 1 - Math.exp(-10.0 * dt));
     }
 
     camera.position.copy(railPos);

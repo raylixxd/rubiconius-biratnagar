@@ -59,7 +59,7 @@ const jsonLd = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#050505" />
+    <meta name="theme-color" content="#20201E" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content="website" />
@@ -241,7 +241,7 @@ const jsonLd = {
         <div class="footer-col">
           <h2 class="footer-col__title">Studio Enquiries</h2>
           <ul class="footer-col__list">
-            <li><a href={`tel:+${site.whatsappNumber}`}>{site.phoneDisplay}</a></li>
+            <li><a href={`tel:+${site.whatsappNumber}`} data-tel-copy={site.phoneDisplay} aria-live="polite">{site.phoneDisplay}</a></li>
             <li><a href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener noreferrer">WhatsApp Enquiry</a></li>
             <li><button type="button" data-open-drawer>Direct Brief Builder</button></li>
           </ul>
@@ -306,6 +306,7 @@ const jsonLd = {
 
       <div class="footer-bottom wrap">
         <div class="footer-badges" aria-label="Practice highlights">
+          <span class="footer-badge studio-clock" data-studio-clock>BIRATNAGAR &middot; NPT</span>
           <span class="footer-badge"><span class="footer-badge__mark" aria-hidden="true">+</span> BIRATNAGAR &amp; DHARAN</span>
           <span class="footer-badge">TURNKEY INTERIORS</span>
           <span class="footer-badge">DIRECT STUDIO CONTACT</span>
@@ -327,7 +328,11 @@ const jsonLd = {
       <div class="drawer__panel" data-lenis-prevent>
         <div class="drawer__head">
           <div>
-            <p class="section-kicker drawer__kicker">Direct Studio Brief</p>
+            <p class="section-kicker drawer__kicker">
+              <span>Direct Studio Brief</span>
+              <span aria-hidden="true">&middot;</span>
+              <span class="drawer__clock studio-clock" data-studio-clock>BIRATNAGAR &middot; NPT</span>
+            </p>
             <h2 id="drawer-heading" class="drawer__title">Private Residential &amp; Spatial Commissions &middot; Biratnagar</h2>
           </div>
           <button class="drawer__close" type="button" data-close-drawer>Close</button>
@@ -390,7 +395,7 @@ const jsonLd = {
             <span>Open in WhatsApp ({site.phoneDisplay})</span>
             <span class="btn__arrow" aria-hidden="true">&#8599;</span>
           </a>
-          <a class="draw" href={`tel:+${site.whatsappNumber}`}>Or call {site.phoneDisplay}</a>
+          <a class="draw" href={`tel:+${site.whatsappNumber}`} data-tel-copy={site.phoneDisplay} aria-live="polite">Or call {site.phoneDisplay}</a>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { initScroll, resetScroll, resizeScroll, startScroll, stopScroll, clearPageScrollListeners } from './scroll';
 import { initReveals, ensureFontsReady, revertSplits } from './reveal';
-import { initGL, mountGL, unmountGL } from './gl';
+import { initGL, mountGL, unmountGL, setGLDusk } from './gl';
 import { mountSeam, unmountSeam } from './gl/seam';
 import { bindFlipClicks, completeFlip } from './gl/flip';
 import { mountShowcase, unmountShowcase } from './showcase';
@@ -14,7 +14,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 export { onScroll, scrollState, scrollToTarget, getScrollLimit, resizeScroll, stopScroll, startScroll } from './scroll';
 export { setTransition, holdEnter } from './transition';
 export { setLoaderFormat, setLoaderExit, registerLoaderTask } from './loader';
-export { hideGL, pauseGL, resumeGL, setBackground, clearBackground, glSupported } from './gl';
+export { hideGL, pauseGL, resumeGL, setBackground, clearBackground, glSupported, setGLDusk, getGLDusk } from './gl';
 export { ease, isTouch, isMobile, prefersReducedMotion, getQualityTier } from './env';
 export { studioAudio } from './audio';
 
@@ -40,10 +40,13 @@ function runPageFn(fn: PageFn) {
 }
 
 export function syncFlags() {
-  const h = document.documentElement.classList;
+  const docEl = document.documentElement;
+  const h = docEl.classList;
   h.add('js', 'is-booted');
   h.toggle('motion', !prefersReducedMotion());
   if (document.querySelector('.gl-canvas')) h.add('gl-on');
+  delete docEl.dataset.lighting;
+  setGLDusk(0);
 }
 
 function initPage() {

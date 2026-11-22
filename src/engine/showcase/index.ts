@@ -3,17 +3,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { scrollState } from '../scroll';
 import { initShowcasePlates, measureShowcasePlates, disposeShowcasePlates, setShowcaseReveal } from './plate';
 import { mountShowcaseInspector } from './inspector';
+import { mountShowcaseMagnetic } from './magnetic';
 
 gsap.registerPlugin(ScrollTrigger);
 
 let showcaseCtx: gsap.Context | null = null;
 let mm: gsap.MatchMedia | null = null;
 let unmountInspector: (() => void) | null = null;
+let unmountMagnetic: (() => void) | null = null;
 
 const THEMES = {
-  charcoal: { bg: [32, 32, 30], fg: [243, 239, 232], border: [243, 239, 232, 0.14] },
-  walnut: { bg: [118, 83, 59], fg: [250, 247, 242], border: [250, 247, 242, 0.16] },
-  ivory: { bg: [234, 228, 217], fg: [28, 25, 23], border: [28, 25, 23, 0.15] },
+  charcoal: { bg: [244, 241, 234], fg: [28, 25, 23], border: [28, 25, 23, 0.14] },
+  walnut: { bg: [235, 229, 218], fg: [28, 25, 23], border: [28, 25, 23, 0.16] },
+  ivory: { bg: [247, 245, 240], fg: [28, 25, 23], border: [28, 25, 23, 0.12] },
 } as const;
 
 function lerpRgb(c1: readonly [number, number, number, ...number[]], c2: readonly [number, number, number, ...number[]], t: number): string {
@@ -150,9 +152,12 @@ export function mountShowcase(root: ParentNode = document) {
   }, showcaseEl);
 
   unmountInspector = mountShowcaseInspector(showcaseEl);
+  unmountMagnetic = mountShowcaseMagnetic(showcaseEl);
 }
 
 export function unmountShowcase() {
+  unmountMagnetic?.();
+  unmountMagnetic = null;
   unmountInspector?.();
   unmountInspector = null;
   disposeShowcasePlates();

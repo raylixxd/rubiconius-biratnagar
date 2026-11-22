@@ -1,11 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 140" fill="none">
-  <rect width="120" height="140" fill="#111211"/>
+  <style>
+    .bg { fill: #EFECE6; stroke: rgba(28, 25, 23, 0.18); stroke-width: 2; }
+    .fg { fill: #1C1917; }
+    .accent { fill: #A77C4D; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #20201E; stroke: rgba(234, 228, 217, 0.22); }
+      .fg { fill: #EAE4D9; }
+      .accent { fill: #C8A97E; }
+    }
+  </style>
+  <rect class="bg" width="120" height="140"/>
   <path
+    class="fg"
     d="M36 16H84L104 92C89 83 75 78 60 78C45 78 31 83 16 92L36 16ZM60 40L44 74C50 72 55 71 60 71C65 71 70 72 76 74L60 40Z"
-    fill="#ECEAE4"
   />
   <path
+    class="accent"
     d="M35 97C46 105 74 105 85 97C86 112 75 119 66 123C62 125 60 130 61 135C52 130 48 122 50 116C52 112 46 109 42 114C37 110 34 103 35 97Z"
-    fill="#ECEAE4"
   />
 </svg>

@@ -115,7 +115,7 @@
   --cols: 12;
   --radius: 0px;
 
-  --ease-arch: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-arch: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-monograph: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Path B High-Fashion Atelier Monograph Tokens */
@@ -141,9 +141,9 @@
   --surface-charcoal: #20201E;
   --accent-bronze: #A77C4D;
   --accent-brass: #C8A97E;
-  --stage-bg: var(--c-dark-bg);
-  --stage-fg: var(--c-dark-fg);
-  --stage-border: var(--c-dark-line);
+  --stage-bg: #F4F1EA;
+  --stage-fg: #1C1917;
+  --stage-border: rgba(28, 25, 23, 0.14);
   --z-showcase: 2;
   --z-inspector: 65;
 }

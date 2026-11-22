@@ -179,6 +179,11 @@ function initHeaderControls() {
   let activeContext = '';
 
   const form = drawer?.querySelector<HTMLFormElement>('[data-wa-form]');
+  const citySelect = form?.querySelector<HTMLSelectElement>('select[name="city"]');
+  const onCityManualChange = () => {
+    if (citySelect) citySelect.dataset.userEdited = '1';
+  };
+  citySelect?.addEventListener('change', onCityManualChange);
   const preview = drawer?.querySelector<HTMLElement>('[data-wa-preview]');
   const sendLink = drawer?.querySelector<HTMLAnchorElement>('[data-wa-send]');
   const syncWaMessage = () => {
@@ -214,7 +219,6 @@ function initHeaderControls() {
 
     if (location.pathname.startsWith('/works/')) {
       const pageText = document.querySelector<HTMLElement>('.case-hero, .case-meta, main')?.innerText || '';
-      const citySelect = form?.querySelector<HTMLSelectElement>('select[name="city"]');
       if (citySelect && !citySelect.dataset.userEdited) {
         if (/dharan/i.test(pageText) && !/biratnagar/i.test(pageText)) {
           citySelect.value = 'Dharan';
@@ -306,9 +310,98 @@ function initHeaderControls() {
   };
   backTopBtn?.addEventListener('click', onBackToTop);
 
+  // Son Daven Live Biratnagar Studio Clock & Operating Status (Sun–Fri 11:00–17:00 NPT)
+  const clockEls = Array.from(document.querySelectorAll<HTMLElement>('[data-studio-clock]'));
+  const formatStudioClock = () => {
+    try {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Kathmandu',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).formatToParts(new Date());
+
+      const weekday = parts.find((p) => p.type === 'weekday')?.value || '';
+      const rawHour = parts.find((p) => p.type === 'hour')?.value || '00';
+      const hourNum = parseInt(rawHour, 10) % 24;
+      const min = parts.find((p) => p.type === 'minute')?.value?.padStart(2, '0') || '00';
+      const nptTime = `${String(hourNum).padStart(2, '0')}:${min}`;
+      const isOpen = weekday !== 'Sat' && hourNum >= 11 && hourNum < 17;
+
+      clockEls.forEach((el) => {
+        el.setAttribute('data-studio-status', isOpen ? 'open' : 'closed');
+        el.replaceChildren();
+        const dot = document.createElement('span');
+        dot.className = 'studio-clock__dot';
+        dot.setAttribute('aria-hidden', 'true');
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'studio-clock__time';
+        timeSpan.textContent = `BIRATNAGAR \u00b7 ${nptTime} NPT`;
+        const statusSpan = document.createElement('span');
+        statusSpan.className = 'studio-clock__status';
+        statusSpan.textContent = isOpen ? 'OPEN' : 'CLOSED';
+        el.append(dot, timeSpan, statusSpan);
+      });
+    } catch {}
+  };
+  formatStudioClock();
+  const clockTimer = window.setInterval(formatStudioClock, 30000);
+
+  // Desktop Tap-to-Copy on tel: links (preserves native tel: dialer on mobile/touch)
+  const telAbort = new AbortController();
+  const isFinePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const telTimers: number[] = [];
+  if (isFinePointer) {
+    document.querySelectorAll<HTMLAnchorElement>('a[data-tel-copy]').forEach((link) => {
+      const defaultText = link.textContent?.trim() || '';
+      link.addEventListener(
+        'click',
+        async (e) => {
+          e.preventDefault();
+          const phone = link.dataset.telCopy || site.phoneDisplay;
+          let ok = false;
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(phone);
+              ok = true;
+            }
+          } catch {}
+          if (!ok) {
+            const ta = document.createElement('textarea');
+            ta.value = phone;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            ta.style.pointerEvents = 'none';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+              ok = document.execCommand('copy');
+            } catch {}
+            ta.remove();
+          }
+          studioAudio.tick(640, 0.025);
+          link.classList.add('is-copied');
+          link.textContent = `COPIED \u00b7 ${phone}`;
+          const t = window.setTimeout(() => {
+            link.classList.remove('is-copied');
+            link.textContent = defaultText;
+          }, 1800);
+          telTimers.push(t);
+        },
+        { signal: telAbort.signal }
+      );
+    });
+  }
+
   return () => {
+    window.clearInterval(clockTimer);
+    telTimers.forEach((t) => window.clearTimeout(t));
+    telAbort.abort();
     offScroll();
     offSoundSync();
+    citySelect?.removeEventListener('change', onCityManualChange);
     removeEventListener('resize', measureZones);
     ScrollTrigger.removeEventListener('refresh', measureZones);
     soundBtn?.removeEventListener('click', onSoundClick);
@@ -656,7 +749,18 @@ export function setupMotion() {
     const cleanWorksDetail = initWorksDetailPage();
     const cleanLocator = initStudioLocator();
 
+    let inlineDisposed = false;
+    let inlineHandle: { dispose: () => void } | null = null;
+    if (showroomRoot && showroomRoot.dataset.showroomMode === 'inline') {
+      import('../engine/showroom').then(({ mountShowroom }) => {
+        if (inlineDisposed) return;
+        inlineHandle = mountShowroom(showroomRoot, { mode: 'inline' });
+      });
+    }
+
     return () => {
+      inlineDisposed = true;
+      inlineHandle?.dispose();
       cleanLocator?.();
       cleanWorks?.();
       cleanWorksDetail?.();

@@ -15,8 +15,10 @@ export interface ShowcaseRect {
 export interface ShowcasePlateMesh {
   plateId: string;
   el: HTMLElement;
+  frontEl: HTMLElement | null;
   mesh: Mesh;
   program: Program;
+  blankTex: Texture;
   cropRect: [number, number, number, number];
   baseLeft: number;
   offsetInViewport: number;
@@ -89,8 +91,9 @@ export function initShowcasePlates(
     const width = rect.width || 560;
     const height = rect.height || 350;
 
+    const blankTex = new Texture(ctx.gl, { image: new Uint8Array([239, 236, 230, 255]), width: 1, height: 1 });
     const uniforms: Record<string, { value: unknown }> = {
-      tMap: { value: null as Texture | null },
+      tMap: { value: blankTex },
       uPlaneSizes: { value: new Vec2(width, height) },
       uImageSizes: { value: new Vec2(1920, 1090) },
       uCropRect: { value: [...cropRect] },
@@ -126,11 +129,15 @@ export function initShowcasePlates(
     el.addEventListener('pointerenter', onEnter);
     el.addEventListener('pointerleave', onLeave);
 
+    const frontEl = el.closest('.showcase-plate')?.querySelector<HTMLElement>('[data-depth-front]') || null;
+
     plateMeshes.push({
       plateId,
       el,
+      frontEl,
       mesh,
       program,
+      blankTex,
       cropRect,
       baseLeft,
       offsetInViewport,
@@ -201,13 +208,9 @@ export function initShowcasePlates(
       item.program.uniforms.uExpandProgress.value = item.expand;
       item.program.uniforms.uDusk.value = duskVal;
 
-      if (!ov) {
+      if (!ov && item.frontEl) {
         const cardCenterNorm = (sx + w / 2 - vw / 2) / Math.max(1, vw / 2);
-        const cardEl = item.el.closest('.showcase-plate');
-        const frontEl = cardEl?.querySelector<HTMLElement>('[data-depth-front]');
-        if (frontEl) {
-          frontEl.style.transform = `translate3d(${cardCenterNorm * -24}px, 0, 0)`;
-        }
+        item.frontEl.style.transform = `translate3d(${cardCenterNorm * -14}px, 0, 0)`;
       }
     }
 
@@ -238,7 +241,10 @@ export function disposeShowcasePlates() {
   const ctx = getGLContext(false);
   plateMeshes.forEach((item) => {
     item.off();
-    if (ctx && item.mesh.parent) ctx.scene.removeChild(item.mesh);
+    if (ctx) {
+      if (item.mesh.parent) ctx.scene.removeChild(item.mesh);
+      if (item.blankTex?.texture) ctx.gl.deleteTexture(item.blankTex.texture);
+    }
     item.program.remove?.();
   });
   plateMeshes = [];

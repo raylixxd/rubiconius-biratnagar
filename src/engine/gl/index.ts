@@ -70,13 +70,12 @@ export function initGL() {
   canvas.addEventListener('webglcontextrestored', () => {
     paused = false;
     textures.clear();
+    const glCtx = renderer!.gl;
+    geometry = new Plane(glCtx, { widthSegments: 32, heightSegments: 32 });
+    const mountedEls = Array.from(document.querySelectorAll<HTMLElement>('[data-gl]'));
+    unmountGL();
     resize(true);
-    for (const it of items) {
-      const img = it.el.querySelector('img');
-      if (img && it.el.dataset.gl !== 'procedural') {
-        loadTexture(img, it.program, it.el, it);
-      }
-    }
+    mountedEls.forEach(add);
   }, false);
 
   camera = new Camera(gl, { near: -10, far: 10 });
@@ -196,11 +195,22 @@ function resize(force = false) {
 
 function evictTextureIfNeeded(gl: WebGLRenderingContext | WebGL2RenderingContext) {
   if (textures.size < 16) return;
-  const oldestKey = textures.keys().next().value;
-  if (oldestKey !== undefined) {
-    const oldestTex = textures.get(oldestKey);
-    textures.delete(oldestKey);
-    if (oldestTex?.texture) gl.deleteTexture(oldestTex.texture);
+  const activeUrls = new Set<string>();
+  for (const it of items) {
+    const img = it.el.querySelector('img');
+    const url = img?.currentSrc || img?.src;
+    if (url) activeUrls.add(url);
+  }
+  document.querySelectorAll<HTMLImageElement>('[data-showcase-gl] img').forEach((img) => {
+    const url = img.currentSrc || img.src;
+    if (url) activeUrls.add(url);
+  });
+  for (const [key, tex] of textures.entries()) {
+    if (!activeUrls.has(key)) {
+      textures.delete(key);
+      if (tex?.texture) gl.deleteTexture(tex.texture);
+      return;
+    }
   }
 }
 
@@ -425,7 +435,7 @@ function render(t: number) {
     it.mesh.position.set(b.left + b.width / 2 - vw / 2, vh / 2 - (top + b.height / 2), 0);
     const u = it.program.uniforms;
     u.uPlaneSizes?.value.set(b.width, b.height);
-    if (u.uTime) u.uTime.value = time;
+    if (it.el.dataset.gl === 'procedural' && u.uTime) u.uTime.value = time;
     if (u.uHover) u.uHover.value = it.hover.v;
     if (u.uVelocity) u.uVelocity.value = clampedVel;
     if (u.uDusk) u.uDusk.value = globalDusk;
