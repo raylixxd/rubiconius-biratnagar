@@ -203,6 +203,27 @@ function initHeaderControls() {
     if (!drawer) return;
     lastTrigger = trigger || (document.activeElement as HTMLElement);
     activeContext = trigger?.dataset.drawerContext?.trim() || '';
+
+    // Auto-populate contextual studio brief when visiting /works/[slug]/ if empty
+    if (!activeContext && location.pathname.startsWith('/works/')) {
+      const heading = document.querySelector<HTMLElement>('h1')?.textContent?.trim();
+      if (heading) {
+        activeContext = heading;
+      }
+    }
+
+    if (location.pathname.startsWith('/works/')) {
+      const pageText = document.querySelector<HTMLElement>('.case-hero, .case-meta, main')?.innerText || '';
+      const citySelect = form?.querySelector<HTMLSelectElement>('select[name="city"]');
+      if (citySelect && !citySelect.dataset.userEdited) {
+        if (/dharan/i.test(pageText) && !/biratnagar/i.test(pageText)) {
+          citySelect.value = 'Dharan';
+        } else if (/biratnagar/i.test(pageText)) {
+          citySelect.value = 'Biratnagar';
+        }
+      }
+    }
+
     syncWaMessage();
     drawer.hidden = false;
     stopScroll();

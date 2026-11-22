@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import type { ShowroomAsset, ShowroomWaypoint } from '../../data/site';
 import { isMobile } from '../env';
 
@@ -146,6 +147,7 @@ async function loadGlbAsset(opts: LoadOptions & { asset: Extract<ShowroomAsset, 
 
   const loader = new GLTFLoader();
   loader.setDRACOLoader(draco);
+  loader.setMeshoptDecoder(MeshoptDecoder);
 
   const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
   const chosenSrc = (isMobile() || saveData) && asset.mobileSrc ? asset.mobileSrc : asset.src;

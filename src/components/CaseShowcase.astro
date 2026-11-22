@@ -1,0 +1,58 @@
+---
+import type { Commission } from '../data/site';
+import '../styles/showcase.css';
+
+interface Props {
+  commission: Commission;
+}
+
+const { commission } = Astro.props;
+const plates = commission.showcase ?? [];
+---
+
+{plates.length > 0 && (
+  <section class="case-showcase" id="case-showcase" aria-labelledby="showcase-heading" data-surface-stage>
+    <div class="case-showcase__header wrap">
+      <span class="section-kicker">Material Study &middot; Architectural Elevation</span>
+      <h2 id="showcase-heading" class="case-showcase__title">
+        Measured Studies &middot; {commission.title}
+      </h2>
+    </div>
+
+    <div class="case-showcase__viewport" data-showcase-viewport>
+      <div class="case-showcase__track" data-showcase-track role="region" aria-label="Showcase architectural study plates">
+        {plates.map((plate) => (
+          <article
+            class="showcase-plate"
+            data-plate-id={plate.id}
+            data-surface-theme={plate.surfaceTheme}
+            tabindex="0"
+            aria-label={`${plate.index}: ${plate.title}`}
+          >
+            <div class="showcase-plate__media">
+              <img
+                src={plate.image.src}
+                alt={`${plate.title} - ${plate.caption}`}
+                width={plate.image.width}
+                height={plate.image.height}
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="showcase-plate__badge">
+                <span class="showcase-plate__swatch" style={`background-color: ${plate.swatchHex}`} aria-hidden="true"></span>
+                <span class="showcase-plate__idx">{plate.index}</span>
+              </div>
+            </div>
+
+            <div class="showcase-plate__meta">
+              <span class="showcase-plate__annot">{plate.annotation}</span>
+              <h3 class="showcase-plate__heading">{plate.title}</h3>
+              <p class="showcase-plate__caption">{plate.caption}</p>
+              <p class="showcase-plate__spec">{plate.materialSpec}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

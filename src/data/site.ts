@@ -13,6 +13,23 @@ export type MaterialSpec = {
   swatchHex: string;
 };
 
+export type SurfaceTheme = 'charcoal' | 'walnut' | 'ivory';
+
+export interface ShowcasePlate {
+  id: string;
+  index: string;                              // '01' | '02' | '03' | '04'
+  title: string;                              // Cormorant Garamond / Boska editorial title
+  annotation: string;                         // DM Mono uppercase architectural spec
+  caption: string;                            // Manrope concise architectural note
+  image: ImageMetadata;                       // Real ESM-imported site photograph
+  backdropImage?: ImageMetadata;              // Optional Z-Back atmospheric layer
+  isConceptRender?: boolean;                  // Explicit transparency tag if ever used
+  cropRect: [number, number, number, number]; // [offsetX, offsetY, scaleX, scaleY]
+  surfaceTheme: SurfaceTheme;
+  swatchHex: string;                          // Real swatch from commission.materials
+  materialSpec: string;                       // Extended dossier breakdown for Phase 6 Inspector
+}
+
 export type Commission = {
   slug: 'fluted-master-suite' | 'formal-drawing-room' | 'heritage-panelled-gallery';
   title: string;
@@ -30,6 +47,7 @@ export type Commission = {
   alt: string;
   materials: MaterialSpec[];
   narrative: { heading: string; text: string }[];
+  showcase?: ShowcasePlate[];
 };
 
 export type MaterialStudyNote = {
@@ -216,6 +234,56 @@ export const commissions: Commission[] = [
         text: 'Local Mithila linework and miniature paintings sit in crisp black and gilt brass frames, honoring cultural craft inside a calm modern room.',
       },
     ],
+    showcase: [
+      {
+        id: 'full-wall-elevation',
+        index: '01',
+        title: 'Full Wall Elevation',
+        annotation: 'ELEVATION 01 · 1:20 REVEAL CADENCE',
+        caption: 'Horizontal tongue-and-groove millwork establishes quiet texture across the gallery feature plane.',
+        image: realReadingCorner,
+        cropRect: [0.0, 0.0, 1.0, 1.0],
+        surfaceTheme: 'charcoal',
+        swatchHex: '#2B2623',
+        materialSpec: 'Blackened wrought-iron structural brackets anchor staggered Sal timber shelves against lime-washed tongue-and-groove panelling.',
+      },
+      {
+        id: 'staggered-timber-joinery',
+        index: '02',
+        title: 'Staggered Timber Joinery',
+        annotation: 'JOINERY 02 · SAL TIMBER LEDGES',
+        caption: 'Seasoned Sal timber floating shelves provide deliberate resting surfaces for curated artifacts.',
+        image: realReadingCorner,
+        cropRect: [0.1, 0.15, 0.8, 0.8],
+        surfaceTheme: 'walnut',
+        swatchHex: '#5C412A',
+        materialSpec: 'Solid seasoned Sal timber floating shelves, oil-rubbed with shadow reveals.',
+      },
+      {
+        id: 'limewash-reveal-cadence',
+        index: '03',
+        title: 'Limewash Reveal Cadence',
+        annotation: 'SURFACE 03 · TONGUE & GROOVE TEXTURE',
+        caption: 'Matte mineral limewash washes softly across horizontal wood reveals under ambient side-light.',
+        image: realReadingCorner,
+        cropRect: [0.15, 0.05, 0.75, 0.75],
+        surfaceTheme: 'ivory',
+        swatchHex: '#D8D3C9',
+        materialSpec: 'Horizontal tongue-and-groove panel reveals finished in low-sheen natural mineral limewash.',
+      },
+      {
+        id: 'regional-heritage-framing',
+        index: '04',
+        title: 'Regional Heritage Framing',
+        annotation: 'DETAILS 04 · MITHILA CRAFT FRAMING',
+        caption: 'Crisp blackened and gilt brass framing balances regional folk linework within modern architectural quietude.',
+        image: realReadingCorner,
+        cropRect: [0.05, 0.1, 0.78, 0.78],
+        surfaceTheme: 'charcoal',
+        swatchHex: '#EFECE6',
+        materialSpec: 'Hand-detailed Mithila works set in slim matte black profiles with subtle gilt trim.',
+      },
+    ],
   },
 ];
 
@@ -340,6 +408,7 @@ export const showroom: ShowroomConfig = {
   asset: {
     type: 'glb',
     src: '/models/rubiconius_pov.glb',
+    mobileSrc: '/models/rubiconius_pov_mobile.glb',
     cameraPathsSrc: '/models/camera_paths.glb',
     // Current rubiconius_pov.glb textures are AgX-baked; keep 'none' to prevent double tone mapping.
     toneMapping: 'none',

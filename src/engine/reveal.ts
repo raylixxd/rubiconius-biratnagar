@@ -8,37 +8,81 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 const durations = { lines: 1.2, words: 1.1, chars: 0.9 } as const;
 const staggers = { lines: 0.08, words: 0.035, chars: 0.018 } as const;
 
+const activeSplits = new Set<SplitText>();
+
+export function revertSplits() {
+  activeSplits.forEach((self) => {
+    try {
+      self.revert();
+    } catch {}
+  });
+  activeSplits.clear();
+}
+
+export async function ensureFontsReady() {
+  if (typeof document !== 'undefined' && document.fonts?.ready) {
+    try {
+      await Promise.race([
+        document.fonts.ready,
+        new Promise((resolve) => setTimeout(resolve, 1500)),
+      ]);
+    } catch {}
+  }
+}
+
 function splitTween(el: HTMLElement, isIntro: boolean) {
   const type = (el.dataset.split || 'lines') as keyof typeof durations;
   const delay = parseFloat(el.dataset.delay || '0');
-  const s = { tween: undefined as gsap.core.Tween | undefined, done: false, requested: false };
-  SplitText.create(el, {
-    type: type === 'lines' ? 'lines' : `lines,${type}`,
-    mask: 'lines',
-    autoSplit: true,
-    linesClass: 'split-line',
-    onSplit(self) {
-      gsap.set(el, { visibility: 'visible' });
-      if (s.done) return;
-      const targets = type === 'lines' ? self.lines : type === 'words' ? self.words : self.chars;
-      s.tween = gsap.from(targets, {
-        yPercent: 110,
-        rotate: type === 'chars' ? 0 : 1.5,
-        duration: durations[type],
-        stagger: staggers[type],
-        ease: ease.out,
-        delay,
-        paused: isIntro && !s.requested,
-        onComplete: () => {
-          s.done = true;
-          try { self.revert(); } catch {}
-        },
-        scrollTrigger: isIntro ? undefined : { trigger: el, start: 'top 88%', once: true },
-      });
-      return s.tween;
-    },
-  });
-  return () => { s.requested = true; s.tween?.play(); };
+  const s = { tween: undefined as gsap.core.Tween | undefined, done: false, requested: false, split: null as SplitText | null };
+
+  const createSplit = () => {
+    if (!el.isConnected || s.split) return;
+    s.split = SplitText.create(el, {
+      type: type === 'lines' ? 'lines' : `lines,${type}`,
+      mask: 'lines',
+      autoSplit: true,
+      linesClass: 'split-line',
+      onSplit(self) {
+        activeSplits.add(self);
+        gsap.set(el, { visibility: 'visible' });
+        if (s.done) return;
+        const targets = type === 'lines' ? self.lines : type === 'words' ? self.words : self.chars;
+        s.tween = gsap.from(targets, {
+          yPercent: 110,
+          rotate: type === 'chars' ? 0 : 1.5,
+          duration: durations[type],
+          stagger: staggers[type],
+          ease: ease.out,
+          delay,
+          paused: isIntro && !s.requested,
+          onComplete: () => {
+            s.done = true;
+            try {
+              self.revert();
+              activeSplits.delete(self);
+            } catch {}
+          },
+          scrollTrigger: isIntro ? undefined : { trigger: el, start: 'top 88%', once: true },
+        });
+        if (isIntro && s.requested) {
+          s.tween?.play();
+        }
+        return s.tween;
+      },
+    });
+    activeSplits.add(s.split);
+  };
+
+  if (typeof document !== 'undefined' && document.fonts?.status !== 'loaded') {
+    ensureFontsReady().then(createSplit);
+  } else {
+    createSplit();
+  }
+
+  return () => {
+    s.requested = true;
+    s.tween?.play();
+  };
 }
 
 function blockTween(el: HTMLElement, paused: boolean) {

@@ -7,12 +7,29 @@ gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 let lenis: Lenis | null = null;
+let lockDepth = 0;
+let scrollEndBound = false;
 const listeners = new Set<(s: ScrollState) => void>();
+
+function bindScrollEnd() {
+  if (scrollEndBound || typeof window === 'undefined') return;
+  scrollEndBound = true;
+  window.addEventListener(
+    'scrollend',
+    (e) => {
+      if ((lenis as any)?.isScrolling) {
+        e.stopImmediatePropagation();
+      }
+    },
+    { capture: true }
+  );
+}
 
 export type ScrollState = { y: number; velocity: number; progress: number };
 const state: ScrollState = { y: 0, velocity: 0, progress: 0 };
 
 export function initScroll() {
+  bindScrollEnd();
   if (lenis || prefersReducedMotion()) {
     if (!lenis) addEventListener('scroll', nativeTick, { passive: true });
     return;
@@ -32,7 +49,7 @@ export function initScroll() {
     if (ScrollTrigger.getAll().length > 0) ScrollTrigger.update();
     listeners.forEach((fn) => fn(state));
   });
-  gsap.ticker.add((time) => lenis?.raf(time * 1000));
+  gsap.ticker.add((time) => lenis?.raf(time * 1000), false, true);
   gsap.ticker.lagSmoothing(0);
 }
 
@@ -49,11 +66,25 @@ export const onScroll = (fn: (s: ScrollState) => void) => {
   return () => listeners.delete(fn);
 };
 export const scrollState = () => state;
-export const stopScroll = () => lenis?.stop();
-export const startScroll = () => lenis?.start();
+
+export function stopScroll() {
+  lockDepth++;
+  if (lockDepth === 1) lenis?.stop();
+}
+
+export function startScroll() {
+  lockDepth = Math.max(0, lockDepth - 1);
+  if (lockDepth === 0) lenis?.start();
+}
+
 export function resetScroll() {
-  if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
-  else scrollTo(0, 0);
+  lockDepth = 0;
+  if (lenis) {
+    lenis.scrollTo(0, { immediate: true, force: true });
+    lenis.start();
+  } else {
+    scrollTo(0, 0);
+  }
   state.y = 0;
   state.velocity = 0;
   state.progress = 0;

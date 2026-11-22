@@ -1,6 +1,6 @@
 import { gsap } from 'gsap';
 import { initScroll, resetScroll, resizeScroll, startScroll, stopScroll } from './scroll';
-import { initReveals } from './reveal';
+import { initReveals, ensureFontsReady, revertSplits } from './reveal';
 import { initGL, mountGL, unmountGL } from './gl';
 import { initCursor, initMagnetic } from './interactions';
 import { runLoader } from './loader';
@@ -12,7 +12,7 @@ export { onScroll, scrollState, scrollToTarget, getScrollLimit, resizeScroll, st
 export { setTransition, holdEnter } from './transition';
 export { setLoaderFormat, setLoaderExit, registerLoaderTask } from './loader';
 export { hideGL, pauseGL, resumeGL, setBackground, clearBackground, glSupported } from './gl';
-export { ease, isTouch, isMobile, prefersReducedMotion } from './env';
+export { ease, isTouch, isMobile, prefersReducedMotion, getQualityTier } from './env';
 export { studioAudio } from './audio';
 
 export type PageFn = (page: { intro: gsap.core.Timeline; path: string }) => void | (() => void);
@@ -68,6 +68,7 @@ export async function boot(setup?: () => void) {
   initCursor();
   setup?.();
   stopScroll();
+  await ensureFontsReady();
   initPage();
   await runLoader();
   startScroll();
@@ -83,6 +84,7 @@ export function cleanup() {
   if (!ready) return;
   ready = false;
   cleanups.splice(0).forEach((c) => c());
+  revertSplits();
   ctx?.revert();
   ctx = null;
   unmountGL();
@@ -92,6 +94,7 @@ export async function enter({ transition = true, scrollTop = true } = {}) {
   if (!booted) return;
   cleanup();
   if (scrollTop) resetScroll();
+  await ensureFontsReady();
   initPage();
   if (transition) await playEnter();
   startScroll();

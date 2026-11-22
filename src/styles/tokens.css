@@ -134,4 +134,16 @@
   --z-drawer: 70;
   --z-curtain: 90;
   --z-loader: 100;
+
+  /* Rubiconius 02 — Showcase, Atmosphere & Depth Stage Tokens */
+  --surface-ivory: #EAE4D9;
+  --surface-walnut: #76533B;
+  --surface-charcoal: #20201E;
+  --accent-bronze: #A77C4D;
+  --accent-brass: #C8A97E;
+  --stage-bg: var(--c-dark-bg);
+  --stage-fg: var(--c-dark-fg);
+  --stage-border: var(--c-dark-line);
+  --z-showcase: 2;
+  --z-inspector: 65;
 }
