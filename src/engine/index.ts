@@ -3,6 +3,7 @@ import { initScroll, resetScroll, resizeScroll, startScroll, stopScroll, clearPa
 import { initReveals, ensureFontsReady, revertSplits } from './reveal';
 import { initGL, mountGL, unmountGL } from './gl';
 import { mountSeam, unmountSeam } from './gl/seam';
+import { bindFlipClicks, completeFlip } from './gl/flip';
 import { mountShowcase, unmountShowcase } from './showcase';
 import { initCursor, initMagnetic } from './interactions';
 import { runLoader } from './loader';
@@ -68,8 +69,9 @@ export async function boot(setup?: () => void) {
   booted = true;
   syncFlags();
   initScroll();
-  if (document.querySelector('[data-gl], [data-showcase-gl]')) initGL();
+  if (document.querySelector('[data-gl], [data-showcase-gl], [data-gl-seam]')) initGL();
   initCursor();
+  bindFlipClicks();
   setup?.();
   stopScroll();
   await ensureFontsReady();
@@ -79,9 +81,9 @@ export async function boot(setup?: () => void) {
   intro?.play();
 }
 
-export async function leave() {
+export async function leave(skipCurtain = false) {
   stopScroll();
-  await playLeave();
+  if (!skipCurtain) await playLeave();
 }
 
 export function cleanup() {
@@ -103,7 +105,9 @@ export async function enter({ transition = true, scrollTop = true } = {}) {
   if (scrollTop) resetScroll();
   await ensureFontsReady();
   initPage();
+  const flipDone = completeFlip();
   if (transition) await playEnter();
+  await flipDone;
   startScroll();
   intro?.play();
 }

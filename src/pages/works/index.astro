@@ -67,7 +67,7 @@ const totalPlates = String(commissions.length).padStart(2, '0');
               {idx === 0 && (
                 <div class="works-spread__grid">
                   <div class="works-spread__primary-col works-spread__primary-col--left">
-                    <a class="works-spread__frame works-spread__frame--4x3" href={`/works/${c.slug}/`} aria-label={`View ${c.title} dossier`}>
+                    <a class="works-spread__frame works-spread__frame--4x3" href={`/works/${c.slug}/`} data-transition="flip" data-gl-flip={c.slug} data-gl aria-label={`View ${c.title} dossier`}>
                       <div class="works-spread__parallax" data-editorial-parallax>
                         <Image
                           class="project-photo works-spread__img"
@@ -150,7 +150,7 @@ const totalPlates = String(commissions.length).padStart(2, '0');
 
               {idx === 1 && (
                 <div class="works-spread__wide">
-                  <a class="works-spread__frame works-spread__frame--16x9" href={`/works/${c.slug}/`} aria-label={`View ${c.title} dossier`}>
+                  <a class="works-spread__frame works-spread__frame--16x9" href={`/works/${c.slug}/`} data-transition="flip" data-gl-flip={c.slug} data-gl aria-label={`View ${c.title} dossier`}>
                     <div class="works-spread__parallax" data-editorial-parallax>
                       <Image
                         class="project-photo works-spread__img"
@@ -260,7 +260,7 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                   </div>
 
                   <div class="works-spread__primary-col works-spread__primary-col--right">
-                    <a class="works-spread__frame works-spread__frame--4x3" href={`/works/${c.slug}/`} aria-label={`View ${c.title} dossier`}>
+                    <a class="works-spread__frame works-spread__frame--4x3" href={`/works/${c.slug}/`} data-transition="flip" data-gl-flip={c.slug} data-gl aria-label={`View ${c.title} dossier`}>
                       <div class="works-spread__parallax" data-editorial-parallax>
                         <Image
                           class="project-photo works-spread__img"

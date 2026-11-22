@@ -84,7 +84,9 @@ export function initWorksPage(): (() => void) | void {
     // 1. Subtle desktop-only parallax within overflow-hidden editorial frames
     if (!reduced && finePointer && window.innerWidth > 768) {
       const parallaxTargets = worksRoot.querySelectorAll<HTMLElement>('[data-editorial-parallax]');
+      const glOn = document.documentElement.classList.contains('gl-on');
       parallaxTargets.forEach((el) => {
+        if (glOn && el.closest('[data-gl]')) return;
         const container = el.closest<HTMLElement>('[data-works-spread]') ?? el.parentElement;
         if (!container) return;
         gsap.fromTo(

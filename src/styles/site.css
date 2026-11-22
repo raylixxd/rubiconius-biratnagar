@@ -467,9 +467,8 @@ html.header-dark .sound-btn[aria-pressed='true'] { border-color: var(--c-dark-fg
   padding-bottom: clamp(1rem, 2.2vh, 1.75rem);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr) auto;
   grid-template-areas:
-    "meta"
     "body"
     "bottom";
   gap: clamp(0.75rem, 2vh, 1.5rem);

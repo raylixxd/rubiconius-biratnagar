@@ -40,13 +40,6 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
     </div>
 
     <div class="cinema-hero__inner wrap">
-      <div class="cinema-hero__meta-top">
-        <span class="cinema-meta-pill">[ BIRATNAGAR &middot; DHARAN &middot; NEPAL ]</span>
-        <a class="cinema-meta-pill cinema-meta-pill--link" href={`tel:+${site.whatsappNumber}`}>
-          Direct Studio &middot; {site.phoneDisplay}
-        </a>
-      </div>
-
       <div class="cinema-hero__body">
         <div class="cinema-hero__copy">
           <h1 class="cinema-hero__headline" data-text-reactive="words">
@@ -62,10 +55,6 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
             <span class="cinema-pill-btn__dot" aria-hidden="true">&#9654;</span>
             <span data-text-reactive="roll">Explore 3D Study</span>
           </a>
-          <button class="cinema-cta-btn" type="button" data-open-drawer>
-            <span data-text-reactive="roll">Ask on WhatsApp</span>
-            <span aria-hidden="true">&rarr;</span>
-          </button>
         </div>
       </div>
 
@@ -77,25 +66,12 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
         </div>
         <div class="cinema-hero__foot">
           <div class="cinema-hero__foot-left">
-            <a class="cinema-scroll-cue" href="#works">&darr; SCROLL TO EXPLORE WORKS</a>
-            <button
-              class="cinema-film-toggle"
-              type="button"
-              data-hero-video-toggle
-              aria-pressed="false"
-              aria-label="Pause background film"
-            >
-              Pause film
-            </button>
+            <a class="cinema-scroll-cue" href="#works">&darr; SCROLL TO EXPLORE</a>
           </div>
-          <span class="cinema-studio-tag">BIRATNAGAR &middot; DHARAN &middot; TURNKEY STUDIO</span>
+          <span class="cinema-studio-tag">BIRATNAGAR &middot; DHARAN</span>
         </div>
       </div>
     </div>
-
-    <button class="edge-tab" type="button" data-open-drawer aria-label="Open quick studio brief drawer">
-      <span>+ ENQUIRE</span>
-    </button>
   </section>
 
   <div class="gl-seam" data-gl-seam aria-hidden="true"></div>
@@ -110,8 +86,8 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
     <div class="works-grid">
       {commissions.map((c, idx) => (
         <article class={`work-card ${idx === 0 ? 'work-card--lead' : ''}`}>
-          <a class="work-card__link" href={`/works/${c.slug}/`}>
-            <div class="work-card__media">
+          <a class="work-card__link" href={`/works/${c.slug}/`} data-transition="flip" data-gl-flip={c.slug}>
+            <div class="work-card__media" data-gl data-gl-flip={c.slug}>
               <Image
                 class="project-photo"
                 src={c.image}
@@ -154,7 +130,7 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
     </div>
 
     <div class="atelier-band__right">
-      <figure class="atelier-band__visual">
+      <figure class="atelier-band__visual" data-gl>
         <Image
           class="project-photo"
           src={craftPlate.image}
@@ -201,7 +177,7 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
     </div>
 
     <div class="proof-sec__right">
-      <figure class="proof-sec__visual">
+      <figure class="proof-sec__visual" data-gl>
         <Image
           class="project-photo"
           src={parquetPlate.image}

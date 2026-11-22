@@ -66,6 +66,8 @@
   font-size: var(--t-xs, 0.8125rem);
   letter-spacing: 0.15em;
   color: var(--accent-brass, #C8A97E);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .case-showcase__title {
@@ -360,6 +362,8 @@ html.gl-on .showcase-plate__media.is-gl-ready img {
   font-size: var(--t-xs);
   letter-spacing: 0.12em;
   color: #F3EFE8;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: border-color 0.25s ease, color 0.25s ease;
 }
 

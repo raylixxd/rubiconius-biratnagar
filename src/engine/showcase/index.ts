@@ -64,6 +64,9 @@ export function mountShowcase(root: ParentNode = document) {
       anim = gsap.to(track, {
         x: () => -getTotalScroll(),
         ease: 'none',
+        onUpdate: () => {
+          currentX = (gsap.getProperty(track, 'x') as number) || 0;
+        },
         scrollTrigger: {
           trigger: viewport,
           start: 'top top',

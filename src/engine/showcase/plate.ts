@@ -16,9 +16,7 @@ export interface ShowcasePlateMesh {
   plateId: string;
   el: HTMLElement;
   mesh: Mesh;
-  backMesh: Mesh | null;
   program: Program;
-  backProgram: Program | null;
   cropRect: [number, number, number, number];
   baseLeft: number;
   offsetInViewport: number;
@@ -120,32 +118,7 @@ export function initShowcasePlates(
     mesh.position.z = 0;
     mesh.setParent(ctx.scene);
 
-    // Layer 1 Z-Back ambient parallax echo (high tier only)
-    let backMesh: Mesh | null = null;
-    let backProgram: Program | null = null;
-    if (tier === 'high') {
-      backProgram = new Program(ctx.gl, {
-        vertex: prefix + plateVert,
-        fragment: prefix + plateFrag,
-        uniforms: {
-          ...uniforms,
-          uCropRect: { value: [cropRect[0], cropRect[1], cropRect[2], cropRect[3]] },
-          uRevealProgress: { value: 0.22 },
-          uHover: { value: 0 },
-        },
-        transparent: true,
-        depthTest: false,
-        depthWrite: false,
-      });
-      backMesh = new Mesh(ctx.gl, { geometry: ctx.geometry, program: backProgram });
-      backMesh.position.z = -0.4;
-      backMesh.setParent(ctx.scene);
-    }
-
-    if (img) {
-      ctx.loadTexture(img, program, el);
-      if (backProgram) ctx.loadTexture(img, backProgram);
-    }
+    if (img) ctx.loadTexture(img, program, el);
 
     const hover = { v: 0 };
     const onEnter = () => gsap.to(hover, { v: 1, duration: 0.6, ease: 'power2.out' });
@@ -157,9 +130,7 @@ export function initShowcasePlates(
       plateId,
       el,
       mesh,
-      backMesh,
       program,
-      backProgram,
       cropRect,
       baseLeft,
       offsetInViewport,
@@ -191,10 +162,7 @@ export function initShowcasePlates(
   unhookGL = registerGLHook((_t, vw, vh) => {
     const anyExpanded = plateMeshes.some((p) => p.overrideRect !== null);
     if (!nearViewport && !anyExpanded) {
-      for (const item of plateMeshes) {
-        item.mesh.visible = false;
-        if (item.backMesh) item.backMesh.visible = false;
-      }
+      for (const item of plateMeshes) item.mesh.visible = false;
       return false;
     }
 
@@ -215,7 +183,6 @@ export function initShowcasePlates(
       const culled = !ov && (sx + w < -260 || sx > vw + 260 || sy + h < -240 || sy > vh + 240);
       if (culled || w <= 0 || item.dimOpacity <= 0.01) {
         item.mesh.visible = false;
-        if (item.backMesh) item.backMesh.visible = false;
         continue;
       }
 
@@ -234,27 +201,8 @@ export function initShowcasePlates(
       item.program.uniforms.uExpandProgress.value = item.expand;
       item.program.uniforms.uDusk.value = duskVal;
 
-      const cardCenterNorm = (sx + w / 2 - vw / 2) / Math.max(1, vw / 2);
-
-      // Layer 1 Z-Back parallax shadow echo
-      if (item.backMesh && item.backProgram) {
-        if (ov || anyExpanded) {
-          item.backMesh.visible = false;
-        } else {
-          item.backMesh.visible = true;
-          item.backMesh.position.x = item.mesh.position.x + cardCenterNorm * 22;
-          item.backMesh.position.y = item.mesh.position.y - 6;
-          item.backMesh.position.z = -0.4;
-          item.backMesh.scale.set(w * 0.96, h * 0.96, 1);
-          item.backProgram.uniforms.uRevealProgress.value = item.reveal * 0.22 * item.dimOpacity;
-          item.backProgram.uniforms.uDusk.value = duskVal;
-          item.backProgram.uniforms.uScrollProgress.value = progress;
-          item.backProgram.uniforms.uVelocity.value = clampedVel * 0.65;
-        }
-      }
-
-      // Layer 3 Z-Front DOM layer parallax (1.2x)
       if (!ov) {
+        const cardCenterNorm = (sx + w / 2 - vw / 2) / Math.max(1, vw / 2);
         const cardEl = item.el.closest('.showcase-plate');
         const frontEl = cardEl?.querySelector<HTMLElement>('[data-depth-front]');
         if (frontEl) {
@@ -290,12 +238,8 @@ export function disposeShowcasePlates() {
   const ctx = getGLContext(false);
   plateMeshes.forEach((item) => {
     item.off();
-    if (ctx) {
-      if (item.mesh.parent) ctx.scene.removeChild(item.mesh);
-      if (item.backMesh?.parent) ctx.scene.removeChild(item.backMesh);
-    }
+    if (ctx && item.mesh.parent) ctx.scene.removeChild(item.mesh);
     item.program.remove?.();
-    item.backProgram?.remove?.();
   });
   plateMeshes = [];
 }

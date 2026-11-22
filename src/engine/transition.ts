@@ -7,12 +7,20 @@ export type Transition = {
 };
 
 let current: Transition = {
-  leave: (c) => gsap.timeline()
-    .set(c, { autoAlpha: 1 })
-    .fromTo(c.querySelector('.curtain__panel'), { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.72, ease: ease.inOut }),
-  enter: (c) => gsap.timeline()
-    .to(c.querySelector('.curtain__panel'), { clipPath: 'inset(0% 0% 100% 0%)', duration: 0.78, ease: ease.inOut })
-    .set(c, { autoAlpha: 0 }),
+  leave: (c) => {
+    const blades = c.querySelectorAll('.curtain__blades > .curtain__blade');
+    gsap.killTweensOf([c, blades]);
+    return gsap.timeline()
+      .set(c, { autoAlpha: 1 })
+      .fromTo(blades, { scaleY: 0, transformOrigin: 'bottom center' }, { scaleY: 1, duration: 0.48, stagger: 0.04, ease: ease.inOut });
+  },
+  enter: (c) => {
+    const blades = c.querySelectorAll('.curtain__blades > .curtain__blade');
+    gsap.killTweensOf([c, blades]);
+    return gsap.timeline()
+      .to(blades, { scaleY: 0, transformOrigin: 'top center', duration: 0.5, stagger: 0.04, ease: ease.inOut })
+      .set(c, { autoAlpha: 0 });
+  },
 };
 
 const reduced: Transition = {

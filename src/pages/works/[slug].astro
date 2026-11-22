@@ -33,7 +33,7 @@ const isPortrait = commission.image.height > commission.image.width;
   </section>
 
   <section class="case-spread case-grid wrap">
-    <figure class={`case-plate ${isPortrait ? 'is-portrait' : 'is-landscape'}`}>
+    <figure class={`case-plate ${isPortrait ? 'is-portrait' : 'is-landscape'}`} data-gl data-gl-instant data-gl-flip={commission.slug}>
       <Image
         class="project-photo"
         src={commission.image}
