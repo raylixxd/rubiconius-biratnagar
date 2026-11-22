@@ -50,7 +50,7 @@ export function initCursor() {
     follower?.classList.remove('is-active');
     if (scrollTimer !== null) window.clearTimeout(scrollTimer);
     scrollTimer = window.setTimeout(() => syncCursorTarget(px, py), 180);
-  });
+  }, true);
   document.addEventListener('pointerleave', () => follower?.classList.remove('is-active'));
   follower.classList.add('is-ready');
 }

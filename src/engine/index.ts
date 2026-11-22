@@ -1,7 +1,8 @@
 import { gsap } from 'gsap';
-import { initScroll, resetScroll, resizeScroll, startScroll, stopScroll } from './scroll';
+import { initScroll, resetScroll, resizeScroll, startScroll, stopScroll, clearPageScrollListeners } from './scroll';
 import { initReveals, ensureFontsReady, revertSplits } from './reveal';
 import { initGL, mountGL, unmountGL } from './gl';
+import { mountShowcase, unmountShowcase } from './showcase';
 import { initCursor, initMagnetic } from './interactions';
 import { runLoader } from './loader';
 import { playEnter, playLeave } from './transition';
@@ -51,6 +52,7 @@ function initPage() {
     initMagnetic(document);
   });
   mountGL(document);
+  mountShowcase(document);
   ready = true;
   pageFns.forEach(runPageFn);
   requestAnimationFrame(() => {
@@ -64,7 +66,7 @@ export async function boot(setup?: () => void) {
   booted = true;
   syncFlags();
   initScroll();
-  if (document.querySelector('[data-gl]')) initGL();
+  if (document.querySelector('[data-gl], [data-showcase-gl]')) initGL();
   initCursor();
   setup?.();
   stopScroll();
@@ -84,7 +86,9 @@ export function cleanup() {
   if (!ready) return;
   ready = false;
   cleanups.splice(0).forEach((c) => c());
+  clearPageScrollListeners();
   revertSplits();
+  unmountShowcase();
   ctx?.revert();
   ctx = null;
   unmountGL();

@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
+import CaseShowcase from '../../components/CaseShowcase.astro';
 import { commissions, site } from '../../data/site';
 
 export function getStaticPaths() {
@@ -79,6 +80,8 @@ const isPortrait = commission.image.height > commission.image.width;
       </div>
     </aside>
   </section>
+
+  <CaseShowcase commission={commission} />
 
   <section class="case-story wrap">
     <div class="case-story__grid">

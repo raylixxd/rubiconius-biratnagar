@@ -9,7 +9,13 @@ ScrollTrigger.config({ ignoreMobileResize: true });
 let lenis: Lenis | null = null;
 let lockDepth = 0;
 let scrollEndBound = false;
-const listeners = new Set<(s: ScrollState) => void>();
+const permanentListeners = new Set<(s: ScrollState) => void>();
+const pageListeners = new Set<(s: ScrollState) => void>();
+
+function dispatchScroll(s: ScrollState) {
+  permanentListeners.forEach((fn) => fn(s));
+  pageListeners.forEach((fn) => fn(s));
+}
 
 function bindScrollEnd() {
   if (scrollEndBound || typeof window === 'undefined') return;
@@ -47,7 +53,7 @@ export function initScroll() {
     state.velocity = l.velocity;
     state.progress = l.limit > 0 ? l.scroll / l.limit : 0;
     if (ScrollTrigger.getAll().length > 0) ScrollTrigger.update();
-    listeners.forEach((fn) => fn(state));
+    dispatchScroll(state);
   });
   gsap.ticker.add((time) => lenis?.raf(time * 1000), false, true);
   gsap.ticker.lagSmoothing(0);
@@ -58,13 +64,18 @@ function nativeTick() {
   state.velocity = scrollY - state.y;
   state.y = scrollY;
   state.progress = max > 0 ? scrollY / max : 0;
-  listeners.forEach((fn) => fn(state));
+  dispatchScroll(state);
 }
 
-export const onScroll = (fn: (s: ScrollState) => void) => {
-  listeners.add(fn);
-  return () => listeners.delete(fn);
+export const onScroll = (fn: (s: ScrollState) => void, isPermanent = false) => {
+  const target = isPermanent ? permanentListeners : pageListeners;
+  target.add(fn);
+  return () => target.delete(fn);
 };
+
+export function clearPageScrollListeners() {
+  pageListeners.clear();
+}
 export const scrollState = () => state;
 
 export function stopScroll() {
