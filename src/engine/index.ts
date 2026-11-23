@@ -3,6 +3,8 @@ import { initScroll, resetScroll, resizeScroll, startScroll, stopScroll, clearPa
 import { initReveals, ensureFontsReady, revertSplits } from './reveal';
 import { initGL, mountGL, unmountGL, setGLDusk } from './gl';
 import { mountSeam, unmountSeam } from './gl/seam';
+import { mountChromaticAberration, unmountChromaticAberration } from './gl/chromatic';
+import { unmountDissolvePass } from './gl/dissolve';
 import { bindFlipClicks, completeFlip } from './gl/flip';
 import { mountShowcase, unmountShowcase } from './showcase';
 import { initCursor, initMagnetic } from './interactions';
@@ -11,12 +13,113 @@ import { playEnter, playLeave } from './transition';
 import { prefersReducedMotion } from './env';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export { onScroll, scrollState, scrollToTarget, getScrollLimit, resizeScroll, stopScroll, startScroll } from './scroll';
+export { onScroll, scrollState, getNormalizedVelocity, scrollToTarget, getScrollLimit, resizeScroll, stopScroll, startScroll } from './scroll';
 export { setTransition, holdEnter } from './transition';
 export { setLoaderFormat, setLoaderExit, registerLoaderTask } from './loader';
-export { hideGL, pauseGL, resumeGL, setBackground, clearBackground, glSupported, setGLDusk, getGLDusk } from './gl';
+export { hideGL, pauseGL, resumeGL, setBackground, clearBackground, glSupported, setGLDusk, getGLDusk, setRunwayState } from './gl';
 export { ease, isTouch, isMobile, prefersReducedMotion, getQualityTier } from './env';
-export { studioAudio } from './audio';
+export { soundEngine, studioAudio } from './soundEngine';
+export {
+  ChromaticAberrationPass,
+  createChromaticPass,
+  mountChromaticAberration,
+  unmountChromaticAberration,
+  setChromaticVelocity,
+  setChromaticConfig,
+  getChromaticState,
+  isChromaticSupported,
+  CHROMATIC_VERT,
+  CHROMATIC_FRAG,
+  type ChromaticAberrationOptions,
+  type ChromaticPassState,
+} from './gl/chromatic';
+export {
+  BronzeDissolvePass,
+  createDissolvePass,
+  mountDissolvePass,
+  unmountDissolvePass,
+  triggerRouteDissolve,
+  setDissolveProgress,
+  getDissolveState,
+  isDissolveSupported,
+  DISSOLVE_VERT,
+  DISSOLVE_FRAG,
+  type DissolvePassOptions,
+  type RouteDissolveConfig,
+  type DissolvePassState,
+  type DissolveDirection,
+} from './gl/dissolve';
+export {
+  LiquidDisplacementEngine,
+  WaveEquationSolver,
+  SnellRefractionDispersion,
+  WaterCausticsGenerator,
+  DropletMetaballPhysics,
+  createLiquidDisplacement,
+  mountLiquidDisplacement,
+  createThreeLiquidSurface,
+  OGLLiquidDisplacementPass,
+  getLiquidPreset,
+  isLiquidDisplacementSupported,
+  LIQUID_PRESETS,
+  WAVE_SOLVER_FRAG,
+  WAVE_SPLAT_FRAG,
+  WAVE_NORMAL_FRAG,
+  REFRACTION_DISPERSION_FRAG,
+  CAUSTICS_GEN_FRAG,
+  METABALL_FIELD_FRAG,
+  type LiquidPresetName,
+  type WaveSolverOptions,
+  type RefractionOptions,
+  type CausticsOptions,
+  type DropletPhysicsOptions,
+  type LiquidDisplacementOptions,
+  type LiquidDisplacementHandle,
+  type ThreeLiquidSurfaceMeshOptions,
+  type ThreeLiquidSurfaceHandle,
+  type DropletState,
+  type ImpulseOptions,
+} from './gl/liquidDisplacement';
+export {
+  BlueprintEngine,
+  createBlueprintEngine,
+  RUBICONIUS_COMMISSIONS,
+  BLUEPRINT_THEMES,
+  OSnapManager,
+  distance,
+  midpoint,
+  angleRadians,
+  angleDegrees,
+  formatMetricMm,
+  formatElevationM,
+  snapToOrtho,
+  computeBounds,
+  type RubiconiusCommissionId,
+  type BlueprintThemeId,
+  type BlueprintTool,
+  type SnapType,
+  type SnapPoint,
+  type CADPoint,
+  type CADBounds,
+  type CADLineStyle,
+  type CADLineElement,
+  type CADRectElement,
+  type CADArcElement,
+  type CADPolylineElement,
+  type CADTextElement,
+  type CADGeometryElement,
+  type CADDatum,
+  type CADDimension,
+  type CADLeader,
+  type CADHatch,
+  type CADMeasurement,
+  type RubiconiusCommission,
+  type ViewportState,
+  type BlueprintTheme,
+  type SVGExportOptions,
+  type BlueprintEngineOptions,
+  type CADTelemetry,
+} from './blueprintEngine';
 
 export type PageFn = (page: { intro: gsap.core.Timeline; path: string }) => void | (() => void);
 const pageFns = new Set<PageFn>();
@@ -59,6 +162,7 @@ function initPage() {
   mountGL(document);
   mountSeam(document);
   mountShowcase(document);
+  mountChromaticAberration();
   ready = true;
   pageFns.forEach(runPageFn);
   requestAnimationFrame(() => {
@@ -76,11 +180,9 @@ export async function boot(setup?: () => void) {
   initCursor();
   bindFlipClicks();
   setup?.();
-  stopScroll();
   await ensureFontsReady();
   initPage();
   await runLoader();
-  startScroll();
   intro?.play();
 }
 
@@ -97,6 +199,8 @@ export function cleanup() {
   revertSplits();
   unmountShowcase();
   unmountSeam();
+  unmountChromaticAberration();
+  unmountDissolvePass();
   ctx?.revert();
   ctx = null;
   unmountGL();

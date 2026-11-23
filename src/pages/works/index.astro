@@ -3,50 +3,178 @@ import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import { commissions, site } from '../../data/site';
 
+// Architectural Project Datums & Millimeter Metrics for Eastern Nepal Commissions
+interface ProjectDatum {
+  category: 'residence' | 'salon' | 'gallery';
+  coords: string;
+  elev: string;
+  spanMm: {
+    l: string;
+    w: string;
+    h: string;
+  };
+  envelopeMm: string;
+  areaSqm: string;
+  focusFeature: string;
+  structuralDatum: string;
+  tolerance: string;
+  plateCode: string;
+}
+
+const projectDatums: Record<string, ProjectDatum> = {
+  'fluted-master-suite': {
+    category: 'residence',
+    coords: '26.4678° N · 87.2767° E',
+    elev: '80 M AMSL',
+    spanMm: { l: '8,450', w: '5,600', h: '3,200' },
+    envelopeMm: '8,450 × 5,600 × 3,200 MM',
+    areaSqm: '47.3 M²',
+    focusFeature: 'Continuous Sal Fluted Canopy',
+    structuralDatum: 'Sal Hardwood · 45mm Pitch / 12mm Shadow Gap',
+    tolerance: '± 1.0 MM REVEAL',
+    plateCode: 'PL-01-FS3',
+  },
+  'formal-drawing-room': {
+    category: 'salon',
+    coords: '26.8124° N · 87.2834° E',
+    elev: '349 M AMSL',
+    spanMm: { l: '12,800', w: '7,400', h: '3,450' },
+    envelopeMm: '12,800 × 7,400 × 3,450 MM',
+    areaSqm: '94.7 M²',
+    focusFeature: 'Honed Marble Axis & Garden Glazing',
+    structuralDatum: 'Book-Matched Marble · 1,200 × 600mm Slabs',
+    tolerance: '± 0.8 MM INLAY',
+    plateCode: 'PL-02-DR1',
+  },
+  'heritage-panelled-gallery': {
+    category: 'gallery',
+    coords: '26.4678° N · 87.2767° E',
+    elev: '80 M AMSL',
+    spanMm: { l: '9,200', w: '4,800', h: '3,100' },
+    envelopeMm: '9,200 × 4,800 × 3,100 MM',
+    areaSqm: '44.2 M²',
+    focusFeature: 'Tongue-and-Groove Reveal & Staggered Sal Shelves',
+    structuralDatum: 'Lime-Wash T&G · 120mm Pitch / Sal Cantilevers',
+    tolerance: '± 1.2 MM ALIGN',
+    plateCode: 'PL-03-HG2',
+  },
+};
+
 const totalPlates = String(commissions.length).padStart(2, '0');
+
+const categories = [
+  { id: 'all', label: 'All Commissions', count: '03' },
+  { id: 'residence', label: 'Private Residences', count: '01' },
+  { id: 'salon', label: 'Formal Salons', count: '01' },
+  { id: 'gallery', label: 'Heritage Galleries', count: '01' },
+];
 ---
 
 <Base
-  title="Works"
-  description="Completed residential architecture, custom millwork, and interior room dossiers across Biratnagar and Dharan by Rubiconius."
+  title="Works · Architectural Archive"
+  description={`Architectural monographs, millimeter-measured millwork, and interior room dossiers across ${site.city} by ${site.name}.`}
 >
   <div class="works-root" data-works-root>
-    <!-- Works Monograph Hero & Typographic Switcher -->
-    <section class="works-hero wrap">
-      <div class="works-hero__bar">
-        <span class="section-kicker works-hero__kicker-text">Portfolio &middot; Biratnagar &amp; Dharan</span>
-        <div class="works-switcher" role="group" aria-label="View mode">
-          <button
-            type="button"
-            class="works-switcher__btn is-active"
-            data-works-view-btn="editorial"
-            aria-pressed="true"
-          >
-            Editorial
-          </button>
-          <span class="works-switcher__sep" aria-hidden="true">/</span>
-          <button
-            type="button"
-            class="works-switcher__btn"
-            data-works-view-btn="index"
-            aria-pressed="false"
-          >
-            Index
-          </button>
+    <!-- Architectural Coordinate Hero & View Switcher (Telha Clarke + 40 Otto Objects) -->
+    <section class="works-hero wrap" aria-label="Works Archive Introduction">
+      <!-- Coordinate Datum Bar -->
+      <div class="works-datum-bar" aria-hidden="true">
+        <div class="works-datum-bar__left">
+          <span class="otto-t12 works-datum-tag">PORTFOLIO &middot; {site.primaryCity.toUpperCase()} &middot; NEPAL</span>
+          <span class="works-datum-sep">/</span>
+          <span class="otto-t12 works-datum-coords">LAT 26.4678° N &middot; LON 87.2767° E</span>
+        </div>
+        <div class="works-datum-bar__right">
+          <span class="otto-t12 works-datum-scale">CADENCE: 1:1 FIELD MEASUREMENT</span>
+          <span class="works-datum-sep">/</span>
+          <span class="otto-t12 works-datum-metric">METRIC ENVELOPE: MM</span>
         </div>
       </div>
 
-      <h1 class="works-hero__title">
-        Proportion, natural daylight, and restrained millwork.
-      </h1>
-      <p class="works-hero__lead">
-        Guided by {site.founder}, each residence and private salon in Biratnagar and Dharan pairs honest Sal timber joinery, honed stone mass, and calibrated evening light.
-      </p>
+      <!-- Main Title Header with otto-t120 Monumental Header -->
+      <div class="works-hero__main">
+        <div class="works-hero__title-row">
+          <h1 class="works-hero__monumental-title otto-t120">
+            Commissions
+          </h1>
+          <div class="works-switcher" role="group" aria-label="View mode toggle">
+            <button
+              type="button"
+              class="works-switcher__btn is-active"
+              data-works-view-btn="editorial"
+              aria-pressed="true"
+            >
+              <span class="works-switcher__label">Editorial</span>
+              <span class="works-switcher__count">(03)</span>
+            </button>
+            <span class="works-switcher__sep" aria-hidden="true">/</span>
+            <button
+              type="button"
+              class="works-switcher__btn"
+              data-works-view-btn="index"
+              aria-pressed="false"
+            >
+              <span class="works-switcher__label">Index</span>
+              <span class="works-switcher__count">(03)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="works-hero__editorial-sub">
+          <p class="works-hero__lead">
+            Guided by {site.founder}, each commission pairs honest solid timber joinery, honed stone mass, and calibrated evening daylight across {site.city}.
+          </p>
+          <div class="works-hero__stats-line">
+            <span class="works-stat-item">
+              <strong class="works-stat-num">03</strong>
+              <span class="works-stat-label">Commissions</span>
+            </span>
+            <span class="works-stat-divider">&middot;</span>
+            <span class="works-stat-item">
+              <strong class="works-stat-num">186.2</strong>
+              <span class="works-stat-label">M² Measured Area</span>
+            </span>
+            <span class="works-stat-divider">&middot;</span>
+            <span class="works-stat-item">
+              <strong class="works-stat-num">12</strong>
+              <span class="works-stat-label">Material Formulations</span>
+            </span>
+            <span class="works-stat-divider">&middot;</span>
+            <span class="works-stat-item">
+              <strong class="works-stat-num">02</strong>
+              <span class="works-stat-label">Studios ({site.offices.map(o => o.city).join(' & ')})</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs (Requirement 2: All Commissions, Private Residences, Formal Salons, Heritage Galleries) -->
+      <nav class="works-filters" aria-label="Filter commissions by category">
+        <div class="works-filters__list" role="tablist">
+          {categories.map((cat, idx) => (
+            <button
+              type="button"
+              class={`works-filter-tab ${idx === 0 ? 'is-active' : ''}`}
+              role="tab"
+              aria-selected={idx === 0 ? 'true' : 'false'}
+              data-category-tab={cat.id}
+            >
+              <span class="otto-t12 works-filter-tab__text">{cat.label}</span>
+              <span class="works-filter-tab__badge">({cat.count})</span>
+            </button>
+          ))}
+        </div>
+        <div class="works-filters__datum otto-t12" aria-hidden="true">
+          <span>SPECIMENS: SAL · LIMESTONE · MARBLE · BRASS</span>
+        </div>
+      </nav>
     </section>
 
-    <!-- Single Active View Stage (Zero DOM Duplication) -->
+    <!-- Works Stage: Dual View Architecture (Zero DOM Duplication) -->
     <div class="works-stage" data-works-stage>
-      <!-- EDITORIAL VIEW (Default Active) -->
+      <!-- ===================================================================
+           EDITORIAL MONOGRAPH VIEW (Asymmetric Multi-Aperture Composition)
+           =================================================================== -->
       <section
         class="works-editorial wrap"
         data-works-panel="editorial"
@@ -54,20 +182,59 @@ const totalPlates = String(commissions.length).padStart(2, '0');
       >
         {commissions.map((c, idx) => {
           const num = String(idx + 1).padStart(2, '0');
+          const datum = projectDatums[c.slug] || {
+            category: 'residence',
+            coords: 'Eastern Nepal',
+            elev: '80 M AMSL',
+            spanMm: { l: '8,000', w: '5,000', h: '3,000' },
+            envelopeMm: '8,000 × 5,000 × 3,000 MM',
+            areaSqm: '40 M²',
+            focusFeature: c.focus,
+            structuralDatum: 'Custom Millwork',
+            tolerance: '± 1.0 MM',
+            plateCode: `PL-0${num}`,
+          };
           const hasDedicatedDetail = Boolean(c.detailImage);
           const layoutVariant = idx === 0 ? 'lead-asymmetric' : idx === 1 ? 'monumental-wide' : 'reversed-asymmetric';
 
           return (
-            <article class={`works-spread works-spread--${layoutVariant}`} data-works-spread>
+            <article
+              class={`works-spread works-spread--${layoutVariant}`}
+              data-works-spread
+              data-commission-slug={c.slug}
+              data-category={datum.category}
+            >
+              <!-- Hairline Architectural Datum Bar -->
               <header class="works-spread__bar">
-                <span class="works-spread__plate">{num} / {totalPlates}</span>
-                <span class="works-spread__meta-inline">{c.typology} &middot; {c.location} &middot; {c.year}</span>
+                <div class="works-spread__bar-left">
+                  <span class="works-spread__plate otto-t12">PLATE {num} / {totalPlates}</span>
+                  <span class="works-spread__sep" aria-hidden="true">&middot;</span>
+                  <span class="works-spread__code otto-t12">{datum.plateCode}</span>
+                  <span class="works-spread__sep" aria-hidden="true">&middot;</span>
+                  <span class="works-spread__meta-inline otto-t12">{c.typology}</span>
+                </div>
+                <div class="works-spread__bar-right">
+                  <span class="works-spread__coords otto-t12">{datum.coords}</span>
+                  <span class="works-spread__sep" aria-hidden="true">&middot;</span>
+                  <span class="works-spread__span otto-t12">SPAN: {datum.envelopeMm}</span>
+                  <span class="works-spread__sep" aria-hidden="true">&middot;</span>
+                  <span class="works-spread__year otto-t12">{c.year}</span>
+                </div>
               </header>
 
+              <!-- Spread Variant 01: Lead Asymmetric (Span 8 + Span 4) -->
               {idx === 0 && (
                 <div class="works-spread__grid">
+                  <!-- Primary Aperture (Monumental Frame with Interactive Hover Plate Badge) -->
                   <div class="works-spread__primary-col works-spread__primary-col--left">
-                    <a class="works-spread__frame works-spread__frame--4x3" href={`/works/${c.slug}/`} data-transition="flip" data-gl-flip={c.slug} data-gl aria-label={`View ${c.title} dossier`}>
+                    <a
+                      class="works-spread__frame works-spread__frame--4x3 otto-collection__card"
+                      href={`/works/${c.slug}/`}
+                      data-transition="flip"
+                      data-gl-flip={c.slug}
+                      data-gl
+                      aria-label={`View ${c.title} complete dossier`}
+                    >
                       <div class="works-spread__parallax" data-editorial-parallax>
                         <Image
                           class="project-photo works-spread__img"
@@ -81,55 +248,103 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                           fetchpriority="high"
                         />
                       </div>
+
+                      <!-- Otto Objects Interactive Sliding Hover Plate Badge -->
+                      <div class="otto-collection__label" aria-hidden="true">
+                        <span>
+                          <span class="otto-collection__plate otto-t12">
+                            DOSSIER {num} &middot; VIEW STUDY &middot; {datum.envelopeMm}
+                          </span>
+                        </span>
+                        <span>
+                          <span class="otto-collection__arrow">↗</span>
+                        </span>
+                      </div>
+
+                      <!-- Subtle Hairline Metric Corner Datums -->
+                      <div class="works-frame-overlay-datums" aria-hidden="true">
+                        <span class="works-frame-datum-tl otto-t12">{c.title}</span>
+                        <span class="works-frame-datum-br otto-t12">{datum.areaSqm} &middot; {datum.tolerance}</span>
+                      </div>
                     </a>
                   </div>
 
+                  <!-- Aside Column: Secondary Aperture + Material Spec Plate + Study Meta -->
                   <div class="works-spread__aside-col works-spread__aside-col--bottom">
                     <div class={`works-spread__detail-wrap ${hasDedicatedDetail ? '' : 'is-fallback-crop'}`}>
                       {hasDedicatedDetail && c.detailImage ? (
-                        <div class="works-spread__frame works-spread__frame--4x5" aria-hidden="true">
+                        <a
+                          class="works-spread__frame works-spread__frame--4x5 otto-collection__card"
+                          href={`/works/${c.slug}/#specs`}
+                          aria-label={`View ${c.title} joinery study detail`}
+                        >
                           <Image
                             class="project-photo works-spread__img"
                             src={c.detailImage}
-                            alt=""
+                            alt={`${c.title} joinery and craftsmanship detail`}
                             width={c.detailImage.width}
                             height={c.detailImage.height}
                             loading="lazy"
                             decoding="async"
                           />
+                          <div class="otto-collection__label" aria-hidden="true">
+                            <span>
+                              <span class="otto-collection__plate otto-t12">
+                                DETAIL &middot; TIMBER JOINERY AXIS
+                              </span>
+                            </span>
+                            <span>
+                              <span class="otto-collection__arrow">↗</span>
+                            </span>
+                          </div>
+                        </a>
+                      ) : null}
+
+                      <!-- Architectural Specification Plate (House of Corto + Otto Objects) -->
+                      <aside class="works-spec-plate" aria-label={`${c.title} material specification plate`}>
+                        <div class="works-spec-plate__head">
+                          <span class="otto-t12">Plate {num} &middot; Specimen Ledger</span>
+                          <span class="otto-t12">{datum.coords}</span>
                         </div>
-                      ) : (
-                        <aside class="works-spec-plate" aria-label={`${c.title} material specification plate`}>
-                          <div class="works-spec-plate__head">
-                            <span>Plate {num} &middot; Palette</span>
-                            <span>{c.location} &middot; {c.year}</span>
+                        <div class="works-spec-plate__chips" aria-hidden="true">
+                          {c.materials.map((m) => (
+                            <div class="works-spec-plate__chip-col">
+                              <span class="works-spec-plate__chip" style={`background-color: ${m.swatchHex};`} title={m.label}></span>
+                              <span class="works-spec-plate__hex otto-t12">{m.swatchHex}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <dl class="works-spec-plate__rows">
+                          <div>
+                            <dt class="otto-t12">Millimeter Span</dt>
+                            <dd class="otto-t12">{datum.envelopeMm}</dd>
                           </div>
-                          <div class="works-spec-plate__chips" aria-hidden="true">
-                            {c.materials.map((m) => (
-                              <div class="works-spec-plate__chip-col">
-                                <span class="works-spec-plate__chip" style={`background-color: ${m.swatchHex};`}></span>
-                                <span class="works-spec-plate__hex">{m.swatchHex}</span>
-                              </div>
-                            ))}
+                          <div>
+                            <dt class="otto-t12">Joinery Module</dt>
+                            <dd class="otto-t12">{datum.structuralDatum}</dd>
                           </div>
-                          <dl class="works-spec-plate__rows">
-                            <div><dt>Scope</dt><dd>{c.scope}</dd></div>
-                            <div><dt>Focus</dt><dd>{c.focus}</dd></div>
-                            <div><dt>Typology</dt><dd>{c.typology}</dd></div>
-                          </dl>
-                        </aside>
-                      )}
+                          <div>
+                            <dt class="otto-t12">Tolerance</dt>
+                            <dd class="otto-t12">{datum.tolerance}</dd>
+                          </div>
+                          <div>
+                            <dt class="otto-t12">Typology</dt>
+                            <dd class="otto-t12">{c.typology}</dd>
+                          </div>
+                        </dl>
+                      </aside>
                     </div>
 
+                    <!-- Study Card Editorial Meta -->
                     <div class="study-card-meta">
-                      <span class="study-eyebrow">Study {num} &middot; {c.typology}</span>
+                      <span class="study-eyebrow otto-t12">Study {num} &middot; {c.typology} &middot; {c.location}</span>
                       <h2 class="study-title">
                         <a href={`/works/${c.slug}/`}>{c.title}</a>
                       </h2>
                       <p class="study-summary">{c.summary}</p>
 
                       <div class="study-materiality">
-                        <span class="study-materiality__label">Materiality</span>
+                        <span class="study-materiality__label otto-t12">Primary Materiality</span>
                         <ul class="study-materiality__list">
                           {c.materials.slice(0, 3).map((m) => (
                             <li>
@@ -141,7 +356,7 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                       </div>
 
                       <a class="study-dossier-link" href={`/works/${c.slug}/`}>
-                        <span>View Dossier</span>
+                        <span class="otto-t12">Inspect Complete Dossier</span>
                         <span class="study-dossier-link__arrow" aria-hidden="true">&rarr;</span>
                       </a>
                     </div>
@@ -149,9 +364,17 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                 </div>
               )}
 
+              <!-- Spread Variant 02: Monumental Wide (Span 12 Cinematic Frame) -->
               {idx === 1 && (
                 <div class="works-spread__wide">
-                  <a class="works-spread__frame works-spread__frame--16x9" href={`/works/${c.slug}/`} data-transition="flip" data-gl-flip={c.slug} data-gl aria-label={`View ${c.title} dossier`}>
+                  <a
+                    class="works-spread__frame works-spread__frame--16x9 otto-collection__card"
+                    href={`/works/${c.slug}/`}
+                    data-transition="flip"
+                    data-gl-flip={c.slug}
+                    data-gl
+                    aria-label={`View ${c.title} complete dossier`}
+                  >
                     <div class="works-spread__parallax" data-editorial-parallax>
                       <Image
                         class="project-photo works-spread__img"
@@ -163,20 +386,83 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                         decoding="async"
                       />
                     </div>
+
+                    <!-- Otto Objects Interactive Sliding Hover Plate Badge -->
+                    <div class="otto-collection__label" aria-hidden="true">
+                      <span>
+                        <span class="otto-collection__plate otto-t12">
+                          DOSSIER {num} &middot; FORMAL SALON &middot; {datum.envelopeMm}
+                        </span>
+                      </span>
+                      <span>
+                        <span class="otto-collection__arrow">↗</span>
+                      </span>
+                    </div>
+
+                    <div class="works-frame-overlay-datums" aria-hidden="true">
+                      <span class="works-frame-datum-tl otto-t12">{c.title}</span>
+                      <span class="works-frame-datum-br otto-t12">{datum.areaSqm} &middot; {datum.tolerance}</span>
+                    </div>
                   </a>
 
+                  <!-- Wide Caption & Secondary Aperture Split Bar -->
                   <div class="works-spread__caption-bar">
                     <div class="study-card-meta">
-                      <span class="study-eyebrow">Study {num} &middot; {c.typology}</span>
+                      <span class="study-eyebrow otto-t12">Study {num} &middot; {c.typology} &middot; {c.location}</span>
                       <h2 class="study-title">
                         <a href={`/works/${c.slug}/`}>{c.title}</a>
                       </h2>
                       <p class="study-summary">{c.summary}</p>
+
+                      <!-- Millimeter Spec Ledger for Salon -->
+                      <dl class="works-spec-plate__rows" style="margin-top: 1rem; max-width: 440px;">
+                        <div>
+                          <dt class="otto-t12">Envelope Span</dt>
+                          <dd class="otto-t12">{datum.envelopeMm}</dd>
+                        </div>
+                        <div>
+                          <dt class="otto-t12">Stone Format</dt>
+                          <dd class="otto-t12">{datum.structuralDatum}</dd>
+                        </div>
+                        <div>
+                          <dt class="otto-t12">Window Line</dt>
+                          <dd class="otto-t12">6,800 MM SLENDER PIVOTING PROFILE</dd>
+                        </div>
+                      </dl>
                     </div>
 
                     <div class="works-spread__caption-right">
+                      {hasDedicatedDetail && c.detailImage && (
+                        <a
+                          class="works-spread__frame works-spread__frame--16x9 otto-collection__card"
+                          href={`/works/${c.slug}/#gallery`}
+                          style="max-width: 420px; aspect-ratio: 16 / 10;"
+                          aria-label={`View ${c.title} dining gallery detail`}
+                        >
+                          <Image
+                            class="project-photo works-spread__img"
+                            src={c.detailImage}
+                            alt={`${c.title} adjoining dining hall and custom sideboard`}
+                            width={c.detailImage.width}
+                            height={c.detailImage.height}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          <div class="otto-collection__label" aria-hidden="true">
+                            <span>
+                              <span class="otto-collection__plate otto-t12">
+                                DETAIL &middot; DINING GALLERY
+                              </span>
+                            </span>
+                            <span>
+                              <span class="otto-collection__arrow">↗</span>
+                            </span>
+                          </div>
+                        </a>
+                      )}
+
                       <div class="study-materiality">
-                        <span class="study-materiality__label">Materiality</span>
+                        <span class="study-materiality__label otto-t12">Materiality Formulation</span>
                         <ul class="study-materiality__list">
                           {c.materials.map((m) => (
                             <li>
@@ -188,7 +474,7 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                       </div>
 
                       <a class="study-dossier-link" href={`/works/${c.slug}/`}>
-                        <span>View Dossier</span>
+                        <span class="otto-t12">Inspect Complete Dossier</span>
                         <span class="study-dossier-link__arrow" aria-hidden="true">&rarr;</span>
                       </a>
                     </div>
@@ -196,18 +482,20 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                 </div>
               )}
 
+              <!-- Spread Variant 03: Reversed Asymmetric (Span 5 Aside + Span 7 Primary) -->
               {idx === 2 && (
                 <div class="works-spread__grid works-spread__grid--reversed">
+                  <!-- Aside Column: Meta + Detail + Spec Plate -->
                   <div class="works-spread__aside-col works-spread__aside-col--top">
                     <div class="study-card-meta">
-                      <span class="study-eyebrow">Study {num} &middot; {c.typology}</span>
+                      <span class="study-eyebrow otto-t12">Study {num} &middot; {c.typology} &middot; {c.location}</span>
                       <h2 class="study-title">
                         <a href={`/works/${c.slug}/`}>{c.title}</a>
                       </h2>
                       <p class="study-summary">{c.summary}</p>
 
                       <div class="study-materiality">
-                        <span class="study-materiality__label">Materiality</span>
+                        <span class="study-materiality__label otto-t12">Materiality Formulation</span>
                         <ul class="study-materiality__list">
                           {c.materials.slice(0, 3).map((m) => (
                             <li>
@@ -219,50 +507,85 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                       </div>
 
                       <a class="study-dossier-link" href={`/works/${c.slug}/`}>
-                        <span>View Dossier</span>
+                        <span class="otto-t12">Inspect Complete Dossier</span>
                         <span class="study-dossier-link__arrow" aria-hidden="true">&rarr;</span>
                       </a>
                     </div>
 
                     <div class={`works-spread__detail-wrap ${hasDedicatedDetail ? '' : 'is-fallback-crop'}`}>
                       {hasDedicatedDetail && c.detailImage ? (
-                        <div class="works-spread__frame works-spread__frame--4x5" aria-hidden="true">
+                        <a
+                          class="works-spread__frame works-spread__frame--4x5 otto-collection__card"
+                          href={`/works/${c.slug}/#specs`}
+                          aria-label={`View ${c.title} artisan styling vignette`}
+                        >
                           <Image
                             class="project-photo works-spread__img"
                             src={c.detailImage}
-                            alt=""
+                            alt={`${c.title} cane, brass and reed styling vignette`}
                             width={c.detailImage.width}
                             height={c.detailImage.height}
                             loading="lazy"
                             decoding="async"
                           />
+                          <div class="otto-collection__label" aria-hidden="true">
+                            <span>
+                              <span class="otto-collection__plate otto-t12">
+                                DETAIL &middot; CANE & BRASS VIGNETTE
+                              </span>
+                            </span>
+                            <span>
+                              <span class="otto-collection__arrow">↗</span>
+                            </span>
+                          </div>
+                        </a>
+                      ) : null}
+
+                      <aside class="works-spec-plate" aria-label={`${c.title} material specification plate`}>
+                        <div class="works-spec-plate__head">
+                          <span class="otto-t12">Plate {num} &middot; Palette</span>
+                          <span class="otto-t12">{c.location} &middot; {c.year}</span>
                         </div>
-                      ) : (
-                        <aside class="works-spec-plate" aria-label={`${c.title} material specification plate`}>
-                          <div class="works-spec-plate__head">
-                            <span>Plate {num} &middot; Palette</span>
-                            <span>{c.location} &middot; {c.year}</span>
+                        <div class="works-spec-plate__chips" aria-hidden="true">
+                          {c.materials.map((m) => (
+                            <div class="works-spec-plate__chip-col">
+                              <span class="works-spec-plate__chip" style={`background-color: ${m.swatchHex};`} title={m.label}></span>
+                              <span class="works-spec-plate__hex otto-t12">{m.swatchHex}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <dl class="works-spec-plate__rows">
+                          <div>
+                            <dt class="otto-t12">Millimeter Span</dt>
+                            <dd class="otto-t12">{datum.envelopeMm}</dd>
                           </div>
-                          <div class="works-spec-plate__chips" aria-hidden="true">
-                            {c.materials.map((m) => (
-                              <div class="works-spec-plate__chip-col">
-                                <span class="works-spec-plate__chip" style={`background-color: ${m.swatchHex};`}></span>
-                                <span class="works-spec-plate__hex">{m.swatchHex}</span>
-                              </div>
-                            ))}
+                          <div>
+                            <dt class="otto-t12">Panelling Pitch</dt>
+                            <dd class="otto-t12">{datum.structuralDatum}</dd>
                           </div>
-                          <dl class="works-spec-plate__rows">
-                            <div><dt>Scope</dt><dd>{c.scope}</dd></div>
-                            <div><dt>Focus</dt><dd>{c.focus}</dd></div>
-                            <div><dt>Typology</dt><dd>{c.typology}</dd></div>
-                          </dl>
-                        </aside>
-                      )}
+                          <div>
+                            <dt class="otto-t12">Shelf Cantilever</dt>
+                            <dd class="otto-t12">2,400 MM STAGGERED SAL</dd>
+                          </div>
+                          <div>
+                            <dt class="otto-t12">Tolerance</dt>
+                            <dd class="otto-t12">{datum.tolerance}</dd>
+                          </div>
+                        </dl>
+                      </aside>
                     </div>
                   </div>
 
+                  <!-- Primary Aperture (Right Side) -->
                   <div class="works-spread__primary-col works-spread__primary-col--right">
-                    <a class="works-spread__frame works-spread__frame--4x3" href={`/works/${c.slug}/`} data-transition="flip" data-gl-flip={c.slug} data-gl aria-label={`View ${c.title} dossier`}>
+                    <a
+                      class="works-spread__frame works-spread__frame--4x3 otto-collection__card"
+                      href={`/works/${c.slug}/`}
+                      data-transition="flip"
+                      data-gl-flip={c.slug}
+                      data-gl
+                      aria-label={`View ${c.title} complete dossier`}
+                    >
                       <div class="works-spread__parallax" data-editorial-parallax>
                         <Image
                           class="project-photo works-spread__img"
@@ -274,6 +597,22 @@ const totalPlates = String(commissions.length).padStart(2, '0');
                           decoding="async"
                         />
                       </div>
+
+                      <div class="otto-collection__label" aria-hidden="true">
+                        <span>
+                          <span class="otto-collection__plate otto-t12">
+                            DOSSIER {num} &middot; HERITAGE GALLERY &middot; {datum.envelopeMm}
+                          </span>
+                        </span>
+                        <span>
+                          <span class="otto-collection__arrow">↗</span>
+                        </span>
+                      </div>
+
+                      <div class="works-frame-overlay-datums" aria-hidden="true">
+                        <span class="works-frame-datum-tl otto-t12">{c.title}</span>
+                        <span class="works-frame-datum-br otto-t12">{datum.areaSqm} &middot; {datum.tolerance}</span>
+                      </div>
                     </a>
                   </div>
                 </div>
@@ -283,7 +622,9 @@ const totalPlates = String(commissions.length).padStart(2, '0');
         })}
       </section>
 
-      <!-- INDEX VIEW (Hidden by Default — Zero Instructional Microcopy) -->
+      <!-- ===================================================================
+           ARCHITECTURAL DIRECTORY INDEX VIEW (Precision Engineering Ledger)
+           =================================================================== -->
       <section
         class="works-index wrap"
         data-works-panel="index"
@@ -291,32 +632,47 @@ const totalPlates = String(commissions.length).padStart(2, '0');
         hidden
       >
         <div class="works-index__col-labels" aria-hidden="true">
-          <span class="works-index__col-num">No.</span>
-          <span class="works-index__col-title">Study</span>
-          <span class="works-index__col-typ">Typology</span>
-          <span class="works-index__col-loc">Location</span>
-          <span class="works-index__col-yr">Year</span>
+          <span class="works-index__col-num otto-t12">No.</span>
+          <span class="works-index__col-title otto-t12">Commission Study</span>
+          <span class="works-index__col-typ otto-t12">Typology</span>
+          <span class="works-index__col-span otto-t12">Span (L × W × H MM)</span>
+          <span class="works-index__col-loc otto-t12">Location &amp; Coordinates</span>
+          <span class="works-index__col-yr otto-t12">Year</span>
         </div>
 
         <div class="works-index__list" data-project-index>
           {commissions.map((c, idx) => {
             const num = String(idx + 1).padStart(2, '0');
+            const datum = projectDatums[c.slug] || {
+              category: 'residence',
+              coords: '26.4678° N',
+              envelopeMm: '8,000 × 5,000 × 3,000 MM',
+            };
             return (
               <a
                 class="works-index__row"
                 href={`/works/${c.slug}/`}
                 data-index-row
                 data-project-idx={idx}
+                data-commission-slug={c.slug}
+                data-category={datum.category}
               >
-                <span class="works-index__num">{num}</span>
-                <h2 class="works-index__row-title">{c.title}</h2>
-                <span class="works-index__row-typ">{c.typology}</span>
-                <span class="works-index__row-loc">{c.location}</span>
+                <span class="works-index__num otto-t12">{num}</span>
+                <div class="works-index__title-cell">
+                  <h2 class="works-index__row-title">{c.title}</h2>
+                  <span class="works-index__row-sub otto-t12">{c.scope}</span>
+                </div>
+                <span class="works-index__row-typ otto-t12">{c.typology}</span>
+                <span class="works-index__row-span otto-t12">{datum.envelopeMm}</span>
+                <span class="works-index__row-loc otto-t12">
+                  <span>{c.location}</span>
+                  <span class="works-index__row-coords">{datum.coords}</span>
+                </span>
                 <span class="works-index__row-meta-mobile">
-                  {c.typology} &middot; {c.location} &middot; {c.year}
+                  {c.typology} &middot; {c.location} &middot; {datum.envelopeMm} &middot; {c.year}
                 </span>
                 <span class="works-index__row-yr">
-                  <span class="works-index__yr-text">{c.year}</span>
+                  <span class="works-index__yr-text otto-t12">{c.year}</span>
                   <span class="works-index__arrow" aria-hidden="true">&rarr;</span>
                 </span>
               </a>
@@ -327,35 +683,460 @@ const totalPlates = String(commissions.length).padStart(2, '0');
         <!-- Fine-Pointer Desktop Cursor Preview (Strictly @media hover:hover & pointer:fine) -->
         <div class="works-cursor-follow" data-cursor-follow aria-hidden="true">
           <div class="works-cursor-follow__inner" data-cursor-follow-inner>
-            {commissions.map((c, idx) => (
-              <div class={`works-cursor-follow__slide ${idx === 0 ? 'is-active' : ''}`} data-follow-slide={idx}>
-                <Image
-                  class="project-photo"
-                  src={c.image}
-                  alt=""
-                  width={c.image.width}
-                  height={c.image.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div class="works-cursor-follow__caption">
-                  <span>{c.typology}</span>
-                  <span>{c.location} &middot; {c.year}</span>
+            {commissions.map((c, idx) => {
+              const datum = projectDatums[c.slug];
+              return (
+                <div class={`works-cursor-follow__slide ${idx === 0 ? 'is-active' : ''}`} data-follow-slide={idx}>
+                  <Image
+                    class="project-photo"
+                    src={c.image}
+                    alt=""
+                    width={c.image.width}
+                    height={c.image.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="works-cursor-follow__caption">
+                    <span class="otto-t12">{c.title} &middot; {c.typology}</span>
+                    <span class="otto-t12">{datum?.envelopeMm || c.location}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
     </div>
 
-    <!-- Quiet Architectural Closing Transition to 3D Material Room -->
+    <!-- Architectural Closing Transition to 3D Material Room -->
     <section class="works-transition wrap" aria-label="Material Study Transition">
-      <span class="works-transition__eyebrow">Material Study</span>
+      <div class="works-transition__header">
+        <span class="works-transition__eyebrow otto-t12">Concept Investigation &middot; Three-Dimensional Space</span>
+        <span class="works-transition__datum otto-t12" aria-hidden="true">GPU NAVIER-STOKES &middot; 5 CINEMATIC POVS &middot; PBR MATERIAL ATLAS</span>
+      </div>
       <a class="works-transition__link" href="/showroom/">
         <span>Enter the 3D Material Room</span>
         <span class="works-transition__arrow" aria-hidden="true">&rarr;</span>
       </a>
+      <p class="works-transition__sub">
+        Explore honed Kota limestone, seasoned Sal hardwood, and unlacquered brass hardware under calibrated daytime and dusk illumination.
+      </p>
     </section>
   </div>
+
+  <!-- Interactive Category Filtering & Hover Plate Sync Script -->
+  <script is:inline>
+    (function () {
+      function initWorksFilter() {
+        var root = document.querySelector('[data-works-root]');
+        if (!root) return;
+
+        var filterTabs = Array.from(root.querySelectorAll('[data-category-tab]'));
+        var spreads = Array.from(root.querySelectorAll('[data-works-spread]'));
+        var indexRows = Array.from(root.querySelectorAll('[data-index-row]'));
+
+        function applyFilter(category) {
+          filterTabs.forEach(function (tab) {
+            var active = tab.getAttribute('data-category-tab') === category;
+            tab.classList.toggle('is-active', active);
+            tab.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+
+          spreads.forEach(function (spread) {
+            var spreadCat = spread.getAttribute('data-category');
+            var show = category === 'all' || spreadCat === category;
+            if (show) {
+              spread.removeAttribute('hidden');
+              spread.style.display = '';
+            } else {
+              spread.setAttribute('hidden', '');
+              spread.style.display = 'none';
+            }
+          });
+
+          indexRows.forEach(function (row) {
+            var rowCat = row.getAttribute('data-category');
+            var show = category === 'all' || rowCat === category;
+            if (show) {
+              row.removeAttribute('hidden');
+              row.style.display = '';
+            } else {
+              row.setAttribute('hidden', '');
+              row.style.display = 'none';
+            }
+          });
+
+          // Trigger ScrollTrigger & scroll layout recalculation if GSAP is loaded
+          if (window.ScrollTrigger) {
+            window.ScrollTrigger.refresh();
+          }
+        }
+
+        filterTabs.forEach(function (tab) {
+          tab.addEventListener('click', function () {
+            var category = tab.getAttribute('data-category-tab') || 'all';
+            applyFilter(category);
+          });
+        });
+
+        // Hover Plate Badge Card Interaction
+        var cards = Array.from(root.querySelectorAll('.otto-collection__card'));
+        cards.forEach(function (card) {
+          card.addEventListener('mouseenter', function () {
+            card.classList.add('is-hover');
+          });
+          card.addEventListener('mouseleave', function () {
+            card.classList.remove('is-hover');
+          });
+          card.addEventListener('focus', function () {
+            card.classList.add('is-hover');
+          });
+          card.addEventListener('blur', function () {
+            card.classList.remove('is-hover');
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initWorksFilter);
+      } else {
+        initWorksFilter();
+      }
+      document.addEventListener('astro:page-load', initWorksFilter);
+    })();
+  </script>
+
+  <style>
+    /* Scoped Styles for Elevated Works Index Architecture */
+    .works-datum-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      padding-top: clamp(1.2rem, 2vw, 1.8rem);
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--c-mortar, rgba(28, 25, 23, 0.12));
+      color: var(--c-subtle, #736b63);
+      letter-spacing: 0.12em;
+    }
+    .works-datum-bar__left,
+    .works-datum-bar__right {
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+    .works-datum-sep {
+      color: var(--accent-bronze, #A77C4D);
+      opacity: 0.6;
+    }
+
+    .works-hero__main {
+      padding-top: clamp(2rem, 4vw, 3.5rem);
+      padding-bottom: clamp(2rem, 3.5vw, 3rem);
+      display: grid;
+      gap: 1.5rem;
+    }
+    .works-hero__title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem 2.5rem;
+    }
+    .works-hero__monumental-title {
+      margin: 0;
+      color: var(--c-ink-bronze, #24201D);
+      font-weight: 400;
+      line-height: 0.92;
+    }
+
+    .works-hero__editorial-sub {
+      display: grid;
+      gap: 1.25rem;
+      max-width: 68ch;
+    }
+    .works-hero__lead {
+      margin: 0;
+      font-size: clamp(1.05rem, 1.35vw, 1.3rem);
+      line-height: 1.55;
+      color: var(--c-muted, #544e47);
+      text-wrap: pretty;
+    }
+    .works-hero__stats-line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      font-family: var(--f-body);
+      font-size: 0.78rem;
+      color: var(--c-subtle, #736b63);
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--c-mortar, rgba(28, 25, 23, 0.12));
+    }
+    .works-stat-item {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.35rem;
+    }
+    .works-stat-num {
+      color: var(--c-ink-bronze, #24201D);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums lining-nums;
+    }
+    .works-stat-divider {
+      color: var(--accent-bronze, #A77C4D);
+    }
+
+    /* Category Filter Tabs (Requirement 2) */
+    .works-filters {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+      padding-block: 0.75rem;
+      border-top: 1px solid var(--c-mortar, rgba(28, 25, 23, 0.12));
+      border-bottom: 1px solid var(--c-mortar, rgba(28, 25, 23, 0.12));
+      margin-top: 0.5rem;
+      background: rgba(239, 236, 230, 0.35);
+    }
+    .works-filters__list {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+    }
+    .works-filter-tab {
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 0.45rem 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      color: var(--c-subtle, #736b63);
+      transition: color 240ms ease, background-color 240ms ease, border-color 240ms ease;
+      border-radius: 0;
+      min-height: 38px;
+    }
+    .works-filter-tab:hover {
+      color: var(--c-ink-bronze, #24201D);
+      background: rgba(28, 25, 23, 0.04);
+    }
+    .works-filter-tab.is-active {
+      color: var(--c-ink-bronze, #24201D);
+      background: rgba(28, 25, 23, 0.08);
+      border-color: rgba(28, 25, 23, 0.22);
+    }
+    .works-filter-tab__text {
+      font-weight: 500;
+    }
+    .works-filter-tab__badge {
+      font-family: var(--f-body);
+      font-size: 0.72rem;
+      font-variant-numeric: tabular-nums lining-nums;
+      opacity: 0.75;
+    }
+    .works-filters__datum {
+      color: var(--c-subtle, #736b63);
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+    }
+
+    /* Spread Bar Details */
+    .works-spread__bar-left,
+    .works-spread__bar-right {
+      display: flex;
+      align-items: baseline;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+    .works-spread__code {
+      color: var(--accent-bronze, #A77C4D);
+      font-weight: 600;
+    }
+    .works-spread__span {
+      color: var(--c-ink-bronze, #24201D);
+      font-weight: 500;
+    }
+
+    /* Frame Overlay Micro-Datums */
+    .works-frame-overlay-datums {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      padding: 0.85rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      z-index: 2;
+    }
+    .works-frame-datum-tl {
+      background: rgba(30, 27, 26, 0.78);
+      color: #f2f2f2;
+      padding: 0.25rem 0.55rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      letter-spacing: 0.06em;
+    }
+    .works-frame-datum-br {
+      position: absolute;
+      right: 1rem;
+      bottom: 0.85rem;
+      background: rgba(30, 27, 26, 0.78);
+      color: #f2f2f2;
+      padding: 0.25rem 0.55rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      letter-spacing: 0.06em;
+    }
+
+    /* Interactive Hover Plate Badges (40 Otto Objects) */
+    .otto-collection__card {
+      position: relative;
+      overflow: hidden;
+    }
+    .otto-collection__label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: clamp(0.75rem, 1.5vw, 1.25rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .otto-collection__label > span {
+      display: block;
+      overflow: hidden;
+    }
+    .otto-collection__plate,
+    .otto-collection__arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--otto-ground, #1e1b1a);
+      color: var(--otto-ink, #f2f2f2);
+      transform: translateY(140%);
+      transition: transform 0.65s cubic-bezier(0.19, 1, 0.22, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
+    }
+    .otto-collection__plate {
+      padding: 0.45rem 0.85rem;
+      letter-spacing: 0.08em;
+    }
+    .otto-collection__arrow {
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.1rem;
+      margin-left: 0.5rem;
+    }
+    .otto-collection__card:hover .otto-collection__plate,
+    .otto-collection__card:hover .otto-collection__arrow,
+    .otto-collection__card.is-hover .otto-collection__plate,
+    .otto-collection__card.is-hover .otto-collection__arrow,
+    .otto-collection__card:focus-visible .otto-collection__plate,
+    .otto-collection__card:focus-visible .otto-collection__arrow {
+      transform: translateY(0);
+    }
+
+    /* Precision Index Ledger Enhancements */
+    .works-index__col-labels {
+      grid-template-columns: 3.25rem minmax(200px, 1.8fr) 1.2fr 1.6fr 1.4fr 5.75rem;
+    }
+    .works-index__row {
+      grid-template-columns: 3.25rem minmax(200px, 1.8fr) 1.2fr 1.6fr 1.4fr 5.75rem;
+    }
+    .works-index__title-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .works-index__row-sub {
+      color: var(--c-subtle, #736b63);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+    }
+    .works-index__row-span {
+      color: var(--c-ink-bronze, #24201D);
+      font-weight: 500;
+    }
+    .works-index__row-coords {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--c-subtle, #736b63);
+      margin-top: 0.15rem;
+    }
+
+    /* Works Transition Section */
+    .works-transition__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.75rem 2rem;
+      width: 100%;
+      border-bottom: 1px solid var(--c-mortar, rgba(28, 25, 23, 0.12));
+      padding-bottom: 0.85rem;
+    }
+    .works-transition__datum {
+      color: var(--accent-bronze, #A77C4D);
+      letter-spacing: 0.08em;
+    }
+    .works-transition__sub {
+      margin: 0;
+      font-size: 1.05rem;
+      color: var(--c-muted, #544e47);
+      max-width: 58ch;
+      line-height: 1.5;
+    }
+
+    /* Mobile Responsive Optimizations (<= 899px) */
+    @media (max-width: 899px) {
+      .works-datum-bar__right,
+      .works-filters__datum {
+        display: none;
+      }
+      .works-hero__monumental-title {
+        font-size: clamp(2.5rem, 11vw, 4rem);
+      }
+      .works-spread__bar-right {
+        display: none;
+      }
+      .works-index__col-labels {
+        display: none;
+      }
+      .works-index__row {
+        grid-template-columns: 2.25rem 1fr auto;
+        gap: 0.75rem;
+        padding-block: 1.25rem;
+      }
+      .works-index__row-typ,
+      .works-index__row-span,
+      .works-index__row-loc {
+        display: none;
+      }
+      .works-index__row-meta-mobile {
+        display: block;
+        grid-column: 2;
+        font-family: var(--f-body);
+        font-size: 0.75rem;
+        color: var(--c-muted, #544e47);
+        margin-top: 0.25rem;
+      }
+      .otto-collection__plate {
+        font-size: 0.68rem;
+        padding: 0.35rem 0.65rem;
+      }
+      .otto-collection__arrow {
+        width: 1.85rem;
+        height: 1.85rem;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </Base>

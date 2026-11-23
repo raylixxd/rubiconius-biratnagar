@@ -7,7 +7,6 @@ import {
   onScroll,
   prefersReducedMotion,
   scrollToTarget,
-  setLoaderExit,
   setTransition,
   startScroll,
   stopScroll,
@@ -17,6 +16,7 @@ import { site } from '../data/site';
 import { createHeroVideoMachine, type HeroVideoSnapshot } from './heroVideoMachine';
 import { initReactiveText } from './textMotion';
 import { initWorksPage, initWorksDetailPage } from './works';
+import { initHomeVisualChoreography } from './homeRunway';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,59 +66,73 @@ function initButtonFills() {
 }
 
 function initHeaderControls() {
-  let darkZones: Array<{ top: number; bottom: number }> = [];
-  let heroThreshold = window.innerHeight * 0.72;
+  let darkZones: Array<{ top: number; bottom: number; isHero: boolean }> = [];
+  let heroBottom = window.innerHeight * 0.72;
   let prevScrolled: boolean | null = null;
-  let prevScrolledHero: boolean | null = null;
+  let prevHeaderTheme: 'dark' | 'light' | null = null;
   let prevOverDark: boolean | null = null;
 
   const header = document.querySelector<HTMLElement>('.site-header');
   const heroHeader = document.querySelector<HTMLElement>('.site-header--hero');
-  const syncScrolled = (y: number) => {
+  const labLabel = document.querySelector<HTMLElement>('[data-otto-lab-label]');
+
+  const syncHeaderState = (y: number) => {
     const scrolled = y > 24;
     if (scrolled !== prevScrolled) {
       prevScrolled = scrolled;
       header?.setAttribute('data-scrolled', String(scrolled));
     }
-    const scrolledHero = y > heroThreshold;
-    if (scrolledHero !== prevScrolledHero) {
-      prevScrolledHero = scrolledHero;
-      heroHeader?.setAttribute('data-scrolled-hero', String(scrolledHero));
+
+    const headerProbe = y + 32;
+    let inDarkZone = darkZones.some((z) => z.top <= headerProbe && z.bottom >= headerProbe);
+    const overNonHeroDark = darkZones.some((z) => !z.isHero && z.top <= y + 72 && z.bottom >= y + 24);
+
+    if (heroHeader) {
+      const nextTheme: 'dark' | 'light' = inDarkZone ? 'dark' : 'light';
+      const pastHero = y > Math.max(120, heroBottom - 44);
+      heroHeader.setAttribute('data-scrolled-hero', String(pastHero));
+      if (nextTheme !== prevHeaderTheme) {
+        prevHeaderTheme = nextTheme;
+        heroHeader.dataset.theme = nextTheme;
+        heroHeader.setAttribute('data-header-theme', nextTheme);
+      }
+      if (labLabel) {
+        labLabel.classList.toggle('is-away', pastHero);
+      }
+    }
+
+    if (overNonHeroDark !== prevOverDark) {
+      prevOverDark = overNonHeroDark;
+      document.documentElement.classList.toggle('header-dark', overNonHeroDark);
     }
   };
 
   const measureZones = () => {
     const sy = window.scrollY;
-    heroThreshold = window.innerHeight * 0.72;
-    darkZones = [...document.querySelectorAll<HTMLElement>('.showroom-bridge-wrap, .showroom-inline-track')].map((zone) => {
+    const heroEl = document.querySelector<HTMLElement>('.otto-hero, .cinema-hero');
+    heroBottom = heroEl ? heroEl.getBoundingClientRect().bottom + sy : window.innerHeight * 0.72;
+    darkZones = [
+      ...document.querySelectorAll<HTMLElement>(
+        '.otto-hero, [data-theme-zone="dark"], .site-footer, .showroom-bridge-wrap, .showroom-inline-track'
+      ),
+    ].map((zone) => {
       const r = zone.getBoundingClientRect();
-      return { top: r.top + sy, bottom: r.bottom + sy };
+      return {
+        top: r.top + sy,
+        bottom: r.bottom + sy,
+        isHero: zone.classList.contains('otto-hero') || zone.classList.contains('cinema-hero'),
+      };
     });
-    syncScrolled(sy);
+    syncHeaderState(sy);
   };
   measureZones();
   addEventListener('resize', measureZones, { passive: true });
   ScrollTrigger.addEventListener('refresh', measureZones);
 
-  const syncHeaderZone = (y: number) => {
-    let overDark = false;
-    for (const z of darkZones) {
-      if (z.top <= y + 72 && z.bottom >= y + 24) {
-        overDark = true;
-        break;
-      }
-    }
-    if (overDark !== prevOverDark) {
-      prevOverDark = overDark;
-      document.documentElement.classList.toggle('header-dark', overDark);
-    }
-  };
-  syncHeaderZone(window.scrollY);
   document.documentElement.classList.remove('frame-away');
 
   const offScroll = onScroll(({ y }) => {
-    syncHeaderZone(y);
-    syncScrolled(y);
+    syncHeaderState(y);
   });
 
   const soundBtn = document.querySelector<HTMLButtonElement>('[data-sound-toggle]');
@@ -190,12 +204,13 @@ function initHeaderControls() {
     if (!form) return;
     const data = new FormData(form);
     const space = String(data.get('space') || 'Turnkey Home Interior');
-    const city = String(data.get('city') || 'Biratnagar');
+    const city = String(data.get('city') || site.primaryCity || site.offices[0]?.city || 'Nepal');
     const area = String(data.get('area') || '2BHK / 3BHK Residence');
     const timeline = String(data.get('timeline') || 'Within 2 months');
+    const founderFirstName = site.founder.split(' ')[0] || site.founder;
     const introLine = activeContext
-      ? `Namaste Riya ji, I saw "${activeContext}" on the Rubiconius website`
-      : 'Namaste Riya ji, I saw the Rubiconius website';
+      ? `Namaste ${founderFirstName} ji, I saw "${activeContext}" on the ${site.name} website`
+      : `Namaste ${founderFirstName} ji, I saw the ${site.name} website`;
     const msg = `${introLine} and would like to discuss a ${space} project in ${city} (scope: ${area}, timeline: ${timeline}).`;
     if (preview) preview.textContent = msg;
     if (sendLink) sendLink.href = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(msg)}`;
@@ -204,10 +219,25 @@ function initHeaderControls() {
   form?.addEventListener('change', syncWaMessage);
   syncWaMessage();
 
-  const openDrawer = (trigger?: HTMLElement) => {
+  let drawerOrigin = { x: window.innerWidth - 48, y: 36 };
+  const openDrawer = (trigger?: HTMLElement, ev?: MouseEvent) => {
     if (!drawer) return;
     lastTrigger = trigger || (document.activeElement as HTMLElement);
     activeContext = trigger?.dataset.drawerContext?.trim() || '';
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    if (ev && (ev.clientX || ev.clientY)) {
+      drawerOrigin = { x: Math.round(ev.clientX), y: Math.round(ev.clientY) };
+    } else if (trigger) {
+      const tr = trigger.getBoundingClientRect();
+      drawerOrigin = {
+        x: Math.round(tr.left + tr.width / 2),
+        y: Math.round(tr.top + tr.height / 2),
+      };
+    } else {
+      drawerOrigin = { x: vw - 48, y: 36 };
+    }
 
     // Auto-populate contextual studio brief when visiting /works/[slug]/ if empty
     if (!activeContext && location.pathname.startsWith('/works/')) {
@@ -220,10 +250,12 @@ function initHeaderControls() {
     if (location.pathname.startsWith('/works/')) {
       const pageText = document.querySelector<HTMLElement>('.case-hero, .case-meta, main')?.innerText || '';
       if (citySelect && !citySelect.dataset.userEdited) {
-        if (/dharan/i.test(pageText) && !/biratnagar/i.test(pageText)) {
-          citySelect.value = 'Dharan';
-        } else if (/biratnagar/i.test(pageText)) {
-          citySelect.value = 'Biratnagar';
+        for (const office of site.offices) {
+          const reg = new RegExp(office.city, 'i');
+          if (reg.test(pageText)) {
+            citySelect.value = office.city;
+            break;
+          }
         }
       }
     }
@@ -233,7 +265,19 @@ function initHeaderControls() {
     stopScroll();
     studioAudio.tick(680, 0.03);
     if (drawerPanel && !prefersReducedMotion()) {
-      gsap.fromTo(drawerPanel, { yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: ease.out });
+      const r = Math.ceil(
+        Math.hypot(Math.max(drawerOrigin.x, vw - drawerOrigin.x), Math.max(drawerOrigin.y, vh - drawerOrigin.y))
+      );
+      gsap.fromTo(
+        drawerPanel,
+        { clipPath: `circle(0px at ${drawerOrigin.x}px ${drawerOrigin.y}px)` },
+        {
+          clipPath: `circle(${r}px at ${drawerOrigin.x}px ${drawerOrigin.y}px)`,
+          duration: 0.6,
+          ease: ease.out,
+          clearProps: 'clipPath',
+        }
+      );
     }
     drawer.querySelector<HTMLElement>('button, input, select')?.focus();
   };
@@ -245,12 +289,29 @@ function initHeaderControls() {
       lastTrigger?.focus();
     };
     if (drawerPanel && !prefersReducedMotion()) {
-      gsap.to(drawerPanel, { yPercent: 100, duration: 0.4, ease: ease.soft, onComplete: finishClose });
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const r = Math.ceil(
+        Math.hypot(Math.max(drawerOrigin.x, vw - drawerOrigin.x), Math.max(drawerOrigin.y, vh - drawerOrigin.y))
+      );
+      gsap.fromTo(
+        drawerPanel,
+        { clipPath: `circle(${r}px at ${drawerOrigin.x}px ${drawerOrigin.y}px)` },
+        {
+          clipPath: `circle(0px at ${drawerOrigin.x}px ${drawerOrigin.y}px)`,
+          duration: 0.42,
+          ease: ease.soft,
+          onComplete: () => {
+            gsap.set(drawerPanel, { clearProps: 'clipPath' });
+            finishClose();
+          },
+        }
+      );
     } else finishClose();
   };
   const openHandlers: Array<() => void> = [];
   openBtns.forEach((b) => {
-    const h = () => openDrawer(b);
+    const h = (e: MouseEvent) => openDrawer(b, e);
     b.addEventListener('click', h);
     openHandlers.push(() => b.removeEventListener('click', h));
   });
@@ -337,7 +398,8 @@ function initHeaderControls() {
         dot.setAttribute('aria-hidden', 'true');
         const timeSpan = document.createElement('span');
         timeSpan.className = 'studio-clock__time';
-        timeSpan.textContent = `BIRATNAGAR \u00b7 ${nptTime} NPT`;
+        const primaryCityName = site.primaryCity || site.offices[0]?.city || 'STUDIO';
+        timeSpan.textContent = `${primaryCityName.toUpperCase()} \u00b7 ${nptTime} NPT`;
         const statusSpan = document.createElement('span');
         statusSpan.className = 'studio-clock__status';
         statusSpan.textContent = isOpen ? 'OPEN' : 'CLOSED';
@@ -625,7 +687,7 @@ function initStudioLocator() {
       if (addr && addrEl) addrEl.textContent = addr;
       if (coords && coordsEl) coordsEl.textContent = coords;
       if (mapUrl && directions) directions.href = mapUrl;
-      if (city) iframe.title = `Rubiconius Studio Map — ${city}`;
+      if (city) iframe.title = `${site.name} Studio Map — ${city}`;
       if (embedUrl && iframe.src !== embedUrl) {
         iframe.classList.add('is-loading');
         window.clearTimeout(loadTimer);
@@ -645,37 +707,6 @@ function initStudioLocator() {
 }
 
 export function setupMotion() {
-  setLoaderExit((root) => {
-    const symWrap = root.querySelector('.loader__symbol-wrap');
-    const symbol = root.querySelector('.loader__symbol');
-    const arch = root.querySelector('.sym__arch');
-    const core = root.querySelector('.sym__core');
-    const ring = root.querySelector('.sym__ring');
-    const ticks = root.querySelector('.sym__ticks');
-    const word = root.querySelector('[data-loader-word]');
-    const bar = root.querySelector('.loader__bar');
-
-    const tl = gsap.timeline();
-
-    return tl
-      .set([arch, core], { fillOpacity: 1, strokeDashoffset: 0, transformOrigin: 'center center' })
-      .set([ring, ticks], { svgOrigin: '60 70' })
-      .to(bar, { scaleX: 1, duration: 0.1, ease: ease.soft })
-      // Beat 1: Architectural split & compass lock
-      .to(arch, { y: -6, scale: 1.04, duration: 0.18, ease: ease.out }, '<')
-      .to(core, { y: 4, scale: 1.08, duration: 0.18, ease: ease.out }, '<')
-      .to(ring, { scale: 0.92, opacity: 1, duration: 0.18, ease: ease.out }, '<')
-      .to(ticks, { rotation: 90, opacity: 1, duration: 0.2, ease: ease.inOut }, '<')
-      // Beat 2: Precision lockup + wordmark & ring release
-      .to([arch, core], { y: 0, scale: 1.1, duration: 0.14, ease: ease.inOut })
-      .to([ring, ticks], { scale: 1.25, autoAlpha: 0, duration: 0.18, ease: ease.out }, '<')
-      .to(word, { y: -8, letterSpacing: '0.36em', autoAlpha: 0, duration: 0.16, ease: ease.inOut }, '<')
-      .to(bar, { autoAlpha: 0, duration: 0.1 }, '<')
-      // Beat 3: Subtle compositor fade-out (avoids 14x SVG raster spike)
-      .to(symbol || symWrap, { scale: 1.15, autoAlpha: 0, duration: 0.22, ease: ease.out }, '-=0.04')
-      .to(root, { autoAlpha: 0, duration: 0.2, ease: ease.out }, '<');
-  });
-
   setTransition({
     leave: (c) => {
       const blades = c.querySelectorAll<HTMLElement>('.curtain__blade');
@@ -748,19 +779,10 @@ export function setupMotion() {
     const cleanWorks = initWorksPage();
     const cleanWorksDetail = initWorksDetailPage();
     const cleanLocator = initStudioLocator();
-
-    let inlineDisposed = false;
-    let inlineHandle: { dispose: () => void } | null = null;
-    if (showroomRoot && showroomRoot.dataset.showroomMode === 'inline') {
-      import('../engine/showroom').then(({ mountShowroom }) => {
-        if (inlineDisposed) return;
-        inlineHandle = mountShowroom(showroomRoot, { mode: 'inline' });
-      });
-    }
+    const cleanHomeVisuals = initHomeVisualChoreography();
 
     return () => {
-      inlineDisposed = true;
-      inlineHandle?.dispose();
+      cleanHomeVisuals?.();
       cleanLocator?.();
       cleanWorks?.();
       cleanWorksDetail?.();

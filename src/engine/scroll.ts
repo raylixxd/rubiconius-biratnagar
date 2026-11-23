@@ -46,6 +46,7 @@ export function initScroll() {
     smoothWheel: true,
     wheelMultiplier: 1.0,
     touchMultiplier: 1.2,
+    syncTouch: true,
     anchors: true,
   });
   lenis.on('scroll', (l: Lenis) => {
@@ -77,6 +78,9 @@ export function clearPageScrollListeners() {
   pageListeners.clear();
 }
 export const scrollState = () => state;
+export function getNormalizedVelocity(): number {
+  return Math.max(-1, Math.min(1, state.velocity / 35));
+}
 
 export function stopScroll() {
   lockDepth++;

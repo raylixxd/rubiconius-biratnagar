@@ -55,7 +55,7 @@ function attachVideoWall(root: THREE.Object3D): () => void {
   if (!targetMesh) return () => {};
 
   const video = document.createElement('video');
-  video.src = '/videos/rubiconius-vault.mp4';
+  video.src = '/videos/studio-vault.mp4';
   video.crossOrigin = 'anonymous';
   video.loop = true;
   video.muted = true;

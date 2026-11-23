@@ -2,24 +2,288 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { parquetPlate, site } from '../data/site';
+
+// Real photography assets for architectural monograph plates & specimens
+import realDiningHall from '../assets/real-dining-hall.jpg';
+import realLivingRoom from '../assets/real-living-room.jpg';
+import realMasterBedroom from '../assets/real-master-bedroom.jpg';
+import realReadingCorner from '../assets/real-reading-corner.jpg';
+import realLoungeVignette from '../assets/real-lounge-vignette.jpg';
+import realWoodStudy from '../assets/real-wood-study.jpg';
+import rubiconiusPracticeStudio from '../assets/studio-practice-workspace.jpg';
+import rubiconiusJoinery from '../assets/studio-joinery.jpg';
+import rubiconiusMarble from '../assets/studio-marble.webp';
+import rubiconiusThreshold from '../assets/studio-threshold.jpg';
+import rubiconiusWorkDharan from '../assets/studio-work-terrace.jpg';
+import rubiconiusWorkMunal from '../assets/studio-work-suite.jpg';
+
+// Monograph timeline milestones
+const timelineMilestones = [
+  {
+    year: '2018 — 2020',
+    title: 'Spatial Apprenticeship & Material Studies',
+    location: 'Kolkata & Eastern Tradition',
+    excerpt:
+      'Formative years studying spatial proportion, hand-woven textiles, and traditional joinery techniques in Kolkata. Developing an architectural philosophy anchored in material honesty rather than surface ornamentation.',
+    discipline: 'Spatial Research & Textile Curating',
+    keyOutcome: 'Established the material ethos: daylight, solid timber, and lime plaster as structural truths.',
+  },
+  {
+    year: '2021',
+    title: 'Founding Rubiconius in Biratnagar',
+    location: 'Munal Path, Biratnagar',
+    excerpt:
+      'Established the primary studio desk at Munal Path, Kochakhaltol. Addressed the regional vacuum in Eastern Nepal for disciplined, turnkey interior architecture across modern residences and executive offices.',
+    discipline: 'Full Turnkey Practice',
+    keyOutcome: 'First residential turnkey handovers delivered with full civil and electrical coordination.',
+  },
+  {
+    year: '2022 — 2023',
+    title: 'Foothills Expansion to Dharan',
+    location: 'Gita Mandir Line, Dharan',
+    excerpt:
+      'Inaugurated the Dharan studio desk to serve private residences across Sunsari and Itahari. Built dedicated partnerships with master regional Sal woodworkers, stone masons, and iron smiths.',
+    discipline: 'Regional Guild Collaboration',
+    keyOutcome: 'Execution of the Formal Drawing Room salon and sunlit veranda extensions.',
+  },
+  {
+    year: '2024 — Present',
+    title: 'The Architectural Monograph Era',
+    location: 'Biratnagar & Dharan Studios',
+    excerpt:
+      'Completing signature commissions including the Fluted Master Suite and Heritage Panelled Gallery. Pioneering interactive 3D WebGL material studies for prospective residential commissioners.',
+    discipline: 'Monograph Commissions & 3D Spatial Studies',
+    keyOutcome: '27 verified 5.0-star client reviews; standardizing the zero-compromise turnkey protocol.',
+  },
+];
+
+// Materials philosophy tactile specimens
+const materialSpecimens = [
+  {
+    num: '01',
+    name: 'Seasoned Terai Sal Timber',
+    typology: 'Native Shorea Robusta Hardwood',
+    role: 'Wall Panelling, Exposed Rafters & Custom Bedsteads',
+    swatchHex: '#4A3321',
+    image: rubiconiusJoinery,
+    alt: 'Precision vertical fluted Sal timber joinery and shadow gap detailing',
+    description:
+      'Harvested sustainably from the southern plains of Nepal. Renowned for supreme density and dimensional stability under subtropical humidity. Hand-finished in low-sheen organic oils that deepen into a rich amber patina over decades.',
+  },
+  {
+    num: '02',
+    name: 'Honed Kota Limestone & Marble',
+    typology: 'Natural Sedimentary & Metamorphic Slabs',
+    role: 'Cooling Thermal Mass & Monolithic Flooring',
+    swatchHex: '#D8D3C9',
+    image: rubiconiusMarble,
+    alt: 'Book-matched veined natural marble slab macro detail',
+    description:
+      'Matte-honed Kota limestone and natural veined marble slabs introduce natural thermal damping against Eastern Nepal summer heat. The non-reflective surface softly diffuses high-angle daylight across the interior room envelope.',
+  },
+  {
+    num: '03',
+    name: 'Unlacquered Architectural Brass',
+    typology: 'Living Metallic Alloy',
+    role: 'Multi-Globe Sconces, Cabinet Pulls & Shadow Gaps',
+    swatchHex: '#C9A97E',
+    image: rubiconiusPracticeStudio,
+    alt: 'Architectural studio worktable with unlacquered brass hardware and drawing drafts',
+    description:
+      'Uncoated, brushed brass hardware that ages organically with human touch and atmospheric oxygen. We utilize slender brass expansion inlays along stone thresholds and custom spun globe luminaires to provide low-glare warm pools of evening light.',
+  },
+  {
+    num: '04',
+    name: 'Hand-Troweled Lime Plaster',
+    typology: 'Mineral Wall Coatings',
+    role: 'Breathable Vertical Envelopes & Alcove Niches',
+    swatchHex: '#EFECE6',
+    image: rubiconiusWorkDharan,
+    alt: 'Matte lime plaster feature wall paired with exposed timber ceiling rafters',
+    description:
+      'Traditional slaked lime and fine mineral aggregates applied with steel trowels. Naturally breathable, anti-fungal in monsoon climates, and micro-textured to catch shifting raking daylight without the artificial sheen of latex paints.',
+  },
+];
+
+// Monograph portfolio plates
+const monographPlates = [
+  {
+    index: '01',
+    title: 'Fluted Master Suite Elevation',
+    location: 'Biratnagar',
+    typology: 'Private Residence',
+    year: '2024',
+    image: realMasterBedroom,
+    alt: 'Fluted master bedroom suite with continuous vertical Sal timber panelling, tufted linen headboard, and brass sconces',
+    specs: 'Solid Sal Timber · Linen · Brushed Brass',
+  },
+  {
+    index: '02',
+    title: 'Formal Reception Salon',
+    location: 'Dharan',
+    typology: 'Formal Reception',
+    year: '2023',
+    image: realLivingRoom,
+    alt: 'Formal drawing room with royal-blue sofa, cognac leather chairs, honed marble floor, and multi-tier brass chandelier',
+    specs: 'Honed Veined Marble · Indigo Upholstery · Garden Glazing',
+  },
+  {
+    index: '03',
+    title: 'Heritage Panelled Reading Alcove',
+    location: 'Biratnagar',
+    typology: 'Private Gallery',
+    year: '2024',
+    image: realReadingCorner,
+    alt: 'Horizontal tongue-and-groove panelled wall with staggered Sal timber shelves and framed Mithila art',
+    specs: 'Tongue-and-Groove Millwork · Mithila Art Framing',
+  },
+  {
+    index: '04',
+    title: 'Adjoining Dining & Sideboard Gallery',
+    location: 'Dharan',
+    typology: 'Formal Dining',
+    year: '2023',
+    image: realDiningHall,
+    alt: 'Dining gallery with patterned feature wall, custom timber sideboard, marble floor, and cove lighting',
+    specs: 'Custom Fluted Credenza · Recessed Coves · Marble Mass',
+  },
+  {
+    index: '05',
+    title: 'Sunlit Plinth & Fluted Portal',
+    location: 'Concept Study 04',
+    typology: 'Threshold Study',
+    year: '2024',
+    image: rubiconiusThreshold,
+    alt: 'Sunlit gallery view with travertine plinth and vertical fluted hardwood portals',
+    specs: 'Matte Lime Plaster · Travertine Plinth · Fluted Portals',
+  },
+  {
+    index: '06',
+    title: 'Curated Cane & Turned Brass Vignette',
+    location: 'Studio Curation',
+    typology: 'Bespoke Furnishing',
+    year: '2024',
+    image: realLoungeVignette,
+    alt: 'Hand-woven cane armchairs, spun brass candle hurricane, reed mat, and cream cabinetry',
+    specs: 'Woven Rattan · Unlacquered Brass · Natural Reed',
+  },
+  {
+    index: '07',
+    title: 'Garden Threshold & Fluted Pavilion',
+    location: 'Munal Path, Biratnagar',
+    typology: 'Veranda Extension',
+    year: '2024',
+    image: rubiconiusWorkMunal,
+    alt: 'Pivoting black-framed glazing opening onto courtyard greenery with dark oak table joinery',
+    specs: 'Slender Anodized Glazing · Solid Dark Oak · Limestone Paving',
+  },
+  {
+    index: '08',
+    title: 'Turned Timber & Bentwood Study',
+    location: 'Private Residence',
+    typology: 'Private Reading Wing',
+    year: '2023',
+    image: realWoodStudy,
+    alt: 'Hand-turned dark Sal timber bedposts paired with bent-plywood leather seating',
+    specs: 'Turned Hardwood · Bent-Plywood Leather · Honed Stone',
+  },
+];
 ---
+
 <Base
-  title="About & Studios"
-  description="Meet Rubiconius founder Riya Agrawal — interior design studio offices in Biratnagar and Dharan, design philosophy, and turnkey process."
+  title="Practice & Architectural Monograph"
+  description={`Inside ${site.name} — architectural interior practice led by ${site.founder} across Biratnagar and Dharan. Studio narrative, materials philosophy, leadership timeline, and turnkey disciplines.`}
 >
-  <section class="inner-hero inner-hero--split wrap">
-    <div class="inner-hero__title-col">
-      <p class="section-kicker" data-reveal="fade" data-intro>About the Studio &middot; Biratnagar &amp; Dharan</p>
-      <h1 class="inner-hero__title" data-split="lines" data-intro>Spaces shaped around how you actually live.</h1>
+  <!-- 01. COORDINATE DATUM STRIP -->
+  <aside class="practice-datum wrap" aria-label="Monograph Datum & Studio Coordinates">
+    <div class="practice-datum__inner">
+      <div class="practice-datum__group">
+        <span class="practice-datum__item practice-datum__item--highlight">VOL. 02 &middot; STUDIO MONOGRAPH</span>
+        <span class="practice-datum__sep" aria-hidden="true">&middot;</span>
+        <span class="practice-datum__item">{site.name.toUpperCase()}&trade;</span>
+        <span class="practice-datum__sep" aria-hidden="true">&middot;</span>
+        <span class="practice-datum__item">PRINCIPAL: {site.founder.toUpperCase()}</span>
+      </div>
+
+      <div class="practice-datum__group">
+        <span class="practice-datum__item">
+          BIRATNAGAR: 26.4678&deg; N, 87.2767&deg; E
+        </span>
+        <span class="practice-datum__sep" aria-hidden="true">&middot;</span>
+        <span class="practice-datum__item">
+          DHARAN: 26.8124&deg; N, 87.2834&deg; E
+        </span>
+        <span class="practice-datum__sep" aria-hidden="true">&middot;</span>
+        <span class="practice-datum__item studio-clock" data-studio-clock>
+          NPT STUDIO TIME
+        </span>
+      </div>
+
+      <div class="practice-datum__group">
+        <span class="practice-datum__badge">ACTIVE COMMISSIONS</span>
+        <span class="practice-datum__sep" aria-hidden="true">&middot;</span>
+        <span class="practice-datum__rating" aria-label="5.0 rating out of 27 verified client reviews">
+          &#9733; {site.ratingScore} &middot; {site.reviewCount} REVIEWS
+        </span>
+      </div>
     </div>
-    <div class="inner-hero__lead-col">
-      <p class="hero__lead" data-reveal="up" data-intro data-delay="0.12">
-        Led by {site.founder} with an eye honed in Kolkata, Rubiconius delivers composed residential and commercial interiors combining honest millwork, handpicked accents, and regional craftspeople.
-      </p>
+  </aside>
+
+  <!-- 02. MONUMENTAL EDITORIAL HERO -->
+  <section class="practice-hero wrap" aria-labelledby="practice-hero-title">
+    <div class="practice-hero__grid">
+      <div class="practice-hero__title-col">
+        <p class="section-kicker" data-reveal="fade" data-intro>
+          Architectural Monograph &middot; {site.offices.map((o) => o.city).join(' & ')}
+        </p>
+        <h1 id="practice-hero-title" class="practice-hero__title" data-split="lines" data-intro>
+          Spaces shaped around the quiet rituals of how you actually live.
+        </h1>
+        <div class="practice-hero__quote-box">
+          <span class="practice-hero__quote-kicker">{site.commitmentKicker}</span>
+          <blockquote class="practice-hero__quote">
+            &ldquo;{site.commitmentQuote}&rdquo;
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="practice-hero__lead-col">
+        <p class="practice-hero__lead" data-reveal="up" data-intro data-delay="0.12">
+          {site.founderBio[0]}
+        </p>
+        <p class="practice-hero__body" data-reveal="up" data-intro data-delay="0.2">
+          {site.founderBio[1]}
+        </p>
+        <div class="practice-hero__metrics">
+          <div class="practice-metric">
+            <span class="practice-metric__num">100%</span>
+            <span class="practice-metric__label">Turnkey Ownership</span>
+          </div>
+          <div class="practice-metric">
+            <span class="practice-metric__num">2</span>
+            <span class="practice-metric__label">Studios (Biratnagar &amp; Dharan)</span>
+          </div>
+          <div class="practice-metric">
+            <span class="practice-metric__num">5.0</span>
+            <span class="practice-metric__label">Verified Rating ({site.reviewCount} Reviews)</span>
+          </div>
+        </div>
+        <div class="practice-hero__cta-row">
+          <button class="btn btn--accent" type="button" data-fill data-open-drawer>
+            <span class="btn__fill" aria-hidden="true"></span>
+            <span>Initiate Studio Brief</span>
+            <span class="btn__arrow" aria-hidden="true">&#8599;</span>
+          </button>
+          <a class="arch-cta arch-cta--muted" href="#studio-locator">
+            <span>Explore Studio Locations &darr;</span>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="practice-spread wrap">
+  <!-- 03. PRIMARY STUDIO WORKSPACE SPREAD & DOSSIER -->
+  <section class="practice-spread wrap" aria-label="Studio Workspace and Practice Dossier">
     <figure class="case-plate is-landscape" data-gl data-gl-instant>
       <Image
         class="project-photo"
@@ -30,36 +294,43 @@ import { parquetPlate, site } from '../data/site';
         loading="eager"
         fetchpriority="high"
       />
+      <figcaption class="practice-spread__caption">
+        <span>PLATE 01 &middot; STUDIO WORKBENCH &middot; {site.offices[0].address}</span>
+        <span>ARCHITECTURAL SPECIMEN STUDY &middot; SAL TIMBER, STONE &amp; LINEN</span>
+      </figcaption>
     </figure>
 
     <aside class="case-aside practice-aside">
-      <span class="section-kicker">Studio Offices &amp; Hours</span>
+      <span class="section-kicker">Studio Practice &amp; Offices</span>
       <div class="practice-offices">
         {site.offices.map((o) => (
           <a class="practice-office" href={o.mapUrl} target="_blank" rel="noopener noreferrer">
-            <span class="practice-office__city">{o.city} Office &#8599;</span>
+            <span class="practice-office__city">{o.city} Studio &#8599;</span>
             <span class="practice-office__addr">{o.address}</span>
+            <span class="practice-office__coords">{o.coords}</span>
           </a>
         ))}
       </div>
 
       <dl class="case-facts">
-        <div><dt>Founder</dt><dd>{site.founder}</dd></div>
-        <div><dt>Hours</dt><dd>{site.hours}</dd></div>
-        <div><dt>Practice</dt><dd>Residential &amp; Commercial Turnkey Interiors</dd></div>
-        <div><dt>Direct Line</dt><dd>{site.phoneDisplay}</dd></div>
+        <div><dt>Principal &amp; Founder</dt><dd>{site.founder}</dd></div>
+        <div><dt>Design Direction</dt><dd>{site.founderTitle}</dd></div>
+        <div><dt>Consultation Hours</dt><dd>{site.hours}</dd></div>
+        <div><dt>Direct Consultation Line</dt><dd><a href={`tel:+${site.whatsappNumber}`}>{site.phoneDisplay}</a></dd></div>
+        <div><dt>Regional Footprint</dt><dd>Biratnagar, Dharan, Itahari &amp; Eastern Nepal</dd></div>
+        <div><dt>Execution Scope</dt><dd>Turnkey Residential, Civil, Millwork &amp; Furnishings</dd></div>
       </dl>
 
       <div class="practice-channels-block">
-        <span class="section-kicker">Verified Channels</span>
+        <span class="section-kicker">Verified Architectural Records</span>
         <div class="practice-channels">
           {site.socials.map((s) => (
-            <a class="draw" href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
+            <a class="draw" href={s.href} target="_blank" rel="noopener noreferrer">{s.label} &#8599;</a>
           ))}
         </div>
       </div>
 
-      <div style="padding-top: 0.5rem;">
+      <div class="practice-aside__actions">
         <button class="btn btn--accent" type="button" data-fill data-open-drawer>
           <span class="btn__fill" aria-hidden="true"></span>
           <span>Send Brief on WhatsApp</span>
@@ -69,42 +340,228 @@ import { parquetPlate, site } from '../data/site';
     </aside>
   </section>
 
-  <section class="practice-story wrap">
-    <div class="practice-story__grid">
-      <div class="case-section">
-        <h2>Why &ldquo;Rubiconius&rdquo;</h2>
-        <blockquote class="practice-quote">
-          &ldquo;{site.commitmentQuote}&rdquo;
-        </blockquote>
-        {site.founderBio.map((p) => (
-          <p class="practice-bio-p">{p}</p>
-        ))}
-      </div>
+  <!-- 04. ARCHITECTURAL STUDIO NARRATIVE & LEADERSHIP DISCIPLINES -->
+  <section class="practice-narrative wrap" aria-labelledby="narrative-heading">
+    <div class="section-head">
+      <span class="section-head__kicker">Studio Provenance &middot; Eastern Nepal</span>
+      <h2 id="narrative-heading" class="section-head__title">
+        Bridging the drafting table directly to the master artisan&rsquo;s workshop.
+      </h2>
+    </div>
 
-      <div class="case-section">
-        <h2>Three Core Stages</h2>
-        <ol class="practice-stages">
-          <li>
-            <strong>01 &middot; Site Study &amp; Spatial Planning</strong>
-            <span>Site measurement, circulation layout, and electrical/storage logic tailored strictly to your daily routine.</span>
-          </li>
-          <li>
-            <strong>02 &middot; Civil, Carpentry &amp; Lighting Execution</strong>
-            <span>Fine woodwork, false ceilings, stone flooring, iron partitions, and custom cabinetry built alongside regional craftspeople.</span>
-          </li>
-          <li>
-            <strong>03 &middot; Soft Furnishings &amp; Handpicked Finish</strong>
-            <span>Upholstery, decorative light fittings, artwork framing, and handpicked finishing accessories curated for handover day.</span>
-          </li>
-        </ol>
+    <div class="practice-narrative__grid">
+      <article class="narrative-card">
+        <span class="narrative-card__index">01</span>
+        <h3 class="narrative-card__title">The Kolkata Apprenticeship</h3>
+        <p class="narrative-card__text">
+          Rubiconius was founded by Riya Agrawal following rigorous immersion in the design culture of Kolkata. Studying historical proportions, bespoke upholstery techniques, and rich Bengali craftsmanship revealed a stark truth: authentic luxury is never applied on the surface as ornamentation; it is engineered into the bone structure of the space.
+        </p>
+      </article>
+
+      <article class="narrative-card">
+        <span class="narrative-card__index">02</span>
+        <h3 class="narrative-card__title">The Terai Architectural Reality</h3>
+        <p class="narrative-card__text">
+          Returning to Eastern Nepal, the practice identified an acute disparity: client residences were frequently surrendered to disconnected contractors, resulting in flimsy gypsum facades, glare-heavy tiles, and warped woodwork. Rubiconius introduced an uncompromising turnkey standard: every electrical conduit, shadow gap, and fluted joint is drawn to the millimeter and supervised on site.
+        </p>
+      </article>
+
+      <article class="narrative-card">
+        <span class="narrative-card__index">03</span>
+        <h3 class="narrative-card__title">The Regional Guild Collaboration</h3>
+        <p class="narrative-card__text">
+          Rather than relying on imported flat-pack units, our studio operates in direct partnership with local master joiners, stone carvers, and blacksmiths in Morang and Sunsari. By elevating indigenous Sal timber and hand-cut Kota stone through disciplined modern detailing, each residence gains timeless acoustic stillness and generational durability.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 05. INTERACTIVE MULTI-STAGE PRACTICE & LEADERSHIP TIMELINE -->
+  <section class="practice-timeline-sec wrap" aria-labelledby="timeline-heading" data-practice-timeline>
+    <div class="section-head">
+      <span class="section-head__kicker">Evolutionary Trajectory &middot; 2018 &mdash; Present</span>
+      <h2 id="timeline-heading" class="section-head__title">
+        The chronological progression of our architectural practice.
+      </h2>
+    </div>
+
+    <div class="timeline-shell">
+      <nav class="timeline-nav" role="tablist" aria-label="Practice evolutionary timeline">
+        {timelineMilestones.map((milestone, idx) => (
+          <button
+            type="button"
+            role="tab"
+            class={`timeline-btn ${idx === 0 ? 'is-active' : ''}`}
+            data-timeline-btn={idx}
+            aria-selected={idx === 0 ? 'true' : 'false'}
+            aria-controls={`timeline-panel-${idx}`}
+            id={`timeline-tab-${idx}`}
+          >
+            <span class="timeline-btn__year">{milestone.year}</span>
+            <span class="timeline-btn__title">{milestone.title}</span>
+            <span class="timeline-btn__loc">{milestone.location}</span>
+          </button>
+        ))}
+      </nav>
+
+      <div class="timeline-stages">
+        {timelineMilestones.map((milestone, idx) => (
+          <div
+            id={`timeline-panel-${idx}`}
+            role="tabpanel"
+            class={`timeline-stage ${idx === 0 ? 'is-active' : ''}`}
+            data-timeline-panel={idx}
+            aria-labelledby={`timeline-tab-${idx}`}
+          >
+            <div class="timeline-stage__meta">
+              <span class="timeline-stage__badge">{milestone.year}</span>
+              <span class="timeline-stage__loc">{milestone.location}</span>
+              <span class="timeline-stage__discipline">{milestone.discipline}</span>
+            </div>
+            <h3 class="timeline-stage__title">{milestone.title}</h3>
+            <p class="timeline-stage__text">{milestone.excerpt}</p>
+            <div class="timeline-stage__outcome">
+              <span class="timeline-stage__outcome-label">Architectural Landmark</span>
+              <p class="timeline-stage__outcome-val">{milestone.keyOutcome}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <section id="studio-locator" class="practice-locator wrap" data-studio-locator>
+  <!-- 06. MATERIALS PHILOSOPHY — THE TACTILE PALETTE -->
+  <section class="practice-materials wrap" aria-labelledby="materials-heading">
     <div class="section-head">
-      <span class="section-head__kicker">Studio Locator</span>
-      <h2 class="section-head__title">Visit our studios in Biratnagar &amp; Dharan.</h2>
+      <span class="section-head__kicker">Materiality &middot; Olson Kundig &amp; Norm Architects Restraint</span>
+      <h2 id="materials-heading" class="section-head__title">
+        Materials that gain dignity through sunlight, touch, and age.
+      </h2>
+      <p class="section-head__lead">
+        We compose rooms exclusively from genuine physical matter. No synthetic laminates, no imitation wood grain, and no disposable finishes.
+      </p>
+    </div>
+
+    <div class="materials-grid">
+      {materialSpecimens.map((spec) => (
+        <article class="material-card">
+          <div class="material-card__preview">
+            <Image
+              class="material-card__img"
+              src={spec.image}
+              alt={spec.alt}
+              width={spec.image.width}
+              height={spec.image.height}
+              loading="lazy"
+            />
+          </div>
+          <div class="material-card__head">
+            <span class="material-card__num">{spec.num}</span>
+            <div class="material-card__swatch-wrap">
+              <span class="material-card__swatch" style={`background-color: ${spec.swatchHex};`} aria-hidden="true"></span>
+              <span class="material-card__hex">{spec.swatchHex}</span>
+            </div>
+          </div>
+          <h3 class="material-card__name">{spec.name}</h3>
+          <p class="material-card__typology">{spec.typology}</p>
+          <div class="material-card__role">
+            <span class="material-card__role-label">Primary Application</span>
+            <span class="material-card__role-val">{spec.role}</span>
+          </div>
+          <p class="material-card__desc">{spec.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- 07. FIVE TURNKEY EXECUTION DISCIPLINES -->
+  <section class="practice-disciplines wrap" aria-labelledby="disciplines-heading">
+    <div class="section-head">
+      <span class="section-head__kicker">Comprehensive Execution Disciplines</span>
+      <h2 id="disciplines-heading" class="section-head__title">
+        The five core stages of end-to-end turnkey delivery.
+      </h2>
+    </div>
+
+    <div class="disciplines-list">
+      {site.services.map((service) => (
+        <article class="discipline-row">
+          <div class="discipline-row__col-idx">
+            <span class="discipline-row__idx">{service.index}</span>
+          </div>
+          <div class="discipline-row__col-title">
+            <h3 class="discipline-row__title">{service.name}</h3>
+          </div>
+          <div class="discipline-row__col-desc">
+            <p class="discipline-row__desc">{service.detail}</p>
+          </div>
+          <div class="discipline-row__col-action">
+            <button class="draw" type="button" data-open-drawer>
+              Inquire Stage &rarr;
+            </button>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- 08. PHOTOGRAPHIC MONOGRAPH GRID -->
+  <section class="practice-gallery wrap" aria-labelledby="gallery-heading">
+    <div class="section-head">
+      <span class="section-head__kicker">Architectural Plate Catalogue</span>
+      <h2 id="gallery-heading" class="section-head__title">
+        Selected built works across Morang &amp; Sunsari.
+      </h2>
+      <p class="section-head__lead">
+        Documenting residential chambers, reception salons, and tactile alcoves completed by our Biratnagar and Dharan studios.
+      </p>
+    </div>
+
+    <div class="gallery-grid">
+      {monographPlates.map((plate) => (
+        <figure class="gallery-card">
+          <div class="gallery-card__stage">
+            <Image
+              class="gallery-card__img"
+              src={plate.image}
+              alt={plate.alt}
+              width={plate.image.width}
+              height={plate.image.height}
+              loading="lazy"
+            />
+            <span class="gallery-card__idx-pill">{plate.index}</span>
+          </div>
+          <figcaption class="gallery-card__caption">
+            <div class="gallery-card__head">
+              <span class="gallery-card__loc">{plate.location} &middot; {plate.year}</span>
+              <span class="gallery-card__typo">{plate.typology}</span>
+            </div>
+            <h3 class="gallery-card__title">{plate.title}</h3>
+            <p class="gallery-card__specs">{plate.specs}</p>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <div class="gallery-footer-action">
+      <a class="btn btn--accent" href="/works/">
+        <span class="btn__fill" aria-hidden="true"></span>
+        <span>View Full Portfolio &amp; Dossiers</span>
+        <span class="btn__arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 09. INTERACTIVE ARCHITECTURAL STUDIO LOCATOR -->
+  <section id="studio-locator" class="practice-locator wrap" data-studio-locator aria-labelledby="locator-heading">
+    <div class="section-head">
+      <span class="section-head__kicker">Physical Studios &amp; Consultations</span>
+      <h2 id="locator-heading" class="section-head__title">
+        Visit our studio desks in {site.offices.map((o) => o.city).join(' & ')}.
+      </h2>
+      <p class="section-head__lead">
+        Consultations are held privately at our Munal Path desk in Biratnagar or Gita Mandir Line studio in Dharan by prior appointment.
+      </p>
     </div>
 
     <div class="locator-shell">
@@ -125,7 +582,7 @@ import { parquetPlate, site } from '../data/site';
             >
               <span class="locator-tab__head">
                 <span class="locator-tab__idx">{o.index}</span>
-                <span class="locator-tab__city">{o.city}</span>
+                <span class="locator-tab__city">{o.city} Studio</span>
               </span>
               <span class="locator-tab__addr">{o.address}</span>
               <span class="locator-tab__meta">{o.coords} &middot; {o.note}</span>
@@ -134,8 +591,9 @@ import { parquetPlate, site } from '../data/site';
         </div>
 
         <div class="locator-meta">
-          <span class="section-kicker">Consultation Hours</span>
-          <p class="locator-meta__hours">{site.hours} &middot; {site.phoneDisplay}</p>
+          <span class="section-kicker">Consultation Protocol</span>
+          <p class="locator-meta__hours">{site.hours}</p>
+          <p class="locator-meta__phone">Direct Desk: <a href={`tel:+${site.whatsappNumber}`}>{site.phoneDisplay}</a></p>
         </div>
 
         <div class="locator-actions">
@@ -148,7 +606,7 @@ import { parquetPlate, site } from '../data/site';
             rel="noopener noreferrer"
           >
             <span class="btn__fill" aria-hidden="true"></span>
-            <span>Open Directions</span>
+            <span>Open Google Directions</span>
             <span class="btn__arrow" aria-hidden="true">&#8599;</span>
           </a>
           <a class="arch-cta arch-cta--muted" href={`tel:+${site.whatsappNumber}`}>
@@ -167,8 +625,8 @@ import { parquetPlate, site } from '../data/site';
             class="locator-iframe"
             data-locator-iframe
             src={site.offices[0].embedUrl}
-            title={`Rubiconius Studio Map — ${site.offices[0].city}`}
-            loading="eager"
+            title={`${site.name} Studio Map — ${site.offices[0].city}`}
+            loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
             allowfullscreen
           ></iframe>
@@ -176,4 +634,871 @@ import { parquetPlate, site } from '../data/site';
       </div>
     </div>
   </section>
+
+  <!-- 10. CONTACT COMMISSION TERMINAL -->
+  <section class="practice-terminal wrap" aria-labelledby="terminal-heading">
+    <div class="terminal-shell">
+      <div class="terminal-head">
+        <div class="terminal-head__left">
+          <span class="section-kicker">Commission Consultation Desk</span>
+          <h2 id="terminal-heading" class="terminal-head__title">Ready to begin your spatial commission?</h2>
+        </div>
+        <div class="terminal-head__right">
+          <span class="terminal-head__badge">STATUS: ACCEPTING 2024–2025 COMMISSIONS</span>
+        </div>
+      </div>
+
+      <div class="terminal-body">
+        <div class="terminal-col">
+          <span class="terminal-col__kicker">Direct Contact</span>
+          <p class="terminal-col__big">{site.phoneDisplay}</p>
+          <p class="terminal-col__note">Direct telephone access to {site.founder}. Sunday through Friday, 11 AM to 5 PM.</p>
+          <div class="terminal-actions">
+            <a
+              class="btn btn--accent"
+              data-fill
+              href={`https://wa.me/${site.whatsappNumber}?text=Hello%20Rubiconius,%20I%20would%20like%20to%20discuss%20a%20turnkey%20residential%20commission.`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="btn__fill" aria-hidden="true"></span>
+              <span>Open WhatsApp Direct</span>
+              <span class="btn__arrow" aria-hidden="true">&#8599;</span>
+            </a>
+            <button class="arch-cta arch-cta--muted" type="button" data-open-drawer>
+              <span>Launch Studio Inquiry Drawer</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="terminal-col">
+          <span class="terminal-col__kicker">The Rubiconius Assurance</span>
+          <ul class="terminal-checklist">
+            <li>
+              <strong>100% Direct Supervision:</strong> Riya Agrawal oversees site geometry, joinery tolerances, and material handoffs in person.
+            </li>
+            <li>
+              <strong>Zero-Friction Staging Protocol:</strong> Client secures domain and architectural blueprints upfront; full transparency on material costs and regional artisan labor.
+            </li>
+            <li>
+              <strong>Generational Material Integrity:</strong> We strictly specify seasoned Terai Sal hardwood, Kota thermal stone, and unlacquered brass hardware built to outlive ornamental fads.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </Base>
+
+<style>
+  /* -------------------------------------------------------------
+     ARCHITECTURAL MONOGRAPH DATUM STRIP
+  ------------------------------------------------------------- */
+  .practice-datum {
+    border-bottom: 1px solid var(--c-line);
+    padding-block: 0.65rem;
+    background: var(--c-bg);
+  }
+  .practice-datum__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .practice-datum__group {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+  .practice-datum__item--highlight {
+    color: var(--c-fg);
+    font-weight: 500;
+  }
+  .practice-datum__sep {
+    opacity: 0.4;
+  }
+  .practice-datum__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--c-line);
+    background: var(--c-surface);
+    color: var(--c-accent);
+    font-weight: 500;
+  }
+  .practice-datum__rating {
+    color: #6b4e2a;
+    font-weight: 500;
+  }
+
+  /* -------------------------------------------------------------
+     MONUMENTAL EDITORIAL HERO
+  ------------------------------------------------------------- */
+  .practice-hero {
+    padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 4vw, 3.5rem);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .practice-hero__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+  .practice-hero__title-col {
+    grid-column: 1 / 8;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .practice-hero__title {
+    font-family: var(--f-display);
+    font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--c-fg);
+  }
+  .practice-hero__quote-box {
+    margin-top: 1rem;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--c-bronze);
+    display: grid;
+    gap: 0.35rem;
+  }
+  .practice-hero__quote-kicker {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-accent);
+  }
+  .practice-hero__quote {
+    font-family: var(--f-display);
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    font-style: italic;
+    color: var(--c-fg);
+    line-height: 1.35;
+    margin: 0;
+  }
+  .practice-hero__lead-col {
+    grid-column: 8 / 13;
+    display: grid;
+    gap: 1.25rem;
+  }
+  .practice-hero__lead {
+    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--c-fg);
+    font-weight: 400;
+  }
+  .practice-hero__body {
+    font-size: var(--t-s);
+    line-height: 1.6;
+    color: var(--c-muted);
+  }
+  .practice-hero__metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    padding-block: 1rem;
+    border-top: 1px solid var(--c-line);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .practice-metric {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .practice-metric__num {
+    font-family: var(--f-display);
+    font-size: clamp(1.4rem, 2vw, 1.85rem);
+    color: var(--c-fg);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .practice-metric__label {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    color: var(--c-muted);
+    line-height: 1.3;
+  }
+  .practice-hero__cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  /* -------------------------------------------------------------
+     PRIMARY STUDIO SPREAD & DOSSIER
+  ------------------------------------------------------------- */
+  .practice-spread__caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+    padding-top: 0.65rem;
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-subtle);
+  }
+  .practice-office__coords {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    color: var(--c-subtle);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+  .practice-aside__actions {
+    padding-top: 0.5rem;
+  }
+
+  /* -------------------------------------------------------------
+     NARRATIVE & LEADERSHIP CARDS
+  ------------------------------------------------------------- */
+  .practice-narrative {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--c-line);
+  }
+  .practice-narrative__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    margin-top: clamp(2rem, 3.5vw, 3rem);
+  }
+  .narrative-card {
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    border: 1px solid var(--c-line);
+    background: var(--c-surface);
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 0.85rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 1px 2px rgba(28, 25, 23, 0.04);
+  }
+  .narrative-card__index {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    font-weight: 500;
+    color: var(--c-accent);
+    letter-spacing: 0.08em;
+  }
+  .narrative-card__title {
+    font-family: var(--f-display);
+    font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+    font-weight: 400;
+    color: var(--c-fg);
+    line-height: 1.2;
+  }
+  .narrative-card__text {
+    font-size: var(--t-s);
+    line-height: 1.6;
+    color: var(--c-muted);
+  }
+
+  /* -------------------------------------------------------------
+     INTERACTIVE MULTI-STAGE TIMELINE
+  ------------------------------------------------------------- */
+  .practice-timeline-sec {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--c-line);
+  }
+  .timeline-shell {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
+    margin-top: clamp(2rem, 3.5vw, 3rem);
+    align-items: start;
+  }
+  .timeline-nav {
+    grid-column: 1 / 6;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .timeline-btn {
+    width: 100%;
+    text-align: left;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid var(--c-line);
+    border-left: 2px solid transparent;
+    background: var(--c-bg);
+    display: grid;
+    gap: 0.25rem;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-arch);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .timeline-btn:hover {
+      border-color: rgba(28, 25, 23, 0.35);
+      background: rgba(229, 224, 215, 0.45);
+      transform: translateX(4px);
+    }
+  }
+  .timeline-btn.is-active {
+    background: var(--c-surface);
+    border-color: var(--c-line);
+    border-left: 2px solid var(--c-accent);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 6px 18px -4px rgba(28, 25, 23, 0.08);
+  }
+  .timeline-btn__year {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    font-weight: 500;
+    color: var(--c-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .timeline-btn__title {
+    font-family: var(--f-display);
+    font-size: clamp(1.15rem, 1.4vw, 1.35rem);
+    font-weight: 400;
+    color: var(--c-fg);
+    line-height: 1.2;
+  }
+  .timeline-btn__loc {
+    font-size: var(--t-xs);
+    color: var(--c-muted);
+  }
+  .timeline-stages {
+    grid-column: 6 / 13;
+    position: relative;
+    border: 1px solid var(--c-line);
+    background: var(--c-surface);
+    padding: clamp(2rem, 3.5vw, 3rem);
+    min-height: 380px;
+  }
+  .timeline-stage {
+    display: none;
+    grid-template-rows: auto auto auto 1fr;
+    gap: 1.25rem;
+    animation: timelineFade 0.35s ease forwards;
+  }
+  .timeline-stage.is-active {
+    display: grid;
+  }
+  @keyframes timelineFade {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .timeline-stage__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.25rem;
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .timeline-stage__badge {
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--c-line);
+    background: var(--c-bg);
+    color: var(--c-fg);
+    font-weight: 500;
+  }
+  .timeline-stage__loc {
+    color: var(--c-accent);
+    font-weight: 500;
+  }
+  .timeline-stage__discipline {
+    color: var(--c-subtle);
+  }
+  .timeline-stage__title {
+    font-family: var(--f-display);
+    font-size: clamp(1.75rem, 2.6vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--c-fg);
+  }
+  .timeline-stage__text {
+    font-size: var(--t-m);
+    line-height: 1.6;
+    color: var(--c-muted);
+    max-width: 60ch;
+  }
+  .timeline-stage__outcome {
+    margin-top: 0.5rem;
+    padding: 1rem 1.25rem;
+    border-left: 2px solid var(--c-bronze);
+    background: rgba(229, 224, 215, 0.35);
+    display: grid;
+    gap: 0.25rem;
+  }
+  .timeline-stage__outcome-label {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-accent);
+    font-weight: 500;
+  }
+  .timeline-stage__outcome-val {
+    font-size: var(--t-s);
+    color: var(--c-fg);
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  /* -------------------------------------------------------------
+     MATERIALS PHILOSOPHY — TACTILE SPECIMENS
+  ------------------------------------------------------------- */
+  .practice-materials {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--c-line);
+  }
+  .materials-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.75rem);
+    margin-top: clamp(2rem, 3.5vw, 3rem);
+  }
+  .material-card {
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    border: 1px solid var(--c-line);
+    background: var(--c-surface);
+    display: grid;
+    gap: 0.75rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 1px 2px rgba(28, 25, 23, 0.04);
+  }
+  .material-card__preview {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--c-bg);
+    border: 1px solid var(--c-line);
+    margin-bottom: 0.35rem;
+  }
+  .material-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s var(--ease-arch);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .material-card:hover .material-card__img {
+      transform: scale(1.04);
+    }
+  }
+  .material-card__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .material-card__num {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    font-weight: 500;
+    color: var(--c-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .material-card__swatch-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .material-card__swatch {
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(28, 25, 23, 0.25);
+  }
+  .material-card__hex {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    color: var(--c-subtle);
+    font-variant-numeric: tabular-nums;
+  }
+  .material-card__name {
+    font-family: var(--f-display);
+    font-size: clamp(1.15rem, 1.4vw, 1.35rem);
+    font-weight: 400;
+    color: var(--c-fg);
+    line-height: 1.2;
+  }
+  .material-card__typology {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    color: var(--c-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .material-card__role {
+    border-top: 1px solid var(--c-line);
+    border-bottom: 1px solid var(--c-line);
+    padding-block: 0.5rem;
+    display: grid;
+    gap: 0.2rem;
+  }
+  .material-card__role-label {
+    font-family: var(--f-body);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-subtle);
+  }
+  .material-card__role-val {
+    font-size: var(--t-xs);
+    color: var(--c-fg);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .material-card__desc {
+    font-size: var(--t-s);
+    color: var(--c-muted);
+    line-height: 1.5;
+  }
+
+  /* -------------------------------------------------------------
+     FIVE TURNKEY EXECUTION DISCIPLINES
+  ------------------------------------------------------------- */
+  .practice-disciplines {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--c-line);
+  }
+  .disciplines-list {
+    margin-top: clamp(2rem, 3.5vw, 3rem);
+    border-top: 1px solid var(--c-line);
+  }
+  .discipline-row {
+    display: grid;
+    grid-template-columns: 80px 1.5fr 2fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding-block: 1.6rem;
+    border-bottom: 1px solid var(--c-line);
+    transition: background-color 0.25s ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .discipline-row:hover {
+      background-color: rgba(229, 224, 215, 0.4);
+    }
+  }
+  .discipline-row__idx {
+    font-family: var(--f-body);
+    font-size: var(--t-s);
+    font-weight: 500;
+    color: var(--c-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .discipline-row__title {
+    font-family: var(--f-display);
+    font-size: clamp(1.2rem, 1.6vw, 1.45rem);
+    font-weight: 400;
+    color: var(--c-fg);
+  }
+  .discipline-row__desc {
+    font-size: var(--t-s);
+    color: var(--c-muted);
+    line-height: 1.5;
+  }
+
+  /* -------------------------------------------------------------
+     PHOTOGRAPHIC MONOGRAPH GALLERY
+  ------------------------------------------------------------- */
+  .practice-gallery {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--c-line);
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2vw, 2rem);
+    margin-top: clamp(2rem, 3.5vw, 3rem);
+  }
+  .gallery-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 0.85rem;
+    margin: 0;
+  }
+  .gallery-card__stage {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+  }
+  .gallery-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s var(--ease-arch), filter 0.45s var(--ease-arch);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .gallery-card:hover .gallery-card__img {
+      transform: scale(1.03);
+      filter: saturate(0.92) contrast(1.05);
+    }
+  }
+  .gallery-card__idx-pill {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    background: rgba(28, 25, 23, 0.75);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    font-variant-numeric: tabular-nums;
+  }
+  .gallery-card__caption {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .gallery-card__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .gallery-card__loc {
+    color: var(--c-accent);
+    font-weight: 500;
+  }
+  .gallery-card__typo {
+    color: var(--c-subtle);
+  }
+  .gallery-card__title {
+    font-family: var(--f-display);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--c-fg);
+    line-height: 1.25;
+  }
+  .gallery-card__specs {
+    font-size: var(--t-xs);
+    color: var(--c-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .gallery-footer-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  /* -------------------------------------------------------------
+     CONTACT COMMISSION TERMINAL
+  ------------------------------------------------------------- */
+  .practice-terminal {
+    padding-block: clamp(3rem, 6vw, 5.5rem);
+    border-top: 1px solid var(--c-line);
+  }
+  .terminal-shell {
+    border: 1px solid var(--c-line);
+    background: var(--c-surface);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 12px 36px -8px rgba(28, 25, 23, 0.08);
+  }
+  .terminal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    padding: clamp(1.5rem, 2.5vw, 2.25rem);
+    border-bottom: 1px solid var(--c-line);
+    background: var(--c-bg);
+  }
+  .terminal-head__title {
+    font-family: var(--f-display);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 400;
+    color: var(--c-fg);
+    margin-top: 0.25rem;
+  }
+  .terminal-head__badge {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    font-weight: 500;
+    color: var(--c-accent);
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--c-line);
+    background: var(--c-surface);
+  }
+  .terminal-body {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 4rem);
+    padding: clamp(1.75rem, 3.5vw, 3rem);
+  }
+  .terminal-col {
+    display: grid;
+    gap: 1.15rem;
+    align-content: start;
+  }
+  .terminal-col__kicker {
+    font-family: var(--f-body);
+    font-size: var(--t-xs);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+  }
+  .terminal-col__big {
+    font-family: var(--f-display);
+    font-size: clamp(1.75rem, 2.8vw, 2.6rem);
+    font-weight: 400;
+    color: var(--c-fg);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .terminal-col__note {
+    font-size: var(--t-s);
+    color: var(--c-muted);
+    line-height: 1.5;
+  }
+  .terminal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    margin-top: 0.5rem;
+  }
+  .terminal-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .terminal-checklist li {
+    font-size: var(--t-s);
+    color: var(--c-muted);
+    line-height: 1.5;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--c-line);
+  }
+  .terminal-checklist strong {
+    color: var(--c-fg);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  /* -------------------------------------------------------------
+     RESPONSIVE BREAKPOINTS
+  ------------------------------------------------------------- */
+  @media (max-width: 1200px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .practice-hero__title-col {
+      grid-column: 1 / 13;
+    }
+    .practice-hero__lead-col {
+      grid-column: 1 / 13;
+    }
+    .practice-spread .case-plate {
+      grid-column: 1 / 13;
+    }
+    .case-aside {
+      grid-column: 1 / 13;
+    }
+    .practice-narrative__grid {
+      grid-template-columns: 1fr;
+    }
+    .timeline-nav {
+      grid-column: 1 / 13;
+    }
+    .timeline-stages {
+      grid-column: 1 / 13;
+    }
+    .materials-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .discipline-row {
+      grid-template-columns: 50px 1fr;
+      gap: 0.75rem 1rem;
+    }
+    .discipline-row__col-desc {
+      grid-column: 2 / 3;
+    }
+    .discipline-row__col-action {
+      grid-column: 2 / 3;
+    }
+    .terminal-body {
+      grid-template-columns: 1fr;
+    }
+    .locator-panel {
+      grid-column: 1 / 13;
+    }
+    .locator-map-frame {
+      grid-column: 1 / 13;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .practice-hero__metrics {
+      grid-template-columns: 1fr;
+    }
+    .materials-grid {
+      grid-template-columns: 1fr;
+    }
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+    .practice-offices {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Interactive Timeline Tab Switcher
+  function initPracticeTimeline() {
+    const root = document.querySelector<HTMLElement>('[data-practice-timeline]');
+    if (!root) return;
+
+    const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-timeline-btn]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-timeline-panel]'));
+
+    btns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        btns.forEach((b) => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach((p) => {
+          p.classList.remove('is-active');
+        });
+
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const targetPanel = root.querySelector<HTMLElement>(`[data-timeline-panel="${idx}"]`);
+        if (targetPanel) {
+          targetPanel.classList.add('is-active');
+        }
+      });
+    });
+  }
+
+  // Initialize on page load and on Astro view transition swaps
+  initPracticeTimeline();
+  document.addEventListener('astro:page-load', initPracticeTimeline);
+</script>

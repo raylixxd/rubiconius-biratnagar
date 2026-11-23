@@ -4,13 +4,13 @@ import realMasterBedroom from '../assets/real-master-bedroom.jpg';
 import realReadingCorner from '../assets/real-reading-corner.jpg';
 import realLoungeVignette from '../assets/real-lounge-vignette.jpg';
 import realWoodStudy from '../assets/real-wood-study.jpg';
-import rubiconiusPracticeStudio from '../assets/rubiconius-practice-studio.jpg';
-import rubiconiusHeroAi from '../assets/rubiconius-hero-ai.jpg';
-import rubiconiusJoinery from '../assets/rubiconius-joinery.jpg';
-import rubiconiusMarble from '../assets/rubiconius-marble.webp';
-import rubiconiusThreshold from '../assets/rubiconius-threshold.jpg';
-import rubiconiusWorkDharan from '../assets/rubiconius-work-dharan.jpg';
-import rubiconiusWorkMunal from '../assets/rubiconius-work-munal.jpg';
+import rubiconiusPracticeStudio from '../assets/studio-practice-workspace.jpg';
+import rubiconiusHeroAi from '../assets/studio-hero-ai.jpg';
+import rubiconiusJoinery from '../assets/studio-joinery.jpg';
+import rubiconiusMarble from '../assets/studio-marble.webp';
+import rubiconiusThreshold from '../assets/studio-threshold.jpg';
+import rubiconiusWorkDharan from '../assets/studio-work-terrace.jpg';
+import rubiconiusWorkMunal from '../assets/studio-work-suite.jpg';
 
 export type GlbPinKey = 'fluted-suite' | 'timber-hearth' | 'courtyard-hall';
 
@@ -70,12 +70,23 @@ export const site = {
   name: 'Rubiconius',
   tagline: 'Measured interior architecture shaped around daylight, joinery, and quiet material proportion.',
   commitmentQuote: 'Our word is our commitment — and when we commit, we pass into a point of no return.',
+  commitmentKicker: 'Crossing the Rubicon',
   founder: 'Riya Agrawal',
+  founderTitle: 'Founder & Principal Designer',
   founderBio: [
     'Each commission is composed around daylight, spatial proportion, and disciplined millwork — shaped around our clients’ daily rituals rather than passing ornamental trends.',
     'Founded by Riya Agrawal after honing an eye for furnishings, textiles, and spatial detail in Kolkata, the practice brings architectural restraint and close collaboration with regional craftspeople to residences and offices across Biratnagar and Dharan.',
   ],
   city: 'Munal Path, Biratnagar & Gita Mandir Line, Dharan, Nepal',
+  primaryCity: 'Biratnagar',
+  primaryRegion: 'Eastern Nepal',
+  logo: {
+    viewBox: '0 0 120 140',
+    paths: [
+      { d: 'M36 16H84L104 92C89 83 75 78 60 78C45 78 31 83 16 92L36 16ZM60 40L44 74C50 72 55 71 60 71C65 71 70 72 76 74L60 40Z', fill: 'currentColor' },
+      { d: 'M35 97C46 105 74 105 85 97C86 112 75 119 66 123C62 125 60 130 61 135C52 130 48 122 50 116C52 112 46 109 42 114C37 110 34 103 35 97Z', fill: 'currentColor' },
+    ],
+  },
   offices: [
     {
       id: 'biratnagar',
@@ -513,8 +524,8 @@ export const showroom: ShowroomConfig = {
   baseFov: 54,
   asset: {
     type: 'glb',
-    src: '/models/rubiconius_pov.glb',
-    mobileSrc: '/models/rubiconius_pov_mobile.glb',
+    src: '/models/studio_pov.glb',
+    mobileSrc: '/models/studio_pov_mobile.glb',
     cameraPathsSrc: '/models/camera_paths.glb',
     // Current rubiconius_pov.glb textures are AgX-baked; keep 'none' to prevent double tone mapping.
     toneMapping: 'none',

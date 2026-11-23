@@ -7,117 +7,1942 @@ import { commissions, site } from '../../data/site';
 export function getStaticPaths() {
   return commissions.map((commission, index) => ({
     params: { slug: commission.slug },
-    props: { commission, nextCommission: commissions[(index + 1) % commissions.length] },
+    props: {
+      commission,
+      commissionIndex: index,
+      nextCommission: commissions[(index + 1) % commissions.length],
+      nextIndex: (index + 1) % commissions.length,
+    },
   }));
 }
 
-const { commission, nextCommission } = Astro.props;
+const { commission, commissionIndex, nextCommission, nextIndex } = Astro.props;
 const isPortrait = commission.image.height > commission.image.width;
+const totalStudies = String(commissions.length).padStart(2, '0');
+const studyNum = String(commissionIndex + 1).padStart(2, '0');
+const nextStudyNum = String(nextIndex + 1).padStart(2, '0');
+
+// Architectural CAD metadata & SVG blueprints inspired by 40_otto_objects & 06_unseen
+interface ArchitecturalBlueprint {
+  docRef: string;
+  spanDimensions: string;
+  ceilingDatum: string;
+  volumeM3: string;
+  footprintM2: string;
+  tolerance: string;
+  lightingSpec: string;
+  acousticIndex: string;
+  turnkeyDuration: string;
+  millimeterPills: string[];
+  blueprintTitle: string;
+  blueprintSheet: string;
+  blueprintScale: string;
+  blueprintSvg: {
+    viewBox: string;
+    pathMarkup: string;
+    annotations: { x: number; y: number; text: string; align?: 'start' | 'middle' | 'end' }[];
+    dimensions: { x1: number; y1: number; x2: number; y2: number; label: string; offset?: number }[];
+  };
+  materialDetails: {
+    name: string;
+    scientificSpec: string;
+    swatchHex: string;
+    textureSensory: string;
+    provenanceGuild: string;
+    jointDetail: string;
+  }[];
+}
+
+const architecturalRegistry: Record<string, ArchitecturalBlueprint> = {
+  'fluted-master-suite': {
+    docRef: 'RBC-2024-MS-01',
+    spanDimensions: 'W 5,840 × D 4,200 × H 3,150 mm',
+    ceilingDatum: '+3,150 mm AFF (Continuous Canopy Return)',
+    volumeM3: '77.2 m³',
+    footprintM2: '24.5 m²',
+    tolerance: '±0.5 mm Millwork Axial Cadence',
+    lightingSpec: '2700K High-CRI 97 Concealed Perimeter Cove (120 lx ambient)',
+    acousticIndex: 'NRC 0.65 (Fluted Timber Diffusion & Woven Flax Backing)',
+    turnkeyDuration: '14 Weeks (Benchwork to On-Site Assembly)',
+    millimeterPills: [
+      'SPAN: 5840 × 4200 mm',
+      'CEILING: +3150 mm',
+      'BATTEN: 45 × 30 mm',
+      'REVEAL: 15 mm',
+      'HEADBOARD: 2200 × 1400 mm',
+    ],
+    blueprintTitle: 'Headboard Feature Elevation & Ceiling Canopy Section',
+    blueprintSheet: 'SHEET A-102 · ELEVATION 1:20',
+    blueprintScale: 'SCALE 1:20 @ A1',
+    blueprintSvg: {
+      viewBox: '0 0 900 560',
+      pathMarkup: `
+        <!-- Outer Wall & Ceiling Bounds -->
+        <rect x="70" y="50" width="760" height="420" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="none" opacity="0.35" />
+        <!-- Floor Datum Line -->
+        <line x1="40" y1="470" x2="860" y2="470" stroke="currentColor" stroke-width="2.5" opacity="0.9" />
+        <!-- Ceiling Return Canopy (Projecting 1200mm) -->
+        <path d="M 70 50 L 830 50 L 830 110 L 70 110 Z" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="1.5" opacity="0.75" />
+        <!-- Cove Light Recess Channel -->
+        <rect x="75" y="98" width="750" height="12" fill="none" stroke="#C9A97E" stroke-width="1.2" stroke-dasharray="4 2" />
+        <!-- Fluted Battens Sequence (Wall Elevation) -->
+        <path d="
+          M 110 110 L 110 470 M 130 110 L 130 470 M 150 110 L 150 470 M 170 110 L 170 470 M 190 110 L 190 470
+          M 210 110 L 210 470 M 230 110 L 230 470 M 250 110 L 250 470 M 270 110 L 270 470 M 290 110 L 290 470
+          M 310 110 L 310 470 M 330 110 L 330 470 M 350 110 L 350 470 M 370 110 L 370 470 M 390 110 L 390 470
+          M 410 110 L 410 470 M 430 110 L 430 470 M 450 110 L 450 470 M 470 110 L 470 470 M 490 110 L 490 470
+          M 510 110 L 510 470 M 530 110 L 530 470 M 550 110 L 550 470 M 570 110 L 570 470 M 590 110 L 590 470
+          M 610 110 L 610 470 M 630 110 L 630 470 M 650 110 L 650 470 M 670 110 L 670 470 M 690 110 L 690 470
+          M 710 110 L 710 470 M 730 110 L 730 470 M 750 110 L 750 470 M 770 110 L 770 470 M 790 110 L 790 470
+        " fill="none" stroke="currentColor" stroke-width="0.85" opacity="0.45" />
+        <!-- Headboard Massing & Tufted Stitch Lines -->
+        <rect x="230" y="270" width="440" height="200" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-width="1.8" />
+        <line x1="340" y1="270" x2="340" y2="470" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.6" />
+        <line x1="450" y1="270" x2="450" y2="470" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.6" />
+        <line x1="560" y1="270" x2="560" y2="470" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.6" />
+        <!-- Mattress & Bed Base Plinth -->
+        <rect x="250" y="400" width="400" height="70" fill="currentColor" fill-opacity="0.1" stroke="currentColor" stroke-width="1.2" />
+        <!-- Floating Bedside Ledges -->
+        <rect x="120" y="380" width="90" height="25" fill="none" stroke="currentColor" stroke-width="1.4" />
+        <rect x="690" y="380" width="90" height="25" fill="none" stroke="currentColor" stroke-width="1.4" />
+        <!-- Brushed Brass Multi-Globe Sconces -->
+        <circle cx="165" cy="280" r="14" fill="#C9A97E" fill-opacity="0.25" stroke="#C9A97E" stroke-width="1.4" />
+        <circle cx="165" cy="245" r="9" fill="#C9A97E" fill-opacity="0.25" stroke="#C9A97E" stroke-width="1.2" />
+        <line x1="165" y1="230" x2="165" y2="300" stroke="#C9A97E" stroke-width="1.2" />
+        <circle cx="735" cy="280" r="14" fill="#C9A97E" fill-opacity="0.25" stroke="#C9A97E" stroke-width="1.4" />
+        <circle cx="735" cy="245" r="9" fill="#C9A97E" fill-opacity="0.25" stroke="#C9A97E" stroke-width="1.2" />
+        <line x1="735" y1="230" x2="735" y2="300" stroke="#C9A97E" stroke-width="1.2" />
+        <!-- Center Axis & Grid Ticks -->
+        <line x1="450" y1="25" x2="450" y2="500" stroke="currentColor" stroke-width="0.75" stroke-dasharray="6 4 2 4" opacity="0.5" />
+      `,
+      annotations: [
+        { x: 450, y: 38, text: '¢ ROOM AXIS', align: 'middle' },
+        { x: 75, y: 490, text: '±0.000 FFL (FINISHED FLOOR)', align: 'start' },
+        { x: 75, y: 40, text: '+3.150 CEILING CANOPY DATUM', align: 'start' },
+        { x: 165, y: 220, text: 'BRASS SCONCE (+1650 AFF)', align: 'middle' },
+        { x: 450, y: 255, text: 'TAILORED LINEN HEADBOARD (2200mm)', align: 'middle' },
+        { x: 825, y: 85, text: 'CONCEALED COVE (120mm)', align: 'end' },
+      ],
+      dimensions: [
+        { x1: 70, y1: 520, x2: 830, y2: 520, label: 'TOTAL ROOM SPAN 5,840 mm' },
+        { x1: 35, y1: 470, x2: 35, y2: 50, label: 'HEIGHT 3,150 mm' },
+      ],
+    },
+    materialDetails: [
+      {
+        name: 'Solid Sal Hardwood Fluting',
+        scientificSpec: 'Shorea robusta · Quarter-Sawn Millwork',
+        swatchHex: '#4A3321',
+        textureSensory: 'Continuous 45×30mm vertical battens with 15mm deep reveals. Hand-rubbed 3-coat natural linseed oil & beeswax polish with tactile vertical grain.',
+        provenanceGuild: 'Terai Timber Guild, Morang District, Eastern Nepal (FSC-certified sustainable forest yield).',
+        jointDetail: 'Concealed tongue-and-groove biscuit anchors with acoustic decoupler dampers.',
+      },
+      {
+        name: 'Tailored Belgian Raw Flax Linen',
+        scientificSpec: '100% Unbleached Flax · 480 g/m² Heavy Weft',
+        swatchHex: '#D8D3C9',
+        textureSensory: 'Natural dry slub texture with subtle heather tonal depth; absorbs harsh acoustic reverberations and provides soft, resting ergonomic support.',
+        provenanceGuild: 'Bespoke Atelier Upholstery, tailored in Biratnagar workshop over natural latex core.',
+        jointDetail: 'Double-needle saddle stitch with concealed blind-tack tensioning.',
+      },
+      {
+        name: 'Spun Brushed Brass Luminaires',
+        scientificSpec: 'C36000 Free-Cutting Brass Alloy · Unlacquered',
+        swatchHex: '#C9A97E',
+        textureSensory: 'Directional 320-grit micro-brushed finish; develops rich natural living oxidation patina along touchpoints over decades.',
+        provenanceGuild: 'Lost-wax cast and precision lathe-turned in Patan heritage metal artisan foundry.',
+        jointDetail: 'Internal threaded collar chassis with recessed grounding conduit.',
+      },
+      {
+        name: 'Matte Lime Plaster Ground',
+        scientificSpec: 'Hydrated Slaked Lime Plaster · River Sand Mineral Base',
+        swatchHex: '#EFECE6',
+        textureSensory: 'Velvety, cool mineral plaster troweled in 3 thin continuous layers; diffuse surface eliminates harsh glare from raking evening light.',
+        provenanceGuild: 'Dharan Master Mason Guild, calcined from local Eastern Nepal limestone.',
+        jointDetail: 'Flush cove transition joint without synthetic plastic corner beads.',
+      },
+    ],
+  },
+
+  'formal-drawing-room': {
+    docRef: 'RBC-2023-DR-02',
+    spanDimensions: 'W 7,600 × D 5,400 × H 3,600 mm',
+    ceilingDatum: '+3,600 mm AFF (Recessed Coffer Perimeter)',
+    volumeM3: '147.7 m³',
+    footprintM2: '41.0 m²',
+    tolerance: '±1.0 mm Floor Stone Expansion Matrix',
+    lightingSpec: '2700K Multi-Tier Brass Chandelier + Perimeter Grazing (240 lx)',
+    acousticIndex: 'NRC 0.45 (Plush Velvet Seating & Heavy Drapery Damping)',
+    turnkeyDuration: '18 Weeks (Fenestration, Stone Laying & Cabinetry)',
+    millimeterPills: [
+      'SPAN: 7600 × 5400 mm',
+      'CEILING: +3600 mm',
+      'SLAB: 1200 × 600 mm',
+      'GLAZING: 3600 × 1800 mm',
+      'CHANDELIER: ⌀900 mm',
+    ],
+    blueprintTitle: 'Garden Fenestration Axis & Formal Reception Elevation',
+    blueprintSheet: 'SHEET B-201 · ELEVATION 1:25',
+    blueprintScale: 'SCALE 1:25 @ A1',
+    blueprintSvg: {
+      viewBox: '0 0 900 560',
+      pathMarkup: `
+        <!-- Outer Walls -->
+        <rect x="60" y="45" width="780" height="425" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35" />
+        <!-- Floor Datum Line -->
+        <line x1="30" y1="470" x2="870" y2="470" stroke="currentColor" stroke-width="2.5" opacity="0.9" />
+        <!-- Ceiling Coffer Step Down -->
+        <rect x="110" y="45" width="680" height="40" fill="currentColor" fill-opacity="0.04" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
+        <!-- 3-Panel Anodized Glazing Frame -->
+        <rect x="110" y="100" width="680" height="370" fill="none" stroke="currentColor" stroke-width="2.0" />
+        <line x1="336" y1="100" x2="336" y2="470" stroke="currentColor" stroke-width="1.6" />
+        <line x1="563" y1="100" x2="563" y2="470" stroke="currentColor" stroke-width="1.6" />
+        <!-- Floor Marble Tile Grid (1200x600 Cadence) -->
+        <line x1="60" y1="510" x2="840" y2="510" stroke="currentColor" stroke-width="1.0" opacity="0.4" />
+        <line x1="190" y1="470" x2="190" y2="510" stroke="currentColor" stroke-width="0.8" opacity="0.4" />
+        <line x1="320" y1="470" x2="320" y2="510" stroke="currentColor" stroke-width="0.8" opacity="0.4" />
+        <line x1="450" y1="470" x2="450" y2="510" stroke="currentColor" stroke-width="0.8" opacity="0.4" />
+        <line x1="580" y1="470" x2="580" y2="510" stroke="currentColor" stroke-width="0.8" opacity="0.4" />
+        <line x1="710" y1="470" x2="710" y2="510" stroke="currentColor" stroke-width="0.8" opacity="0.4" />
+        <!-- Multi-tier Brass Chandelier Silhouette -->
+        <line x1="450" y1="85" x2="450" y2="180" stroke="#C9A97E" stroke-width="1.5" />
+        <ellipse cx="450" cy="180" rx="90" ry="12" fill="none" stroke="#C9A97E" stroke-width="1.5" />
+        <ellipse cx="450" cy="205" rx="60" ry="8" fill="none" stroke="#C9A97E" stroke-width="1.2" />
+        <ellipse cx="450" cy="225" rx="30" ry="5" fill="none" stroke="#C9A97E" stroke-width="1.0" />
+        <!-- Formal Indigo Sofa & Cognac Armchair Outlines -->
+        <rect x="250" y="360" width="400" height="110" rx="4" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.4" />
+        <rect x="140" y="375" width="90" height="95" rx="4" fill="currentColor" fill-opacity="0.05" stroke="currentColor" stroke-width="1.2" />
+        <rect x="670" y="375" width="90" height="95" rx="4" fill="currentColor" fill-opacity="0.05" stroke="currentColor" stroke-width="1.2" />
+        <!-- Room Center Axis -->
+        <line x1="450" y1="20" x2="450" y2="520" stroke="currentColor" stroke-width="0.75" stroke-dasharray="6 4 2 4" opacity="0.5" />
+      `,
+      annotations: [
+        { x: 450, y: 35, text: '¢ MAIN SALON AXIS', align: 'middle' },
+        { x: 65, y: 490, text: '±0.000 FFL (HONED VEINED MARBLE)', align: 'start' },
+        { x: 65, y: 38, text: '+3.600 CEILING COFFER POCKET', align: 'start' },
+        { x: 450, y: 160, text: 'MULTI-TIER BRASS CHANDELIER (+2600 AFF)', align: 'middle' },
+        { x: 220, y: 120, text: 'PANEL A (3600×1800)', align: 'middle' },
+        { x: 450, y: 120, text: 'PANEL B (PIVOT)', align: 'middle' },
+        { x: 680, y: 120, text: 'PANEL C (3600×1800)', align: 'middle' },
+      ],
+      dimensions: [
+        { x1: 60, y1: 535, x2: 840, y2: 535, label: 'OVERALL SALON WIDTH 7,600 mm' },
+        { x1: 25, y1: 470, x2: 25, y2: 45, label: 'HEIGHT 3,600 mm' },
+      ],
+    },
+    materialDetails: [
+      {
+        name: 'Honed Veined Marble Slabs',
+        scientificSpec: 'Calacatta & Banswara Veined Calcite · 1200×600×20mm',
+        swatchHex: '#EFECE6',
+        textureSensory: 'Silky 400-grit honed matte finish; cool monolithic thermal mass that diffuses tropical heat through eastern Nepal summers.',
+        provenanceGuild: 'Custom extracted and diamond-cut, laid by Dharan master stone masons with 1.5mm tight joints.',
+        jointDetail: 'Color-matched epoxy joints with brass perimeter expansion divider strips.',
+      },
+      {
+        name: 'Multi-Tier Sculpted Brass Luminaire',
+        scientificSpec: 'Custom Chandelier Assembly · Spun Brass & Frosted Quartz',
+        swatchHex: '#C9A97E',
+        textureSensory: 'Warm hand-buffed satin brass with subtle concentric lathe micro-grooves; casts gentle non-glare geometric warmth.',
+        provenanceGuild: 'Crafted by heritage metalsmiths in Patan, tailored for Rubiconius reception salons.',
+        jointDetail: 'Concealed aircraft stainless tension cables with solid brass ceiling mount rosette.',
+      },
+      {
+        name: 'Indigo Velvet & Cognac Leather',
+        scientificSpec: 'High-Martindale Cotton Velvet & Full-Grain Semi-Aniline Hide',
+        swatchHex: '#253652',
+        textureSensory: 'Deep-pile light-absorbing cotton-linen velvet paired with rich vegetable-tanned leather armchairs that soften with age.',
+        provenanceGuild: 'Handcrafted custom furniture atelier in Biratnagar on solid Sal hardwood chassis.',
+        jointDetail: 'Eight-way hand-tied steel coil springs with high-density natural coir padding.',
+      },
+      {
+        name: 'Matte Black Anodized Aluminium',
+        scientificSpec: '6063-T6 Extruded Architectural Profiles · 25-Micron Coat',
+        swatchHex: '#1D2A22',
+        textureSensory: 'Razor-thin 35mm sightlines with tactile micro-beaded anodized texture; thermally broken for tropical climate resilience.',
+        provenanceGuild: 'Precision fenestration engineering workshop, Sunsari District.',
+        jointDetail: 'Dual-compression EPDM gaskets with concealed multi-point locking pins.',
+      },
+    ],
+  },
+
+  'heritage-panelled-gallery': {
+    docRef: 'RBC-2024-PG-03',
+    spanDimensions: 'W 4,800 × D 3,600 × H 3,000 mm',
+    ceilingDatum: '+3,000 mm AFF (Recessed Shadow Picture Rail)',
+    volumeM3: '51.8 m³',
+    footprintM2: '17.3 m²',
+    tolerance: '±0.5 mm Shelf Gusset Alignment',
+    lightingSpec: '2700K Low-Glare Spot Grazing & Warm Art Axis (180 lx)',
+    acousticIndex: 'NRC 0.60 (Grooved Wood Cadence & Soft Fiber Matting)',
+    turnkeyDuration: '10 Weeks (Joinery, Art Framing & Wall Cladding)',
+    millimeterPills: [
+      'SPAN: 4800 × 3600 mm',
+      'CEILING: +3000 mm',
+      'PLANK: 120 × 18 mm',
+      'SHELF: 35 mm Sal',
+      'BRACKET: 200 × 150 mm',
+    ],
+    blueprintTitle: 'Horizontal Tongue-and-Groove Gallery Feature Wall Elevation',
+    blueprintSheet: 'SHEET C-301 · ELEVATION 1:20',
+    blueprintScale: 'SCALE 1:20 @ A1',
+    blueprintSvg: {
+      viewBox: '0 0 900 560',
+      pathMarkup: `
+        <!-- Outer Wall Perimeter -->
+        <rect x="70" y="60" width="760" height="400" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35" />
+        <!-- Floor Datum Line -->
+        <line x1="40" y1="460" x2="860" y2="460" stroke="currentColor" stroke-width="2.5" opacity="0.9" />
+        <!-- Base Plinth -->
+        <rect x="70" y="440" width="760" height="20" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2" />
+        <!-- Horizontal Tongue-and-Groove Boards (120mm spacing) -->
+        <line x1="70" y1="80" x2="830" y2="80" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="105" x2="830" y2="105" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="130" x2="830" y2="130" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="155" x2="830" y2="155" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="180" x2="830" y2="180" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="205" x2="830" y2="205" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="230" x2="830" y2="230" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="255" x2="830" y2="255" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="280" x2="830" y2="280" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="305" x2="830" y2="305" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="330" x2="830" y2="330" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="355" x2="830" y2="355" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="380" x2="830" y2="380" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="405" x2="830" y2="405" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <line x1="70" y1="430" x2="830" y2="430" stroke="currentColor" stroke-width="0.8" opacity="0.45" />
+        <!-- Staggered Solid Sal Floating Shelves -->
+        <!-- Tier 1 Shelf -->
+        <rect x="120" y="240" width="310" height="15" fill="#5C412A" fill-opacity="0.35" stroke="#5C412A" stroke-width="1.5" />
+        <polygon points="160,255 160,285 175,255" fill="none" stroke="#2B2623" stroke-width="1.6" />
+        <polygon points="370,255 370,285 385,255" fill="none" stroke="#2B2623" stroke-width="1.6" />
+        <!-- Tier 2 Shelf -->
+        <rect x="470" y="310" width="310" height="15" fill="#5C412A" fill-opacity="0.35" stroke="#5C412A" stroke-width="1.5" />
+        <polygon points="510,325 510,355 525,325" fill="none" stroke="#2B2623" stroke-width="1.6" />
+        <polygon points="720,325 720,355 735,325" fill="none" stroke="#2B2623" stroke-width="1.6" />
+        <!-- Framed Heritage Mithila Art Matrices -->
+        <rect x="490" y="110" width="130" height="160" fill="none" stroke="#2B2623" stroke-width="2.0" />
+        <rect x="650" y="140" width="130" height="130" fill="none" stroke="#C9A97E" stroke-width="2.0" />
+        <rect x="150" y="110" width="180" height="105" fill="none" stroke="#2B2623" stroke-width="1.8" />
+        <!-- Center Wall Axis -->
+        <line x1="450" y1="35" x2="450" y2="495" stroke="currentColor" stroke-width="0.75" stroke-dasharray="6 4 2 4" opacity="0.5" />
+      `,
+      annotations: [
+        { x: 450, y: 48, text: '¢ GALLERY FEATURE AXIS', align: 'middle' },
+        { x: 75, y: 480, text: '±0.000 FFL (FINISHED FLOOR)', align: 'start' },
+        { x: 75, y: 50, text: '+3.000 CEILING SHADOW PICTURE RAIL', align: 'start' },
+        { x: 275, y: 232, text: 'TIER 1 SAL SHELF (+1250 AFF)', align: 'middle' },
+        { x: 625, y: 302, text: 'TIER 2 SAL SHELF (+850 AFF)', align: 'middle' },
+        { x: 555, y: 95, text: 'FRAMED MITHILA 01', align: 'middle' },
+      ],
+      dimensions: [
+        { x1: 70, y1: 520, x2: 830, y2: 520, label: 'TOTAL WALL LENGTH 4,800 mm' },
+        { x1: 35, y1: 460, x2: 35, y2: 60, label: 'HEIGHT 3,000 mm' },
+      ],
+    },
+    materialDetails: [
+      {
+        name: 'Lime-Washed Tongue & Groove Boards',
+        scientificSpec: 'Seasoned Softwood Planks · 120 × 18 mm Chamfered',
+        swatchHex: '#D8D3C9',
+        textureSensory: 'Warm chalky mineral lime wash over planed timber; subtle grain relief remains visible through low-sheen coating without yellowing.',
+        provenanceGuild: 'Milled and finished by Terai Timber Guild, Morang District.',
+        jointDetail: 'Blind-nailed tongue-and-groove joint with 3mm shadow reveal gap.',
+      },
+      {
+        name: 'Solid Sal Floating Display Shelves',
+        scientificSpec: 'Reclaimed Seasoned Sal (Shorea robusta) · 35mm Solid Slabs',
+        swatchHex: '#5C412A',
+        textureSensory: 'Hand-shaped timber mass with softened chamfered bullnose edge; polished with natural cold-pressed walnut oil.',
+        provenanceGuild: 'Salvaged architectural timber re-milled in Biratnagar joinery shop.',
+        jointDetail: 'Concealed steel rod anchors paired with blackened wrought-iron gusset brackets.',
+      },
+      {
+        name: 'Hand-Forged Wrought Iron Brackets',
+        scientificSpec: 'Mild Steel & Wrought Iron · Black Beeswax Oxide Quenched',
+        swatchHex: '#2B2623',
+        textureSensory: 'Tactile hammer-peened anvil facets; matte carbon-black texture provides honest architectural support under timber weight.',
+        provenanceGuild: 'Handcrafted by traditional blacksmiths in eastern Terai village forge.',
+        jointDetail: 'Slotted countersunk mounting with hand-turned blackened brass screws.',
+      },
+      {
+        name: 'Matte Mineral Wall Finish',
+        scientificSpec: 'Pure Calcined Hydrated Lime · Natural Fine Quartz Aggregate',
+        swatchHex: '#EFECE6',
+        textureSensory: 'Dry earthen tactile finish; completely eliminates high-angle light bounce behind hung Mithila cultural works.',
+        provenanceGuild: 'Prepared and applied by Dharan master plasterers.',
+        jointDetail: 'Continuous seamless plaster perimeter with recessed base reveal.',
+      },
+    ],
+  },
+};
+
+const blueprint = architecturalRegistry[commission.slug] || architecturalRegistry['fluted-master-suite'];
 ---
-<Base title={commission.title} description={commission.summary}>
-  <section class="inner-hero inner-hero--split wrap">
-    <div class="inner-hero__title-col">
-      <nav class="dossier-breadcrumb" aria-label="Breadcrumb" data-reveal="fade" data-intro>
-        <a href="/works/">Works</a>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page">{commission.title}</span>
-      </nav>
-      <p class="section-kicker dossier-kicker" data-reveal="fade" data-intro>
-        {commission.typology} &middot; {commission.location} &middot; {commission.year}
-      </p>
-      <h1 class="inner-hero__title" data-split="lines" data-intro>{commission.title}</h1>
-    </div>
-    <div class="inner-hero__lead-col">
-      <p class="hero__lead" data-reveal="up" data-intro data-delay="0.1">{commission.summary}</p>
-    </div>
-  </section>
 
-  <section class="case-spread case-grid wrap">
-    <figure class={`case-plate ${isPortrait ? 'is-portrait' : 'is-landscape'}`} data-gl data-gl-instant data-gl-flip={commission.slug}>
-      <Image
-        class="project-photo"
-        src={commission.image}
-        alt={commission.alt}
-        width={commission.image.width}
-        height={commission.image.height}
-        loading="eager"
-        fetchpriority="high"
-      />
-    </figure>
+<Base
+  title={`${commission.title} — Architectural Monograph`}
+  description={`${commission.summary} Detailed architectural space dossier, millimeter CAD blueprints, materiality provenance, and room photography across ${commission.location}, Nepal.`}
+>
+  <div class="monograph-page" data-monograph-page>
 
-    <aside class="case-aside">
-      <span class="section-kicker">Space Dossier</span>
-      <dl class="case-facts">
-        <div><dt>Typology</dt><dd>{commission.typology}</dd></div>
-        <div><dt>Location</dt><dd>{commission.location}</dd></div>
-        <div><dt>Year</dt><dd>{commission.year}</dd></div>
-        <div><dt>Scope</dt><dd>{commission.scope}</dd></div>
-        <div><dt>Studio</dt><dd>{site.name}</dd></div>
-      </dl>
-
-      <span class="section-kicker">Materiality</span>
-      <ul class="case-materials">
-        {commission.materials.map((m) => (
-          <li>
-            <span class="material-swatch" style={`background-color: ${m.swatchHex};`} aria-hidden="true"></span>
-            <span>{m.label}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div style="padding-top: 0.75rem;">
-        <button
-          class="btn btn--accent"
-          type="button"
-          data-fill
-          data-open-drawer
-          data-drawer-context={commission.title}
-        >
-          <span class="btn__fill" aria-hidden="true"></span>
-          <span>Commission a Similar Space</span>
-          <span class="btn__arrow" aria-hidden="true">&#8599;</span>
-        </button>
-      </div>
-    </aside>
-  </section>
-
-  <CaseShowcase commission={commission} />
-
-  <section class="case-story wrap">
-    <div class="case-story__grid">
-      {commission.narrative.map((section) => (
-        <div class="case-section">
-          <h2>{section.heading}</h2>
-          <p>{section.text}</p>
+    <!-- ACT 1: COORDINATE MONOGRAPH HEADER & FULL-BLEED HERO STAGE -->
+    <header class="monograph-header wrap" data-monograph-header>
+      <div class="monograph-header__datum-bar" data-reveal="fade">
+        <div class="datum-col">
+          <span class="datum-tag">MONOGRAPH REGISTRY</span>
+          <span class="datum-value">{blueprint.docRef}</span>
         </div>
-      ))}
-    </div>
-
-    <div class="case-next">
-      <div class="case-next__header">
-        <span class="section-kicker">Next Room Study</span>
-        <a class="case-next__all draw" href="/works/">&larr; Return to Works</a>
+        <div class="datum-col">
+          <span class="datum-tag">STUDY INDEX</span>
+          <span class="datum-value">{studyNum} / {totalStudies} &middot; {commission.typology}</span>
+        </div>
+        <div class="datum-col datum-col--desktop">
+          <span class="datum-tag">GEOGRAPHIC DATUM</span>
+          <span class="datum-value">{commission.location.toUpperCase()}, NEPAL &middot; ELEV 72M</span>
+        </div>
+        <div class="datum-col">
+          <span class="datum-tag">COMMISSION YEAR</span>
+          <span class="datum-value">{commission.year}</span>
+        </div>
       </div>
-      <a class="case-next__card" href={`/works/${nextCommission.slug}/`}>
-        <div class="case-next__media">
+
+      <nav class="monograph-breadcrumb" aria-label="Breadcrumb" data-reveal="fade">
+        <a href="/works/" class="draw">&larr; Return to Portfolio Index</a>
+        <span class="sep" aria-hidden="true">/</span>
+        <span class="current" aria-current="page">{commission.title}</span>
+      </nav>
+
+      <div class="monograph-title-block">
+        <div class="monograph-kicker-row">
+          <span class="section-kicker">Space Dossier &middot; {commission.typology} &middot; {commission.location}</span>
+          <span class="monograph-tolerance-badge" aria-hidden="true">{blueprint.tolerance}</span>
+        </div>
+
+        <h1 class="monograph-hero__title" data-split="lines" data-intro>
+          {commission.title}
+        </h1>
+
+        <!-- Millimeter Span Tags (Otto Objects inspired CAD tags) -->
+        <div class="monograph-cad-pills" role="list" aria-label="Architectural dimensions and tolerances">
+          {blueprint.millimeterPills.map((pill) => (
+            <span class="cad-pill" role="listitem">
+              <span class="cad-pill__dot" aria-hidden="true"></span>
+              <span>{pill}</span>
+            </span>
+          ))}
+        </div>
+
+        <p class="monograph-hero__lead" data-reveal="up" data-intro data-delay="0.1">
+          {commission.summary}
+        </p>
+      </div>
+    </header>
+
+    <!-- FULL-BLEED UNSCRIMMED HERO APERTURE (FLIP Handoff Anchor) -->
+    <section class="monograph-hero-stage wrap" aria-label={`${commission.title} Hero Stage`}>
+      <figure
+        class={`monograph-hero__plate case-plate ${isPortrait ? 'is-portrait' : 'is-landscape'}`}
+        data-gl
+        data-gl-instant
+        data-gl-flip={commission.slug}
+      >
+        <div class="monograph-hero__parallax" data-editorial-parallax>
           <Image
-            class="project-photo"
-            src={nextCommission.image}
-            alt={nextCommission.alt}
-            width={nextCommission.image.width}
-            height={nextCommission.image.height}
-            loading="lazy"
+            class="project-photo monograph-hero__img"
+            src={commission.image}
+            alt={commission.alt}
+            width={commission.image.width}
+            height={commission.image.height}
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high"
           />
         </div>
-        <div class="case-next__meta">
-          <span class="case-next__sub">{nextCommission.typology} &middot; {nextCommission.location} &middot; {nextCommission.year}</span>
-          <h3 class="case-next__title">{nextCommission.title}</h3>
-          <span class="case-next__action">
-            <span>View Dossier</span>
-            <span class="case-next__arrow" aria-hidden="true">&rarr;</span>
-          </span>
+
+        <!-- Architectural Blueprint Corner Stamps (CAD Monograph Aesthetic) -->
+        <div class="cad-stamp cad-stamp--tl" aria-hidden="true">
+          <span>{site.name.toUpperCase()} ARCHITECTURAL DOSSIER</span>
+          <span>{blueprint.docRef}</span>
+        </div>
+        <div class="cad-stamp cad-stamp--tr" aria-hidden="true">
+          <span>DATUM: {commission.location.toUpperCase()}</span>
+          <span>26.4678° N &middot; 87.2767° E</span>
+        </div>
+        <div class="cad-stamp cad-stamp--bl" aria-hidden="true">
+          <span>{blueprint.blueprintScale}</span>
+          <span>TOLERANCE {blueprint.tolerance}</span>
+        </div>
+        <div class="cad-stamp cad-stamp--br" aria-hidden="true">
+          <span>PLATE {studyNum} / {totalStudies}</span>
+          <span>COMPLETED {commission.year}</span>
+        </div>
+      </figure>
+
+      <!-- Room Metric Bar directly beneath hero -->
+      <div class="monograph-metrics-bar">
+        <div class="metric-cell">
+          <span class="metric-label">Enclosed Volume</span>
+          <strong class="metric-value">{blueprint.volumeM3}</strong>
+          <span class="metric-sub">Air space datum</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Plan Footprint</span>
+          <strong class="metric-value">{blueprint.footprintM2}</strong>
+          <span class="metric-sub">Net usable floor</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Ceiling Plane</span>
+          <strong class="metric-value">{blueprint.ceilingDatum}</strong>
+          <span class="metric-sub">Clear architectural head</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Turnkey Period</span>
+          <strong class="metric-value">{blueprint.turnkeyDuration}</strong>
+          <span class="metric-sub">Design to handover</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 2: TWO-COLUMN ARCHITECTURAL PLATE SHOWCASE (SVG CAD Blueprint + Detail Zoom) -->
+    <section class="monograph-plate-showcase wrap" aria-labelledby="showcase-cad-heading">
+      <header class="monograph-section-head">
+        <div class="section-head__left">
+          <span class="monograph-section-idx">01 / TECHNICAL ELEVATION</span>
+          <h2 id="showcase-cad-heading" class="monograph-section-title">
+            Architectural Plate Showcase &middot; CAD Blueprint & Detail Zoom
+          </h2>
+        </div>
+        <div class="section-head__right">
+          <span class="monograph-cad-badge">{blueprint.blueprintSheet}</span>
+        </div>
+      </header>
+
+      <div class="monograph-showcase-grid">
+        <!-- COLUMN 1: SVG Vector Architectural Blueprint Drawing -->
+        <div class="showcase-col showcase-col--blueprint" data-blueprint-pane>
+          <div class="blueprint-card">
+            <div class="blueprint-card__head">
+              <div class="blueprint-indicator">
+                <span class="blueprint-dot" aria-hidden="true"></span>
+                <span class="blueprint-title">{blueprint.blueprintTitle}</span>
+              </div>
+              <span class="blueprint-scale-tag">{blueprint.blueprintScale}</span>
+            </div>
+
+            <div class="blueprint-svg-container" role="img" aria-label={`${blueprint.blueprintTitle} technical elevation drawing with millimeter dimensions`}>
+              <svg
+                class="blueprint-svg"
+                viewBox={blueprint.blueprintSvg.viewBox}
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- Architectural Drafting Grid Background -->
+                <defs>
+                  <pattern id={`cad-grid-${commission.slug}`} width="30" height="30" patternUnits="userSpaceOnUse">
+                    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="currentColor" stroke-width="0.35" opacity="0.12" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill={`url(#cad-grid-${commission.slug})`} />
+
+                <!-- Dynamic Path Markup for each Project Blueprint -->
+                <g class="blueprint-paths" set:html={blueprint.blueprintSvg.pathMarkup} />
+
+                <!-- Technical Annotations -->
+                {blueprint.blueprintSvg.annotations.map((annot) => (
+                  <text
+                    x={annot.x}
+                    y={annot.y}
+                    class="blueprint-text"
+                    text-anchor={annot.align || 'start'}
+                    fill="currentColor"
+                  >
+                    {annot.text}
+                  </text>
+                ))}
+
+                <!-- Dimension Lines & Leader Arrows -->
+                {blueprint.blueprintSvg.dimensions.map((dim) => (
+                  <g class="blueprint-dim">
+                    <line x1={dim.x1} y1={dim.y1} x2={dim.x2} y2={dim.y2} stroke="currentColor" stroke-width="1.0" />
+                    <circle cx={dim.x1} cy={dim.y1} r="2.5" fill="currentColor" />
+                    <circle cx={dim.x2} cy={dim.y2} r="2.5" fill="currentColor" />
+                    <text
+                      x={(dim.x1 + dim.x2) / 2}
+                      y={(dim.y1 + dim.y2) / 2 - 8}
+                      class="blueprint-dim-text"
+                      text-anchor="middle"
+                      fill="currentColor"
+                    >
+                      {dim.label}
+                    </text>
+                  </g>
+                ))}
+              </svg>
+            </div>
+
+            <div class="blueprint-card__foot">
+              <span class="blueprint-foot-note">All millwork tolerances ±0.5mm verified on-site by {site.founder}.</span>
+              <span class="blueprint-watermark">RUBICONIUS / VERIFIED COMMISSION</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: High-Resolution Photo Zoom & Detail Elevation -->
+        <div class="showcase-col showcase-col--photo">
+          <div class="photo-zoom-card">
+            <div class="photo-zoom-card__head">
+              <span class="zoom-kicker">High-Resolution Photographic Zoom</span>
+              <span class="zoom-status">TACTILE LENS &middot; 1:1 RESOLUTION</span>
+            </div>
+
+            <figure class="photo-zoom-media" data-zoom-container>
+              <Image
+                class="project-photo zoom-img"
+                src={commission.detailImage || commission.image}
+                alt={`Detailed architectural joinery and material texture in ${commission.title}`}
+                width={commission.detailImage ? commission.detailImage.width : commission.image.width}
+                height={commission.detailImage ? commission.detailImage.height : commission.image.height}
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="zoom-target-reticle" aria-hidden="true">
+                <span class="reticle-line reticle-line--h"></span>
+                <span class="reticle-line reticle-line--v"></span>
+                <span class="reticle-tag">MACRO FOCUS</span>
+              </div>
+            </figure>
+
+            <div class="photo-zoom-card__meta">
+              <div class="zoom-meta-row">
+                <span class="zoom-label">FOCAL DISCIPLINE</span>
+                <span class="zoom-value">{commission.focus}</span>
+              </div>
+              <div class="zoom-meta-row">
+                <span class="zoom-label">MATERIAL DATUM</span>
+                <span class="zoom-value">{commission.materials[0]?.label || 'Natural Architectural Finish'}</span>
+              </div>
+              <div class="zoom-meta-row">
+                <span class="zoom-label">ACOUSTIC BEHAVIOR</span>
+                <span class="zoom-value">{blueprint.acousticIndex}</span>
+              </div>
+              <div class="zoom-meta-row">
+                <span class="zoom-label">PHOTOMETRIC PROFILE</span>
+                <span class="zoom-value">{blueprint.lightingSpec}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 3: MEASURED STUDIES (Integrated WebGL Plate Inspector from CaseShowcase) -->
+    <CaseShowcase commission={commission} />
+
+    <!-- ACT 4: MATERIALITY SWATCH MATRIX (Tactile Textures & Craft Origins) -->
+    <section class="monograph-materiality-matrix wrap" aria-labelledby="materiality-matrix-heading">
+      <header class="monograph-section-head">
+        <div class="section-head__left">
+          <span class="monograph-section-idx">02 / TACTILE PALETTE</span>
+          <h2 id="materiality-matrix-heading" class="monograph-section-title">
+            Materiality Swatch Matrix & Craft Guild Origins
+          </h2>
+        </div>
+        <div class="section-head__right">
+          <span class="monograph-cad-badge">4 ARCHITECTURAL SPECIMENS</span>
+        </div>
+      </header>
+
+      <div class="materiality-matrix-grid" role="list">
+        {blueprint.materialDetails.map((mat, idx) => (
+          <article class="material-card" role="listitem">
+            <header class="material-card__head">
+              <div class="material-swatch-chip" style={`background-color: ${mat.swatchHex};`} aria-hidden="true"></div>
+              <div class="material-card__titles">
+                <span class="material-spec-code">SPEC 0{idx + 1} &middot; {mat.swatchHex}</span>
+                <h3 class="material-name">{mat.name}</h3>
+              </div>
+            </header>
+
+            <p class="material-scientific">{mat.scientificSpec}</p>
+
+            <div class="material-card__body">
+              <div class="material-param">
+                <span class="param-label">TACTILE SURFACE TEXTURE</span>
+                <p class="param-text">{mat.textureSensory}</p>
+              </div>
+
+              <div class="material-param">
+                <span class="param-label">SUPPLIER & CRAFT PROVENANCE</span>
+                <p class="param-text">{mat.provenanceGuild}</p>
+              </div>
+
+              <div class="material-param">
+                <span class="param-label">JOINERY METHODOLOGY</span>
+                <p class="param-text param-text--mono">{mat.jointDetail}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- ACT 5: SPACE DOSSIER TECHNICAL SPECIFICATION SHEET & ARCHITECTURAL NARRATIVE -->
+    <section class="monograph-dossier-story wrap" aria-labelledby="story-dossier-heading">
+      <header class="monograph-section-head">
+        <div class="section-head__left">
+          <span class="monograph-section-idx">03 / MONOGRAPH ARCHIVE</span>
+          <h2 id="story-dossier-heading" class="monograph-section-title">
+            Space Dossier Specifications & Narrative Chapters
+          </h2>
+        </div>
+      </header>
+
+      <div class="monograph-dossier-grid">
+        <!-- LEFT: Architectural Specification Sheet Table -->
+        <div class="dossier-specs-pane">
+          <div class="specs-table-card">
+            <div class="specs-table-card__head">
+              <span class="specs-title">TECHNICAL ARCHIVE REGISTRY</span>
+              <span class="specs-code">{blueprint.docRef}</span>
+            </div>
+
+            <dl class="specs-table">
+              <div class="spec-row">
+                <dt>Typology</dt>
+                <dd>{commission.typology}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Commission Year</dt>
+                <dd>{commission.year}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Regional Sector</dt>
+                <dd>{commission.location}, Eastern Nepal</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Plan Footprint</dt>
+                <dd>{blueprint.footprintM2}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Enclosed Air Volume</dt>
+                <dd>{blueprint.volumeM3}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Ceiling Clear Head</dt>
+                <dd>{blueprint.ceilingDatum}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Primary Millwork</dt>
+                <dd>{commission.focus}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Dimensional Tolerance</dt>
+                <dd>{blueprint.tolerance}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Photometric Design</dt>
+                <dd>{blueprint.lightingSpec}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Acoustic Dampening</dt>
+                <dd>{blueprint.acousticIndex}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Turnkey Period</dt>
+                <dd>{blueprint.turnkeyDuration}</dd>
+              </div>
+              <div class="spec-row">
+                <dt>Lead Architect</dt>
+                <dd>{site.founder} ({site.founderTitle})</dd>
+              </div>
+            </dl>
+
+            <div class="specs-table-cta">
+              <button
+                class="btn btn--accent monograph-consult-btn"
+                type="button"
+                data-fill
+                data-open-drawer
+                data-drawer-context={`${commission.title} (${commission.location})`}
+              >
+                <span class="btn__fill" aria-hidden="true"></span>
+                <span>Commission a Similar Space</span>
+                <span class="btn__arrow" aria-hidden="true">&#8599;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Architectural Narrative Chapters & Principle Statement -->
+        <div class="dossier-narrative-pane">
+          <div class="narrative-statement-pullquote">
+            <span class="pullquote-tag">STUDIO PRINCIPLE</span>
+            <blockquote class="pullquote-text">
+              “Architecture is not applied ornamentation; it is the deliberate discipline of light, honest jointure, and materials that mature alongside the family.”
+            </blockquote>
+            <cite class="pullquote-author">— {site.founder}, Principal Designer</cite>
+          </div>
+
+          <div class="narrative-chapters">
+            {commission.narrative.map((chapter, cIdx) => (
+              <article class="narrative-chapter">
+                <div class="chapter-number">CHAPTER 0{cIdx + 1}</div>
+                <h3 class="chapter-heading">{chapter.heading}</h3>
+                <p class="chapter-text">{chapter.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT 6: NEXT COMMISSION APERTURE PREVIEW (Fluid FLIP Transition Link) -->
+    <section class="monograph-next wrap" aria-labelledby="next-commission-heading">
+      <header class="monograph-section-head">
+        <div class="section-head__left">
+          <span class="monograph-section-idx">04 / SEQUENTIAL STUDY</span>
+          <h2 id="next-commission-heading" class="monograph-section-title">
+            Next Architectural Commission Aperture
+          </h2>
+        </div>
+        <div class="section-head__right">
+          <a class="monograph-return-link draw" href="/works/">
+            &larr; Return to All Works Directory
+          </a>
+        </div>
+      </header>
+
+      <a
+        class="monograph-next__card"
+        href={`/works/${nextCommission.slug}/`}
+        data-transition="flip"
+        data-gl-flip={nextCommission.slug}
+        aria-label={`Advance to next architectural study: ${nextCommission.title}`}
+      >
+        <div class="next-card__media-stage">
+          <div class="next-card__media-wrap" data-editorial-parallax>
+            <Image
+              class="project-photo next-card__img"
+              src={nextCommission.image}
+              alt={nextCommission.alt}
+              width={nextCommission.image.width}
+              height={nextCommission.image.height}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="next-card__lens-overlay" aria-hidden="true">
+            <span class="lens-tag">NEXT APERTURE &middot; STUDY {nextStudyNum}</span>
+            <span class="lens-crosshair">+</span>
+          </div>
+        </div>
+
+        <div class="next-card__meta-bar">
+          <div class="next-card__meta-left">
+            <span class="next-kicker">
+              Study {nextStudyNum} / {totalStudies} &middot; {nextCommission.typology} &middot; {nextCommission.location} &middot; {nextCommission.year}
+            </span>
+            <h3 class="next-title">{nextCommission.title}</h3>
+            <p class="next-summary">{nextCommission.summary}</p>
+          </div>
+
+          <div class="next-card__meta-right">
+            <div class="next-pill-row" aria-hidden="true">
+              {nextCommission.materials.slice(0, 2).map((m) => (
+                <span class="next-mat-pill">
+                  <span class="mat-dot" style={`background-color: ${m.swatchHex};`}></span>
+                  <span>{m.label.split(' ')[0]} {m.label.split(' ')[1] || ''}</span>
+                </span>
+              ))}
+            </div>
+
+            <div class="next-action-pill">
+              <span>View Architectural Dossier</span>
+              <span class="next-arrow" aria-hidden="true">&rarr;</span>
+            </div>
+          </div>
         </div>
       </a>
-    </div>
-  </section>
+    </section>
+
+  </div>
 </Base>
+
+<style>
+  /* ==========================================================================
+     ARCHITECTURAL MONOGRAPH STYLES (Inspired by 40_otto_objects & 06_unseen)
+     Strict alignment with Rubiconius design tokens & typography hierarchy
+     ========================================================================== */
+
+  .monograph-page {
+    position: relative;
+    width: 100%;
+    color: var(--c-fg);
+    background-color: var(--c-bg);
+    padding-bottom: clamp(5rem, 4rem + 4vw, 8rem);
+  }
+
+  /* --------------------------------------------------------------------------
+     HEADER & DATUM BAR
+     -------------------------------------------------------------------------- */
+  .monograph-header {
+    padding-top: clamp(2.5rem, 1.8rem + 2.5vw, 4.5rem);
+    padding-bottom: clamp(1.75rem, 1.25rem + 1.5vw, 3rem);
+  }
+
+  .monograph-header__datum-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.5rem;
+    padding: 1rem 0;
+    margin-bottom: clamp(1.5rem, 1rem + 1.2vw, 2.5rem);
+    border-top: 1px solid var(--c-line);
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  @media (min-width: 768px) {
+    .monograph-header__datum-bar {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .datum-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .datum-tag {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-subtle);
+  }
+
+  .datum-value {
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--c-fg);
+  }
+
+  .monograph-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--c-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .monograph-breadcrumb a {
+    color: var(--c-fg);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .monograph-breadcrumb a:hover {
+    color: var(--c-bronze);
+  }
+
+  .monograph-breadcrumb .sep {
+    color: var(--c-line);
+  }
+
+  .monograph-breadcrumb .current {
+    color: var(--c-muted);
+  }
+
+  .monograph-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 1100px;
+  }
+
+  .monograph-kicker-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .monograph-tolerance-badge {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--c-line);
+    color: var(--c-bronze);
+    background-color: var(--c-surface);
+  }
+
+  .monograph-hero__title {
+    font-family: var(--f-display);
+    font-size: var(--t-mega);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--c-fg);
+    margin: 0;
+  }
+
+  /* Millimeter CAD Tags */
+  .monograph-cad-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cad-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.7rem;
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-line);
+    font-family: var(--f-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--c-fg);
+  }
+
+  .cad-pill__dot {
+    width: 5px;
+    height: 5px;
+    background-color: var(--c-bronze);
+    border-radius: 50%;
+  }
+
+  .monograph-hero__lead {
+    font-family: var(--f-body);
+    font-size: clamp(1.0625rem, 0.98rem + 0.35vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--c-muted);
+    max-width: 820px;
+    margin-top: 0.5rem;
+  }
+
+  /* --------------------------------------------------------------------------
+     FULL BLEED HERO APERTURE & CAD STAMPS
+     -------------------------------------------------------------------------- */
+  .monograph-hero-stage {
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+
+  .monograph-hero__plate {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    background-color: var(--c-surface);
+    aspect-ratio: 16 / 9;
+  }
+
+  .monograph-hero__plate.is-portrait {
+    aspect-ratio: 4 / 3;
+  }
+
+  @media (max-width: 768px) {
+    .monograph-hero__plate {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  .monograph-hero__parallax {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .monograph-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: var(--photo-filter);
+    transition: transform 0.6s var(--ease-monograph);
+  }
+
+  /* CAD Corner Stamps */
+  .cad-stamp {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.6rem 0.85rem;
+    background-color: rgba(5, 5, 5, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #F3EFE8;
+    font-family: var(--f-body);
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 2;
+    border: 1px solid rgba(243, 239, 232, 0.15);
+  }
+
+  .cad-stamp--tl { top: 1rem; left: 1rem; }
+  .cad-stamp--tr { top: 1rem; right: 1rem; text-align: right; }
+  .cad-stamp--bl { bottom: 1rem; left: 1rem; }
+  .cad-stamp--br { bottom: 1rem; right: 1rem; text-align: right; }
+
+  @media (max-width: 640px) {
+    .cad-stamp { display: none; }
+  }
+
+  /* Metrics Bar beneath hero */
+  .monograph-metrics-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background-color: var(--c-line);
+    border: 1px solid var(--c-line);
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .monograph-metrics-bar {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .metric-cell {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1rem, 0.8rem + 0.6vw, 1.5rem);
+    background-color: var(--c-bg);
+  }
+
+  .metric-label {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-subtle);
+    margin-bottom: 0.35rem;
+  }
+
+  .metric-value {
+    font-family: var(--f-display);
+    font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--c-fg);
+  }
+
+  .metric-sub {
+    font-family: var(--f-body);
+    font-size: 0.75rem;
+    color: var(--c-muted);
+    margin-top: 0.25rem;
+  }
+
+  /* --------------------------------------------------------------------------
+     SHARED SECTION HEADERS
+     -------------------------------------------------------------------------- */
+  .monograph-section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: clamp(1.75rem, 1.25rem + 1.2vw, 2.75rem);
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .section-head__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .monograph-section-idx {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-bronze);
+    font-weight: 600;
+  }
+
+  .monograph-section-title {
+    font-family: var(--f-display);
+    font-size: clamp(1.4rem, 1.15rem + 1vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--c-fg);
+    margin: 0;
+  }
+
+  .monograph-cad-badge {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid var(--c-line);
+    background-color: var(--c-surface);
+    color: var(--c-muted);
+  }
+
+  /* --------------------------------------------------------------------------
+     ACT 2: TWO-COLUMN PLATE SHOWCASE (Blueprint + High-Res Zoom)
+     -------------------------------------------------------------------------- */
+  .monograph-plate-showcase {
+    margin-bottom: clamp(4rem, 3rem + 3vw, 7rem);
+  }
+
+  .monograph-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .monograph-showcase-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+    }
+  }
+
+  /* Blueprint Drawing Card */
+  .blueprint-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #121415;
+    color: #E2DDD5;
+    border: 1px solid rgba(226, 221, 213, 0.18);
+  }
+
+  .blueprint-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(226, 221, 213, 0.15);
+    background-color: #0E1011;
+  }
+
+  .blueprint-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .blueprint-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #C9A97E;
+    border-radius: 50%;
+  }
+
+  .blueprint-title {
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: #F3EFE8;
+  }
+
+  .blueprint-scale-tag {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: #C9A97E;
+    border: 1px solid rgba(201, 169, 126, 0.35);
+    padding: 0.2rem 0.5rem;
+  }
+
+  .blueprint-svg-container {
+    position: relative;
+    width: 100%;
+    min-height: 380px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background-color: #121415;
+    overflow: hidden;
+  }
+
+  .blueprint-svg {
+    width: 100%;
+    height: auto;
+    max-height: 480px;
+  }
+
+  .blueprint-text {
+    font-family: var(--f-body);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+  }
+
+  .blueprint-dim-text {
+    font-family: var(--f-body);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    fill: #C9A97E;
+  }
+
+  .blueprint-card__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.25rem;
+    border-top: 1px solid rgba(226, 221, 213, 0.12);
+    background-color: #0E1011;
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: #9E968B;
+  }
+
+  .blueprint-watermark {
+    color: #C9A97E;
+    font-weight: 500;
+  }
+
+  /* Photo Zoom Card */
+  .photo-zoom-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-line);
+  }
+
+  .photo-zoom-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--c-line);
+    background-color: var(--c-bg);
+  }
+
+  .zoom-kicker {
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--c-fg);
+  }
+
+  .zoom-status {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: var(--c-bronze);
+  }
+
+  .photo-zoom-media {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: var(--c-surface);
+  }
+
+  .zoom-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: var(--photo-filter);
+    transition: transform 0.6s var(--ease-monograph);
+  }
+
+  .photo-zoom-card:hover .zoom-img {
+    transform: scale(1.04);
+  }
+
+  .zoom-target-reticle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .reticle-line--h {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.45);
+  }
+
+  .reticle-line--v {
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.45);
+  }
+
+  .reticle-tag {
+    font-family: var(--f-body);
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    color: #FFFFFF;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 0.15rem 0.35rem;
+    margin-top: 2rem;
+  }
+
+  .photo-zoom-card__meta {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background-color: var(--c-bg);
+    border-top: 1px solid var(--c-line);
+    flex: 1;
+  }
+
+  .zoom-meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    border-bottom: 1px solid var(--c-line);
+    padding-bottom: 0.6rem;
+  }
+
+  .zoom-meta-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .zoom-label {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: var(--c-subtle);
+  }
+
+  .zoom-value {
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--c-fg);
+  }
+
+  /* --------------------------------------------------------------------------
+     ACT 4: MATERIALITY SWATCH MATRIX
+     -------------------------------------------------------------------------- */
+  .monograph-materiality-matrix {
+    margin-bottom: clamp(4rem, 3rem + 3vw, 7rem);
+  }
+
+  .materiality-matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .materiality-matrix-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .materiality-matrix-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .material-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-line);
+    padding: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .material-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--c-bronze);
+  }
+
+  .material-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .material-swatch-chip {
+    width: 38px;
+    height: 38px;
+    border-radius: 0;
+    border: 1px solid var(--c-line);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+  }
+
+  .material-card__titles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .material-spec-code {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    color: var(--c-bronze);
+    font-weight: 600;
+  }
+
+  .material-name {
+    font-family: var(--f-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--c-fg);
+    margin: 0;
+  }
+
+  .material-scientific {
+    font-family: var(--f-body);
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--c-muted);
+    margin: 0 0 1.25rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .material-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .material-param {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .param-label {
+    font-family: var(--f-body);
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-subtle);
+  }
+
+  .param-text {
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--c-fg);
+    margin: 0;
+  }
+
+  .param-text--mono {
+    font-size: 0.75rem;
+    color: var(--c-muted);
+  }
+
+  /* --------------------------------------------------------------------------
+     ACT 5: SPACE DOSSIER ARCHIVE & NARRATIVE
+     -------------------------------------------------------------------------- */
+  .monograph-dossier-story {
+    margin-bottom: clamp(4rem, 3rem + 3vw, 7rem);
+  }
+
+  .monograph-dossier-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .monograph-dossier-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 3.5rem;
+    }
+  }
+
+  /* Specifications Table Card */
+  .specs-table-card {
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-line);
+    padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+  }
+
+  .specs-table-card__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .specs-title {
+    font-family: var(--f-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    color: var(--c-fg);
+  }
+
+  .specs-code {
+    font-family: var(--f-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--c-bronze);
+  }
+
+  .specs-table {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--c-line);
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    gap: 1rem;
+  }
+
+  .spec-row dt {
+    color: var(--c-subtle);
+    font-weight: 400;
+  }
+
+  .spec-row dd {
+    color: var(--c-fg);
+    font-weight: 500;
+    text-align: right;
+    margin: 0;
+  }
+
+  .specs-table-cta {
+    margin-top: 1.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .monograph-consult-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Narrative Pane & Pullquote */
+  .dossier-narrative-pane {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .narrative-statement-pullquote {
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+    background-color: var(--c-surface);
+    border-left: 3px solid var(--c-bronze);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .pullquote-tag {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    color: var(--c-bronze);
+    font-weight: 600;
+  }
+
+  .pullquote-text {
+    font-family: var(--f-display);
+    font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+    font-weight: 400;
+    line-height: 1.4;
+    font-style: italic;
+    color: var(--c-fg);
+    margin: 0;
+  }
+
+  .pullquote-author {
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    color: var(--c-muted);
+  }
+
+  .narrative-chapters {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .narrative-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .chapter-number {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    color: var(--c-bronze);
+    font-weight: 600;
+  }
+
+  .chapter-heading {
+    font-family: var(--f-display);
+    font-size: clamp(1.3rem, 1.1rem + 0.6vw, 1.7rem);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--c-fg);
+    margin: 0;
+  }
+
+  .chapter-text {
+    font-family: var(--f-body);
+    font-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1.0625rem);
+    line-height: 1.65;
+    color: var(--c-muted);
+    margin: 0;
+  }
+
+  /* --------------------------------------------------------------------------
+     ACT 6: NEXT COMMISSION APERTURE PREVIEW (FLIP Link)
+     -------------------------------------------------------------------------- */
+  .monograph-next {
+    margin-top: clamp(2rem, 1.5rem + 2vw, 4rem);
+  }
+
+  .monograph-return-link {
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    color: var(--c-fg);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .monograph-return-link:hover {
+    color: var(--c-bronze);
+  }
+
+  .monograph-next__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background-color: var(--c-surface);
+    border: 1px solid var(--c-line);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+  }
+
+  .monograph-next__card:hover {
+    border-color: var(--c-bronze);
+    transform: translateY(-2px);
+  }
+
+  .next-card__media-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    background-color: #0E1011;
+  }
+
+  @media (max-width: 768px) {
+    .next-card__media-stage {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  .next-card__media-wrap {
+    width: 100%;
+    height: 100%;
+  }
+
+  .next-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: var(--photo-filter);
+    transition: transform 0.7s var(--ease-monograph);
+  }
+
+  .monograph-next__card:hover .next-card__img {
+    transform: scale(1.03);
+  }
+
+  .next-card__lens-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    color: #F3EFE8;
+  }
+
+  .lens-tag {
+    font-family: var(--f-body);
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    background-color: rgba(5, 5, 5, 0.65);
+    backdrop-filter: blur(8px);
+    padding: 0.3rem 0.65rem;
+    border: 1px solid rgba(243, 239, 232, 0.2);
+  }
+
+  .lens-crosshair {
+    font-size: 1.5rem;
+    font-weight: 300;
+    opacity: 0.5;
+  }
+
+  .next-card__meta-bar {
+    padding: clamp(1.25rem, 1rem + 1vw, 2.25rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    background-color: var(--c-surface);
+  }
+
+  @media (min-width: 900px) {
+    .next-card__meta-bar {
+      grid-template-columns: 1.3fr 0.7fr;
+      align-items: center;
+    }
+  }
+
+  .next-card__meta-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .next-kicker {
+    font-family: var(--f-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-bronze);
+    font-weight: 500;
+  }
+
+  .next-title {
+    font-family: var(--f-display);
+    font-size: clamp(1.4rem, 1.2rem + 0.8vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--c-fg);
+    margin: 0;
+  }
+
+  .next-summary {
+    font-family: var(--f-body);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--c-muted);
+    margin: 0;
+    max-width: 650px;
+  }
+
+  .next-card__meta-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 900px) {
+    .next-card__meta-right {
+      align-items: flex-end;
+    }
+  }
+
+  .next-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .next-mat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.6rem;
+    background-color: var(--c-bg);
+    border: 1px solid var(--c-line);
+    font-family: var(--f-body);
+    font-size: 0.75rem;
+    color: var(--c-fg);
+  }
+
+  .mat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .next-action-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.1rem;
+    background-color: var(--c-fg);
+    color: var(--c-bg);
+    font-family: var(--f-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .monograph-next__card:hover .next-action-pill {
+    background-color: var(--c-cta);
+  }
+
+  .next-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .monograph-next__card:hover .next-arrow {
+    transform: translateX(4px);
+  }
+</style>

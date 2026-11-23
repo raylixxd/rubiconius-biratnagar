@@ -7,7 +7,6 @@ html {
   background: var(--c-bg);
   color: var(--c-fg);
   scroll-padding-top: 88px;
-  scrollbar-gutter: stable;
   overflow-x: clip;
 }
 html::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -68,16 +67,18 @@ p { text-wrap: pretty; }
 
 /* Lenis */
 html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
 .lenis [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 
 /* WebGL Layer */
-#gl { position: fixed; inset: 0; z-index: 3; pointer-events: none; }
-#gl.gl--inspector, #gl.gl--flip { z-index: 64; }
+#gl { position: fixed; inset: 0; z-index: var(--z-gl, 0); pointer-events: none; }
+#gl.gl--inspector { z-index: 64; }
+#gl.gl--flip { z-index: 500; }
 .gl-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .gl-seam { position: relative; height: 1px; pointer-events: none; }
-#main, [data-layer='content'] { position: relative; z-index: var(--z-content); }
+main, #main, [data-layer='content'] { position: relative; z-index: var(--z-content, 1); }
 .gl-on [data-gl].is-gl-ready img, .gl-on [data-gl].is-gl-ready .gl-fallback { opacity: 0; }
 .gl-on [data-gl] img { transition: opacity 0.3s ease; }
 .gl-on [data-gl].is-gl-ready { background: none !important; }
@@ -137,6 +138,7 @@ html:not(.gl-on) body {
   position: fixed; inset: 0; z-index: var(--z-loader);
   display: grid; place-items: center; padding: var(--gutter);
   background: #000000; color: #F7F5F0;
+  pointer-events: none;
 }
 .loader__symbol-wrap {
   display: grid; place-items: center;

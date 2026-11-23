@@ -14,6 +14,9 @@ export type Item = {
   revealed: boolean;
   inView: boolean;
   scrub: boolean;
+  isRunway?: boolean;
+  isHero?: boolean;
+  parallaxX?: number;
   bounds?: { top: number; left: number; width: number; height: number };
   io?: IntersectionObserver;
   visIo?: IntersectionObserver;
@@ -29,6 +32,7 @@ const items: Item[] = [];
 const textures = new Map<string, Texture>();
 const renderHooks = new Set<GLHook>();
 let vw = 0, vh = 0, time = 0, velocity = 0, lastBgRender = 0, globalDusk = 0;
+let runwayTrackX = 0, velocityX = 0, targetVelocityX = 0;
 let paused = false;
 let bg: { scene: Transform; program: Program } | null = null;
 const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
@@ -65,6 +69,7 @@ export function initGL() {
   canvas.addEventListener('webglcontextlost', (e) => {
     e.preventDefault();
     paused = true;
+    document.documentElement.classList.remove('gl-on');
   }, false);
 
   canvas.addEventListener('webglcontextrestored', () => {
@@ -74,6 +79,7 @@ export function initGL() {
     geometry = new Plane(glCtx, { widthSegments: 32, heightSegments: 32 });
     const mountedEls = Array.from(document.querySelectorAll<HTMLElement>('[data-gl]'));
     unmountGL();
+    document.documentElement.classList.add('gl-on');
     resize(true);
     mountedEls.forEach(add);
   }, false);
@@ -99,6 +105,15 @@ export function registerGLHook(fn: GLHook): () => void {
 
 export function setGLDusk(v: number) {
   globalDusk = v;
+}
+
+export function setRunwayState(trackX: number, velX: number, progress: number) {
+  runwayTrackX = trackX;
+  targetVelocityX = velX;
+  const shift = (0.5 - progress) * 0.12;
+  for (const it of items) {
+    if (it.isRunway) it.parallaxX = shift;
+  }
 }
 
 export function getGLDusk() {
@@ -279,14 +294,19 @@ function add(el: HTMLElement) {
   const tier = getQualityTier();
   const prefix = getTierPrefix(tier);
   const procedural = el.dataset.gl === 'procedural';
+  const isHero = el.hasAttribute('data-gl-hero');
+  const isRunway = el.hasAttribute('data-gl-runway');
   const uniforms: Record<string, { value: unknown }> = {
     uPlaneSizes: { value: new Vec2(1, 1) },
     uTime: { value: 0 },
     uHover: { value: 0 },
     uVelocity: { value: 0 },
+    uVelocityX: { value: 0 },
+    uParallaxX: { value: 0 },
     uRevealProgress: { value: el.hasAttribute('data-gl-instant') ? 1 : 0 },
     uScrollProgress: { value: 0 },
     uExpandProgress: { value: 0 },
+    uIsHero: { value: isHero ? 1 : 0 },
     uFluteStrength: { value: 0.012 },
     uDusk: { value: globalDusk },
     uBronzeTint: { value: [0.655, 0.486, 0.302] },
@@ -328,7 +348,7 @@ function add(el: HTMLElement) {
   };
 
   const item: Item = {
-    el, mesh, program, hover, revealed: el.hasAttribute('data-gl-instant'), inView: true, scrub,
+    el, mesh, program, hover, revealed: el.hasAttribute('data-gl-instant'), inView: true, scrub, isHero, isRunway, parallaxX: 0,
     off: () => {
       el.removeEventListener('pointerenter', enter);
       el.removeEventListener('pointerleave', leave);
@@ -385,6 +405,9 @@ export function mountGL(root: ParentNode = document) {
 }
 
 export function unmountGL() {
+  runwayTrackX = 0;
+  velocityX = 0;
+  targetVelocityX = 0;
   while (items.length) {
     const it = items.pop()!;
     it.off();
@@ -415,29 +438,45 @@ function render(t: number) {
   time = t;
   const sNow = scrollState();
   const target = Math.max(-40, Math.min(40, sNow.velocity));
-  velocity += (target - velocity) * 0.12;
+  velocity += (target - velocity) * 0.14;
+  velocity *= 0.90;
+  if (Math.abs(velocity) < 0.0005) velocity = 0;
+
+  velocityX += (targetVelocityX - velocityX) * 0.14;
+  velocityX *= 0.90;
+  targetVelocityX *= 0.85;
+  if (Math.abs(velocityX) < 0.0005) velocityX = 0;
+
   const clampedVel = Math.max(-0.42, Math.min(0.42, velocity * 0.015));
+  const clampedVelX = Math.max(-0.35, Math.min(0.35, velocityX * 0.015));
 
   let visible = 0;
   for (const it of items) {
-    if (!it.inView) {
+    if (!it.inView && !it.isRunway) {
       it.mesh.visible = false;
       continue;
     }
     const b = it.bounds || measureItem(it);
+    const left = it.isRunway ? b.left + runwayTrackX : b.left;
     const top = b.top - sNow.y;
     const bottom = top + b.height;
-    const onScreen = bottom > -240 && top < vh + 240 && b.width > 0;
+    const onScreen =
+      bottom > -240 &&
+      top < vh + 240 &&
+      b.width > 0 &&
+      (!it.isRunway || (left + b.width > -240 && left < vw + 240));
     it.mesh.visible = onScreen;
     if (!onScreen) continue;
     visible++;
     it.mesh.scale.set(b.width, b.height, 1);
-    it.mesh.position.set(b.left + b.width / 2 - vw / 2, vh / 2 - (top + b.height / 2), 0);
+    it.mesh.position.set(left + b.width / 2 - vw / 2, vh / 2 - (top + b.height / 2), 0);
     const u = it.program.uniforms;
     u.uPlaneSizes?.value.set(b.width, b.height);
     if (it.el.dataset.gl === 'procedural' && u.uTime) u.uTime.value = time;
     if (u.uHover) u.uHover.value = it.hover.v;
     if (u.uVelocity) u.uVelocity.value = clampedVel;
+    if (u.uVelocityX) u.uVelocityX.value = it.isRunway ? clampedVelX : 0;
+    if (u.uParallaxX) u.uParallaxX.value = it.isRunway ? (it.parallaxX || 0) : 0;
     if (u.uDusk) u.uDusk.value = globalDusk;
     if (u.uScrollProgress) u.uScrollProgress.value = Math.min(1, Math.max(0, 1 - (top + b.height * 0.5) / (vh + b.height)));
     if (it.scrub && u.uRevealProgress) u.uRevealProgress.value = Math.min(1, Math.max(0, (vh - top) / (vh * 0.75)));

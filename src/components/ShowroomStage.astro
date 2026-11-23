@@ -11,6 +11,53 @@ const pinWaypoints = showroom.waypoints.filter((w) => w.pin);
 const studyByKey = new Map(materialStudies.map((m) => [m.key, m]));
 const leadStudy = materialStudies[0];
 const trackViewports = isInline ? 6 : showroom.trackViewports;
+
+// Canonical 4 Architectural POVs matching reverse-engineered 04_sculpting_harmony benchmark
+const architecturalPOVs = [
+  {
+    index: '01',
+    id: 'pov-01-master-bay',
+    label: 'F.S. III Master Bay',
+    subtitle: 'Fluted Sal Canopy & Cove Grazing',
+    u: 0.0,
+    span: '8,450 × 5,600 × 3,200 mm',
+    spec: 'Solid 24mm Shorea robusta fluted woodwork, honed Kota limestone hearth plinth',
+  },
+  {
+    index: '02',
+    id: 'pov-02-joinery-axis',
+    label: 'F.S. II Joinery Axis',
+    subtitle: 'Honed Marble Plane & Credenza Datum',
+    u: 0.25,
+    span: '12,800 × 7,400 × 3,450 mm',
+    spec: 'Calacatta Viola marble bench, concealed unlacquered spun brass edge profiles',
+  },
+  {
+    index: '03',
+    id: 'pov-03-terracotta-threshold',
+    label: 'F.S. I Terracotta Threshold',
+    subtitle: 'Monolithic Plinth & Raking Daylight',
+    u: 0.5,
+    span: '9,200 × 4,800 × 3,100 mm',
+    spec: 'Mineral lime plaster, floor-to-ceiling fluted reeded acoustic glazing',
+  },
+  {
+    index: '04',
+    id: 'pov-04-material-table',
+    label: 'Material Study Table',
+    subtitle: 'Tactile Macro Specimen Array & Specular Grazing',
+    u: 0.75,
+    span: '3,600 × 1,400 × 760 mm',
+    spec: 'Honed travertine slab, patinated brass hardware, hand-rubbed tung oil timber',
+  },
+];
+
+// Time of day modes matching volumetric sunbeam presets (16_lusion & 32_immersive_garden)
+const timeOfDayModes = [
+  { id: 'morning', label: 'Morning Mist', kelvin: '5500K', icon: 'sun-low' },
+  { id: 'golden', label: 'Golden Hour', kelvin: '3200K', icon: 'sun-high' },
+  { id: 'dusk', label: 'Deep Dusk', kelvin: '2200K', icon: 'moon' },
+];
 ---
 
 <section
@@ -40,7 +87,51 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
         <span class="showroom-label">{showroom.label ?? 'Material Study'}</span>
       </div>
 
+      {/* Floating Center Time-of-Day Segmented Pill Controls */}
+      <div class="showroom-tod showroom-tod--floating" data-showroom-tod data-tod-active="morning" role="radiogroup" aria-label="Volumetric daylight time of day">
+        <div class="showroom-tod__pill">
+          <div class="showroom-tod__indicator" aria-hidden="true"></div>
+          {timeOfDayModes.map((tod, idx) => (
+            <button
+              type="button"
+              class={`showroom-tod__btn ${idx === 0 ? 'is-active' : ''}`}
+              data-tod={tod.id}
+              role="radio"
+              aria-checked={idx === 0 ? 'true' : 'false'}
+              aria-label={`Switch lighting to ${tod.label} (${tod.kelvin})`}
+            >
+              <span class="showroom-tod__icon" aria-hidden="true">
+                {tod.id === 'morning' && (
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <circle cx="8" cy="8" r="3.2" />
+                    <path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2" />
+                  </svg>
+                )}
+                {tod.id === 'golden' && (
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <circle cx="8" cy="8" r="3.5" fill="currentColor" fill-opacity="0.3" />
+                    <path d="M8 1v2.5M8 12.5V15M1 8h2.5M12.5 8H15M3.2 3.2l1.8 1.8M11 11l1.8 1.8M3.2 12.8l1.8-1.8M11 5l1.8-1.8" />
+                  </svg>
+                )}
+                {tod.id === 'dusk' && (
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+                    <path d="M13.5 9.2A5.5 5.5 0 0 1 6.8 2.5a5.5 5.5 0 1 0 6.7 6.7z" fill="currentColor" fill-opacity="0.25" />
+                  </svg>
+                )}
+              </span>
+              <span class="showroom-tod__label">{tod.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div class="showroom-chrome__right">
+        {/* Interaction Mode Indicator Badge (Story Spline vs Scene Orbit) */}
+        <div class="showroom-hud__mode-badge" data-showroom-mode-badge data-hud-mode="story" title="Press Space to toggle 3D free-orbit inspection">
+          <span class="showroom-hud__mode-indicator" aria-hidden="true"></span>
+          <span class="showroom-hud__mode-text" data-mode-label>Story Spline</span>
+        </div>
+
         <button
           class="showroom-sound"
           type="button"
@@ -80,6 +171,54 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
       <p class="showroom-banner__title" data-room-banner-title>{showroom.waypoints[0].label}</p>
     </div>
 
+    {/* Floating HUD Coordinate Framing & Viewfinder Reticle */}
+    <div class="showroom-hud" data-showroom-hud aria-hidden="true">
+      <div class="showroom-hud__frame">
+        <span class="showroom-hud__corner showroom-hud__corner--tl"></span>
+        <span class="showroom-hud__corner showroom-hud__corner--tr"></span>
+        <span class="showroom-hud__corner showroom-hud__corner--bl"></span>
+        <span class="showroom-hud__corner showroom-hud__corner--br"></span>
+      </div>
+
+      <div class="showroom-hud__datum showroom-hud__datum--tl">
+        <span class="showroom-hud__pip"></span>
+        <span data-hud-coords>26.4678° N &middot; 87.2767° E</span>
+        <span>&middot; ELEV +72.4M</span>
+      </div>
+
+      <div class="showroom-hud__datum showroom-hud__datum--tr">
+        <span>RUBICONIUS ARCHITECTURAL STUDY</span>
+        <span class="showroom-hud__pip"></span>
+      </div>
+
+      <div class="showroom-hud__datum showroom-hud__datum--bl">
+        <span class="showroom-hud__pip"></span>
+        <span data-hud-active-pov>POV 01 &middot; F.S. III MASTER BAY</span>
+        <span data-hud-span>&middot; 8,450 &times; 5,600 MM</span>
+      </div>
+
+      <div class="showroom-hud__datum showroom-hud__datum--br">
+        <span class="showroom-hud__compass">
+          <span class="showroom-hud__compass-ring">
+            <span class="showroom-hud__compass-needle" data-hud-compass-needle></span>
+          </span>
+          <span data-hud-azimuth>AZ 084&deg;</span>
+        </span>
+        <span data-hud-fps>&middot; 60 FPS</span>
+      </div>
+
+      {/* Reticle Viewfinder */}
+      <div class="showroom-hud__reticle">
+        <div class="showroom-hud__reticle-ring"></div>
+        <div class="showroom-hud__reticle-dot"></div>
+        <div class="showroom-hud__reticle-tick showroom-hud__reticle-tick--top"></div>
+        <div class="showroom-hud__reticle-tick showroom-hud__reticle-tick--bottom"></div>
+        <div class="showroom-hud__reticle-tick showroom-hud__reticle-tick--left"></div>
+        <div class="showroom-hud__reticle-tick showroom-hud__reticle-tick--right"></div>
+      </div>
+    </div>
+
+    {/* 3D Viewport Stage */}
     <div class="showroom-stage" aria-label="3D material study viewport">
       <img
         class="showroom-progressive-poster"
@@ -97,6 +236,53 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
       <div class="showroom-scrim-bottom" aria-hidden="true"></div>
     </div>
 
+    {/* Camera POV Navigation Dock (Slide-Out Architectural Drawer) */}
+    <div class="showroom-pov" data-showroom-pov data-open="false">
+      <button
+        type="button"
+        class="showroom-pov__toggle"
+        data-pov-toggle
+        aria-expanded="false"
+        aria-label="Toggle Camera POV Navigation Drawer"
+      >
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <circle cx="8" cy="8" r="3.2" />
+          <path d="M1.5 5.5V3a1.5 1.5 0 0 1 1.5-1.5h2.5M10.5 1.5H13A1.5 1.5 0 0 1 14.5 3v2.5M14.5 10.5V13a1.5 1.5 0 0 1-1.5 1.5h-2.5M5.5 14.5H3A1.5 1.5 0 0 1 1.5 13v-2.5" />
+        </svg>
+        <span data-pov-active-label>POV 01 &middot; Master Bay</span>
+      </button>
+
+      <div class="showroom-pov__drawer" data-pov-drawer>
+        <div class="showroom-pov__header">
+          <span class="showroom-pov__heading">Architectural POVs</span>
+          <span class="showroom-pov__count">04 Stations</span>
+        </div>
+
+        <div class="showroom-pov__list" role="list">
+          {architecturalPOVs.map((pov, idx) => (
+            <button
+              type="button"
+              class={`showroom-pov__item ${idx === 0 ? 'is-active' : ''}`}
+              data-pov-item={idx}
+              data-pov-u={pov.u}
+              role="listitem"
+              aria-label={`Jump to architectural station: ${pov.label}`}
+            >
+              <span class="showroom-pov__indicator" aria-hidden="true"></span>
+              <div class="showroom-pov__meta">
+                <span class="showroom-chapter__num">{pov.index}</span>
+                <span class="showroom-chapter__label">{pov.label}</span>
+              </div>
+              <p class="showroom-drawer__summary" style="font-size: 0.65rem; margin-top: 0.25rem; line-height: 1.35;">
+                {pov.subtitle}
+              </p>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Spatial Pins Markers */}
     <div class="showroom-pins" aria-label="Material palette markers">
       {pinWaypoints.map((wp) => {
         return (
@@ -121,9 +307,10 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
       })}
     </div>
 
+    {/* Footer Chapter Rail */}
     <footer class="showroom-footer">
       <p class="showroom-caption">Concept preview of our material palette — not a specific completed project.</p>
-      <p class="showroom-hint" data-showroom-hint>Scroll to walk &middot; Drag to look</p>
+      <p class="showroom-hint" data-showroom-hint>Scroll to walk spline &middot; Space to free-orbit look</p>
 
       <nav class="showroom-chapters-wrap" aria-label="Material study chapters">
         <div class="showroom-rail-track" aria-hidden="true">
@@ -149,6 +336,7 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
 
   {!isInline && <div class="showroom-spacer" aria-hidden="true"></div>}
 
+  {/* Material Inspection Drawer */}
   <aside
     class="showroom-drawer"
     data-showroom-drawer
@@ -192,7 +380,7 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
         <a
           class="showroom-drawer__inquire"
           data-sdrawer-inquire
-          href={`https://wa.me/${site.whatsappNumber}`}
+          href={`https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent('Hello Riya, I am inquiring about the architectural finishes and material specifications from the Rubiconius 3D Showroom.')}`}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -203,13 +391,14 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
     </div>
   </aside>
 
+  {/* Fallback Directory for No-Script / Lower-Tier Devices */}
   <div class="showroom-fallback" aria-label="Material study directory">
     <div class="showroom-fallback__inner">
       <div class="showroom-fallback__head">
         <span class="showroom-drawer__code">Material Study</span>
-        <h2 class="showroom-fallback__title">Five material concepts in Eastern Nepal daylight.</h2>
+        <h2 class="showroom-fallback__title">Five material concepts in {site.primaryRegion || 'Nepal'} daylight.</h2>
         <p class="showroom-drawer__summary">
-          Concept preview of our material palette — not a specific completed project. Honed Kota limestone, fluted dark Sal timber, deep Verde Alpi stone, and quiet mineral finishes across Biratnagar and Dharan.
+          Concept preview of our material palette — not a specific completed project. Honed stone, fluted timber, architectural metalwork, and quiet mineral finishes across {site.city}.
         </p>
       </div>
 
@@ -255,8 +444,226 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
 
   <noscript>
     <style>
-      .showroom-stage, .showroom-pins, .showroom-footer, .showroom-status, .showroom-spacer, .showroom-inline-bar { display: none !important; }
+      .showroom-stage, .showroom-pins, .showroom-footer, .showroom-status, .showroom-spacer, .showroom-inline-bar, .showroom-hud, .showroom-tod, .showroom-pov { display: none !important; }
       .showroom-fallback { display: block !important; }
     </style>
   </noscript>
 </section>
+
+<script>
+  import { mountShowroom, type ShowroomHandle } from '../engine/showroom';
+  import { soundEngine } from '../engine/soundEngine';
+  import { ARCHITECTURAL_POVS, type ShowroomInteractionMode } from '../engine/showroom/cameraSpline';
+  import type { TimeOfDayPreset } from '../engine/showroom/volumetric';
+
+  function initShowroomStage() {
+    const root = document.querySelector<HTMLElement>('[data-showroom-root]');
+    if (!root) return;
+
+    // Prevent double mount
+    if ((root as any).__stageInitialized) return;
+    (root as any).__stageInitialized = true;
+
+    const mode = (root.dataset.showroomMode as 'fullscreen' | 'inline') || 'fullscreen';
+    let handle: ShowroomHandle | null = null;
+
+    // Mount core reverse-engineered Three.js showroom engine
+    handle = mountShowroom(root, { mode });
+
+    // ------------------------------------------------------------------------
+    // 1. Time-of-Day Segmented Pill Controller
+    // ------------------------------------------------------------------------
+    const todWrap = root.querySelector<HTMLElement>('[data-showroom-tod]');
+    const todBtns = root.querySelectorAll<HTMLButtonElement>('[data-tod]');
+
+    const todToPreset: Record<string, TimeOfDayPreset> = {
+      morning: 'day',
+      golden: 'golden',
+      dusk: 'night',
+    };
+
+    const setLightingMode = (todId: 'morning' | 'golden' | 'dusk') => {
+      const preset: TimeOfDayPreset = todToPreset[todId] ?? 'day';
+      if (todWrap) {
+        todWrap.dataset.todActive = todId;
+      }
+      todBtns.forEach((btn) => {
+        const isActive = btn.dataset.tod === todId;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-checked', String(isActive));
+      });
+
+      // Dispatch event to engine listeners
+      window.dispatchEvent(
+        new CustomEvent('studio:lighting', {
+          detail: { preset, dusk: preset === 'night' },
+        })
+      );
+      soundEngine.tick();
+    };
+
+    todBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetTod = btn.dataset.tod as 'morning' | 'golden' | 'dusk';
+        if (targetTod) {
+          setLightingMode(targetTod);
+        }
+      });
+    });
+
+    // ------------------------------------------------------------------------
+    // 2. Camera POV Quick Select Drawer
+    // ------------------------------------------------------------------------
+    const povDock = root.querySelector<HTMLElement>('[data-showroom-pov]');
+    const povToggle = root.querySelector<HTMLButtonElement>('[data-pov-toggle]');
+    const povItems = root.querySelectorAll<HTMLButtonElement>('[data-pov-item]');
+    const povActiveLabel = root.querySelector<HTMLElement>('[data-pov-active-label]');
+    const hudActivePov = root.querySelector<HTMLElement>('[data-hud-active-pov]');
+    const hudSpan = root.querySelector<HTMLElement>('[data-hud-span]');
+
+    const togglePOVDrawer = (open?: boolean) => {
+      if (!povDock || !povToggle) return;
+      const isOpen = open ?? povDock.dataset.open !== 'true';
+      povDock.dataset.open = String(isOpen);
+      povToggle.setAttribute('aria-expanded', String(isOpen));
+      soundEngine.tick();
+    };
+
+    povToggle?.addEventListener('click', () => togglePOVDrawer());
+
+    povItems.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = Number(btn.dataset.povItem);
+        const u = Number(btn.dataset.povU);
+
+        if (window.__showroomDebug?.jumpToPOV) {
+          window.__showroomDebug.jumpToPOV(idx);
+        } else if (window.__showroomDebug?.jumpTo && !isNaN(u)) {
+          window.__showroomDebug.jumpTo(u);
+        }
+
+        povItems.forEach((b) => b.classList.toggle('is-active', b === btn));
+        togglePOVDrawer(false);
+        soundEngine.click();
+      });
+    });
+
+    // Close POV drawer on click outside
+    document.addEventListener('click', (e) => {
+      if (povDock && povDock.dataset.open === 'true' && !povDock.contains(e.target as Node)) {
+        togglePOVDrawer(false);
+      }
+    });
+
+    // ------------------------------------------------------------------------
+    // 3. Mode Badge & Decoupling State (Story Spline <-> Scene Orbit)
+    // ------------------------------------------------------------------------
+    const modeBadge = root.querySelector<HTMLElement>('[data-showroom-mode-badge]');
+    const modeLabel = root.querySelector<HTMLElement>('[data-mode-label]');
+
+    const updateModeBadge = (interactionMode: ShowroomInteractionMode) => {
+      if (!modeBadge) return;
+      modeBadge.dataset.hudMode = interactionMode === 'scene' ? 'orbit' : 'story';
+      if (modeLabel) {
+        modeLabel.textContent = interactionMode === 'scene' ? 'Scene Orbit' : 'Story Spline';
+      }
+    };
+
+    modeBadge?.addEventListener('click', () => {
+      const curMode = modeBadge.dataset.hudMode === 'orbit' ? 'story' : 'scene';
+      if (window.__showroomDebug?.setMode) {
+        window.__showroomDebug.setMode(curMode as ShowroomInteractionMode);
+      }
+      updateModeBadge(curMode as ShowroomInteractionMode);
+      soundEngine.click();
+    });
+
+    // ------------------------------------------------------------------------
+    // 4. Keyboard Shortcuts for Architectural Monograph Exhibition
+    // ------------------------------------------------------------------------
+    const onKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is inside form inputs
+      if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return;
+
+      if (e.key >= '1' && e.key <= '4') {
+        const idx = parseInt(e.key, 10) - 1;
+        if (window.__showroomDebug?.jumpToPOV) {
+          window.__showroomDebug.jumpToPOV(idx);
+          soundEngine.click();
+        }
+      } else if (e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        const currentMode = modeBadge?.dataset.hudMode === 'orbit' ? 'story' : 'scene';
+        if (window.__showroomDebug?.setMode) {
+          window.__showroomDebug.setMode(currentMode as ShowroomInteractionMode);
+        }
+        updateModeBadge(currentMode as ShowroomInteractionMode);
+        soundEngine.click();
+      } else if (e.key.toLowerCase() === 'l') {
+        // Cycle lighting presets
+        const presets: ('morning' | 'golden' | 'dusk')[] = ['morning', 'golden', 'dusk'];
+        const current = (todWrap?.dataset.todActive as 'morning' | 'golden' | 'dusk') || 'morning';
+        const nextIdx = (presets.indexOf(current) + 1) % presets.length;
+        setLightingMode(presets[nextIdx]);
+      } else if (e.key === 'Escape') {
+        togglePOVDrawer(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+
+    // ------------------------------------------------------------------------
+    // 5. 60 FPS Telemetry & Heading Compass Synchronization
+    // ------------------------------------------------------------------------
+    let compassNeedle = root.querySelector<HTMLElement>('[data-hud-compass-needle]');
+    let azimuthText = root.querySelector<HTMLElement>('[data-hud-azimuth]');
+    let rafId: number;
+
+    const syncHUDTelemetry = () => {
+      if (window.__showroomDebug) {
+        const state = window.__showroomDebug.getState();
+
+        if (state.interactionMode) {
+          updateModeBadge(state.interactionMode);
+        }
+
+        if (state.activePOV) {
+          if (povActiveLabel) povActiveLabel.textContent = state.activePOV;
+          if (hudActivePov) hudActivePov.textContent = state.activePOV.toUpperCase();
+        }
+
+        // Compass heading based on camera angle
+        if (compassNeedle && state.cam) {
+          const angleDeg = Math.round((Math.atan2(state.cam[0], state.cam[2]) * 180) / Math.PI);
+          compassNeedle.style.transform = `rotate(${angleDeg}deg)`;
+          if (azimuthText) {
+            const normalizedDeg = (angleDeg + 360) % 360;
+            azimuthText.textContent = `AZ ${String(normalizedDeg).padStart(3, '0')}°`;
+          }
+        }
+      }
+
+      rafId = requestAnimationFrame(syncHUDTelemetry);
+    };
+
+    rafId = requestAnimationFrame(syncHUDTelemetry);
+
+    // Teardown hook
+    const cleanup = () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('keydown', onKeyDown);
+      handle?.dispose();
+      delete (root as any).__stageInitialized;
+    };
+
+    document.addEventListener('astro:before-swap', cleanup, { once: true });
+  }
+
+  // Support direct load & Astro View Transitions
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initShowroomStage);
+  } else {
+    initShowroomStage();
+  }
+  document.addEventListener('astro:page-load', initShowroomStage);
+</script>

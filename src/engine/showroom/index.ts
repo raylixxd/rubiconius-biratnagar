@@ -6,6 +6,7 @@ import { getQualityTier, isTouch, prefersReducedMotion } from '../env';
 import { pauseGL, resumeGL } from '../gl';
 import { getScrollLimit, onScroll, resizeScroll, scrollState, scrollToTarget } from '../scroll';
 import { studioAudio } from '../audio';
+import { soundEngine } from '../soundEngine';
 import { holdEnter } from '../transition';
 import { registerLoaderTask } from '../loader';
 import { CameraRail } from './rail';
@@ -17,6 +18,12 @@ import { MaterialDrawer } from './drawer';
 import { ChapterBar } from './chapters';
 import { ScrollHint } from './hints';
 import { DebugFlyController } from './debug';
+import { VolumetricShowroomSystem, type TimeOfDayPreset } from './volumetric';
+import { createFluidGround, type FluidGroundHandle } from './fluidGround';
+import { CameraSplineController, ARCHITECTURAL_POVS, type ArchitecturalPOV, type ShowroomInteractionMode } from './cameraSpline';
+import { createCSMShadows, type CSMShadowController } from './csmShadows';
+import { materialAtlas } from './materialAtlas';
+import { createCinematicHUD } from './cinematicHUD';
 
 export type ShowroomMode = 'fullscreen' | 'inline';
 
@@ -39,8 +46,13 @@ declare global {
         visible: boolean;
         debugFly: boolean;
         audio: ReturnType<typeof studioAudio.getDebugState>;
+        activePOV?: string;
+        interactionMode?: ShowroomInteractionMode;
       };
       jumpTo: (u: number, immediate?: boolean) => void;
+      jumpToPOV: (idx: number, immediate?: boolean) => void;
+      setTimeOfDay: (preset: TimeOfDayPreset) => void;
+      setMode: (mode: ShowroomInteractionMode) => void;
       logWaypoint: () => { cam: number[]; target: number[] } | null;
     };
   }
@@ -122,16 +134,67 @@ export function mountShowroom(
   // Sync Lenis limit to this page's track height immediately
   resizeScroll();
 
-  // Living ICG-style Atmosphere (PMREM studio reflections, swaying leaf shadows, sunbeam motes, shimmering water)
+  // Living ICG-style Atmosphere & Reverse-Engineered Visual Systems
   const atmosphere = createLivingAtmosphere(scene, renderer);
   const duskState = { v: document.documentElement.dataset.lighting === 'dusk' ? 1 : 0 };
   atmosphere.setDusk(duskState.v);
+
+  // 1. Cascaded Shadow Maps (CSM) System
+  const csm = createCSMShadows(
+    scene,
+    camera,
+    {
+      cascades: 3,
+      maxFar: 45,
+      mode: 'practical',
+      bias: -0.0001,
+      normalBias: 0.02,
+    },
+    renderer
+  );
+
+  // 2. Fluid Ground Plane Reflections & Navier-Stokes GPU Solver
+  const fluidGround = createFluidGround({
+    size: [32, 32],
+    position: [0, -0.015, 0],
+    reflectionIntensity: 0.42,
+  });
+  scene.add(fluidGround.mesh);
+
+  // 3. Volumetric Sunbeams & Dust Motes System
+  const volumetric = new VolumetricShowroomSystem({
+    dustParticleCount: 384,
+  });
+  volumetric.attachToScene(scene);
+
+  // Pointer event raycasting for interactive fluid ground perturbation
+  const onPointerMove = (e: PointerEvent) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
+    const ndcX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const ndcY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+    fluidGround.raycastPointer(ndcX, ndcY, camera);
+  };
+  canvas.addEventListener('pointermove', onPointerMove, { passive: true, signal });
+
+  // Time-of-Day & Lighting Mode Listener
   window.addEventListener(
-    'rubiconius:lighting',
+    'studio:lighting',
     (e) => {
-      const dusk = Boolean((e as CustomEvent<{ dusk?: boolean }>).detail?.dusk);
+      const detail = (e as CustomEvent<{ preset?: TimeOfDayPreset; dusk?: boolean }>).detail;
+      let preset: TimeOfDayPreset = 'day';
+      if (detail?.preset) {
+        preset = detail.preset;
+      } else if (typeof detail?.dusk === 'boolean') {
+        preset = detail.dusk ? 'night' : 'day';
+      }
+      const dusk = preset === 'night' ? 1.0 : preset === 'golden' ? 0.45 : 0.0;
+      volumetric.setTimeOfDay(preset, 0.85);
+      fluidGround.setDusk(dusk);
+      csm.setDusk(dusk);
+      cinematicHUD.setTimeOfDay(preset);
       gsap.to(duskState, {
-        v: dusk ? 1 : 0,
+        v: dusk,
         duration: 0.85,
         ease: 'power2.out',
         overwrite: true,
@@ -172,6 +235,23 @@ export function mountShowroom(
   const hints = new ScrollHint(root, signal);
   const tactile = new TactileCamera(canvas, showroom.baseFov, signal, () => hints.dismiss());
   const debugFly = new DebugFlyController(camera, canvas, signal);
+
+  // 4. Camera Spline Controller with Lenis Decoupling (04_sculpting_harmony)
+  const cameraSpline = new CameraSplineController(camera, canvas, {
+    algorithm: 'catmullrom',
+    baseFov: showroom.baseFov,
+    signal,
+  });
+
+  // 5. Cinematic Viewfinder HUD & Real-Time Telemetry Cluster (05_kpr & 40_otto_objects)
+  const cinematicHUD = createCinematicHUD({
+    canvasHost: host,
+    scene,
+    camera,
+    renderer,
+    density: 'standard',
+    signal,
+  });
 
   const drawer = new MaterialDrawer(drawerEl, signal, () => {
     tactile.setPinTarget(null);
@@ -254,78 +334,30 @@ export function mountShowroom(
     const now = performance.now();
     const dt = Math.min(0.05, Math.max(0.001, (now - lastNow) / 1000));
     lastNow = now;
+    const timeSec = (now - bootTime) / 1000;
     if (!prefersReducedMotion()) {
-      atmosphere.update((now - bootTime) / 1000);
+      atmosphere.update(timeSec);
+      volumetric.update(timeSec, dt);
+      fluidGround.update(renderer, scene, camera, timeSec, dt);
     }
-
-    if (!dprSteppedDown && initialDpr > 1.5 && isReady) {
-      if (dt > 0.022) {
-        slowAccum += dt;
-        if (slowAccum > 2.0) {
-          dprSteppedDown = true;
-          renderer.setPixelRatio(1.5);
-          renderer.setSize(host.clientWidth || window.innerWidth, host.clientHeight || window.innerHeight, false);
-        }
-      } else {
-        slowAccum = Math.max(0, slowAccum - dt * 0.5);
-      }
-    }
+    csm.update();
 
     if (debugFly.isActive()) {
       debugFly.update(dt);
     } else {
-      // Smooth damped scrub (~0.6s catch-up matching scrub: 0.6)
-      const kScroll = prefersReducedMotion() ? 1 : 1 - Math.exp((-dt / 0.6) * 3.0);
-      currentU += (targetU - currentU) * kScroll;
-
-      rail.samplePosition(currentU, railPos);
-      rail.sampleTarget(currentU, railLook);
-      tactile.apply(camera, railPos, railLook, scrollVel, dt);
-
-      // Gentle ICG-style velocity-settle snap on fullscreen desktop only (never trap inline homepage scroll!)
-      if (
-        !isInline &&
-        !isTouch() &&
-        !prefersReducedMotion() &&
-        !drawer.isOpen() &&
-        !isSnapping &&
-        now > snapCooldownUntil
-      ) {
-        if (Math.abs(scrollVel) < 0.05) {
-          idleFrames++;
-          if (idleFrames === 12) {
-            const limit = getScrollLimit();
-            if (limit > 0) {
-              const curPx = currentU * limit;
-              const hit =
-                currentU > 0.985
-                  ? rail.waypoints[rail.waypoints.length - 1]
-                  : rail.waypoints.find((w) => {
-                      const dPx = Math.abs(curPx - w.u * limit);
-                      return dPx > 10 && dPx <= 220;
-                    });
-              if (hit) {
-                isSnapping = true;
-                scrollToTarget(hit.u * limit, {
-                  duration: 0.8,
-                  onComplete: () => {
-                    isSnapping = false;
-                    snapCooldownUntil = performance.now() + 900;
-                  },
-                });
-              }
-            }
-          }
-        } else {
-          idleFrames = 0;
-        }
-      }
+      cameraSpline.update(targetU, scrollVel, dt);
+      currentU = cameraSpline.getProgress();
     }
 
     chapters.update(currentU, false);
     pins.update(camera, stageW, stageH, currentU, drawer.isOpen());
 
     renderer.render(scene, camera);
+
+    // 5. Update Real-Time Cinematic HUD Overlay (05_kpr & 40_otto_objects)
+    cinematicHUD.setSplineProgress(currentU);
+    cinematicHUD.setInteractionMode(cameraSpline.getMode());
+    cinematicHUD.update(dt);
   };
 
   gsap.ticker.add(renderTick);
@@ -359,6 +391,21 @@ export function mountShowroom(
         renderer.toneMapping = loaded.toneMapping;
         atmosphere.attachToLoadedScene(loaded.object3D);
         pins.setOccluders(loaded.object3D);
+
+        // Setup Cascaded Shadow Maps materials on loaded geometry
+        loaded.object3D.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) {
+            const mesh = child as THREE.Mesh;
+            if (Array.isArray(mesh.material)) {
+              mesh.material.forEach((mat) => csm.setupMaterial(mat));
+            } else if (mesh.material) {
+              csm.setupMaterial(mesh.material);
+            }
+          }
+        });
+
+        // Apply procedural luxury architectural PBR materials
+        materialAtlas.applyByMeshName(loaded.object3D);
 
         if (loaded.extractedWaypoints) {
           rail = new CameraRail(loaded.extractedWaypoints);
@@ -450,6 +497,8 @@ export function mountShowroom(
       visible: isVisible,
       debugFly: debugFly.isActive(),
       audio: studioAudio.getDebugState(),
+      activePOV: ARCHITECTURAL_POVS[cameraSpline.getActivePOVIndex()]?.label,
+      interactionMode: cameraSpline.getMode(),
     }),
     jumpTo: (u: number, immediate = false) => {
       const clamped = THREE.MathUtils.clamp(u, 0, 1);
@@ -469,12 +518,30 @@ export function mountShowroom(
         scrollToTarget(targetY, { duration: 1.0 });
       }
     },
+    jumpToPOV: (idx: number, immediate = false) => {
+      cameraSpline.jumpToPOV(idx, immediate);
+    },
+    setTimeOfDay: (preset: TimeOfDayPreset) => {
+      volumetric.setTimeOfDay(preset, 0.85);
+      const dusk = preset === 'night' ? 1.0 : preset === 'golden' ? 0.45 : 0.0;
+      fluidGround.setDusk(dusk);
+      csm.setDusk(dusk);
+    },
+    setMode: (m: ShowroomInteractionMode) => {
+      cameraSpline.setMode(m);
+    },
     logWaypoint: () => (debugFly.isActive() ? debugFly.logWaypoint() : null),
   };
 
   const dispose = () => {
     if (disposed) return;
     disposed = true;
+
+    cameraSpline.dispose();
+    cinematicHUD.dispose();
+    fluidGround.dispose();
+    volumetric.dispose();
+    csm.dispose();
 
     visIo?.disconnect();
     loadIo?.disconnect();
@@ -507,3 +574,46 @@ export function mountShowroom(
 
   return { ready, dispose };
 }
+
+// Re-export Cinematic HUD system and types
+export {
+  CinematicHUD,
+  createCinematicHUD,
+  type CinematicHUDOptions,
+  type HUDDensityMode,
+  type TelemetrySnapshot,
+  type ScreenshotExportOptions,
+  type ScreenshotExportResult,
+  type TitleBlockData,
+} from './cinematicHUD';
+
+// Re-export Continuous 24-Hour Solar Choreography System
+export {
+  SolarChoreographyController,
+  SolarTimeSlider,
+  createSolarChoreography,
+  createSolarSlider,
+  computeSolarCoordinates,
+  computeSolarPhotometrics,
+  computeShadowChoreography,
+  formatSolarTelemetry,
+  cctToLinearRGB,
+  evaluateArchitecturalCCT,
+  driveCSMShadows,
+  driveVolumetricSystem,
+  driveCelestialAtmosphere,
+  driveSceneLighting,
+  ARCHITECTURAL_SOLAR_PRESETS,
+  BIRATNAGAR_OBSERVER,
+  DHARAN_OBSERVER,
+  type SolarCoordinates,
+  type SolarPhotometrics,
+  type ShadowChoreographyState,
+  type SolarChoreographySnapshot,
+  type SolarPresetId,
+  type SolarPreset,
+  type SolarChoreographyTargets,
+  type SolarChoreographyOptions,
+  type SolarTimeSliderOptions,
+} from './solarChoreography';
+

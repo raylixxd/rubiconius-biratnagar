@@ -1,6 +1,6 @@
 import { isTouch } from '../env';
 
-const STORAGE_KEY = 'rubiconius_showroom_hint_seen';
+const STORAGE_KEY = 'studio_showroom_hint_seen';
 
 export class ScrollHint {
   private el: HTMLElement | null;

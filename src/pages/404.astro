@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
 ---
-<Base title="Room Not Found" description="Return to the Rubiconius Biratnagar and Dharan interior architecture showcase.">
+<Base title="Room Not Found" description={`Return to the ${site.name} interior architecture showcase.`}>
   <section class="inner-hero wrap" style="min-height: 58svh; align-content: center;">
     <p class="section-kicker">404</p>
     <h1 class="inner-hero__title">This room plan is not drafted here.</h1>

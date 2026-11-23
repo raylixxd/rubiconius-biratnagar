@@ -74,8 +74,10 @@ uniform mat4 projectionMatrix;
 uniform mat3 normalMatrix;
 
 uniform float uVelocity;
+uniform float uVelocityX;
 uniform float uHover;
 uniform float uExpandProgress;
+uniform float uIsHero;
 uniform vec3 uCameraPos;
 
 varying vec2 vUv;
@@ -88,14 +90,19 @@ varying float vFresnel;
 void main() {
   vUv = uv;
   vec3 p = position;
-  float flatten = 1.0 - clamp(uExpandProgress, 0.0, 1.0);
+  float heroGate = 1.0 - step(0.5, uIsHero);
+  float flatten = (1.0 - clamp(uExpandProgress, 0.0, 1.0)) * heroGate;
   float vel = clamp(uVelocity, -0.42, 0.42);
   if (abs(vel) < 0.001) vel = 0.0;
+  float velX = clamp(uVelocityX, -0.35, 0.35);
+  if (abs(velX) < 0.001) velX = 0.0;
 
-  // Vertical inertia curvature & subtle shear on scroll
+  // Showcase scroll inertia ribbon wave & horizontal runway arch (disabled on full-bleed hero)
   float bend = sin(uv.y * 3.14159265);
-  p.z += bend * abs(vel) * 0.035 * flatten;
-  p.y += bend * vel * 0.045 * flatten;
+  float archX = sin(uv.x * 3.14159265) * velX * 0.085 * flatten;
+  p.z += bend * abs(vel) * 0.085 * flatten + archX;
+  p.y += bend * vel * 0.095 * flatten;
+  p.x += sin(uv.y * 3.14159265) * velX * 0.045 * flatten;
 
   // Perturb normal along curvature so grazing sheen tracks scroll & hover cleanly
   float tilt = cos(uv.y * 3.14159265) * 0.38 * abs(vel) * flatten;
@@ -122,6 +129,7 @@ uniform vec4 uCropRect;
 
 uniform float uScrollProgress;
 uniform float uVelocity;
+uniform float uParallaxX;
 uniform float uHover;
 uniform float uExpandProgress;
 uniform float uFluteStrength;
@@ -188,8 +196,8 @@ void main() {
   float flatten = 1.0 - clamp(uExpandProgress, 0.0, 1.0);
   float vel = clamp(uVelocity, -0.42, 0.42);
 
-  // Restrained fluted-glass optical refraction near vertical plate edges
-  float edgeMask = pow(abs(uv.x - 0.5) * 2.0, 2.2) * sin(uv.x * 28.0) * vel * uFluteStrength * flatten;
+  // Fluted-glass optical refraction near vertical plate edges amplified by scroll velocity
+  float edgeMask = pow(abs(uv.x - 0.5) * 2.0, 2.2) * sin(uv.x * 28.0) * vel * uFluteStrength * 1.8 * flatten;
   uv.x += edgeMask;
 
   // Optical breathing zoom + hover micro-zoom (flattens when expanded)
@@ -198,8 +206,11 @@ void main() {
   zoom = mix(zoom, 1.0, clamp(uExpandProgress, 0.0, 1.0));
   uv = 0.5 + center * zoom;
 
-  // Aspect-locked cover + Retina-safe crop interpolation (detail crop -> full frame on expand)
+  // Aspect-locked cover + runway internal UV counter-parallax + Retina-safe crop interpolation
   vec2 coverUv = coverAspect(uv, uPlaneSizes, uImageSizes);
+  if (abs(uParallaxX) > 0.0001) {
+    coverUv.x = (coverUv.x - 0.5) * 0.88 + 0.5 + uParallaxX * flatten;
+  }
   vec4 activeCrop = mix(uCropRect, vec4(0.0, 0.0, 1.0, 1.0), clamp(uExpandProgress, 0.0, 1.0));
   vec2 sampleUv = clamp(activeCrop.xy + coverUv * activeCrop.zw, vec2(0.001), vec2(0.999));
 

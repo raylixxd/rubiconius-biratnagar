@@ -1,12 +1,2124 @@
 ---
 import Base from '../layouts/Base.astro';
 import ShowroomStage from '../components/ShowroomStage.astro';
+import { commissions, materialStudies, showroom, site } from '../data/site';
+import studioPracticeWorkspace from '../assets/studio-practice-workspace.jpg';
+import studioJoinery from '../assets/studio-joinery.jpg';
+import studioThreshold from '../assets/studio-threshold.jpg';
+import studioMarble from '../assets/studio-marble.webp';
+import realMasterBedroom from '../assets/real-master-bedroom.jpg';
+import realLivingRoom from '../assets/real-living-room.jpg';
+import realLoungeVignette from '../assets/real-lounge-vignette.jpg';
+
+// Architectural PBR substrate definitions with empirical optical measurements
+const pbrMaterials = [
+  {
+    id: 'kota-limestone',
+    index: '01',
+    name: 'Honed Kota Limestone',
+    typology: 'Mineral Floorplane & Thermal Plinth',
+    quarryOrigin: 'Kota Formation, Calibrated Slabs',
+    finish: 'Matte Diamond Grit 400 Honed',
+    albedoHex: '#D8CDBD',
+    roughness: 0.72,
+    metalness: 0.00,
+    reflectanceF0: 0.040,
+    ior: 1.54,
+    bumpDepth: '1.2mm Micro-relief',
+    aoCavity: '0.86 Cavity Contact',
+    thermalMass: '1.82 W/m·K (Passive Cooling)',
+    climateSuitability: 'Biratnagar Humid Subtropical (Tarai Plains)',
+    specs: '30mm calibrated slab depth with recessed 3mm hairline brass expansion joints.',
+    notes: 'Low-glare mineral substrate reflecting indirect daylight evenly without thermal trapping.',
+    image: studioPracticeWorkspace,
+  },
+  {
+    id: 'sal-timber',
+    index: '02',
+    name: 'Seasoned Sal Hardwood',
+    typology: 'Fluted Wall Panelling & Ceiling Canopy',
+    quarryOrigin: 'Eastern Terai Forest Reserves',
+    finish: 'Natural Tung Oil, Hand-Rubbed Matte',
+    albedoHex: '#4A3321',
+    roughness: 0.46,
+    metalness: 0.00,
+    reflectanceF0: 0.038,
+    ior: 1.51,
+    bumpDepth: '2.4mm Fluted Reveal',
+    aoCavity: '0.94 Flute Shadow',
+    thermalMass: '0.14 W/m·K (Acoustic & Thermal Buffer)',
+    climateSuitability: 'Kiln-seasoned for Eastern Nepal monsoon humidity cycles',
+    specs: '24mm on-center vertical fluting with concealed tongue-and-groove fastenings.',
+    notes: 'Dense Shorea robusta timber milled by regional joiners in Munal Path studio.',
+    image: studioJoinery,
+  },
+  {
+    id: 'verde-alpi',
+    index: '03',
+    name: 'Verde Alpi Serpentinite',
+    typology: 'Monolithic Hearth & Kitchen Island Plinth',
+    quarryOrigin: 'Metamorphic Serpentinite Deposit',
+    finish: 'Satin Silk Honed, Low-Reflectance',
+    albedoHex: '#1D2A22',
+    roughness: 0.24,
+    metalness: 0.00,
+    reflectanceF0: 0.052,
+    ior: 1.58,
+    bumpDepth: '0.8mm Calcite Vein Relief',
+    aoCavity: '0.82 Base Inset',
+    thermalMass: '2.10 W/m·K (High Thermal Inertia)',
+    climateSuitability: 'Resistant to moisture and oil staining',
+    specs: '50mm mitered book-matched slabs with chamfered 1.5mm eased perimeter edges.',
+    notes: 'Deep alpine green matrix interlaced with stark white crystalline calcite veining.',
+    image: studioMarble,
+  },
+  {
+    id: 'unlacquered-brass',
+    index: '04',
+    name: 'Unlacquered Spun Brass',
+    typology: 'Architectural Hardware & Cove Liners',
+    quarryOrigin: 'Cu70/Zn30 Architectural Alloy',
+    finish: 'Longitudinally Spun & Fine-Brushed',
+    albedoHex: '#C9A97E',
+    roughness: 0.28,
+    metalness: 1.00,
+    reflectanceF0: 0.850,
+    ior: 2.14,
+    bumpDepth: '0.3mm Lathe Micro-grooves',
+    aoCavity: '0.78 Shadow Reveal',
+    thermalMass: '115 W/m·K (Conductor)',
+    climateSuitability: 'Living metal that develops rich golden-brown patina over time',
+    specs: 'Solid turned pulls, shadow reveal extrusions, and spun pendant fixtures.',
+    notes: 'Warm metallic highlights catching morning sunbeams and incandescent evening lamps.',
+    image: realLoungeVignette,
+  },
+  {
+    id: 'lime-plaster',
+    index: '05',
+    name: 'Troweled Matte Lime Plaster',
+    typology: 'Monolithic Wall Plane & Ceiling Soffit',
+    quarryOrigin: 'Traditional Slaked Lime & Fine Marble Dust',
+    finish: 'Multi-Coat Steel Trowel, Natural Matte',
+    albedoHex: '#EFECE6',
+    roughness: 0.88,
+    metalness: 0.00,
+    reflectanceF0: 0.035,
+    ior: 1.50,
+    bumpDepth: '0.5mm Trowel Micro-texture',
+    aoCavity: '0.64 Corner Fillet',
+    thermalMass: '0.80 W/m·K (Breathable Substrate)',
+    climateSuitability: 'Natural vapor permeability prevents condensation',
+    specs: 'Three-layer application on masonry substrate with seamless bullnose returns.',
+    notes: 'Diffuses raking window daylight softly across interior volumes without glare.',
+    image: studioThreshold,
+  },
+];
+
+// Architectural Camera POVs across the 3D exhibition space
+const cameraPOVs = [
+  {
+    id: 'master-bay',
+    index: '01',
+    label: 'Master Bay',
+    name: '01 Master Bay',
+    u: 0.0,
+    cam: [-0.45, 1.56, 7.2],
+    target: [0.25, 1.44, 1.5],
+    coords: 'X: -0.45 · Y: +1.56 · Z: +7.20',
+    description: 'Axial perspective across entry foyer & limestone threshold under directional morning light.',
+    aperture: 'f/2.8 · 54° FOV · 7.20m Depth',
+    thumb: studioPracticeWorkspace,
+  },
+  {
+    id: 'joinery-axis',
+    index: '02',
+    label: 'Joinery Axis',
+    name: '02 Joinery Axis',
+    u: 0.25,
+    cam: [-0.85, 1.48, 3.95],
+    target: [2.25, 1.02, 2.35],
+    coords: 'X: -0.85 · Y: +1.48 · Z: +3.95',
+    description: 'Alignment with vertical fluted Sal timber panelling and concealed warm cove illumination.',
+    aperture: 'f/3.2 · 54° FOV · 3.95m Depth',
+    thumb: studioJoinery,
+  },
+  {
+    id: 'threshold',
+    index: '03',
+    label: 'Threshold',
+    name: '03 Threshold',
+    u: 0.5,
+    cam: [0.85, 1.52, -0.1],
+    target: [-2.15, 1.12, -1.75],
+    coords: 'X: +0.85 · Y: +1.52 · Z: -0.10',
+    description: 'Verde Alpi serpentinite plinth and courtyard glass portal with fluid floor reflections.',
+    aperture: 'f/2.8 · 54° FOV · 2.15m Depth',
+    thumb: studioMarble,
+  },
+  {
+    id: 'material-table',
+    index: '04',
+    label: 'Material Table',
+    name: '04 Material Table',
+    u: 0.75,
+    cam: [-0.25, 1.56, -2.85],
+    target: [0, 1.18, -5.85],
+    coords: 'X: -0.25 · Y: +1.56 · Z: -2.85',
+    description: 'Tactile substrate inspection table showcasing mineral and timber specimens in calibrated daylight.',
+    aperture: 'f/4.0 · 54° FOV · 3.10m Depth',
+    thumb: studioThreshold,
+  },
+];
+
+// Volumetric Sunbeam & Lighting Modes
+const lightingModes = [
+  {
+    id: 'morning',
+    label: 'Morning Mist',
+    shortLabel: 'Mist',
+    kelvin: '5500K',
+    sunAngle: '85° Azimuth · 14° Alt',
+    duskVal: 0,
+    description: 'Crisp diffuse daylight through morning mist across the Morang plains.',
+  },
+  {
+    id: 'golden',
+    label: 'Golden Hour',
+    shortLabel: 'Golden',
+    kelvin: '3200K',
+    sunAngle: '248° Azimuth · 12° Alt',
+    duskVal: 0.45,
+    description: 'Warm raking late-afternoon sunbeams highlighting fluted woodwork chamfers.',
+  },
+  {
+    id: 'dusk',
+    label: 'Deep Dusk / Night',
+    shortLabel: 'Dusk',
+    kelvin: '2200K',
+    sunAngle: 'Twilight Cove & Pendant',
+    duskVal: 1.0,
+    description: 'Atmospheric twilight with glowing brass sconces and warm architectural cove illumination.',
+  },
+];
 ---
 
 <Base
-  title="Material Study"
-  description="Concept preview of our material palette — Honed Kota limestone, fluted Sal timber, and natural daylight in Biratnagar and Dharan."
+  title="3D Architectural Exhibition | Material Study"
+  description={`Interactive 3D architectural exhibition of Rubiconius — Honed stone, fluted timber, and dynamic volumetric daylight across ${site.city}.`}
   immersive
 >
-  <ShowroomStage mode="fullscreen" />
+  <div class="showroom-page-container" data-showroom-container>
+    {/* Base Three.js Fullscreen Viewport & Waypoint Track */}
+    <ShowroomStage mode="fullscreen" />
+
+    {/* =========================================================================
+        1. ARCHITECTURAL HUD OVERLAYS: Coordinates Grid & Live POV Telemetry
+        ========================================================================= */}
+    <div class="showroom-hud" data-showroom-hud aria-label="Architectural Exhibition Telemetry HUD">
+      {/* Precision Hairline Corner Framing Brackets */}
+      <div class="showroom-hud__corner showroom-hud__corner--tl" aria-hidden="true">
+        <span class="crosshair-h"></span>
+        <span class="crosshair-v"></span>
+      </div>
+      <div class="showroom-hud__corner showroom-hud__corner--tr" aria-hidden="true">
+        <span class="crosshair-h"></span>
+        <span class="crosshair-v"></span>
+      </div>
+      <div class="showroom-hud__corner showroom-hud__corner--bl" aria-hidden="true">
+        <span class="crosshair-h"></span>
+        <span class="crosshair-v"></span>
+      </div>
+      <div class="showroom-hud__corner showroom-hud__corner--br" aria-hidden="true">
+        <span class="crosshair-h"></span>
+        <span class="crosshair-v"></span>
+      </div>
+
+      {/* Top Architectural Datum Bar */}
+      <header class="showroom-hud__datum" aria-label="Spatial Coordinates Header">
+        <div class="showroom-hud__datum-group">
+          <span class="showroom-hud__datum-tag">RUBICONIUS ARCHITECTURE</span>
+          <span class="showroom-hud__datum-sep">/</span>
+          <span class="showroom-hud__coords" data-hud-coords>26.4678° N &middot; 87.2767° E</span>
+          <span class="showroom-hud__datum-sep">/</span>
+          <span class="showroom-hud__datum-alt">ELEV +72.4m</span>
+        </div>
+
+        <div class="showroom-hud__datum-group showroom-hud__datum-group--right">
+          <span class="showroom-hud__mode-badge" data-hud-mode="story">3D SPATIAL MONOGRAPH</span>
+          <button
+            type="button"
+            class="showroom-hud__pbr-trigger"
+            data-pbr-trigger
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="pbr-inspection-drawer"
+            title="Open PBR Material Inspection Matrix (Press M)"
+          >
+            <span class="pbr-trigger__icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="2" width="5" height="5" stroke="currentColor" stroke-width="1.2" />
+                <rect x="9" y="2" width="5" height="5" stroke="currentColor" stroke-width="1.2" />
+                <rect x="2" y="9" width="5" height="5" stroke="currentColor" stroke-width="1.2" />
+                <rect x="9" y="9" width="5" height="5" stroke="currentColor" stroke-width="1.2" />
+              </svg>
+            </span>
+            <span class="pbr-trigger__label">PBR Inspector</span>
+          </button>
+        </div>
+      </header>
+
+      {/* Center Architectural Alignment Reticle */}
+      <div class="showroom-hud__reticle" aria-hidden="true">
+        <span class="reticle-line reticle-line--h"></span>
+        <span class="reticle-line reticle-line--v"></span>
+        <span class="reticle-center"></span>
+        <span class="reticle-cardinal reticle-cardinal--n">N</span>
+        <span class="reticle-cardinal reticle-cardinal--s">S</span>
+        <span class="reticle-cardinal reticle-cardinal--e">E</span>
+        <span class="reticle-cardinal reticle-cardinal--w">W</span>
+      </div>
+
+      {/* Floating Camera POV Indicator Strip (Quick Axial Tabs) */}
+      <nav class="showroom-pov-strip" aria-label="Camera POV Quick Select">
+        <div class="showroom-pov-strip__inner">
+          <span class="showroom-pov-strip__title">CAMERA POV:</span>
+          <div class="showroom-pov-strip__tabs" role="tablist">
+            {cameraPOVs.map((pov, idx) => (
+              <button
+                type="button"
+                role="tab"
+                class={`showroom-pov-strip__tab ${idx === 0 ? 'is-active' : ''}`}
+                data-pov-u={pov.u}
+                data-pov-id={pov.id}
+                aria-selected={idx === 0 ? 'true' : 'false'}
+                aria-label={`Jump to ${pov.name}`}
+                title={`Jump to ${pov.name} (${pov.aperture})`}
+              >
+                <span class="tab-index">{pov.index}</span>
+                <span class="tab-label">{pov.label}</span>
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            class="showroom-pov-strip__more"
+            data-pov-drawer-toggle
+            aria-expanded="false"
+            aria-controls="camera-pov-drawer"
+            title="View Full Architectural POV Drawer"
+          >
+            <span class="sr-only">Toggle Camera Drawer</span>
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      {/* Bottom Telemetry Readout Cluster */}
+      <div class="showroom-hud__telemetry" aria-label="Real-time Camera Telemetry">
+        <div class="telemetry-block">
+          <span class="telemetry-label">POSITION</span>
+          <span class="telemetry-value" data-hud-pos>X: -0.45 &middot; Y: +1.56 &middot; Z: +7.20</span>
+        </div>
+        <div class="telemetry-block telemetry-block--hide-mobile">
+          <span class="telemetry-label">OPTICS</span>
+          <span class="telemetry-value" data-hud-optics>54° BASE FOV &middot; F/2.8 SPATIAL CAL</span>
+        </div>
+        <div class="telemetry-block telemetry-block--hide-mobile">
+          <span class="telemetry-label">SOLAR ANGLE</span>
+          <span class="telemetry-value" data-hud-solar>85° AZIMUTH &middot; 14° ALTITUDE</span>
+        </div>
+        <div class="telemetry-block">
+          <span class="telemetry-label">CURRENT POV</span>
+          <span class="telemetry-value telemetry-value--accent" data-hud-active-pov>01 MASTER BAY</span>
+        </div>
+      </div>
+    </div>
+
+    {/* =========================================================================
+        2. LIGHTING & TIME-OF-DAY MODE SWITCHER: Volumetric Sunbeam Shift
+        ========================================================================= */}
+    <aside class="showroom-tod" aria-label="Lighting and Time of Day Controls">
+      <div class="showroom-tod__pill" role="radiogroup" aria-label="Time-of-day lighting atmosphere">
+        <span class="showroom-tod__indicator" aria-hidden="true"></span>
+        {lightingModes.map((mode, idx) => (
+          <button
+            type="button"
+            role="radio"
+            class={`showroom-tod__btn ${idx === 0 ? 'is-active' : ''}`}
+            data-tod={mode.id}
+            data-dusk={mode.duskVal}
+            data-kelvin={mode.kelvin}
+            data-sun={mode.sunAngle}
+            aria-checked={idx === 0 ? 'true' : 'false'}
+            aria-label={`${mode.label} (${mode.kelvin})`}
+            title={`${mode.label} — ${mode.description}`}
+          >
+            <span class="showroom-tod__icon" aria-hidden="true">
+              {mode.id === 'morning' && (
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.2" />
+                  <path d="M8 1V3M8 13V15M1 8H3M13 8H15M3.05 3.05L4.46 4.46M11.54 11.54L12.95 12.95M3.05 12.95L4.46 11.54M11.54 4.46L12.95 3.05" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                </svg>
+              )}
+              {mode.id === 'golden' && (
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 13H14M4 10C4 6.68629 6.68629 4 10 4C11.5 4 12.8 4.6 13.7 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                  <path d="M8 1V3M2.5 4.5L4 5.5M1.5 8.5L3.5 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                </svg>
+              )}
+              {mode.id === 'dusk' && (
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M13.5 9.5C13.5 12.8137 10.8137 15.5 7.5 15.5C4.18629 15.5 1.5 12.8137 1.5 9.5C1.5 6.18629 4.18629 3.5 7.5 3.5C8.1 3.5 8.7 3.6 9.2 3.8C8.5 4.8 8 6.1 8 7.5C8 10.5 10.5 13 13.5 13C13.8 13 14.1 12.9 14.4 12.8C13.9 13.9 13.5 9.5 13.5 9.5Z" stroke="currentColor" stroke-width="1.2" />
+                </svg>
+              )}
+            </span>
+            <span class="showroom-tod__label">{mode.shortLabel}</span>
+            <span class="showroom-tod__kelvin">{mode.kelvin}</span>
+          </button>
+        ))}
+      </div>
+      <p class="showroom-tod__note" data-tod-note>
+        {lightingModes[0].description}
+      </p>
+    </aside>
+
+    {/* =========================================================================
+        3. CAMERA POV NAVIGATION DRAWER: Architectural Monograph Thumbnail Tabs
+        ========================================================================= */}
+    <div
+      id="camera-pov-drawer"
+      class="showroom-pov"
+      data-showroom-pov
+      role="region"
+      aria-label="Camera POV Monograph Drawer"
+      aria-hidden="true"
+    >
+      <div class="showroom-pov__backdrop" data-pov-backdrop></div>
+      <div class="showroom-pov__drawer" data-lenis-prevent>
+        <div class="showroom-pov__header">
+          <div class="showroom-pov__title-cluster">
+            <span class="showroom-pov__kicker">CAMERA CALIBRATION &middot; 4 KEY AXES</span>
+            <h3 class="showroom-pov__title">Architectural Exhibition POVs</h3>
+          </div>
+          <button
+            type="button"
+            class="showroom-pov__close"
+            data-pov-close
+            aria-label="Close Camera POV Drawer"
+          >
+            <span>&times;</span>
+          </button>
+        </div>
+
+        <div class="showroom-pov__list" role="list">
+          {cameraPOVs.map((pov, idx) => (
+            <article
+              class={`showroom-pov__item ${idx === 0 ? 'is-active' : ''}`}
+              data-pov-target={pov.u}
+              data-pov-key={pov.id}
+              role="listitem"
+            >
+              <div class="showroom-pov__thumb">
+                <img src={pov.thumb.src} alt={pov.name} loading="lazy" />
+                <span class="showroom-pov__indicator" aria-hidden="true">
+                  <span class="pov-pulse"></span>
+                </span>
+                <span class="showroom-pov__tag">{pov.index}</span>
+              </div>
+              <div class="showroom-pov__meta">
+                <div class="showroom-pov__name-row">
+                  <h4 class="showroom-pov__name">{pov.name}</h4>
+                  <span class="showroom-pov__u-val">u={pov.u.toFixed(2)}</span>
+                </div>
+                <p class="showroom-pov__coords-spec">{pov.coords}</p>
+                <p class="showroom-pov__desc">{pov.description}</p>
+                <div class="showroom-pov__footer-row">
+                  <span class="showroom-pov__optics">{pov.aperture}</span>
+                  <button
+                    type="button"
+                    class="showroom-pov__jump-btn"
+                    data-jump-u={pov.u}
+                    aria-label={`Jump camera to ${pov.name}`}
+                  >
+                    <span>Align Camera</span>
+                    <span aria-hidden="true">&rarr;</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* =========================================================================
+        4. MATERIAL INSPECTION DRAWER: Real-Time PBR Material Breakdown
+        ========================================================================= */}
+    <div
+      id="pbr-inspection-drawer"
+      class="showroom-pbr"
+      data-showroom-pbr
+      role="dialog"
+      aria-modal="true"
+      aria-label="PBR Material Specification Matrix"
+      aria-hidden="true"
+    >
+      <div class="showroom-pbr__backdrop" data-pbr-backdrop></div>
+      <div class="showroom-pbr__drawer" data-lenis-prevent>
+        {/* Drawer Header */}
+        <div class="showroom-pbr__header">
+          <div class="showroom-pbr__title-block">
+            <span class="showroom-pbr__kicker">PHYSICALLY BASED RENDERING &middot; SUBSTRATE MATRIX</span>
+            <h2 class="showroom-pbr__title">Architectural Material Breakdown</h2>
+          </div>
+          <button
+            type="button"
+            class="showroom-pbr__close"
+            data-pbr-close
+            aria-label="Close PBR Material Drawer (Esc)"
+          >
+            <span>Close [Esc]</span>
+          </button>
+        </div>
+
+        {/* Substrate Selector Bar */}
+        <div class="showroom-pbr__selector" role="tablist" aria-label="Select material substrate">
+          {pbrMaterials.map((mat, idx) => (
+            <button
+              type="button"
+              role="tab"
+              class={`showroom-pbr__tab ${idx === 0 ? 'is-active' : ''}`}
+              data-pbr-tab={mat.id}
+              aria-selected={idx === 0 ? 'true' : 'false'}
+              aria-controls={`pbr-panel-${mat.id}`}
+              id={`pbr-tab-${mat.id}`}
+            >
+              <span class="pbr-swatch" style={`background-color: ${mat.albedoHex};`} aria-hidden="true"></span>
+              <span class="pbr-tab-index">{mat.index}</span>
+              <span class="pbr-tab-name">{mat.name}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Material Panels */}
+        <div class="showroom-pbr__panels">
+          {pbrMaterials.map((mat, idx) => (
+            <div
+              id={`pbr-panel-${mat.id}`}
+              class={`showroom-pbr__panel ${idx === 0 ? 'is-active' : ''}`}
+              role="tabpanel"
+              aria-labelledby={`pbr-tab-${mat.id}`}
+              hidden={idx !== 0}
+            >
+              <div class="showroom-pbr__grid">
+                {/* Visual Macro Photograph Showcase */}
+                <div class="showroom-pbr__media">
+                  <div class="showroom-pbr__imgwrap">
+                    <img src={mat.image.src} alt={mat.name} loading="lazy" />
+                    <div class="showroom-pbr__badge">
+                      <span class="badge-dot" style={`background-color: ${mat.albedoHex};`}></span>
+                      <span>ALBEDO: {mat.albedoHex}</span>
+                    </div>
+                  </div>
+                  <div class="showroom-pbr__origin">
+                    <span class="origin-label">SPECIFICATION & ORIGIN</span>
+                    <p class="origin-text">{mat.quarryOrigin}</p>
+                    <p class="origin-finish">{mat.finish}</p>
+                  </div>
+                </div>
+
+                {/* Empirical PBR Meters & Optical Properties */}
+                <div class="showroom-pbr__details">
+                  <div class="showroom-pbr__hero-meta">
+                    <span class="meta-typology">{mat.typology}</span>
+                    <h3 class="meta-title">{mat.name}</h3>
+                    <p class="meta-notes">{mat.notes}</p>
+                  </div>
+
+                  {/* Real-time PBR Parameter Gauges */}
+                  <div class="showroom-pbr__props">
+                    <h4 class="props-heading">Empirical PBR Parameters</h4>
+
+                    {/* Roughness */}
+                    <div class="pbr-meter-group">
+                      <div class="pbr-meter-header">
+                        <span class="pbr-meter-label">Microfacet Roughness (α)</span>
+                        <span class="pbr-meter-val">{mat.roughness.toFixed(2)}</span>
+                      </div>
+                      <div class="pbr-meter-track">
+                        <div class="pbr-meter-bar" style={`width: ${mat.roughness * 100}%;`}></div>
+                      </div>
+                      <span class="pbr-meter-sub">
+                        {mat.roughness > 0.6 ? 'High diffuse scatter (matte)' : 'Specular reflection (silk sheen)'}
+                      </span>
+                    </div>
+
+                    {/* Metalness */}
+                    <div class="pbr-meter-group">
+                      <div class="pbr-meter-header">
+                        <span class="pbr-meter-label">Conductor Metalness</span>
+                        <span class="pbr-meter-val">{mat.metalness.toFixed(2)}</span>
+                      </div>
+                      <div class="pbr-meter-track">
+                        <div class="pbr-meter-bar" style={`width: ${mat.metalness * 100}%;`}></div>
+                      </div>
+                      <span class="pbr-meter-sub">
+                        {mat.metalness === 1 ? '1.00 Pure conductor metal' : '0.00 Pure dielectric mineral/wood'}
+                      </span>
+                    </div>
+
+                    {/* Reflectance F0 & IOR */}
+                    <div class="pbr-props-row">
+                      <div class="pbr-prop-chip">
+                        <span class="chip-label">FRESNEL F0 REFLECTANCE</span>
+                        <span class="chip-val">{(mat.reflectanceF0 * 100).toFixed(1)}%</span>
+                      </div>
+                      <div class="pbr-prop-chip">
+                        <span class="chip-label">INDEX OF REFRACTION (IOR)</span>
+                        <span class="chip-val">{mat.ior.toFixed(2)}</span>
+                      </div>
+                    </div>
+
+                    {/* Displacement Bump & Ambient Occlusion */}
+                    <div class="pbr-props-row">
+                      <div class="pbr-prop-chip">
+                        <span class="chip-label">TANGENT RELIEF DEPTH</span>
+                        <span class="chip-val">{mat.bumpDepth}</span>
+                      </div>
+                      <div class="pbr-prop-chip">
+                        <span class="chip-label">AO CAVITY CONTACT</span>
+                        <span class="chip-val">{mat.aoCavity}</span>
+                      </div>
+                    </div>
+
+                    {/* Climate Adaptation & Thermal Mass */}
+                    <div class="pbr-climate-block">
+                      <div class="climate-item">
+                        <span class="climate-label">THERMAL MASS & INERTIA</span>
+                        <span class="climate-val">{mat.thermalMass}</span>
+                      </div>
+                      <div class="climate-item">
+                        <span class="climate-label">REGIONAL CLIMATE ADAPTATION</span>
+                        <span class="climate-val">{mat.climateSuitability}</span>
+                      </div>
+                    </div>
+
+                    {/* Fabrication Specification */}
+                    <div class="pbr-specs-box">
+                      <span class="specs-tag">ARCHITECTURAL SPECIFICATION</span>
+                      <p class="specs-body">{mat.specs}</p>
+                    </div>
+
+                    {/* Direct Studio Inquiry CTA */}
+                    <div class="showroom-pbr__actions">
+                      <a
+                        class="showroom-pbr__btn-inquire"
+                        href={`https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(
+                          `Namaste Riya, I am reviewing the 3D Material Study for ${mat.name} (${mat.typology}). I would like to inquire about this finish for my residential commission.`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>Inquire About {mat.name} Finish</span>
+                        <span aria-hidden="true">&#8599;</span>
+                      </a>
+                      <a class="showroom-pbr__btn-works" href="/works/">
+                        <span>View In Built Commissions</span>
+                        <span aria-hidden="true">&rarr;</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
 </Base>
+
+{/* =========================================================================
+    5. INTERACTIVE CLIENT CONTROLLER (POVs, Lighting, PBR Drawer, Telemetry)
+    ========================================================================= */}
+<script>
+  function setupShowroomInteractions() {
+    const root = document.querySelector<HTMLElement>('[data-showroom-container]');
+    if (!root) return;
+
+    // Elements
+    const hudCoords = root.querySelector<HTMLElement>('[data-hud-coords]');
+    const hudPos = root.querySelector<HTMLElement>('[data-hud-pos]');
+    const hudSolar = root.querySelector<HTMLElement>('[data-hud-solar]');
+    const hudActivePov = root.querySelector<HTMLElement>('[data-hud-active-pov]');
+    const todBtns = root.querySelectorAll<HTMLButtonElement>('.showroom-tod__btn');
+    const todNote = root.querySelector<HTMLElement>('[data-tod-note]');
+    const todIndicator = root.querySelector<HTMLElement>('.showroom-tod__indicator');
+
+    // POV Navigation
+    const povStripTabs = root.querySelectorAll<HTMLButtonElement>('.showroom-pov-strip__tab');
+    const povDrawerToggle = root.querySelector<HTMLButtonElement>('[data-pov-drawer-toggle]');
+    const povDrawer = root.querySelector<HTMLElement>('[data-showroom-pov]');
+    const povClose = root.querySelector<HTMLButtonElement>('[data-pov-close]');
+    const povBackdrop = root.querySelector<HTMLElement>('[data-pov-backdrop]');
+    const povJumpBtns = root.querySelectorAll<HTMLButtonElement>('[data-jump-u]');
+    const povItems = root.querySelectorAll<HTMLElement>('.showroom-pov__item');
+
+    // PBR Material Drawer
+    const pbrTrigger = root.querySelector<HTMLButtonElement>('[data-pbr-trigger]');
+    const pbrDrawer = root.querySelector<HTMLElement>('[data-showroom-pbr]');
+    const pbrClose = root.querySelector<HTMLButtonElement>('[data-pbr-close]');
+    const pbrBackdrop = root.querySelector<HTMLElement>('[data-pbr-backdrop]');
+    const pbrTabs = root.querySelectorAll<HTMLButtonElement>('.showroom-pbr__tab');
+    const pbrPanels = root.querySelectorAll<HTMLElement>('.showroom-pbr__panel');
+
+    let activeU = 0;
+    let rafId: number | null = null;
+
+    // --- Helper: Jump Camera via Lenis or Showroom Debug API ---
+    function jumpToU(u: number) {
+      if (window.__showroomDebug && typeof window.__showroomDebug.jumpTo === 'function') {
+        window.__showroomDebug.jumpTo(u);
+      } else {
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo({
+          top: u * Math.max(1, docH),
+          behavior: 'smooth',
+        });
+      }
+    }
+
+    // --- Helper: Update Active POV Tab Highlight ---
+    function setActivePovHighlight(u: number) {
+      const waypoints = [
+        { name: '01 MASTER BAY', u: 0.0, label: 'Master Bay', solar: '85° AZIMUTH · 14° ALTITUDE' },
+        { name: '02 JOINERY AXIS', u: 0.25, label: 'Joinery Axis', solar: '142° AZIMUTH · 28° ALTITUDE' },
+        { name: '03 THRESHOLD', u: 0.50, label: 'Threshold', solar: '198° AZIMUTH · 36° ALTITUDE' },
+        { name: '04 MATERIAL TABLE', u: 0.75, label: 'Material Table', solar: '248° AZIMUTH · 18° ALTITUDE' },
+      ];
+
+      // Find closest
+      let closest = waypoints[0];
+      let minDiff = 999;
+      for (const wp of waypoints) {
+        const diff = Math.abs(u - wp.u);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closest = wp;
+        }
+      }
+
+      if (hudActivePov) {
+        hudActivePov.textContent = closest.name;
+      }
+      if (hudSolar && document.documentElement.dataset.lighting !== 'dusk') {
+        hudSolar.textContent = closest.solar;
+      }
+
+      povStripTabs.forEach((tab) => {
+        const tabU = parseFloat(tab.dataset.povU || '0');
+        const isActive = Math.abs(tabU - closest.u) < 0.12;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', String(isActive));
+      });
+
+      povItems.forEach((item) => {
+        const itemU = parseFloat(item.dataset.povTarget || '0');
+        const isActive = Math.abs(itemU - closest.u) < 0.12;
+        item.classList.toggle('is-active', isActive);
+      });
+    }
+
+    // --- 1. POV Strip Tab Clicks ---
+    povStripTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const u = parseFloat(tab.dataset.povU || '0');
+        jumpToU(u);
+        setActivePovHighlight(u);
+      });
+    });
+
+    // --- 2. Camera POV Drawer Open / Close ---
+    function openPovDrawer() {
+      if (!povDrawer) return;
+      povDrawer.setAttribute('aria-hidden', 'false');
+      povDrawerToggle?.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('has-modal-open');
+    }
+
+    function closePovDrawer() {
+      if (!povDrawer) return;
+      povDrawer.setAttribute('aria-hidden', 'true');
+      povDrawerToggle?.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('has-modal-open');
+    }
+
+    povDrawerToggle?.addEventListener('click', openPovDrawer);
+    povClose?.addEventListener('click', closePovDrawer);
+    povBackdrop?.addEventListener('click', closePovDrawer);
+
+    povJumpBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const u = parseFloat(btn.dataset.jumpU || '0');
+        jumpToU(u);
+        setActivePovHighlight(u);
+        closePovDrawer();
+      });
+    });
+
+    // --- 3. Lighting & Time-of-Day Switcher ---
+    function setLightingMode(mode: string, duskVal: number, kelvin: string, note?: string) {
+      document.documentElement.dataset.lighting = mode;
+      window.dispatchEvent(
+        new CustomEvent('studio:lighting', {
+          detail: {
+            mode,
+            dusk: duskVal > 0.5 ? true : (duskVal > 0 ? 0.45 : false),
+            kelvin,
+          },
+        })
+      );
+
+      todBtns.forEach((btn, idx) => {
+        const isSelected = btn.dataset.tod === mode;
+        btn.classList.toggle('is-active', isSelected);
+        btn.setAttribute('aria-checked', String(isSelected));
+        if (isSelected && todIndicator) {
+          todIndicator.style.transform = `translateX(${idx * 100}%)`;
+        }
+      });
+
+      if (todNote && note) {
+        todNote.textContent = note;
+      }
+
+      if (hudSolar) {
+        if (mode === 'dusk') {
+          hudSolar.textContent = 'TWILIGHT & COVE ILLUMINATION (2200K)';
+        } else if (mode === 'golden') {
+          hudSolar.textContent = '248° AZIMUTH · 12° ALTITUDE (3200K)';
+        } else {
+          hudSolar.textContent = '85° AZIMUTH · 14° ALTITUDE (5500K)';
+        }
+      }
+    }
+
+    todBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const mode = btn.dataset.tod || 'morning';
+        const duskVal = parseFloat(btn.dataset.dusk || '0');
+        const kelvin = btn.dataset.kelvin || '5500K';
+        const note = btn.getAttribute('title') || '';
+        setLightingMode(mode, duskVal, kelvin, note);
+      });
+    });
+
+    // --- 4. PBR Material Inspection Drawer Open / Close ---
+    function openPbrDrawer() {
+      if (!pbrDrawer) return;
+      pbrDrawer.setAttribute('aria-hidden', 'false');
+      pbrTrigger?.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('has-modal-open');
+    }
+
+    function closePbrDrawer() {
+      if (!pbrDrawer) return;
+      pbrDrawer.setAttribute('aria-hidden', 'true');
+      pbrTrigger?.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('has-modal-open');
+    }
+
+    pbrTrigger?.addEventListener('click', openPbrDrawer);
+    pbrClose?.addEventListener('click', closePbrDrawer);
+    pbrBackdrop?.addEventListener('click', closePbrDrawer);
+
+    // PBR Tab Switching
+    pbrTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.dataset.pbrTab;
+        pbrTabs.forEach((t) => {
+          const isActive = t === tab;
+          t.classList.toggle('is-active', isActive);
+          t.setAttribute('aria-selected', String(isActive));
+        });
+
+        pbrPanels.forEach((panel) => {
+          const isMatch = panel.id === `pbr-panel-${targetId}`;
+          panel.classList.toggle('is-active', isMatch);
+          panel.hidden = !isMatch;
+        });
+      });
+    });
+
+    // --- 5. Real-Time Telemetry Loop (RAF) ---
+    function updateTelemetry() {
+      if (window.__showroomDebug && typeof window.__showroomDebug.getState === 'function') {
+        const state = window.__showroomDebug.getState();
+        activeU = state.u;
+        if (hudPos && state.cam) {
+          hudPos.textContent = `X: ${state.cam[0].toFixed(2)} · Y: ${state.cam[1].toFixed(2)} · Z: ${state.cam[2].toFixed(2)}`;
+        }
+      } else {
+        const scrollLimit = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        activeU = Math.max(0, Math.min(1, window.scrollY / scrollLimit));
+        if (hudPos) {
+          const approxX = (-0.45 + activeU * 0.6).toFixed(2);
+          const approxY = (1.56 - activeU * 0.1).toFixed(2);
+          const approxZ = (7.20 - activeU * 13.9).toFixed(2);
+          hudPos.textContent = `X: ${approxX} · Y: ${approxY} · Z: ${approxZ}`;
+        }
+      }
+
+      setActivePovHighlight(activeU);
+      rafId = requestAnimationFrame(updateTelemetry);
+    }
+
+    rafId = requestAnimationFrame(updateTelemetry);
+
+    // --- 6. Global Keyboard Shortcuts ---
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+      if (e.key === 'Escape') {
+        closePbrDrawer();
+        closePovDrawer();
+      } else if (e.key === 'm' || e.key === 'M') {
+        const isPbrOpen = pbrDrawer?.getAttribute('aria-hidden') === 'false';
+        if (isPbrOpen) closePbrDrawer();
+        else openPbrDrawer();
+      } else if (e.key === 'l' || e.key === 'L') {
+        const currentMode = document.documentElement.dataset.lighting || 'morning';
+        const modes = ['morning', 'golden', 'dusk'];
+        const nextIdx = (modes.indexOf(currentMode) + 1) % modes.length;
+        const nextMode = modes[nextIdx];
+        const nextBtn = root?.querySelector<HTMLButtonElement>(`[data-tod="${nextMode}"]`);
+        if (nextBtn) nextBtn.click();
+      } else if (e.key >= '1' && e.key <= '4') {
+        const idx = parseInt(e.key, 10) - 1;
+        if (povStripTabs[idx]) {
+          povStripTabs[idx].click();
+        }
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown);
+
+    // Cleanup on View Transition
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        window.removeEventListener('keydown', onKeyDown);
+      },
+      { once: true }
+    );
+  }
+
+  // Bind to Astro lifecycle
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupShowroomInteractions);
+  } else {
+    setupShowroomInteractions();
+  }
+  document.addEventListener('astro:page-load', setupShowroomInteractions);
+</script>
+
+{/* =========================================================================
+    6. LUXURY ARCHITECTURAL STYLESHEET (HUD, TOD, POV Drawer, PBR Matrix)
+    ========================================================================= */}
+<style is:global>
+  /* -------------------------------------------------------------
+     Root Container & Layout Primitives
+     ------------------------------------------------------------- */
+  .showroom-page-container {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    background: #111211;
+    color: #f4f2ec;
+    font-family: var(--f-body, 'Switzer', -apple-system, sans-serif);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* -------------------------------------------------------------
+     1. Floating Architectural HUD Overlays
+     ------------------------------------------------------------- */
+  .showroom-hud {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(1rem, 2.5vw, 1.75rem);
+  }
+
+  /* Hairline Corner Crosshair Framing Brackets */
+  .showroom-hud__corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+  }
+
+  .showroom-hud__corner .crosshair-h {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(244, 242, 236, 0.28);
+  }
+
+  .showroom-hud__corner .crosshair-v {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    background: rgba(244, 242, 236, 0.28);
+  }
+
+  .showroom-hud__corner--tl {
+    top: clamp(1rem, 2.5vw, 1.75rem);
+    left: clamp(1rem, 2.5vw, 1.75rem);
+  }
+
+  .showroom-hud__corner--tr {
+    top: clamp(1rem, 2.5vw, 1.75rem);
+    right: clamp(1rem, 2.5vw, 1.75rem);
+  }
+  .showroom-hud__corner--tr .crosshair-v {
+    left: auto;
+    right: 0;
+  }
+
+  .showroom-hud__corner--bl {
+    bottom: clamp(1rem, 2.5vw, 1.75rem);
+    left: clamp(1rem, 2.5vw, 1.75rem);
+  }
+  .showroom-hud__corner--bl .crosshair-h {
+    top: auto;
+    bottom: 0;
+  }
+
+  .showroom-hud__corner--br {
+    bottom: clamp(1rem, 2.5vw, 1.75rem);
+    right: clamp(1rem, 2.5vw, 1.75rem);
+  }
+  .showroom-hud__corner--br .crosshair-h {
+    top: auto;
+    bottom: 0;
+  }
+  .showroom-hud__corner--br .crosshair-v {
+    left: auto;
+    right: 0;
+  }
+
+  /* Top Datum Header Bar */
+  .showroom-hud__datum {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(244, 242, 236, 0.72);
+    pointer-events: auto;
+    margin-top: 2px;
+  }
+
+  .showroom-hud__datum-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .showroom-hud__datum-tag {
+    color: #c9a97e;
+    font-weight: 500;
+  }
+
+  .showroom-hud__datum-sep {
+    opacity: 0.35;
+  }
+
+  .showroom-hud__mode-badge {
+    padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(201, 169, 126, 0.35);
+    background: rgba(20, 21, 20, 0.45);
+    backdrop-filter: blur(8px);
+    border-radius: 2px;
+    color: #e5ded3;
+    font-size: 0.62rem;
+  }
+
+  .showroom-hud__pbr-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.32rem 0.75rem;
+    background: rgba(201, 169, 126, 0.12);
+    border: 1px solid rgba(201, 169, 126, 0.45);
+    color: #f4f2ec;
+    border-radius: 2px;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .showroom-hud__pbr-trigger:hover {
+    background: #c9a97e;
+    color: #111211;
+    border-color: #c9a97e;
+  }
+
+  /* Center Alignment Reticle */
+  .showroom-hud__reticle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    pointer-events: none;
+    opacity: 0.28;
+    transition: opacity 0.3s ease;
+  }
+
+  .showroom-hud:hover .showroom-hud__reticle {
+    opacity: 0.45;
+  }
+
+  .reticle-line {
+    position: absolute;
+    background: rgba(244, 242, 236, 0.6);
+  }
+
+  .reticle-line--h {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  .reticle-line--v {
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+
+  .reticle-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border: 1px solid #c9a97e;
+    border-radius: 50%;
+  }
+
+  .reticle-cardinal {
+    position: absolute;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.55rem;
+    color: rgba(244, 242, 236, 0.55);
+  }
+  .reticle-cardinal--n { top: -14px; left: 50%; transform: translateX(-50%); }
+  .reticle-cardinal--s { bottom: -14px; left: 50%; transform: translateX(-50%); }
+  .reticle-cardinal--e { right: -14px; top: 50%; transform: translateY(-50%); }
+  .reticle-cardinal--w { left: -14px; top: 50%; transform: translateY(-50%); }
+
+  /* Floating Camera POV Strip Tabs */
+  .showroom-pov-strip {
+    position: absolute;
+    top: clamp(3.2rem, 6vw, 4.2rem);
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: auto;
+    z-index: 32;
+  }
+
+  .showroom-pov-strip__inner {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.55rem;
+    background: rgba(18, 19, 18, 0.72);
+    border: 1px solid rgba(244, 242, 236, 0.14);
+    backdrop-filter: blur(14px);
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .showroom-pov-strip__title {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: #c9a97e;
+    padding-left: 0.45rem;
+  }
+
+  .showroom-pov-strip__tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .showroom-pov-strip__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.28rem 0.75rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    color: rgba(244, 242, 236, 0.65);
+    font-family: var(--f-body, sans-serif);
+    font-size: 0.74rem;
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+  }
+
+  .showroom-pov-strip__tab .tab-index {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.65rem;
+    opacity: 0.75;
+  }
+
+  .showroom-pov-strip__tab:hover {
+    color: #f4f2ec;
+    background: rgba(244, 242, 236, 0.08);
+  }
+
+  .showroom-pov-strip__tab.is-active {
+    background: rgba(201, 169, 126, 0.22);
+    border-color: rgba(201, 169, 126, 0.65);
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  .showroom-pov-strip__more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(244, 242, 236, 0.08);
+    border: none;
+    color: rgba(244, 242, 236, 0.7);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .showroom-pov-strip__more:hover {
+    background: #c9a97e;
+    color: #111211;
+  }
+
+  /* Bottom Telemetry Cluster */
+  .showroom-hud__telemetry {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    pointer-events: auto;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    color: rgba(244, 242, 236, 0.72);
+    padding-bottom: 2px;
+  }
+
+  .telemetry-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .telemetry-label {
+    font-size: 0.58rem;
+    color: rgba(244, 242, 236, 0.42);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .telemetry-value--accent {
+    color: #c9a97e;
+    font-weight: 500;
+  }
+
+  /* -------------------------------------------------------------
+     2. Lighting & Time-of-Day Switcher
+     ------------------------------------------------------------- */
+  .showroom-tod {
+    position: fixed;
+    top: clamp(4.8rem, 8vw, 5.5rem);
+    right: clamp(1rem, 2.5vw, 1.75rem);
+    z-index: 31;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.45rem;
+    pointer-events: auto;
+  }
+
+  .showroom-tod__pill {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(18, 19, 18, 0.75);
+    border: 1px solid rgba(244, 242, 236, 0.14);
+    backdrop-filter: blur(14px);
+    border-radius: 30px;
+    padding: 3px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .showroom-tod__indicator {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc(33.333% - 2px);
+    background: rgba(201, 169, 126, 0.26);
+    border: 1px solid rgba(201, 169, 126, 0.6);
+    border-radius: 24px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .showroom-tod__btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.32rem 0.75rem;
+    background: transparent;
+    border: none;
+    border-radius: 24px;
+    color: rgba(244, 242, 236, 0.65);
+    font-family: var(--f-body, sans-serif);
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 1;
+  }
+
+  .showroom-tod__btn:hover {
+    color: #ffffff;
+  }
+
+  .showroom-tod__btn.is-active {
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  .showroom-tod__icon {
+    display: flex;
+    align-items: center;
+    color: #c9a97e;
+  }
+
+  .showroom-tod__kelvin {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.58rem;
+    opacity: 0.65;
+  }
+
+  .showroom-tod__note {
+    max-width: 28ch;
+    text-align: right;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.58rem;
+    color: rgba(244, 242, 236, 0.5);
+    line-height: 1.35;
+  }
+
+  /* -------------------------------------------------------------
+     3. Camera POV Drawer (Slide-out Monograph Tabs)
+     ------------------------------------------------------------- */
+  .showroom-pov {
+    position: fixed;
+    inset: 0;
+    z-index: 44;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.35s, opacity 0.35s ease;
+  }
+
+  .showroom-pov[aria-hidden='false'] {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.35s ease;
+  }
+
+  .showroom-pov__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 11, 10, 0.65);
+    backdrop-filter: blur(6px);
+  }
+
+  .showroom-pov__drawer {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    height: 100svh;
+    background: #151615;
+    border-left: 1px solid rgba(244, 242, 236, 0.12);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -15px 0 45px rgba(0, 0, 0, 0.55);
+  }
+
+  .showroom-pov[aria-hidden='false'] .showroom-pov__drawer {
+    transform: translateX(0);
+  }
+
+  .showroom-pov__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(244, 242, 236, 0.1);
+    margin-bottom: 1.5rem;
+  }
+
+  .showroom-pov__kicker {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    color: #c9a97e;
+  }
+
+  .showroom-pov__title {
+    font-family: var(--f-display, 'Boska', serif);
+    font-size: 1.45rem;
+    font-weight: 400;
+    color: #f4f2ec;
+    margin-top: 0.35rem;
+  }
+
+  .showroom-pov__close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244, 242, 236, 0.08);
+    border: none;
+    border-radius: 50%;
+    color: #f4f2ec;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .showroom-pov__close:hover {
+    background: #c9a97e;
+    color: #111211;
+  }
+
+  .showroom-pov__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .showroom-pov__item {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+    padding: 0.85rem;
+    border: 1px solid rgba(244, 242, 236, 0.08);
+    background: rgba(244, 242, 236, 0.02);
+    border-radius: 4px;
+    transition: all 0.25s ease;
+  }
+
+  .showroom-pov__item:hover {
+    border-color: rgba(201, 169, 126, 0.45);
+    background: rgba(244, 242, 236, 0.04);
+  }
+
+  .showroom-pov__item.is-active {
+    border-color: #c9a97e;
+    background: rgba(201, 169, 126, 0.08);
+  }
+
+  .showroom-pov__thumb {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+
+  .showroom-pov__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .showroom-pov__tag {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.58rem;
+    padding: 2px 5px;
+    background: rgba(17, 18, 17, 0.85);
+    border-radius: 2px;
+    color: #c9a97e;
+  }
+
+  .showroom-pov__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .showroom-pov__name-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .showroom-pov__name {
+    font-family: var(--f-body, sans-serif);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #f4f2ec;
+  }
+
+  .showroom-pov__u-val {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    color: rgba(244, 242, 236, 0.5);
+  }
+
+  .showroom-pov__coords-spec {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.6rem;
+    color: rgba(201, 169, 126, 0.85);
+  }
+
+  .showroom-pov__desc {
+    font-size: 0.72rem;
+    color: rgba(244, 242, 236, 0.65);
+    line-height: 1.4;
+  }
+
+  .showroom-pov__footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.4rem;
+  }
+
+  .showroom-pov__optics {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.58rem;
+    color: rgba(244, 242, 236, 0.45);
+  }
+
+  .showroom-pov__jump-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: transparent;
+    border: none;
+    color: #c9a97e;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .showroom-pov__jump-btn:hover {
+    text-decoration: underline;
+  }
+
+  /* -------------------------------------------------------------
+     4. Material Inspection Drawer (PBR Matrix)
+     ------------------------------------------------------------- */
+  .showroom-pbr {
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.35s, opacity 0.35s ease;
+  }
+
+  .showroom-pbr[aria-hidden='false'] {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.35s ease;
+  }
+
+  .showroom-pbr__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 9, 8, 0.72);
+    backdrop-filter: blur(8px);
+  }
+
+  .showroom-pbr__drawer {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    height: 100svh;
+    background: #141514;
+    border-left: 1px solid rgba(244, 242, 236, 0.12);
+    padding: clamp(1.5rem, 3.5vw, 2.75rem);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.65);
+  }
+
+  .showroom-pbr[aria-hidden='false'] .showroom-pbr__drawer {
+    transform: translateX(0);
+  }
+
+  .showroom-pbr__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(244, 242, 236, 0.1);
+  }
+
+  .showroom-pbr__kicker {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    color: #c9a97e;
+  }
+
+  .showroom-pbr__title {
+    font-family: var(--f-display, 'Boska', serif);
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    font-weight: 400;
+    color: #f4f2ec;
+    margin-top: 0.35rem;
+  }
+
+  .showroom-pbr__close {
+    background: transparent;
+    border: 1px solid rgba(244, 242, 236, 0.2);
+    color: rgba(244, 242, 236, 0.75);
+    padding: 0.4rem 0.85rem;
+    border-radius: 2px;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .showroom-pbr__close:hover {
+    border-color: #c9a97e;
+    color: #c9a97e;
+  }
+
+  /* Substrate Selector Tabs */
+  .showroom-pbr__selector {
+    display: flex;
+    gap: 0.4rem;
+    padding-block: 1.25rem;
+    border-bottom: 1px solid rgba(244, 242, 236, 0.08);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .showroom-pbr__selector::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showroom-pbr__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    background: rgba(244, 242, 236, 0.04);
+    border: 1px solid rgba(244, 242, 236, 0.08);
+    border-radius: 2px;
+    color: rgba(244, 242, 236, 0.65);
+    font-family: var(--f-body, sans-serif);
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    white-space: nowrap;
+  }
+
+  .showroom-pbr__tab .pbr-swatch {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .showroom-pbr__tab .pbr-tab-index {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.65rem;
+    opacity: 0.6;
+  }
+
+  .showroom-pbr__tab:hover {
+    color: #ffffff;
+    border-color: rgba(201, 169, 126, 0.4);
+  }
+
+  .showroom-pbr__tab.is-active {
+    background: rgba(201, 169, 126, 0.16);
+    border-color: #c9a97e;
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  /* Material Panel Body */
+  .showroom-pbr__panels {
+    padding-top: 1.5rem;
+  }
+
+  .showroom-pbr__panel {
+    display: none;
+  }
+
+  .showroom-pbr__panel.is-active {
+    display: block;
+    animation: fadeInPbr 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeInPbr {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .showroom-pbr__grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+  }
+
+  .showroom-pbr__media {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .showroom-pbr__imgwrap {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(244, 242, 236, 0.12);
+  }
+
+  .showroom-pbr__imgwrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .showroom-pbr__badge {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.6rem;
+    background: rgba(17, 18, 17, 0.88);
+    backdrop-filter: blur(8px);
+    border-radius: 2px;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: #e5ded3;
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .showroom-pbr__origin {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.74rem;
+    color: rgba(244, 242, 236, 0.7);
+  }
+
+  .origin-label {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: #c9a97e;
+    text-transform: uppercase;
+  }
+
+  .origin-text {
+    font-weight: 500;
+    color: #f4f2ec;
+  }
+
+  .origin-finish {
+    font-size: 0.68rem;
+    opacity: 0.65;
+  }
+
+  /* Details & Gauges */
+  .showroom-pbr__details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .showroom-pbr__hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .meta-typology {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c9a97e;
+  }
+
+  .meta-title {
+    font-family: var(--f-display, 'Boska', serif);
+    font-size: 1.65rem;
+    font-weight: 400;
+    color: #f4f2ec;
+    line-height: 1.1;
+  }
+
+  .meta-notes {
+    font-size: 0.82rem;
+    color: rgba(244, 242, 236, 0.72);
+    line-height: 1.5;
+  }
+
+  .props-heading {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c9a97e;
+    margin-bottom: 0.85rem;
+  }
+
+  .pbr-meter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .pbr-meter-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.68rem;
+    color: rgba(244, 242, 236, 0.85);
+  }
+
+  .pbr-meter-val {
+    color: #c9a97e;
+    font-weight: 600;
+  }
+
+  .pbr-meter-track {
+    width: 100%;
+    height: 4px;
+    background: rgba(244, 242, 236, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .pbr-meter-bar {
+    height: 100%;
+    background: #c9a97e;
+    border-radius: 2px;
+  }
+
+  .pbr-meter-sub {
+    font-size: 0.62rem;
+    color: rgba(244, 242, 236, 0.45);
+  }
+
+  .pbr-props-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .pbr-prop-chip {
+    padding: 0.6rem;
+    background: rgba(244, 242, 236, 0.03);
+    border: 1px solid rgba(244, 242, 236, 0.08);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .chip-label {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: rgba(244, 242, 236, 0.5);
+  }
+
+  .chip-val {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.78rem;
+    color: #f4f2ec;
+    font-weight: 500;
+  }
+
+  .pbr-climate-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(201, 169, 126, 0.04);
+    border-left: 2px solid #c9a97e;
+    margin-bottom: 0.85rem;
+  }
+
+  .climate-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .climate-label {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: #c9a97e;
+  }
+
+  .climate-val {
+    font-size: 0.72rem;
+    color: rgba(244, 242, 236, 0.85);
+  }
+
+  .pbr-specs-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.85rem;
+    background: rgba(244, 242, 236, 0.03);
+    border: 1px solid rgba(244, 242, 236, 0.08);
+    border-radius: 2px;
+    margin-bottom: 1.25rem;
+  }
+
+  .specs-tag {
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    color: rgba(244, 242, 236, 0.45);
+  }
+
+  .specs-body {
+    font-size: 0.78rem;
+    color: rgba(244, 242, 236, 0.85);
+    line-height: 1.45;
+  }
+
+  .showroom-pbr__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .showroom-pbr__btn-inquire {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    background: #c9a97e;
+    color: #111211;
+    font-family: var(--f-body, sans-serif);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .showroom-pbr__btn-inquire:hover {
+    background: #d4b893;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(201, 169, 126, 0.35);
+  }
+
+  .showroom-pbr__btn-works {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    background: transparent;
+    border: 1px solid rgba(244, 242, 236, 0.15);
+    color: rgba(244, 242, 236, 0.75);
+    font-family: var(--f-mono, 'DM Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .showroom-pbr__btn-works:hover {
+    border-color: #c9a97e;
+    color: #f4f2ec;
+  }
+
+  /* -------------------------------------------------------------
+     5. Mobile & Small Screen Reflow (390px Viewport Proof)
+     ------------------------------------------------------------- */
+  @media (max-width: 860px) {
+    .showroom-hud__datum-tag,
+    .showroom-hud__datum-sep:first-of-type {
+      display: none;
+    }
+    .telemetry-block--hide-mobile {
+      display: none;
+    }
+    .showroom-tod {
+      top: auto;
+      bottom: clamp(4.5rem, 10vw, 6rem);
+      right: clamp(1rem, 2.5vw, 1.5rem);
+    }
+    .showroom-tod__note {
+      display: none;
+    }
+    .showroom-pbr__grid {
+      grid-template-columns: 1fr;
+    }
+    .showroom-pbr__media {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .showroom-hud {
+      padding: 0.85rem;
+    }
+    .showroom-hud__datum {
+      font-size: 0.58rem;
+    }
+    .showroom-pov-strip {
+      top: 3.1rem;
+      width: calc(100% - 1.7rem);
+    }
+    .showroom-pov-strip__inner {
+      overflow-x: auto;
+      scrollbar-width: none;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .showroom-pov-strip__title {
+      display: none;
+    }
+    .showroom-pov-strip__tab {
+      padding: 0.24rem 0.55rem;
+      font-size: 0.68rem;
+    }
+    .showroom-tod {
+      bottom: 5.2rem;
+      right: 0.85rem;
+    }
+    .showroom-tod__btn {
+      padding: 0.28rem 0.55rem;
+      font-size: 0.66rem;
+    }
+    .showroom-tod__kelvin {
+      display: none;
+    }
+    .showroom-pbr__drawer,
+    .showroom-pov__drawer {
+      max-width: 100%;
+      height: 90svh;
+      border-left: none;
+      border-top: 2px solid #c9a97e;
+      border-radius: 12px 12px 0 0;
+      transform: translateY(100%);
+    }
+    .showroom-pbr[aria-hidden='false'] .showroom-pbr__drawer,
+    .showroom-pov[aria-hidden='false'] .showroom-pov__drawer {
+      transform: translateY(0);
+    }
+    .showroom-pov {
+      align-items: flex-end;
+    }
+    .showroom-pbr {
+      align-items: flex-end;
+    }
+    .pbr-props-row {
+      grid-template-columns: 1fr;
+    }
+    .pbr-climate-block {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

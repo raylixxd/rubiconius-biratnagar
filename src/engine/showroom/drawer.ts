@@ -72,7 +72,7 @@ export class MaterialDrawer {
     }
 
     if (this.inquireLinkEl) {
-      const msg = `Namaste ${site.founder} ji, I was exploring the Rubiconius 3D Material Study and would like to discuss ${study.title} finishes for my space.`;
+      const msg = `Namaste ${site.founder} ji, I was exploring the ${site.name} 3D Material Study and would like to discuss ${study.title} finishes for my space.`;
       this.inquireLinkEl.href = `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(msg)}`;
     }
 
