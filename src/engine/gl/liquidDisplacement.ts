@@ -269,9 +269,6 @@ export interface LiquidDisplacementHandle {
  * Common fullscreen quad vertex shader.
  */
 export const QUAD_VERT = /* glsl */ `
-precision highp float;
-attribute vec3 position;
-attribute vec2 uv;
 varying vec2 vUv;
 
 void main() {

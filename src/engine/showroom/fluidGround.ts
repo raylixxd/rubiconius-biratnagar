@@ -91,9 +91,6 @@ export interface FluidGroundHandle {
 // ----------------------------------------------------------------------------
 
 const SIM_VERTEX_SHADER = /* glsl */ `
-precision highp float;
-attribute vec3 position;
-attribute vec2 uv;
 varying vec2 vUv;
 
 void main() {
