@@ -1,302 +1,110 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import ShowroomStage from '../components/ShowroomStage.astro';
 import { commissions, craftPlate, parquetPlate, site } from '../data/site';
-
-const cortocards = [
-  {
-    cls: 'corto-card--center',
-    cat: 'JOINERY',
-    title: craftPlate.title,
-    spec: 'SAL TIMBER · HAND-OILED',
-    image: craftPlate.image,
-    alt: craftPlate.alt,
-    href: '/showroom/',
-  },
-  {
-    cls: 'corto-card--sat-1',
-    cat: commissions[0]?.typology?.toUpperCase() || 'SUITE',
-    title: commissions[0]?.title || 'Fluted Master Suite',
-    spec: `${commissions[0]?.location?.toUpperCase() || 'BIRATNAGAR'} · ${commissions[0]?.year || '2024'}`,
-    image: commissions[0]?.image || craftPlate.image,
-    alt: commissions[0]?.alt || craftPlate.alt,
-    href: `/works/${commissions[0]?.slug || 'fluted-master-suite'}/`,
-  },
-  {
-    cls: 'corto-card--sat-2',
-    cat: commissions[1]?.typology?.toUpperCase() || 'RECEPTION',
-    title: commissions[1]?.title || 'Formal Drawing Room',
-    spec: `${commissions[1]?.location?.toUpperCase() || 'DHARAN'} · ${commissions[1]?.year || '2024'}`,
-    image: commissions[1]?.image || parquetPlate.image,
-    alt: commissions[1]?.alt || parquetPlate.alt,
-    href: `/works/${commissions[1]?.slug || 'formal-drawing-room'}/`,
-  },
-  {
-    cls: 'corto-card--sat-3',
-    cat: commissions[2]?.typology?.toUpperCase() || 'GALLERY',
-    title: commissions[2]?.title || 'Heritage Panelled Gallery',
-    spec: `${commissions[2]?.location?.toUpperCase() || 'BIRATNAGAR'} · ${commissions[2]?.year || '2023'}`,
-    image: commissions[2]?.image || craftPlate.image,
-    alt: commissions[2]?.alt || craftPlate.alt,
-    href: `/works/${commissions[2]?.slug || 'heritage-panelled-gallery'}/`,
-  },
-  {
-    cls: 'corto-card--sat-4',
-    cat: 'SPECIMEN',
-    title: 'Studio Material Board',
-    spec: 'STONE · BRASS · LINEN',
-    image: parquetPlate.image,
-    alt: parquetPlate.alt,
-    href: '/practice/',
-  },
-];
-
-const storyFrames = [
-  { y: 244, image: commissions[0].image, alt: commissions[0].alt },
-  { y: 450, image: craftPlate.image, alt: craftPlate.alt },
-  { y: 656, image: parquetPlate.image, alt: parquetPlate.alt },
-  { y: 862, image: commissions[1].image, alt: commissions[1].alt },
-];
 ---
 <Base heroOverlay={true}>
-  <!-- Frame 1: Custom Otto Objects Full-Bleed Unscrimmed Hero + Interactive Refractive Lens/Caustics WebGL Canvas -->
-  <section id="cover" class="otto-hero" data-theme-zone="dark" aria-label={`${site.name} — Fluted Suite (III) Monograph`}>
-    <h1 class="sr-only">{site.name} — Fluted Suite (III) Turnkey Interior Architecture in Biratnagar &amp; Dharan</h1>
-    <div class="otto-hero__stage" data-otto-hero-stage>
-      <picture class="otto-hero__picture">
-        <img
-          class="otto-hero__img"
-          src="/images/hero-poster.webp"
-          width="2560"
-          height="1440"
-          alt="Fluted Suite (III) in seasoned Sal timber and honed stone, its warm coves calibrated for evening daylight"
-          fetchpriority="high"
-          decoding="async"
-          data-critical
-        />
-      </picture>
-      <canvas class="otto-hero__gl" data-otto-hero-gl aria-hidden="true"></canvas>
+  <!-- Band 1: Full-Bleed Architectural Cinema Hero with Scroll Momentum -->
+  <section class="cinema-hero" aria-label="Rubiconius Architectural Monograph">
+    <div class="cinema-hero__bg" data-hero-plate>
+      <img
+        class="cinema-hero__poster"
+        src="/images/hero-poster.webp"
+        alt="Rubiconius architectural living room walkthrough showcasing custom timber millwork, stone surfaces, and warm evening illumination"
+        width={2560}
+        height={1440}
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high"
+        data-critical
+      />
+      <video
+        class="cinema-hero__video"
+        data-hero-video
+        width={2560}
+        height={1440}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="/images/hero-poster.webp"
+        aria-hidden="true"
+      >
+        <source src="/videos/rubiconius-hero.mp4" type="video/mp4" />
+      </video>
     </div>
-    <div class="otto-hero__shade" data-otto-hero-shade aria-hidden="true"></div>
-
-    <div class="otto-lab-label otto-t12" data-otto-lab-label>
-      <button type="button" data-otto-film="0">(A) Fluted Glass</button>
-      <button type="button" class="is-on" data-otto-film="1">(C) Daylight Caustics</button>
-      <button type="button" data-otto-film="2">(D) Brass Dew</button>
-      <span class="otto-lab-label__gap" aria-hidden="true"></span>
-      <a href="/showroom/">3D Spatial Study &rarr;</a>
+    <div class="cinema-hero__scrim" aria-hidden="true"></div>
+    <div class="arch-grid-lines arch-grid-lines--dark" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
     </div>
-  </section>
 
-  <!-- Frame 2: Custom Otto Objects .story Monograph Spine + Pinned 3-Step Wireframe Transformation -->
-  <section id="otto-story" class="otto-story" data-theme-zone="light" aria-labelledby="otto-story-title">
-    <div class="otto-story__hero-block">
-      <h2 class="otto-story__title otto-t120" id="otto-story-title">
-        <span class="otto-line"><span class="otto-line__in">Fluted Suite (III)</span></span>
-        <span class="otto-line"><span class="otto-line__in">crafted to hold</span></span>
-        <span class="otto-line"><span class="otto-line__in">living daylight</span></span>
-      </h2>
+    <div class="cinema-hero__inner wrap">
+      <div class="cinema-hero__body">
+        <div class="cinema-hero__copy">
+          <h1 class="cinema-hero__headline" data-text-reactive="words">
+            Quiet architecture<br />shaped in timber<br />and daylight.
+          </h1>
+          <p class="cinema-hero__sub">
+            Turnkey residential and executive interiors led by {site.founder} across Biratnagar and Dharan &mdash; disciplined millwork, honed stone, and calm spatial proportion.
+          </p>
+        </div>
 
-      <ol class="otto-story__pictures" aria-label="Fluted Suite (III), four architectural views">
-        {storyFrames.map((frame) => (
-          <li class="otto-story__picture" style={`--y: ${frame.y}`}>
-            <Image
-              src={frame.image}
-              alt={frame.alt}
-              width={frame.image.width}
-              height={frame.image.height}
-              loading="eager"
-              decoding="sync"
-            />
-          </li>
-        ))}
-      </ol>
-
-      <dl class="otto-story__specs otto-t12s">
-        <div class="otto-abs" style="--x: 20; --y: 646"><dt>Span</dt><dd>W 6400 mm</dd></div>
-        <div class="otto-abs" style="--x: 256; --y: 646"><dt>Relief</dt><dd>D 45 mm Sal Fluting</dd></div>
-        <div class="otto-abs" style="--x: 1082; --y: 646"><dt>Module</dt><dd>&#8960;50 Brass / 1200 mm Bay</dd></div>
-        <div class="otto-abs otto-abs--r" style="--r: 1420; --y: 646"><dt>Clear Height</dt><dd>H 3200 mm</dd></div>
-      </dl>
-
-      <p class="otto-story__lead otto-t30 otto-abs otto-abs--c" style="--cx: 720.5; --y: 1140">
-        <span class="otto-line"><span class="otto-line__in">The signature architectural</span></span>
-        <span class="otto-line"><span class="otto-line__in">commission by {site.name}&trade; (III).</span></span>
-        <span class="otto-line"><span class="otto-line__in">A spatial volume built for</span></span>
-        <span class="otto-line"><span class="otto-line__in">enduring calm.</span></span>
-      </p>
-
-      <p class="otto-story__details otto-t12s otto-abs otto-abs--c" style="--cx: 720; --y: 1295">
-        <span class="otto-line"><span class="otto-line__in">Dimensions:</span></span>
-        <span class="otto-line"><span class="otto-line__in">W 6400 &times; D 5200 &times; H 3200 mm</span></span>
-        <span class="otto-line" aria-hidden="true"><span class="otto-line__in">&nbsp;</span></span>
-        <span class="otto-line"><span class="otto-line__in">In Seasoned Sal Timber &amp; Honed Stone</span></span>
-      </p>
-
-      <a class="otto-story__buy otto-t12 otto-abs otto-abs--c" href="/works/fluted-master-suite/" style="--cx: 720.5; --y: 1390">
-        <span class="otto-line"><span class="otto-line__in">Explore Commission</span></span>
-      </a>
-
-      <div class="otto-story__flight" data-otto-story-flight aria-hidden="true">
-        <Image
-          src={craftPlate.image}
-          alt=""
-          width={craftPlate.image.width}
-          height={craftPlate.image.height}
-          loading="lazy"
-          decoding="async"
-        />
+        <div class="cinema-hero__ctas">
+          <a class="cinema-pill-btn" href="/showroom/">
+            <span class="cinema-pill-btn__dot" aria-hidden="true">&#9654;</span>
+            <span data-text-reactive="roll">Explore 3D Study</span>
+          </a>
+        </div>
       </div>
-    </div>
 
-    <!-- Pinned 3-Step Otto Forms + Blueprint Wireframe Scrub Morph -->
-    <div class="otto-spin-stage" data-otto-spin-stage>
-      <div class="otto-forms" aria-live="polite">
-        <ol class="otto-forms__steps otto-t12" aria-label="Fluted Suite in three structural steps">
-          <li class="otto-forms__n otto-abs" style="--x: 20">
-            <span class="otto-line"><span class="otto-line__in" data-otto-step-num>01</span></span>
-          </li>
-          <li class="otto-forms__step is-active otto-abs" style="--x: 256" data-otto-step="0">
-            <span class="otto-line"><span class="otto-line__in">Four Timber Planes</span></span>
-          </li>
-          <li class="otto-forms__step otto-abs" style="--x: 1082" data-otto-step="1">
-            <span class="otto-line"><span class="otto-line__in">Three Daylight Bays</span></span>
-          </li>
-          <li class="otto-forms__step otto-abs otto-abs--r" style="--r: 1420" data-otto-step="2">
-            <span class="otto-line"><span class="otto-line__in">One Living Volume</span></span>
-          </li>
-        </ol>
-
-        <div class="otto-flight-stage" data-otto-flight>
-          <div class="otto-flight-stage__inner" data-otto-flight-inner>
-            <Image
-              class="otto-flight-stage__photo"
-              src={craftPlate.image}
-              alt={craftPlate.alt}
-              width={craftPlate.image.width}
-              height={craftPlate.image.height}
-              loading="lazy"
-              decoding="async"
-              data-otto-flight-photo
-            />
-            <svg class="otto-flight-stage__svg" viewBox="0 0 360 480" fill="none" aria-hidden="true" data-otto-flight-svg>
-              <!-- Outer structural frame & perimeter reveal -->
-              <rect x="28" y="34" width="304" height="412" stroke="currentColor" stroke-width="1" pathLength="1" data-otto-path />
-              <rect x="44" y="50" width="272" height="380" stroke="currentColor" stroke-width="0.75" stroke-opacity="0.72" pathLength="1" data-otto-path />
-              <!-- Three daylight bays (vertical muntin piers) -->
-              <line x1="134" y1="50" x2="134" y2="430" stroke="currentColor" stroke-width="1" pathLength="1" data-otto-path />
-              <line x1="226" y1="50" x2="226" y2="430" stroke="currentColor" stroke-width="1" pathLength="1" data-otto-path />
-              <!-- Fluted Sal vertical joinery ribs -->
-              <path d="M58 68V412M72 68V412M86 68V412M100 68V412M114 68V412" stroke="currentColor" stroke-width="0.65" stroke-opacity="0.55" pathLength="1" data-otto-path />
-              <path d="M242 68V412M256 68V412M270 68V412M284 68V412M298 68V412" stroke="currentColor" stroke-width="0.65" stroke-opacity="0.55" pathLength="1" data-otto-path />
-              <!-- Bedhead / Reception plinth volume -->
-              <rect x="116" y="254" width="128" height="128" stroke="currentColor" stroke-width="1.1" pathLength="1" data-otto-path />
-              <line x1="116" y1="304" x2="244" y2="304" stroke="currentColor" stroke-width="0.75" pathLength="1" data-otto-path />
-              <!-- Brass luminaire pendant drop & reflection arc -->
-              <line x1="180" y1="50" x2="180" y2="146" stroke="currentColor" stroke-width="0.9" pathLength="1" data-otto-path />
-              <circle cx="180" cy="158" r="12" stroke="currentColor" stroke-width="1" pathLength="1" data-otto-path />
-              <!-- Millimeter dimension datum ticks -->
-              <line x1="28" y1="18" x2="332" y2="18" stroke="currentColor" stroke-width="0.7" stroke-dasharray="3 3" pathLength="1" data-otto-path />
-              <circle cx="28" cy="18" r="2.2" fill="currentColor" />
-              <circle cx="332" cy="18" r="2.2" fill="currentColor" />
-            </svg>
+      <div class="cinema-hero__bottom">
+        <div class="cinema-hero__wordmark">
+          <p class="cinema-hero__giant" data-text-reactive="proximity" aria-label={site.name}>
+            {site.name.toUpperCase()}
+          </p>
+        </div>
+        <div class="cinema-hero__foot">
+          <div class="cinema-hero__foot-left">
+            <a class="cinema-scroll-cue" href="#works">&darr; SCROLL TO EXPLORE</a>
           </div>
-          <p class="otto-flight-stage__cap otto-t12s">SAL TIMBER · 1:20 ELEVATION STUDY</p>
+          <span class="cinema-studio-tag">BIRATNAGAR &middot; DHARAN &middot; 26.4678&deg; N, 87.2767&deg; E</span>
         </div>
-
-        <p class="otto-forms__title otto-t120w">
-          <span class="otto-line is-active" data-otto-step-title="0"><span class="otto-line__in">Four Timber Planes</span></span>
-          <span class="otto-line" data-otto-step-title="1"><span class="otto-line__in">Three Daylight Bays</span></span>
-          <span class="otto-line" data-otto-step-title="2"><span class="otto-line__in">One Living Volume</span></span>
-        </p>
       </div>
     </div>
   </section>
 
-  <!-- Frame 3A: OH Architecture Intro + Sticky Corner-Ticked Miniature + Opposing Mega Works Header -->
-  <section id="studio-intro" class="oh-intro wrap" data-theme-zone="light" aria-label="Studio Practice Introduction">
-    <div class="oh-intro__grid">
-      <div class="oh-intro__mini-col">
-        <div class="oh-intro__mini">
-          <span class="corner-tick corner-tick--tl" aria-hidden="true"></span>
-          <span class="corner-tick corner-tick--tr" aria-hidden="true"></span>
-          <figure class="oh-intro__mini-frame">
-            <Image
-              class="project-photo"
-              src={parquetPlate.image}
-              alt={parquetPlate.alt}
-              width={parquetPlate.image.width}
-              height={parquetPlate.image.height}
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
-        </div>
-      </div>
+  <div class="gl-seam" data-gl-seam aria-hidden="true"></div>
 
-      <div class="oh-intro__copy-col">
-        <p class="oh-intro__para">
-          We work closely with homeowners and institutional patrons across Biratnagar and Dharan right from first volumetric massing &mdash; structuring civil execution, electrical coordination, and custom carpentry under one studio desk.
-        </p>
-        <p class="oh-intro__para">
-          While our aesthetic stays anchored in seasoned Sal timber, honed stone, and serene proportion, every commission evolves to reflect how our clients live and gather every day.
-        </p>
-        <a class="oh-pill-cta" href="/practice/">
-          <span>LEARN MORE ABOUT OUR STUDIO</span>
-          <span class="oh-pill-cta__circle" aria-hidden="true"></span>
-        </a>
-      </div>
+  <!-- Band 2: Selected Works (3-Column 4/5 Portrait Grid) -->
+  <section id="works" class="works-sec wrap">
+    <div class="section-head">
+      <span class="section-head__kicker">Selected Works</span>
+      <h2 class="section-head__title" data-text-reactive="words">Completed interiors tailored around how our clients live.</h2>
     </div>
 
-    <div class="oh-mega-header" data-mega-header>
-      <div class="oh-mega-header__row1">
-        <span class="oh-mega-word" data-mega-left>FEATURED</span>
-      </div>
-      <div class="oh-mega-header__row2">
-        <span class="oh-mega-word oh-mega-word--indent" data-mega-right>WORKS</span>
-        <span class="oh-mega-count">(0{commissions.length})</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Frame 3B: Telha Clarke `c-works` Kinetic Expanding [ Title ] Aperture Stack -->
-  <section id="works" class="tc-works" data-theme-zone="light" aria-label="Selected Works">
-    <div class="tc-works__list">
+    <div class="works-grid">
       {commissions.map((c, idx) => (
-        <article class="tc-works-item" data-tc-item>
-          <a
-            class="tc-works-item__link"
-            href={`/works/${c.slug}/`}
-            data-transition="flip"
-            data-gl-flip={c.slug}
-          >
-            <div class="tc-works__head">
-              <span class="tc-works__tick tc-works__tick--l" aria-hidden="true"></span>
-              <span class="tc-works__bracket tc-works__bracket--l" data-tc-bracket-l aria-hidden="true">[</span>
-              <h3 class="tc-works__title" data-tc-title>{c.title}</h3>
-              <span class="tc-works__bracket tc-works__bracket--r" data-tc-bracket-r aria-hidden="true">]</span>
-              <span class="tc-works__tick tc-works__tick--r" aria-hidden="true"></span>
+        <article class={`work-card ${idx === 0 ? 'work-card--lead' : ''}`}>
+          <a class="work-card__link" href={`/works/${c.slug}/`} data-transition="flip" data-gl-flip={c.slug}>
+            <div class="work-card__media" data-gl data-gl-flip={c.slug}>
+              <Image
+                class="project-photo"
+                src={c.image}
+                alt={c.alt}
+                width={c.image.width}
+                height={c.image.height}
+                loading="eager"
+                decoding="async"
+              />
             </div>
-
-            <div class="tc-works__stage wrap">
-              <div class="tc-works__col">
-                <div class="tc-works__image-box" data-tc-box>
-                  <Image
-                    class="project-photo tc-works__img"
-                    src={c.image}
-                    alt={c.alt}
-                    width={c.image.width}
-                    height={c.image.height}
-                    loading={idx === 0 ? 'eager' : 'lazy'}
-                    decoding="async"
-                    data-tc-img
-                  />
-                </div>
-                <div class="tc-works__meta">
-                  <span data-tc-meta>{c.typology} &middot; {c.location}</span>
-                  <span data-tc-meta>0{idx + 1} &middot; {c.year} &middot; {c.focus} &#8599;</span>
-                </div>
+            <div class="work-card__meta">
+              <div class="work-card__head">
+                <h3 class="work-card__title">{c.title}</h3>
+                <span class="work-card__year">{c.focus} &#8599;</span>
               </div>
+              <p class="work-card__sub">{c.typology} &middot; {c.location} &middot; {c.year}</p>
             </div>
           </a>
         </article>
@@ -304,229 +112,26 @@ const storyFrames = [
     </div>
   </section>
 
-  <!-- Frame 4A: Custom Otto Objects Interactive (I) (II) (III) Architectural Elevation Switcher Card -->
-  <section id="otto-card-stage" class="otto-card-stage" data-theme-zone="light" aria-label="Architectural Scale Selector">
-    <div class="otto-card" data-otto-card>
-      <h2 class="otto-card__title otto-t30" data-otto-card-title>
-        <span class="otto-line otto-roll"><span class="otto-line__in">Fluted Suite (III)</span></span>
-      </h2>
-
-      <div class="otto-card__sizes" role="radiogroup" aria-label="Architectural Bay Typology">
-        <i class="otto-card__frame" data-otto-card-frame style="--x: 451; --r: 584" aria-hidden="true"></i>
-
-        <span class="otto-card__label otto-t12" style="--cx: 171.5" aria-hidden="true">(I)</span>
-        <button class="otto-card__size" type="button" role="radio" aria-checked="false" aria-label="Fluted Study (I), Single Bay" data-otto-size="1" style="--x: 105">
-          <svg viewBox="0 0 80 120" fill="none" aria-hidden="true">
-            <rect x="18" y="14" width="44" height="92" stroke="currentColor" stroke-width="1.3" />
-            <line x1="28" y1="22" x2="28" y2="98" stroke="currentColor" stroke-width="0.9" />
-            <line x1="40" y1="22" x2="40" y2="98" stroke="currentColor" stroke-width="0.9" />
-            <line x1="52" y1="22" x2="52" y2="98" stroke="currentColor" stroke-width="0.9" />
-            <rect x="26" y="70" width="28" height="22" stroke="currentColor" stroke-width="1.2" />
-          </svg>
-        </button>
-
-        <span class="otto-card__label otto-t12" style="--cx: 345" aria-hidden="true">(II)</span>
-        <button class="otto-card__size" type="button" role="radio" aria-checked="false" aria-label="Drawing Room (II), Twin Bay" data-otto-size="2" style="--x: 278">
-          <svg viewBox="0 0 112 120" fill="none" aria-hidden="true">
-            <rect x="12" y="14" width="88" height="92" stroke="currentColor" stroke-width="1.3" />
-            <line x1="56" y1="14" x2="56" y2="106" stroke="currentColor" stroke-width="1.2" />
-            <line x1="24" y1="22" x2="24" y2="98" stroke="currentColor" stroke-width="0.8" />
-            <line x1="36" y1="22" x2="36" y2="98" stroke="currentColor" stroke-width="0.8" />
-            <line x1="76" y1="22" x2="76" y2="98" stroke="currentColor" stroke-width="0.8" />
-            <line x1="88" y1="22" x2="88" y2="98" stroke="currentColor" stroke-width="0.8" />
-            <circle cx="56" cy="40" r="8" stroke="currentColor" stroke-width="1.1" />
-          </svg>
-        </button>
-
-        <span class="otto-card__label otto-t12" style="--cx: 518" aria-hidden="true">(III)</span>
-        <button class="otto-card__size is-active" type="button" role="radio" aria-checked="true" aria-label="Fluted Suite (III), Triple Bay" data-otto-size="3" style="--x: 451">
-          <svg viewBox="0 0 132 120" fill="none" aria-hidden="true">
-            <rect x="10" y="14" width="112" height="92" stroke="currentColor" stroke-width="1.3" />
-            <line x1="47" y1="14" x2="47" y2="106" stroke="currentColor" stroke-width="1.1" />
-            <line x1="85" y1="14" x2="85" y2="106" stroke="currentColor" stroke-width="1.1" />
-            <path d="M20 22V98M29 22V98M38 22V98" stroke="currentColor" stroke-width="0.75" />
-            <path d="M94 22V98M103 22V98M112 22V98" stroke="currentColor" stroke-width="0.75" />
-            <rect x="52" y="66" width="28" height="28" stroke="currentColor" stroke-width="1.2" />
-            <line x1="66" y1="14" x2="66" y2="42" stroke="currentColor" stroke-width="0.9" />
-            <circle cx="66" cy="46" r="4.5" stroke="currentColor" stroke-width="1" />
-          </svg>
-        </button>
-      </div>
-
-      <p class="otto-card__details otto-t12s">
-        Dimensions:<br />
-        <span class="otto-line otto-roll otto-card__dims" data-otto-card-dims>
-          <span class="otto-line__in">W 6400 &times; D 5200 &times; H 3200 mm</span>
-        </span>
-        <br /><br />
-        <span data-otto-card-mat>In Seasoned Sal Timber &amp; Honed Stone</span>
-      </p>
-
-      <a class="otto-card__buy otto-t12" data-otto-card-link href="/works/fluted-master-suite/">
-        <span class="otto-line otto-roll"><span class="otto-line__in">View Fluted Suite (III)</span></span>
-      </a>
-    </div>
-  </section>
-
-  <!-- Frame 4B: House of Corto Pinned Center Portal Explosion into 5-Plate Matrix + Otto Objects Smear -->
-  <section id="aperture" class="corto-stage" data-theme-zone="light" aria-label="Material Archive Matrix">
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <filter id="corto-smear" x="-10%" y="-20%" width="120%" height="140%">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="0 0" data-smear-blur />
-      </filter>
-    </svg>
-
-    <div class="corto-stage__canvas">
-      <span class="corto-stage__edge-label corto-stage__edge-label--l" data-corto-label-l>HOUSE OF RUBICONIUS</span>
-      <span class="corto-stage__edge-label corto-stage__edge-label--r" data-corto-label-r>MATERIAL ARCHIVE (05)</span>
-
-      <div class="corto-stage__deck">
-        {cortocards.map((card) => (
-          <a class={`corto-card ${card.cls}`} href={card.href}>
-            <div class="corto-card__media">
-              <Image
-                class="project-photo"
-                src={card.image}
-                alt={card.alt}
-                width={card.image.width}
-                height={card.image.height}
-                loading="lazy"
-                decoding="async"
-              />
+  <!-- Band 3: Capabilities & Handpicked Craft Diptych -->
+  <section class="atelier-band wrap">
+    <div class="atelier-band__copy">
+      <span class="section-kicker">What We Execute</span>
+      <h2 class="atelier-band__title" data-text-reactive="words">From carpentry and civil work to the final handpicked piece.</h2>
+      <ul class="services-ledger">
+        {site.services.map((srv) => (
+          <li>
+            <span class="services-ledger__idx">{srv.index}</span>
+            <div class="services-ledger__text">
+              <span class="services-ledger__name">{srv.name}</span>
+              <span class="services-ledger__detail">{srv.detail}</span>
             </div>
-            <div class="corto-card__caption">
-              <span>{card.cat}</span>
-              <span>{card.title}</span>
-            </div>
-          </a>
+          </li>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Frame 5: Custom Otto Objects Dark Staggered .collection Showcase (#1e1b1a) -->
-  <section id="otto-collection" class="otto-collection" data-theme-zone="dark" aria-label="Collection Index (03)">
-    <p class="otto-collection__title otto-t120 otto-abs" style="--x: 14; --y: 84" aria-hidden="true">
-      <span class="otto-line"><span class="otto-line__in">R</span></span>
-    </p>
-    <p class="otto-collection__count otto-t12 otto-abs" style="--x: 20; --y: 376">Collection (0{commissions.length}):</p>
-    <h2 class="otto-collection__title otto-t120 otto-abs" style="--x: 253; --y: 84">
-      <span class="otto-line"><span class="otto-line__in">Collection</span></span>
-    </h2>
-    <p class="otto-collection__title otto-t120 otto-abs otto-abs--r" style="--r: 1423; --y: 84" aria-hidden="true">
-      <span class="otto-line"><span class="otto-line__in">(0{commissions.length})</span></span>
-    </p>
-
-    <a
-      class="otto-collection__card otto-abs"
-      href={`/works/${commissions[0].slug}/`}
-      data-label="Explore Suite"
-      data-otto-collection-card
-      style="--x: 256; --y: 378; --w: 338; --h: 431.4"
-    >
-      <span class="otto-collection__pic">
-        <Image
-          src={commissions[0].image}
-          alt={commissions[0].alt}
-          width={commissions[0].image.width}
-          height={commissions[0].image.height}
-          loading="lazy"
-          decoding="async"
-        />
-      </span>
-    </a>
-
-    <a
-      class="otto-collection__card otto-abs"
-      href={`/works/${commissions[1].slug}/`}
-      data-label="Explore Salon"
-      data-otto-collection-card
-      style="--x: 610; --y: 378; --w: 338; --h: 333"
-    >
-      <span class="otto-collection__pic">
-        <Image
-          src={commissions[1].image}
-          alt={commissions[1].alt}
-          width={commissions[1].image.width}
-          height={commissions[1].image.height}
-          loading="lazy"
-          decoding="async"
-        />
-      </span>
-    </a>
-
-    <a
-      class="otto-collection__card otto-abs"
-      href={`/works/${commissions[2].slug}/`}
-      data-label="Explore Gallery"
-      data-otto-collection-card
-      style="--x: 964; --y: 378; --w: 456; --h: 582"
-    >
-      <span class="otto-collection__pic">
-        <Image
-          src={commissions[2].image}
-          alt={commissions[2].alt}
-          width={commissions[2].image.width}
-          height={commissions[2].image.height}
-          loading="lazy"
-          decoding="async"
-        />
-      </span>
-    </a>
-
-    <p class="otto-collection__name otto-t12 otto-abs" style="--x: 256; --y: 818">
-      <span>01</span><span>Fluted Suite</span>
-    </p>
-    <p class="otto-collection__dims otto-abs" style="--x: 394; --y: 818">
-      Dimensions:<br />W 6400 &times; D 5200 &times; H 3200 mm
-    </p>
-
-    <p class="otto-collection__name otto-t12 otto-abs" style="--x: 610; --y: 719">
-      <span>02</span><span>Drawing Room</span>
-    </p>
-    <p class="otto-collection__dims otto-abs" style="--x: 762; --y: 719">
-      Dimensions:<br />W 7800 &times; D 4800 &times; H 3400 mm
-    </p>
-
-    <p class="otto-collection__name otto-t12 otto-abs" style="--x: 964; --y: 971">
-      <span>03</span><span>Gallery Hall</span>
-    </p>
-    <p class="otto-collection__dims otto-abs" style="--x: 1112; --y: 971">
-      Dimensions:<br />W 9200 &times; D 3600 &times; H 3200 mm
-    </p>
-  </section>
-
-  <!-- Frame 6A: ANUC Home 4-Column Continuous Vertical Hairline Grid -->
-  <section id="scope" class="anuc-grid wrap" data-theme-zone="light" aria-label="Execution Disciplines">
-    <div class="anuc-col anuc-col--datum">
-      <div class="anuc-datum__sticky">
-        <span class="anuc-num">(01 &mdash; 03)</span>
-        <p class="anuc-datum__text">EXECUTION DISCIPLINES &middot; BIRATNAGAR &amp; DHARAN</p>
-      </div>
+      </ul>
     </div>
 
-    <div class="anuc-col" data-anuc-col="0">
-      <span class="anuc-num">01</span>
-      <h2 class="anuc-title">TURNKEY RESIDENTIAL &amp; EXECUTIVE INTERIORS</h2>
-      <p class="anuc-desc">Full spatial planning, civil coordination, false ceilings, and concealed lighting from initial shell to handover.</p>
-      <figure class="anuc-plate anuc-plate--1" data-anuc-plate="0">
-        <Image
-          class="project-photo"
-          src={commissions[0].image}
-          alt={commissions[0].alt}
-          width={commissions[0].image.width}
-          height={commissions[0].image.height}
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>
-    </div>
-
-    <div class="anuc-col" data-anuc-col="1">
-      <span class="anuc-num">02</span>
-      <h2 class="anuc-title">BESPOKE MILLWORK, TIMBER &amp; HONED STONE</h2>
-      <p class="anuc-desc">Fluted Sal wall panelling, custom beds, bookmatched marble slabs, and regional artisanal brass hardware.</p>
-      <figure class="anuc-plate anuc-plate--2" data-anuc-plate="1">
+    <div class="atelier-band__right">
+      <figure class="atelier-band__visual" data-gl>
         <Image
           class="project-photo"
           src={craftPlate.image}
@@ -537,13 +142,44 @@ const storyFrames = [
           decoding="async"
         />
       </figure>
+      <div class="specimen-caption">
+        <span>{craftPlate.title}</span>
+        <span>{craftPlate.meta}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Band 4: Crossing the Rubicon Commitment & Verified Studio Facts -->
+  <section class="proof-sec wrap">
+    <div class="proof-sec__left">
+      <span class="section-kicker">Crossing the Rubicon</span>
+      <blockquote class="proof-sec__statement">
+        &ldquo;{site.commitmentQuote}&rdquo;
+      </blockquote>
+      <p class="proof-sec__attribution">{site.founder} &middot; Founder &amp; Principal Designer</p>
+
+      <div class="proof-sec__facts">
+        <div class="fact-cell">
+          <p class="fact-cell__num">Turnkey</p>
+          <p class="fact-cell__lbl">Spatial planning, millwork, lighting &amp; styling</p>
+        </div>
+        <div class="fact-cell">
+          <p class="fact-cell__num">Two Studios</p>
+          <p class="fact-cell__lbl">Munal Path, Biratnagar &amp; Gita Mandir Line, Dharan</p>
+        </div>
+        <div class="fact-cell">
+          <p class="fact-cell__num">Sun &ndash; Fri</p>
+          <p class="fact-cell__lbl">11 AM &ndash; 5 PM (Saturday closed)</p>
+        </div>
+        <div class="fact-cell">
+          <p class="fact-cell__num">981-2353149</p>
+          <p class="fact-cell__lbl">Direct WhatsApp &amp; phone (+977)</p>
+        </div>
+      </div>
     </div>
 
-    <div class="anuc-col" data-anuc-col="2">
-      <span class="anuc-num">03</span>
-      <h2 class="anuc-title">LIGHTING GEOMETRY &amp; TURNKEY SITE CUSTODY</h2>
-      <p class="anuc-desc">Recessed warm coves, architectural glazing, bespoke upholstery, and single-point site administration.</p>
-      <figure class="anuc-plate anuc-plate--3" data-anuc-plate="2">
+    <div class="proof-sec__right">
+      <figure class="proof-sec__visual" data-gl>
         <Image
           class="project-photo"
           src={parquetPlate.image}
@@ -554,43 +190,23 @@ const storyFrames = [
           decoding="async"
         />
       </figure>
-    </div>
-  </section>
-
-  <!-- Frame 6B: DHK Architects Pure Obsidian-Cut Manifesto (we [verb]) -->
-  <section id="manifesto" class="dhk-manifesto" data-theme-zone="dark" aria-label="Studio Manifesto">
-    <div class="dhk-manifesto__inner wrap">
-      <div class="dhk-manifesto__stage">
-        <div class="dhk-manifesto__tag-col">
-          <span class="dhk-manifesto__tag">rubiconius manifesto</span>
-        </div>
-
-        <div class="dhk-manifesto__we-col">
-          <span class="dhk-manifesto__we" data-dhk-we>we</span>
-        </div>
-
-        <div class="dhk-manifesto__lines-col">
-          <p class="dhk-line is-active" data-dhk-line="0">shape calm proportions.</p>
-          <p class="dhk-line" data-dhk-line="1">craft honest timber &amp; stone.</p>
-          <p class="dhk-line" data-dhk-line="2">calibrate warm daylight.</p>
-          <p class="dhk-line" data-dhk-line="3">commit past the point of return.</p>
-
-          <p class="dhk-manifesto__sub">
-            Led by {site.founder} across Munal Path (Biratnagar) and Gita Mandir Line (Dharan), Nepal. Every commission carries full execution accountability &mdash; Sun&ndash;Fri, 11:00&ndash;17:00 NPT &middot; {site.phoneDisplay}.
-          </p>
-
-          <div class="dhk-manifesto__actions">
-            <button class="dhk-cta-btn" type="button" data-open-drawer data-drawer-context="Homepage Architectural Manifesto">
-              <span>Commission a Space</span>
-              <span aria-hidden="true">&#8599;</span>
-            </button>
-            <a class="dhk-secondary-link" href="/showroom/">
-              <span>Enter 3D Material Study</span>
-              <span aria-hidden="true">&#8599;</span>
-            </a>
-          </div>
-        </div>
+      <div class="specimen-caption">
+        <span>Studio Material Board &middot; Sal Timber, Kota Stone &amp; Brass</span>
+        <span>Biratnagar &amp; Dharan Studios</span>
       </div>
     </div>
+
+    <div class="showroom-note-bar">
+      <p class="showroom-note-bar__copy">
+        Want to explore a standalone 3D material &amp; daylight concept study?
+      </p>
+      <a class="arch-cta" href="/showroom/">
+        <span>Open Material Study (3D)</span>
+        <span class="arch-cta__arrow" aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
   </section>
+
+  <!-- Band 5: Live Interactive 3D Showroom Stage -->
+  <ShowroomStage mode="inline" />
 </Base>
