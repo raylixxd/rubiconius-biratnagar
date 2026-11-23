@@ -1,0 +1,73 @@
+{
+  "id": "12_videinfra",
+  "name": "Vide Infra (Sobha Privy)",
+  "url": "https://videinfra.com/",
+  "category": "Architecture & Luxury",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "WebGPU",
+    "Locomotive Scroll",
+    "PixiJS",
+    "Next.js",
+    "Barba.js Paging",
+    "Web Audio API",
+    "Draco Compression",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 5,
+  "total_bundle_bytes": 1945874,
+  "typography_tokens": [
+    "lil-gui",
+    "var(--font-family-mono)",
+    "var(--font-family)"
+  ],
+  "color_palette_sample": [
+    "#039",
+    "#020",
+    "#0ff",
+    "#002",
+    "#4f4f4f",
+    "#111111",
+    "#a2db3c",
+    "#ebebeb",
+    "#424242",
+    "#1f1f1f",
+    "#201",
+    "#f08"
+  ],
+  "motion_profile": {
+    "engine": "Locomotive",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [
+    "/assets/webgl/models/awwwards.glb",
+    "/assets/webgl/models/cssda.glb",
+    "/assets/webgl/models/fwa.glb",
+    "/assets/webgl/models/red.glb",
+    "/assets/webgl/models/webby.glb",
+    "/assets/webgl/trophy/trophy.glb"
+  ],
+  "discovered_textures": [
+    "/assets/images/media/landing/video/mobile-video.webp",
+    "/assets/images/media/landing/video/video@lg.webp",
+    "/assets/images/media/landing/video/video@md.webp",
+    "/assets/images/media/landing/video/video@xxl.webp",
+    "/assets/images/media/landing/video/video@xxxl.webp",
+    "/assets/webgl/trophy/studio.hdr",
+    "https://videinfra.com/assets/manifest/mstile-150x150.png",
+    "https://videinfra.com/assets/manifest/og.png",
+    "https://videinfra.com/media/cache/insights_xs/uploads/116/1080x540_1786350120.webp",
+    "https://videinfra.com/media/cache/insights_xs/uploads/121/1080x540_1791367265.webp",
+    "https://videinfra.com/media/cache/insights_xs/uploads/122/1080x540_1790331629.webp",
+    "https://videinfra.com/media/cache/work-preview_sm/uploads/100/img_1775813872.webp",
+    "https://videinfra.com/media/cache/work-preview_sm/uploads/122/img_2_1790326180.webp",
+    "https://videinfra.com/media/cache/work-preview_sm/uploads/52/preview-list_1711005647.webp",
+    "https://videinfra.com/media/cache/work-preview_sm/uploads/66/preview-list_1711370335.webp"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 12
+}

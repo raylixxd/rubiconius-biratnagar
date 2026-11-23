@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "id": "anuc_home",
+    "name": "Anuc Home",
+    "url": "https://www.anuchome.com/",
+    "maker": "Edoardo Lunardi & Eva Landaluce",
+    "awards": "SOTD Oct 2025",
+    "focus": "Interior/furniture studio parallax, dynamic theme switching, editorial article gallery"
+  },
+  "runtime": {
+    "title": "Anuc Home | Anuc Home",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": false,
+    "hasLenis": true,
+    "hasOGL": false,
+    "hasBarba": false,
+    "hasLocomotive": false,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 36,
+  "requests_sample": [
+    "https://www.anuchome.com/",
+    "https://www.anuchome.com/_next/static/media/26d0ba92e140f0dc-s.p.woff2",
+    "https://www.anuchome.com/_next/static/media/e6099e249fd938cc-s.p.woff2",
+    "https://cdn.sanity.io/images/5x5devd6/production/cc3e29644da1a1a694d53d5c146a8af40acb68d9-2001x644.jpg?w=2001&h=644&max-h=3840&max-w=3840&q=85&auto=format",
+    "https://www.anuchome.com/_next/static/css/6c3a71097922e49f.css",
+    "https://www.anuchome.com/_next/static/chunks/webpack-36e0ab6547169334.js",
+    "https://www.anuchome.com/_next/static/chunks/4bd1b696-182b6b13bdad92e3.js",
+    "https://www.anuchome.com/_next/static/chunks/1255-7a8c641c0588422f.js",
+    "https://www.anuchome.com/_next/static/chunks/main-app-b7ac91ae224968d9.js",
+    "https://www.anuchome.com/_next/static/chunks/1129-d3f5c7189dc629d1.js",
+    "https://www.anuchome.com/_next/static/chunks/5249-97a501f4d0f4b0f9.js",
+    "https://www.anuchome.com/_next/static/chunks/1093-9cbedf5fd9d45ec2.js",
+    "https://www.anuchome.com/_next/static/chunks/app/(web)/layout-0f29d527f2d5fde4.js",
+    "https://www.anuchome.com/_next/static/chunks/6409-0f336cf15ff459db.js",
+    "https://www.anuchome.com/_next/static/chunks/612-8b800b5659ca6367.js",
+    "https://www.anuchome.com/_next/static/chunks/2687-e549a394fcfd0aaf.js",
+    "https://www.anuchome.com/_next/static/chunks/6942-23b48c461224e8d7.js",
+    "https://www.anuchome.com/_next/static/chunks/6862-4000d7b9fd2e81ba.js",
+    "https://www.anuchome.com/_next/static/chunks/3072-d7b2b20ea2adac6c.js",
+    "https://www.anuchome.com/_next/static/chunks/9139-f7f41fb38f60389e.js",
+    "https://www.anuchome.com/_next/static/chunks/2262-e896da7ea270ac3f.js",
+    "https://www.anuchome.com/_next/static/chunks/app/(web)/%5B%5B...uri%5D%5D/page-e27f1c45ffdfeb0f.js",
+    "https://cloud.umami.is/script.js",
+    "https://cdn.sanity.io/images/5x5devd6/production/cc3e29644da1a1a694d53d5c146a8af40acb68d9-2001x644.jpg?rect=0,1,2001,643&w=1440&h=463&max-h=3840&max-w=3840&q=85&auto=format",
+    "https://cdn.sanity.io/images/5x5devd6/production/f9dd4b00c779ca6fdde33161187389355aa61386-569x575.jpg?rect=0,4,569,569&w=569&h=569&max-h=3840&max-w=3840&q=85&fit=crop&auto=format"
+  ]
+}

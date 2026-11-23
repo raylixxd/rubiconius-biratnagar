@@ -1,0 +1,28 @@
+{
+  "url": "https://studiofreight.com/",
+  "css": [
+    {
+      "url": "https://studiofreight.com/_nuxt/ALink.BdlGF7Lf.css",
+      "filename": "ALink.BdlGF7Lf.css",
+      "size": 4194
+    },
+    {
+      "url": "https://studiofreight.com/_nuxt/Symbol.BfW6scSy.css",
+      "filename": "Symbol.BfW6scSy.css",
+      "size": 4705
+    },
+    {
+      "url": "https://studiofreight.com/_nuxt/entry.CnAQtmg1.css",
+      "filename": "entry.CnAQtmg1.css",
+      "size": 35923
+    }
+  ],
+  "js": [
+    {
+      "url": "https://studiofreight.com/_nuxt/DISl5Yly.js",
+      "filename": "DISl5Yly.js",
+      "size": 657995
+    }
+  ],
+  "next_data": null
+}

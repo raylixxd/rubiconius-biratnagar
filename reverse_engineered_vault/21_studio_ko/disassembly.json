@@ -1,0 +1,38 @@
+{
+  "id": "21_studio_ko",
+  "name": "Studio KO",
+  "url": "https://studioko.fr/",
+  "category": "Architecture & Luxury",
+  "tech_stack": [
+    "PixiJS",
+    "Next.js"
+  ],
+  "scripts_downloaded": 5,
+  "total_bundle_bytes": 726410,
+  "typography_tokens": [
+    "Arial, sans-serif"
+  ],
+  "color_palette_sample": [
+    "#000000",
+    "#ffffff",
+    "#4a4a4a"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "images/favicon.png"
+  ],
+  "discovered_audio": [
+    "datas/audio/intro_sound.mp3",
+    "datas/audio/intro_sound.ogg",
+    "datas/audio/sound_stream.mp3",
+    "datas/audio/sound_stream.ogg"
+  ],
+  "shaders_extracted": 0
+}

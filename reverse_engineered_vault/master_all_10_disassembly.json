@@ -1,0 +1,300 @@
+[
+  {
+    "id": "01_igloo",
+    "name": "Igloo Inc.",
+    "url": "https://www.igloo.inc/",
+    "tech_stack": [
+      "Three.js",
+      "WebGPU",
+      "Svelte",
+      "GSAP",
+      "Web Audio API",
+      "KTX2 DataTextures"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 1502849,
+    "discovered_models": [
+      "Procedural Parametric Geometries (GPU Instancing)"
+    ],
+    "discovered_textures": [
+      "frost-datatexture.ktx2",
+      "caustics.ktx2",
+      "wind_noise.ktx2",
+      "clouds_noise.ktx2",
+      "scroll-datatexture.ktx2",
+      "igloo/ground_glow.ktx2",
+      "igloo/mountain_color.ktx2"
+    ],
+    "discovered_audio": [
+      "shard.ogg",
+      "beeps.ogg",
+      "logo.ogg",
+      "click-project.ogg",
+      "wind.ogg",
+      "particles.ogg",
+      "igloo.ogg",
+      "music-highq.ogg"
+    ],
+    "discovered_wasm": [],
+    "shaders_extracted": 116
+  },
+  {
+    "id": "02_bruno_simon",
+    "name": "Bruno Simon",
+    "url": "https://bruno-simon.com/",
+    "tech_stack": [
+      "Three.js",
+      "WebGPU",
+      "WebGL 2.0",
+      "GSAP",
+      "Rapier Physics (Rust WASM)",
+      "Draco Compression",
+      "Basis/KTX2 Transcoding",
+      "Web Audio API"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 4296575,
+    "discovered_models": [],
+    "discovered_textures": [],
+    "discovered_audio": [],
+    "discovered_wasm": [],
+    "shaders_extracted": 1
+  },
+  {
+    "id": "03_star_atlas",
+    "name": "Star Atlas",
+    "url": "https://staratlas.com/",
+    "tech_stack": [],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 51646,
+    "discovered_models": [],
+    "discovered_textures": [],
+    "discovered_audio": [],
+    "discovered_wasm": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "04_sculpting_harmony",
+    "name": "Sculpting Harmony",
+    "url": "https://gehry.getty.edu/",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "GSAP",
+      "Lenis Scroll",
+      "Basis/KTX2 Transcoding",
+      "Web Audio API"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 1334448,
+    "discovered_models": [
+      "/chapter-1/scene/getty_shoebox_hotspot_desktop.glb",
+      "/chapter-1/scene/getty_shoebox_hotspot_mobile.glb",
+      "/chapter-2/scene/getty_organ_hotspot_desktop.glb",
+      "/chapter-2/scene/getty_organ_hotspot_mobile.glb",
+      "/chapter-3/scene/getty_formStudy_hotspot_desktop.glb",
+      "/chapter-3/scene/getty_formStudy_hotspot_mobile.glb"
+    ],
+    "discovered_textures": [
+      "/images/chapter-1/title/bottom.png",
+      "/images/chapter-1/title/mobile.png",
+      "/images/chapter-1/title/sides.png",
+      "/images/chapter-1/title/top.png",
+      "/images/chapter-2/title/01.png",
+      "/images/chapter-2/title/02.png",
+      "/images/chapter-2/title/03.png",
+      "/images/chapter-2/title/04.png",
+      "/images/chapter-2/title/main.png",
+      "/images/chapter-2/title/mobile.png",
+      "/images/chapter-3/start-frame.jpg",
+      "/images/chapter-3/title/bottom.png",
+      "/images/chapter-3/title/center.png",
+      "/images/chapter-3/title/left.png",
+      "/images/chapter-3/title/mobile.png"
+    ],
+    "discovered_audio": [],
+    "discovered_wasm": [],
+    "shaders_extracted": 20
+  },
+  {
+    "id": "05_kpr",
+    "name": "KPR",
+    "url": "https://kprverse.com/",
+    "tech_stack": [
+      "Three.js",
+      "GSAP",
+      "Basis/KTX2 Transcoding",
+      "Web Audio API"
+    ],
+    "scripts_downloaded": 1,
+    "total_bundle_bytes": 703868,
+    "discovered_models": [],
+    "discovered_textures": [],
+    "discovered_audio": [
+      "/audio/UI_menu_rollover.mp3",
+      "/audio/UI_menu_text_rollover.mp3"
+    ],
+    "discovered_wasm": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "06_unseen",
+    "name": "Unseen Studio",
+    "url": "https://unseen.co/",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "GSAP",
+      "Draco Compression",
+      "Basis/KTX2 Transcoding",
+      "Web Audio API"
+    ],
+    "scripts_downloaded": 5,
+    "total_bundle_bytes": 2215987,
+    "discovered_models": [
+      "chair.glb",
+      "grass-simple.glb",
+      "land-group.glb",
+      "models/home/objectsData.glb",
+      "models/phone.glb",
+      "models/project-menu/arch-dc.glb",
+      "models/project-menu/butterfly.glb",
+      "models/project-menu/floor-dc.glb",
+      "models/world/grab.glb",
+      "models/world/grabbing.glb",
+      "models/world/pointer.glb",
+      "pillows.glb",
+      "rocks.glb",
+      "room-1.glb",
+      "room-2.glb"
+    ],
+    "discovered_textures": [
+      ".jpg",
+      ".png",
+      "images/gradient-noise.jpg",
+      "images/home/blade.jpg",
+      "images/iri-32.png",
+      "images/matcap-black.png",
+      "images/matcap-white.png",
+      "images/noise-small.png",
+      "images/project-menu/arch.ktx2",
+      "images/project-menu/butterfly-atlas-diffuse-1.png",
+      "images/project-menu/butterfly-atlas-normal-1.png",
+      "images/project-menu/sand-rotate.jpg",
+      "images/project-model-matcap-dark.png",
+      "images/project-model-matcap.png",
+      "images/world/grab.png"
+    ],
+    "discovered_audio": [],
+    "discovered_wasm": [
+      "basis_transcoder.wasm",
+      "draco_decoder.wasm"
+    ],
+    "shaders_extracted": 16
+  },
+  {
+    "id": "07_garance",
+    "name": "Gary & The Endless Forest",
+    "url": "https://play.garance.com/",
+    "tech_stack": [
+      "Web Audio API"
+    ],
+    "scripts_downloaded": 1,
+    "total_bundle_bytes": 154400,
+    "discovered_models": [],
+    "discovered_textures": [
+      "/assets/logo.BZ7BAIHZa0f9e288.png"
+    ],
+    "discovered_audio": [],
+    "discovered_wasm": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "08_aurelienvigne",
+    "name": "Aurel's Grand Theater",
+    "url": "https://aurelienvigne.com/",
+    "tech_stack": [
+      "Three.js",
+      "GSAP",
+      "Lenis Scroll",
+      "Cannon.js Physics",
+      "Rapier Physics (Rust WASM)",
+      "Web Audio API"
+    ],
+    "scripts_downloaded": 1,
+    "total_bundle_bytes": 648821,
+    "discovered_models": [],
+    "discovered_textures": [],
+    "discovered_audio": [
+      "/static/audio/music/wombat-noises-audio-dreams-of-an-alpine-spring.mp3",
+      "/static/audio/sounds/frontEnd/boom.mp3",
+      "/static/audio/sounds/frontEnd/explosion.mp3",
+      "/static/audio/sounds/frontEnd/paper.mp3",
+      "/static/audio/sounds/frontEnd/tear.mp3",
+      "/static/audio/sounds/frontEnd/wind.mp3",
+      "hayden-folker-devoted.mp3"
+    ],
+    "discovered_wasm": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "09_chartogne_taillet",
+    "name": "Chartogne-Taillet",
+    "url": "https://chartogne-taillet.com/en",
+    "tech_stack": [
+      "Three.js",
+      "GSAP",
+      "Web Audio API",
+      "GLSL Terrain Displacement"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 1737279,
+    "discovered_models": [
+      "7c53543979b823cd6a7ac4af1851d09f.glb",
+      "3557fda5b6734274878118f5629fb9f6.glb",
+      "af5372209a98e211be69fb17028a498c.glb",
+      "f7ef1271c9def1decd9a4600548e3798.glb",
+      "7f4d38d1bcad13a769d0af2faa406e1e.glb",
+      "4305195214eeb2d34abca1aeacc1e494.glb",
+      "63f6cc074e19044a2045a6a581834c5a.glb"
+    ],
+    "discovered_textures": [
+      "img/terrainData3.fbded28f.jpg",
+      "img/paper-256x256.5cb775d1.jpg",
+      "img/subTitle.9bc64c8e.png",
+      "img/label.a1163287.jpg",
+      "img/preview.9028b205.jpg"
+    ],
+    "discovered_audio": [
+      "media/CHARTOGNE-SD-Intro-Scenario2.c41e2788.mp3",
+      "media/CHARTOGNE-Loop-Parcelle-FADE-201009.c21d4edd.mp3",
+      "media/CHARTOGNE-Loop-FreeMode-FADE-201009.2314f0b3.mp3"
+    ],
+    "discovered_wasm": [],
+    "shaders_extracted": 23
+  },
+  {
+    "id": "10_kriss_ai",
+    "name": "Kriss.ai",
+    "url": "https://kriss.ai/",
+    "tech_stack": [
+      "SvelteKit",
+      "Three.js",
+      "React Three Fiber",
+      "GSAP",
+      "Web Audio API"
+    ],
+    "scripts_downloaded": 14,
+    "total_bundle_bytes": 171200,
+    "discovered_models": [
+      "Dollhouse-clinic-cutaway.glb"
+    ],
+    "discovered_textures": [
+      "Border.tiPBX_bR.css",
+      "Home.WAci2zHZ.css"
+    ],
+    "discovered_audio": [],
+    "discovered_wasm": [],
+    "shaders_extracted": 12
+  }
+]

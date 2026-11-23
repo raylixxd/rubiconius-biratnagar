@@ -1,0 +1,70 @@
+{
+  "id": "27_monopo",
+  "name": "Monopo London",
+  "url": "https://monopo.london/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Lenis Smooth Scroll",
+    "PixiJS",
+    "Next.js",
+    "Nuxt / Vue",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 2742965,
+  "typography_tokens": [
+    "+R(a.c)+",
+    "sans-serif",
+    "monospace,monospace",
+    "Roobert\",Roboto,Arial,sans-serif",
+    "Roobert"
+  ],
+  "color_palette_sample": [
+    "#ffc0cb",
+    "#e6e6fa",
+    "#5E0E0E",
+    "#f08833",
+    "#f5fffa",
+    "#16254b",
+    "#5e68e8",
+    "#ed834e",
+    "#fff0f5",
+    "#D2DDA5",
+    "#ff1493",
+    "#f8f8ff"
+  ],
+  "motion_profile": {
+    "engine": "Lenis",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "/arrow_scroll.png",
+    "/displace.png",
+    "/favicon/favicon-16x16.png",
+    "/favicon/favicon-32x32.png",
+    "/lense.png",
+    "/mask.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1204767029_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1204777185_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1216546003_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1298719672-c50b0d6c0184c6d758772710f8aff72f4e61aa08313e2c793_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1298722500-b4981dba4d170adf40e2f1091406983d0ca548e61f0ec8b94_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1298734524-934a5488896d75b5feab7f8f2709293e1ce2f7a4245770ec5_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1388294095-2b0052cb9eba40098dfab6db554c010bdcfa263ee6bd4a5404978d315b755a96-d_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1519405051-cc793ccfbe339d142e43ab631d4e2316bc7655b2bf1af595d9582ab56ec8eee4-d_295x166&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+    "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1729322110-968c49b3c64f3948eef00ef1910e7a0fed54daaea7779e37ede775466225c25e-d_295x166&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png"
+  ],
+  "discovered_audio": [
+    "Ghost-case-study_VoiceOver.mp3",
+    "https:\\u002F\\u002Fmonopolondon.cdn.prismic.io\\u002Fmonopolondon\\u002Ff826f4f1-5926-4c21-abb2-06e6abcf393c_Ghost-case-study_VoiceOver.mp3"
+  ],
+  "shaders_extracted": 16
+}

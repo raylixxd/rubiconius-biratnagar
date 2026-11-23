@@ -1,0 +1,21 @@
+{
+  "id": "05_kpr",
+  "name": "KPR",
+  "url": "https://kprverse.com/",
+  "tech_stack": [
+    "Three.js",
+    "GSAP",
+    "Basis/KTX2 Transcoding",
+    "Web Audio API"
+  ],
+  "scripts_downloaded": 1,
+  "total_bundle_bytes": 703868,
+  "discovered_models": [],
+  "discovered_textures": [],
+  "discovered_audio": [
+    "/audio/UI_menu_rollover.mp3",
+    "/audio/UI_menu_text_rollover.mp3"
+  ],
+  "discovered_wasm": [],
+  "shaders_extracted": 0
+}

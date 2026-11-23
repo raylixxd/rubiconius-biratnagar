@@ -1,0 +1,36 @@
+{
+  "id": "37_zajno",
+  "name": "Zajno",
+  "url": "https://zajno.com/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "PixiJS",
+    "Next.js"
+  ],
+  "scripts_downloaded": 1,
+  "total_bundle_bytes": 631791,
+  "typography_tokens": [
+    "s26",
+    "s",
+    "Arial"
+  ],
+  "color_palette_sample": [
+    "#000",
+    "#ebebeb",
+    "#1a1a1a",
+    "#fff"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "https://zajno.com/static/fav/android-chrome.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

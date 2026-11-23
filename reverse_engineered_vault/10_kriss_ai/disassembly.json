@@ -1,0 +1,24 @@
+{
+  "id": "10_kriss_ai",
+  "name": "Kriss.ai",
+  "url": "https://kriss.ai/",
+  "tech_stack": [
+    "SvelteKit",
+    "Three.js",
+    "React Three Fiber",
+    "GSAP",
+    "Web Audio API"
+  ],
+  "scripts_downloaded": 14,
+  "total_bundle_bytes": 171200,
+  "discovered_models": [
+    "Dollhouse-clinic-cutaway.glb"
+  ],
+  "discovered_textures": [
+    "Border.tiPBX_bR.css",
+    "Home.WAci2zHZ.css"
+  ],
+  "discovered_audio": [],
+  "discovered_wasm": [],
+  "shaders_extracted": 12
+}

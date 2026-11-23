@@ -1,0 +1,28 @@
+{
+  "id": "08_aurelienvigne",
+  "name": "Aurel's Grand Theater",
+  "url": "https://aurelienvigne.com/",
+  "tech_stack": [
+    "Three.js",
+    "GSAP",
+    "Lenis Scroll",
+    "Cannon.js Physics",
+    "Rapier Physics (Rust WASM)",
+    "Web Audio API"
+  ],
+  "scripts_downloaded": 1,
+  "total_bundle_bytes": 648821,
+  "discovered_models": [],
+  "discovered_textures": [],
+  "discovered_audio": [
+    "/static/audio/music/wombat-noises-audio-dreams-of-an-alpine-spring.mp3",
+    "/static/audio/sounds/frontEnd/boom.mp3",
+    "/static/audio/sounds/frontEnd/explosion.mp3",
+    "/static/audio/sounds/frontEnd/paper.mp3",
+    "/static/audio/sounds/frontEnd/tear.mp3",
+    "/static/audio/sounds/frontEnd/wind.mp3",
+    "hayden-folker-devoted.mp3"
+  ],
+  "discovered_wasm": [],
+  "shaders_extracted": 0
+}

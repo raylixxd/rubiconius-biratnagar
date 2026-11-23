@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "id": "oakame",
+    "name": "Oakame",
+    "url": "https://www.oakame.com/",
+    "maker": "Beaucoup Studio",
+    "awards": "SOTD Nov 2024",
+    "focus": "Bespoke material-led lookbook layout, minimalist loader, home slider, product configurator"
+  },
+  "runtime": {
+    "title": "Oak\u00e2me | Mobilier artisanal en ch\u00eane ancien r\u00e9cup\u00e9r\u00e9",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": false,
+    "hasLenis": true,
+    "hasOGL": true,
+    "hasBarba": false,
+    "hasLocomotive": false,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 39,
+  "requests_sample": [
+    "https://www.oakame.com/",
+    "https://www.oakame.com/wp-content/themes/beaucoup/tarteaucitron/tarteaucitron.js",
+    "https://www.oakame.com/wp-content/plugins/formidable/css/formidableforms.css?ver=20261103111723",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=11.2.1",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=11.2.1",
+    "https://www.oakame.com/wp-content/themes/beaucoup/public/css/app.f3c6b3.css",
+    "https://www.oakame.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1",
+    "https://www.oakame.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.11.2.1",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=11.2.1",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.11.2.1",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=11.2.1",
+    "https://www.oakame.com/wp-content/uploads/2026/03/Zola-Page-accueil-1-1600x900.jpg",
+    "https://www.oakame.com/wp-content/uploads/2026/03/Zola-Page-accueil-1-480x270.jpg",
+    "https://www.oakame.com/wp-content/uploads/2026/03/Table-Delacroix-page-accueil-480x270.jpg",
+    "https://www.oakame.com/wp-content/uploads/2024/07/Sartre-Ambiance-site-internet-480x228.jpg",
+    "https://www.oakame.com/wp-content/uploads/2024/05/Bonaparte-Ambiance-Site-internet-1-480x228.jpg",
+    "https://www.oakame.com/wp-content/plugins/duracelltomi-google-tag-manager/build/gtm4wp-ecommerce-generic.js?ver=2.0.6",
+    "https://www.oakame.com/wp-content/plugins/duracelltomi-google-tag-manager/build/gtm4wp-woocommerce.js?ver=2.0.6",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/js/sourcebuster/sourcebuster.min.js?ver=11.2.1",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/js/frontend/order-attribution.min.js?ver=11.2.1",
+    "https://www.oakame.com/wp-content/themes/beaucoup/public/js/app.dccb16.js",
+    "https://static.hotjar.com/c/hotjar-5137836.js?sv=6",
+    "https://www.oakame.com/wp-content/plugins/woocommerce/assets/css/woocommerce-smallscreen.css?ver=11.2.1",
+    "https://www.oakame.com/wp-content/themes/beaucoup/public/fonts/BwGradual-Bold.825cca.woff2"
+  ]
+}

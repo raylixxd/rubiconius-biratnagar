@@ -1,0 +1,47 @@
+{
+    "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+    "skills": [
+        {
+            "name": "blog",
+            "type": "skill-md",
+            "description": "Articles and insights from the Vide Infra team on UX/UI design, web development, digital product strategy, and industry trends",
+            "url": "https://videinfra.com/.well-known/agent-skills/blog/SKILL.md",
+            "digest": "sha256:b56304f96592c40e521d28090043e2f689ad96e48e992cb12e28e55ceb2de537"
+        },
+        {
+            "name": "case-studies",
+            "type": "skill-md",
+            "description": "A representative subset of Vide Infra's client work. Full case studies and additional projects are published at https://videinfra.com/work.",
+            "url": "https://videinfra.com/.well-known/agent-skills/case-studies/SKILL.md",
+            "digest": "sha256:046bf5eedb58ccc06db3d73f39d65f6530d8192c2b2a8788d91b062febb52b53"
+        },
+        {
+            "name": "company-overview",
+            "type": "skill-md",
+            "description": "Vide Infra is a digital product design and development agency founded in 1998. The company specialises in UX/UI design, web and mobile development, eCommerce, and brand communication for enterprises and startups worldwide.",
+            "url": "https://videinfra.com/.well-known/agent-skills/company-overview/SKILL.md",
+            "digest": "sha256:0d0de7b36c54a41746034171fdf4600a54565b21def373266624a020cf18f21e"
+        },
+        {
+            "name": "contact",
+            "type": "skill-md",
+            "description": "How to engage Vide Infra: email, office locations in Riga, London, and USA, phone numbers, and inquiry process",
+            "url": "https://videinfra.com/.well-known/agent-skills/contact/SKILL.md",
+            "digest": "sha256:991a86a35fa35624521205664b5ac430b2604c32c7b7cf485b3fd206a83acf9a"
+        },
+        {
+            "name": "industry-expertise",
+            "type": "skill-md",
+            "description": "Vide Infra has deep delivery experience across several verticals. Each vertical below reflects recurring client engagements and tailored methodology rather than generic web work.",
+            "url": "https://videinfra.com/.well-known/agent-skills/industry-expertise/SKILL.md",
+            "digest": "sha256:cb4f12715fbff4588f5f83953a52017a34ed60fd143cb07641d53aa3edfa9d9c"
+        },
+        {
+            "name": "services",
+            "type": "skill-md",
+            "description": "Vide Infra is a full-service digital agency offering end-to-end product design and development. Engagements typically cover one or more of the service areas below, and the studio operates as either a single-discipline partner or an integrated end-to-end team.",
+            "url": "https://videinfra.com/.well-known/agent-skills/services/SKILL.md",
+            "digest": "sha256:95e381f4993a24fa444c48f0fa3b4beaff9bd24ae7d81c2ccf0ca8de309cdab3"
+        }
+    ]
+}

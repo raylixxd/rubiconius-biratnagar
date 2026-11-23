@@ -1,0 +1,22 @@
+{
+  "id": "02_bruno_simon",
+  "name": "Bruno Simon",
+  "url": "https://bruno-simon.com/",
+  "tech_stack": [
+    "Three.js",
+    "WebGPU",
+    "WebGL 2.0",
+    "GSAP",
+    "Rapier Physics (Rust WASM)",
+    "Draco Compression",
+    "Basis/KTX2 Transcoding",
+    "Web Audio API"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 4296575,
+  "discovered_models": [],
+  "discovered_textures": [],
+  "discovered_audio": [],
+  "discovered_wasm": [],
+  "shaders_extracted": 1
+}

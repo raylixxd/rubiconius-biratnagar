@@ -1,0 +1,36 @@
+{
+  "id": "09_chartogne_taillet",
+  "name": "Chartogne-Taillet",
+  "url": "https://chartogne-taillet.com/en",
+  "tech_stack": [
+    "Three.js",
+    "GSAP",
+    "Web Audio API",
+    "GLSL Terrain Displacement"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 1737279,
+  "discovered_models": [
+    "7c53543979b823cd6a7ac4af1851d09f.glb",
+    "3557fda5b6734274878118f5629fb9f6.glb",
+    "af5372209a98e211be69fb17028a498c.glb",
+    "f7ef1271c9def1decd9a4600548e3798.glb",
+    "7f4d38d1bcad13a769d0af2faa406e1e.glb",
+    "4305195214eeb2d34abca1aeacc1e494.glb",
+    "63f6cc074e19044a2045a6a581834c5a.glb"
+  ],
+  "discovered_textures": [
+    "img/terrainData3.fbded28f.jpg",
+    "img/paper-256x256.5cb775d1.jpg",
+    "img/subTitle.9bc64c8e.png",
+    "img/label.a1163287.jpg",
+    "img/preview.9028b205.jpg"
+  ],
+  "discovered_audio": [
+    "media/CHARTOGNE-SD-Intro-Scenario2.c41e2788.mp3",
+    "media/CHARTOGNE-Loop-Parcelle-FADE-201009.c21d4edd.mp3",
+    "media/CHARTOGNE-Loop-FreeMode-FADE-201009.2314f0b3.mp3"
+  ],
+  "discovered_wasm": [],
+  "shaders_extracted": 23
+}

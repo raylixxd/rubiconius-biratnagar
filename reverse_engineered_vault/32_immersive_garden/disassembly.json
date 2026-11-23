@@ -1,0 +1,87 @@
+{
+  "id": "32_immersive_garden",
+  "name": "Immersive Garden",
+  "url": "https://immersive-g.com/",
+  "category": "3D & WebGL",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Lenis Smooth Scroll",
+    "Framer Motion",
+    "Next.js",
+    "Nuxt / Vue",
+    "Web Audio API",
+    "Draco Compression",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 2736647,
+  "typography_tokens": [
+    "HelveticaNeueLight,sans-serif",
+    "monospace,monospace",
+    "HelveticaNeueRegular",
+    "var(--font-family)",
+    "HelveticaNeueRegular,sans-serif"
+  ],
+  "color_palette_sample": [
+    "#030303",
+    "#ddd",
+    "#173",
+    "#00FF00",
+    "#e8e8e8",
+    "#c8cad0",
+    "#362c1f",
+    "#000",
+    "#bbbcc4",
+    "#efefef",
+    "#0ff",
+    "#002"
+  ],
+  "motion_profile": {
+    "engine": "Lenis",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [
+    ".glb",
+    "/webgl/about-detail/global_compressed.glb",
+    "/webgl/about-detail/scene_1_compressed.glb",
+    "/webgl/about-detail/scene_2_compressed.glb",
+    "/webgl/about-detail/scene_3_compressed.glb",
+    "/webgl/about-detail/scene_4_compressed.glb",
+    "/webgl/about-detail/scene_5_compressed.glb",
+    "/webgl/about-detail/scene_6_compressed.glb",
+    "/webgl/about/model/bg_low_draco.glb",
+    "/webgl/about/model/bg_ultralow_draco.glb"
+  ],
+  "discovered_textures": [
+    ".jpg",
+    ".ktx2",
+    "/images/favicon/apple-touch-icon.png",
+    "/images/favicon/favicon-16x16.png",
+    "/images/favicon/favicon-32x32.png",
+    "/images/projects/fish.jpg",
+    "/images/projects/matcap2.png",
+    "/webgl/about-detail/cursor_macos.png",
+    "/webgl/about-detail/cursor_windows.png",
+    "/webgl/about-detail/firefly_glow.png",
+    "/webgl/about-detail/fog.png",
+    "/webgl/about-detail/glow_1.png",
+    "/webgl/about-detail/glow_2.png",
+    "/webgl/about-detail/glow_3.png",
+    "/webgl/about-detail/glow_4.png"
+  ],
+  "discovered_audio": [
+    "/sounds/general/IG_AboutPage_v5_v5.mp3",
+    "/sounds/general/IG_Eventsounds_v3_Home_To_About_Thunder_1.mp3",
+    "/sounds/general/IG_FocusPage_v5_v8.mp3",
+    "/sounds/general/IG_HomePage_v5_v4.mp3",
+    "/sounds/general/Marble_Crack_10secLoop_no_filter.mp3",
+    "/sounds/general/actions.mp3"
+  ],
+  "shaders_extracted": 79
+}

@@ -1,0 +1,25 @@
+{
+  "id": "19_norm_architects",
+  "name": "Norm Architects",
+  "url": "https://normcph.com/",
+  "category": "Architecture & Luxury",
+  "tech_stack": [],
+  "scripts_downloaded": 0,
+  "total_bundle_bytes": 7295,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#333",
+    "#e0e0e0"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

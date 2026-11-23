@@ -1,0 +1,66 @@
+{
+  "id": "24_studio_freight",
+  "name": "Studio Freight",
+  "url": "https://studiofreight.com/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "Three.js",
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Lenis Smooth Scroll",
+    "Framer Motion",
+    "Next.js",
+    "Nuxt / Vue",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 938970,
+  "typography_tokens": [
+    "system-ui, sans-serif",
+    "var(--bs-ff)",
+    "publico-text-mono-roman",
+    "sans-serif,Arial",
+    "publico-text-mono-semibold"
+  ],
+  "color_palette_sample": [
+    "#00ff6a",
+    "#ff3b30",
+    "#ddd",
+    "#1f2024",
+    "#039",
+    "#f9f9f9",
+    "#c8cad0",
+    "#9acd32",
+    "#457DB6",
+    "#e0e0e0",
+    "#000",
+    "#bbbcc4"
+  ],
+  "motion_profile": {
+    "engine": "Lenis",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "/images/mark.png",
+    "https://a.storyblok.com/f/291823223305894/030dcd6c85/studiofreight-hyperbolic-mesh-2.png",
+    "https://a.storyblok.com/f/291823223305894/031258cc3e/studiofreight-zkpass-mesh-3.png",
+    "https://a.storyblok.com/f/291823223305894/059782cc6d/studiofreight-path-home-1.png",
+    "https://a.storyblok.com/f/291823223305894/0635be902a/studiofreight-patrickmahomes-mesh-2.png",
+    "https://a.storyblok.com/f/291823223305894/06cb47f26a/studiofreight-lamarzocco-mesh-4.png",
+    "https://a.storyblok.com/f/291823223305894/0cdb09499f/studiofreight-brex-mesh-2.png",
+    "https://a.storyblok.com/f/291823223305894/0d305be9b4/error_image.png",
+    "https://a.storyblok.com/f/291823223305894/0e29224a4d/studiofreight-argus-home-1.png",
+    "https://a.storyblok.com/f/291823223305894/0ec27f5404/studiofreight-iyo-home-1.png",
+    "https://a.storyblok.com/f/291823223305894/11673f8591/studiofreight-pysop-mesh-3.png",
+    "https://a.storyblok.com/f/291823223305894/121ab3d7b8/studiofreight-republic-mesh-4.png",
+    "https://a.storyblok.com/f/291823223305894/12c7858f2d/studiofreight-irys-mesh-4.png",
+    "https://a.storyblok.com/f/291823223305894/1500x2000/5940e6e27c/studiofreight-sf-mesh-5.png",
+    "https://a.storyblok.com/f/291823223305894/1500x2000/745df391d6/studiofreight-sf-mesh-3.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

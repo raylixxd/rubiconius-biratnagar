@@ -1,0 +1,17 @@
+{
+  "id": "07_garance",
+  "name": "Gary & The Endless Forest",
+  "url": "https://play.garance.com/",
+  "tech_stack": [
+    "Web Audio API"
+  ],
+  "scripts_downloaded": 1,
+  "total_bundle_bytes": 154400,
+  "discovered_models": [],
+  "discovered_textures": [
+    "/assets/logo.BZ7BAIHZa0f9e288.png"
+  ],
+  "discovered_audio": [],
+  "discovered_wasm": [],
+  "shaders_extracted": 0
+}

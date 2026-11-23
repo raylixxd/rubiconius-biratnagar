@@ -1,0 +1,54 @@
+{
+  "id": "18_olson_kundig",
+  "name": "Olson Kundig",
+  "url": "https://olsonkundig.com/",
+  "category": "Architecture & Luxury",
+  "tech_stack": [
+    "PixiJS",
+    "Next.js"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 1294138,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#5e5848",
+    "#555244",
+    "#837663",
+    "#978c80",
+    "#675b49",
+    "#918985",
+    "#4c4e50",
+    "#686b5e",
+    "#7a7c7e",
+    "#666975",
+    "#796c50",
+    "#5b6f77"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "https://olsonkundig.b-cdn.net/wp-content/themes/OK-Civilization-2025/i/favicon-circle.png",
+    "https://olsonkundig.b-cdn.net/wp-content/themes/OK-Civilization-2025/i/touch-icon.png",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2020/06/13002_00_N158_high-720x405.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2020/06/13002_00_N158_high_M-576x720.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2021/10/15054_00_N635_medium-720x485.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2021/10/15054_00_N674_medium-720x624.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2022/07/18016_00_N107_high300-720x481.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2022/07/18016_00_N108_high300-480x720.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2023/01/OlsonKundig_800FifthAve_photoAaronLeitz_04-651x720.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2023/01/OlsonKundig_LeachBotanicalGarden_AaronLeitz-06-720x717.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2023/05/08020_N3_medium-720x473.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2024/04/16056_00_N53_medium-720x540.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2024/04/16056_00_N80_medium-540x720.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2024/06/18040_00_N131_medium-720x540.jpg",
+    "https://olsonkundig.b-cdn.net/wp-content/uploads/2024/07/ok-home3-screenshot-720x403.jpg"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

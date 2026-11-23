@@ -1,0 +1,43 @@
+{
+  "id": "04_sculpting_harmony",
+  "name": "Sculpting Harmony",
+  "url": "https://gehry.getty.edu/",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "GSAP",
+    "Lenis Scroll",
+    "Basis/KTX2 Transcoding",
+    "Web Audio API"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 1334448,
+  "discovered_models": [
+    "/chapter-1/scene/getty_shoebox_hotspot_desktop.glb",
+    "/chapter-1/scene/getty_shoebox_hotspot_mobile.glb",
+    "/chapter-2/scene/getty_organ_hotspot_desktop.glb",
+    "/chapter-2/scene/getty_organ_hotspot_mobile.glb",
+    "/chapter-3/scene/getty_formStudy_hotspot_desktop.glb",
+    "/chapter-3/scene/getty_formStudy_hotspot_mobile.glb"
+  ],
+  "discovered_textures": [
+    "/images/chapter-1/title/bottom.png",
+    "/images/chapter-1/title/mobile.png",
+    "/images/chapter-1/title/sides.png",
+    "/images/chapter-1/title/top.png",
+    "/images/chapter-2/title/01.png",
+    "/images/chapter-2/title/02.png",
+    "/images/chapter-2/title/03.png",
+    "/images/chapter-2/title/04.png",
+    "/images/chapter-2/title/main.png",
+    "/images/chapter-2/title/mobile.png",
+    "/images/chapter-3/start-frame.jpg",
+    "/images/chapter-3/title/bottom.png",
+    "/images/chapter-3/title/center.png",
+    "/images/chapter-3/title/left.png",
+    "/images/chapter-3/title/mobile.png"
+  ],
+  "discovered_audio": [],
+  "discovered_wasm": [],
+  "shaders_extracted": 20
+}

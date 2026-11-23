@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "id": "hubtown",
+    "name": "Hubtown",
+    "url": "https://hubtown.co.in/",
+    "maker": "Unseen Studio",
+    "awards": "SOTD + Dev Award Jun 2026",
+    "focus": "Three.js custom shaders + particle streams for luxury real estate; scroll-driven hero geometry morphing"
+  },
+  "runtime": {
+    "title": "Hubtown Limited | Leading Real Estate Developer in India",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": false,
+    "hasLenis": false,
+    "hasOGL": true,
+    "hasBarba": false,
+    "hasLocomotive": false,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 20,
+  "requests_sample": [
+    "https://hubtown.co.in/",
+    "https://www.googletagmanager.com/gtag/js?id=G-R5HTBMW0V3",
+    "https://hubtown.co.in/gtag-init.js",
+    "https://hubtown.co.in/_nuxt/entry.B3VGTdCo.css",
+    "https://hubtown.co.in/fonts/grotesk-bold.woff2",
+    "https://hubtown.co.in/fonts/grotesk-regular.woff2",
+    "https://hubtown.co.in/fonts/grotesk-light.woff2",
+    "https://hubtown.co.in/_payload.json?6d080663-5c59-4a47-9162-2af33ccfab22",
+    "https://hubtown.co.in/_nuxt/u1ipQrxM.js",
+    "https://hubtown.co.in/_nuxt/DFx-XpBD.js",
+    "https://hubtown.co.in/_nuxt/builds/meta/6d080663-5c59-4a47-9162-2af33ccfab22.json",
+    "https://hubtown.co.in/_nuxt/651Dh9dk.js",
+    "https://hubtown.co.in/_nuxt/0HLO-J_r.js",
+    "https://hubtown.co.in/_nuxt/biq0egKh.js",
+    "https://hubtown.co.in/_nuxt/ocXXpsJX.js",
+    "https://hubtown.co.in/_nuxt/Bmtl4jgW.js",
+    "https://hubtown.co.in/_nuxt/D9UjBbvm.js",
+    "https://hubtown.co.in/fonts/commit-mono.otf",
+    "https://www.google-analytics.com/g/collect?v=2&tid=G-R5HTBMW0V3&gtm=45je6bh1v9235750936za208zd9235750936xf1&_p=1795441020470&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=513081872.1795441021&frm=0&ngs=1&pscdl=noapi&rcb=16&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~120213116~120385422~120469145~120469153~121246026~121246034&sid=1795441021&sct=1&seg=0&dl=https%3A%2F%2Fhubtown.co.in%2F&dt=Hubtown%20Limited%20%7C%20Leading%20Real%20Estate%20Developer%20in%20India&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=1506",
+    "https://hubtown.co.in/_nuxt/0HLO-J_r.js"
+  ]
+}

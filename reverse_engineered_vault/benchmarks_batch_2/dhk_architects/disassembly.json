@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "id": "dhk_architects",
+    "name": "dhk Architects",
+    "url": "https://www.dhk.co.za/",
+    "maker": "Malvah",
+    "awards": "SOTD Jun 2025",
+    "focus": "Fullscreen architectural minimalism, restrained gallery framing, clean studio hierarchy"
+  },
+  "runtime": {
+    "title": "dhk",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": true,
+    "hasLenis": true,
+    "hasOGL": true,
+    "hasBarba": false,
+    "hasLocomotive": false,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 73,
+  "requests_sample": [
+    "https://www.dhk.co.za/",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/css/dhk-dev.webflow.shared.db77eadf4.css",
+    "https://api.consentpro.com/v2/cdn/runtime/6746d4e7508fcde5d1dbac6c.js",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c%2F652d31f3dc22d7b4ee708e44%2F69597bbe1981761e61f9f8a6%2Fclarity_script-1.8.0.js",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c%2F66ba5a08efe71070f98dd10a%2F6805fe6133756ff1ada99942%2F8sth437y9h-1.1.1.js",
+    "https://www.dhk.co.za/v2645sy3qzdjNjc0NmQ0ZTc1MDhmY2RlNWQxZGJhYzZj/XeRTsTum1tI14gbQ-qeqakx3D4M",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eeb5c5ec2062c52edb4_01.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eec3b46343d1e2571f7_02.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eeb33f64ff0849321ae_03.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eeb8d343fbc690a193c_04.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eed213c9d6cefb98fc4_08.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eecb45a03302d7f65a2_05.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eec9febbca5dd36cf21_07.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eedd2f7ea08a9e09fb5_09.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67b33eed3988d875de35816d_10.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6881f54508ac0966007533a1_1.avif",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6881f545a6a069c605c84dbb_2.avif",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6881f54568b1cc96ff89801f_3.avif",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6881f5405af0aa88ee3beae8_olympus.avif",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6881f53fa69e5cd43921d3a9_BIM.avif",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6881f53fd4ed1127b21e932a_longkloof3.avif",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6881f53f3611d2f7264046a8_iLona%2BSarah.avif",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/67a35bcec1e6dee368c62d25_dhk_Logo.webp",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6ac63a0df23307f82a4495b2_01---H0_HERO_6of9.jpg",
+    "https://cdn.prod.website-files.com/6746d4e7508fcde5d1dbac6c/6afd69b9a5ab669ee9aba008_01---H0_HERO_1of9.jpg"
+  ]
+}

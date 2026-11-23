@@ -1,0 +1,28 @@
+{
+  "target": "https://snohetta.com",
+  "html_bytes": 140615,
+  "css": [
+    {
+      "url": "https://snohetta.com/assets/1790159390/bundle.css",
+      "file": "bundle.css",
+      "size": 51564
+    }
+  ],
+  "js": [
+    {
+      "url": "https://snohetta.com/js/plascript.js",
+      "file": "plascript.js",
+      "size": 2537
+    },
+    {
+      "url": "https://snohetta.com/assets/1790159390/bundle.es.js",
+      "file": "bundle.es.js",
+      "size": 104147
+    },
+    {
+      "url": "https://snohetta.com/assets/1790159390/bundle.legacy.js",
+      "file": "bundle.legacy.js",
+      "size": 255723
+    }
+  ]
+}

@@ -1,0 +1,645 @@
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+					<meta name="robots" content="index, follow, all" />
+				
+			
+		<link rel="icon" type="image/png" href="images/favicon.png">
+      <meta property="og:image" content="images/favicon.png">
+		<base href="https://www.studioko.fr/" >
+		
+		<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		
+		<script type="text/javascript" src="js/globale.js?v=58"></script>
+		<script type="text/javascript" src="js/hashchange.js?v=58"></script>
+		<script type="text/javascript" src="js/project.js?v=58"></script>
+		<script type="text/javascript" src="js/thirdlvl.js?v=58"></script>
+		<script type="text/javascript" src="js/jquery.fullscreen-0.3.4.min.js"></script>
+		
+		<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js?v=58"></script>
+		<script type="text/javascript" src="js/flash.js?v=58"></script>
+		
+				
+		<meta property="og:title" content="Studio KO # "/>
+		<meta property="og:type" content="article"/>
+		<meta property="og:image" content=""/>
+		<meta property="og:description" content="Studio KO - 10 rue Jean-Pierre Timbaud 75011 paris france - tel : 33 (0)1 42 71 13 92 " />
+					
+		<title>Studio KO</title>
+		
+		<meta name="description" content="Studio KO - 10 rue Jean-Pierre Timbaud 75011 paris france - tel : 33 (0)1 42 71 13 92 " />
+		<meta name="keywords" content="Studio KO - 10 rue Jean-Pierre Timbaud 75011 paris france - tel : 33 (0)1 42 71 13 92 " />
+		<meta property="og:site_name" content="Studio KO"/>
+
+		<link type="text/css" rel="stylesheet" href="styles/y_reset.css" />
+		<link type="text/css" rel="stylesheet" href="styles/globale.css?v=58" />
+		<link type="text/css" rel="stylesheet" href="styles/flash.css?v=58" />
+		
+				
+		<link type="text/css" rel="stylesheet" href="styles/jquery.mCustomScrollbar.css" />
+		
+		<script language="javascript">
+			let projectCatsArray = {"1":["64","1","2","4","5","32","37","29"],"20":["73","28","42","15"],"8":["62","63","46","48","51","9","31","60","13","49"],"11":["115","71","38","61","109"],"12":["45","47"],"3":["59","108","58","44","30","39","19","26","18","17","16"],"9":["112"],"7":["36","7","50","34","40","43","8","27"],"14":["67","89","96","79","80","104","86","81","76"],"6":["41","92","91","93","95","94"],"18":["100","99","98","97","82","102"]};
+			var bodyLg='fr';
+			var fullscreen=true;
+			//fullscreen=false;
+
+			if (
+				window.location.hostname.includes("betterandmore.net") || 
+				window.location.hostname.includes("localhost") || 
+				window.location.hostname == '127.0.0.1'
+				) {
+		        console.log("Dev server detected: disabling sound & fullscreen");
+
+		        var fullscreen=false;
+		    }
+
+			$(function() {
+				$('body').click(function() {
+					if(fullscreen){
+													$("body").fullscreen();
+						
+						fullscreen=false;
+						var xX = document.getElementById("myAudio"); 
+						xX.play(); 
+						var xX2 = document.getElementById("introAudio"); 
+						xX2.play(); 					
+					}
+				});
+
+				// document's event
+				$(document).bind('fscreenchange', function(e, state, elem) {
+					// if we currently in fullscreen mode
+				});
+			});
+		</script>
+		
+		<script type="text/javascript" src="js/swfobject.js"></script>
+		<script src="https://vjs.zencdn.net/c/video.js"></script>
+		
+		<script>var flash=0;</script>
+		<style type="text/css">
+			#corpMedia .media-list-image img {
+			   height: auto;
+			   display: block;
+			   -webkit-transform: translateZ(0);
+			   transform: translateZ(0);
+			}
+		</style>
+		
+		
+		<style type="text/css">
+			/* resize message code 17-12-2025 starts */
+			.resize-message-overlay {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 100%;
+			    background-color: rgba(0, 0, 0, 0.7);
+			    z-index: 999999;
+			    display: none;
+			    justify-content: center;
+			    align-items: center;
+			    flex-direction: column;
+			}
+			
+			.resize-message-content {
+			    color: white;
+			    font-size: 12px;
+			    text-align: center;
+			    padding: 20px;
+			    font-family: Arial, sans-serif;
+			}
+			
+			/* Fix body transform issue when showing resize message */
+			.no-scale-transform {
+			    transform: none !important;
+			    -webkit-transform: none !important;
+			    -moz-transform: none !important;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			// Function to check window size and show/hide resize message
+			function checkWindowSize() {
+			    var originalWidth = screen.width;
+			    var currentWidth = window.innerWidth;
+			    var resizeThreshold = 0.6; // 60% threshold
+			    
+			    // Check if window is resized below 60% of original size
+			    if (currentWidth < originalWidth * resizeThreshold) {
+			        // Show resize message
+			        showResizeMessage();
+			    } else {
+			        // Hide resize message
+			        hideResizeMessage();
+			    }
+			}
+			
+			// Function to show resize message
+			function showResizeMessage() {
+			    var overlay = document.getElementById('resize-message-overlay');
+			    if (!overlay) {
+			        overlay = document.createElement('div');
+			        overlay.id = 'resize-message-overlay';
+			        overlay.className = 'resize-message-overlay';
+			        
+			        var message = document.createElement('div');
+			        message.className = 'resize-message-content';
+			        
+			        // Determine language based on URL or default to French
+			        var lng = $.trim($("#creditsLanguageButton").find('.tColorA').text());
+			        var messageText = 'Pour une meilleure expérience, passez en mode plein écran ou augmentez la taille de votre navigateur.';
+			        //if (window.location.href.includes('/en/') || window.location.href.includes('?lang=en')) {
+			        if(lng=="EN") {
+			            messageText = 'Pour une meilleure expérience, passez en mode plein écran ou augmentez la taille de votre navigateur.';
+			            message.textContent = messageText;
+					        overlay.appendChild(message);
+					        document.body.appendChild(overlay);
+			        } else {
+			            messageText = 'For a better experience, switch to full screen or increase your browser size.';
+			            message.textContent = messageText;
+				        overlay.appendChild(message);
+				        document.body.appendChild(overlay);
+			        }
+			        
+			        
+			        // Add click event to hide message when clicked
+			        overlay.addEventListener('click', function() {
+			           // hideResizeMessage();
+			        });
+			    } else {
+			    	  var lng = $.trim($("#creditsLanguageButton").find('.tColorA').text());
+			    	  if(lng=="EN") {
+			            messageText = 'Pour une meilleure expérience, passez en mode plein écran ou augmentez la taille de votre navigateur.';
+			            $(".resize-message-content").text(messageText);
+			        } else {
+			            messageText = 'For a better experience, switch to full screen or increase your browser size.';
+			            $(".resize-message-content").text(messageText);
+			        }
+			    }
+			    
+			    // Add class to body to remove scale transform
+			    document.body.classList.add('no-scale-transform');
+			    
+			    overlay.style.display = 'flex';
+			}
+			
+			// Function to hide resize message
+			function hideResizeMessage() {
+			    var overlay = document.getElementById('resize-message-overlay');
+			    if (overlay) {
+			        overlay.style.display = 'none';
+			        
+			        // Remove class from body to restore scale transform
+			        document.body.classList.remove('no-scale-transform');
+			    }
+			}
+			
+			// Add event listeners
+			window.addEventListener('resize', function() {
+			    checkWindowSize();
+			});
+			
+			// Check on initial load
+			window.addEventListener('load', function() {
+			    checkWindowSize();
+			});
+		/* resize message code 17-12-2025 ends */ 
+		</script>
+	</head>
+ 
+	<body onresize="" onhashchange="hashnavigator();">
+		
+		<div class="amazigh amazigh2" onclick="animOut2(); flashlightout();"><!----></div>		
+		<iframe name="senttoaround" class="senttoaround" frameborder="0" src="https://www.aroundko.fr?iframe=true" ></iframe>
+		
+		<div id="mozaWhiteWrapper"><!----></div>
+		<div id="streamingSound"><!----></div>
+
+		<audio id="myAudio" controls loop style="display:none;">
+			<source src="datas/audio/sound_stream.ogg" type="audio/ogg">
+			<source src="datas/audio/sound_stream.mp3" type="audio/mpeg">
+		</audio>
+
+		<audio id="introAudio" style="display:none;">
+		  <source src="datas/audio/intro_sound.ogg" type="audio/ogg">
+		  <source src="datas/audio/intro_sound.mp3" type="audio/mpeg">
+		</audio>
+
+
+		<script language="javascript">
+			sound_play='off';
+			// sound_play='on';
+
+			if (
+				window.location.hostname.includes("betterandmore.net") || 
+				window.location.hostname.includes("localhost") || 
+				window.location.hostname == '127.0.0.1'
+				) {
+		        sound_play='on';
+		    }
+
+			change_sound();
+			 function change_sound() {
+			    const mainAudio = document.getElementById("myAudio");
+			    const introAudio = document.getElementById("introAudio");
+
+			    if (sound_play == 'on') {
+			      sound_play = 'off';
+			      button_sound_play = 'on';
+			    } else {
+			      sound_play = 'on';
+			      button_sound_play = 'off';
+			    }
+
+			    if (sound_play == 'on') {
+			      $(".creditsSoundButtonOn").css({ 'display': 'none' });
+			      $(".creditsSoundButtonOff").css({ 'display': 'block' });
+
+			      // Play main looped audio
+			    
+			      // Play intro audio once (do not loop)
+			      introAudio.currentTime = 0;
+			     // mainAudio.currentTime = 0;
+			      introAudio.play();
+			      mainAudio.play();
+
+			    }
+
+			    if (sound_play == 'off') {
+			      $(".creditsSoundButtonOn").css({ 'display': 'block' });
+			      $(".creditsSoundButtonOff").css({ 'display': 'none' });
+
+			      mainAudio.pause();
+			      introAudio.pause();
+			      introAudio.currentTime = 0; // Reset intro sound in case it's halfway
+			    }
+			  }
+			/*
+			function change_sound(){
+				if(sound_play=='on'){
+					sound_play='off'; 
+					button_sound_play='on';
+				}else{
+					sound_play='on';
+					button_sound_play='off';
+				}
+							
+				if(sound_play=='on'){
+					$(".creditsSoundButtonOn").css({'display':'none'});
+					$(".creditsSoundButtonOff").css({'display':'block'});
+					var xX = document.getElementById("myAudio"); 
+					
+					xX.play(); 
+				}
+				
+				if(sound_play=='off'){
+					$(".creditsSoundButtonOn").css({'display':'block'});
+					$(".creditsSoundButtonOff").css({'display':'none'});
+					var xX = document.getElementById("myAudio"); 
+					
+					xX.pause();
+					//$("#streamingSound").html('');
+				}
+			}
+			*/
+		</script>
+
+		<div id="delayId" style="display:none;"></div>
+ 
+		<script language="javascript">
+			$( "body" ).on( "keydown", function( event ) {
+				if(event.which=='37' || event.which=='38'){actionCorpMediaMove('left');}
+				if(event.which=='39' || event.which=='40'){actionCorpMediaMove('right');}
+			});
+		</script>		
+		
+		<!-- <div class="corpInside corpSidebar" >			 -->
+		<div class="corpSidebar" >			
+			<div id="corpMenu">
+							</div>
+
+			<div id="corpCredits"></div>
+			<div id="corpCreditsCorp"></div>
+			
+			<div id="corpNavigator">
+				<div id="corpNavigatorInner0">
+									</div>
+			</div>
+			
+			<div id="corpDiaryNavigatorA"></div>
+			<div id="corpChess"></div>
+		</div>
+		
+		<div class="corpInside corpInsideImage" >
+			
+			<div id="corpComment">
+				<div id="corpCommentInner1" class="corpCommentInner">
+									</div>
+			</div>
+			
+			<div id="corpCommentImage">
+				<div id="corpCommentImageInner">
+					<span class="typoB1">
+						
+					</span>
+				</div>
+			</div>
+			
+			<div id="corpSelect"></div>
+			
+						<div id="corpDiaryNavigatorB">
+				<div id="corpDiaryNavigatorB0">
+									</div>
+			</div>
+									
+			<div id="corpMedia">
+				<div id="corpMediaLoad" ><!----></div>
+				<div id="corpMediaInner0" class="corpMediaInner">
+									</div>
+
+				<div id="corpMediaScrollNavInner" class="corpMediaScrollNavInner">
+					
+				</div>
+			</div>
+
+			<div id="corpMediaFull">
+				<div id="corpMediaLoad" ><!----></div>
+				<div id="corpMediaFullInner0" class="corpMediaInner"></div>
+			</div>
+		</div>
+		
+		<div id="corpIntro">
+							<a href="fr/project/home">fr</a>
+				<a href="en/project/home">en</a>
+						</div>
+		
+		<div class="bodyOver"><!----></div>	
+
+		<div class="custom-tooltip"></div>	
+		
+		<script language="javascript">
+			
+			$(function () {
+			//	frameCenter(1);
+			   autoScaleWebsite();
+			    $(window).resize(function () {
+			    	
+			    	 // frameCenter(1);
+			        autoScaleWebsite();
+			    });
+			});
+			
+			// Avant de lancer Hashnavigator
+			// On transforme l'url rewriting en url rewriting + url hash
+			hashnavigatorPreaction();
+			hashnavigator();
+			// window.location.hash = 'fr-diary-home';
+		 
+			$("#corpMenu").mouseenter(function(){  
+				$("#corpMenu #corpMenuWrapper").stop();
+				$("#corpMenu #corpMenuAlo").stop();
+				$("#corpMenu #corpMenuWrapper").animate({'height':82},300);
+				$("#corpMenu #corpMenuAlo").animate({'opacity':1},300);
+			});
+			
+			$("#corpMenu").mouseleave(function(){ 
+				$("#corpMenu #corpMenuWrapper").stop();
+				$("#corpMenu #corpMenuAlo").stop();
+				$("#corpMenu #corpMenuWrapper").animate({'height':0},300);
+				$("#corpMenu #corpMenuAlo").animate({'opacity':0},300);
+			});
+
+			$(document).on('mouseenter', '.media-list-image img', function() {
+			    var $mainImage = $(this);
+			    var $imageList = $mainImage.siblings('.image-media-list').find('img');
+			    var index = 1;
+
+			    if ($imageList.length) {
+			        $mainImage.data('original-src', $mainImage.attr('src'));
+			        $mainImage.data('interval', setInterval(function() {
+			        	if (index >= $imageList.length) {index = 0};
+
+			            var nextImage = $imageList.eq(index % $imageList.length);
+			            $mainImage.stop().fadeTo(200, 0, function() {
+			                $mainImage.attr('src', nextImage.attr('src')).fadeTo(200, 1);
+			            });
+			            index++;
+			        }, 1000));
+			    }
+			});
+
+			$(document).on('mouseleave', '.media-list-image img', function() {
+			    var $mainImage = $(this);
+			    clearInterval($mainImage.data('interval'));
+			    $mainImage.stop().fadeTo(200, 0, function() {
+			        $mainImage.attr('src', $mainImage.data('original-src')).fadeTo(200, 1);
+			    });
+			});
+
+			var $tooltip = $('.custom-tooltip');
+
+            // Use event delegation for dynamically loaded elements
+            $(document).on({
+                mouseenter: function(e) {
+                    var $this = $(this);
+                    var title = $this.attr('title');
+                    
+                    if (title && title.length) {
+                        $this.data('original-title', title)
+                             .removeAttr('title');
+                        
+                        $tooltip.text(title)
+                               .css({
+                                   'top': (e.pageY + 10) + 'px',
+                                   'left': (e.pageX + 10) + 'px',
+                                   'display': 'block'
+                               });
+                    }
+                },
+                mouseleave: function() {
+                    var $this = $(this);
+                    $this.attr('title', $this.data('original-title'));
+                    $tooltip.hide();
+                },
+                mousemove: function(e) {
+                    $tooltip.css({
+                        'top': (e.pageY + 10) + 'px',
+                        'left': (e.pageX + 10) + 'px'
+                    });
+                }
+            }, '.has-tooltip'); // Only target anchor tags with title attributes
+						 
+			/*
+			actionCorpMenu('open');
+			actionCorpCredits('open');
+			actionCorpDiaryNavigatorA('open');
+			actionCorpDiaryNavigatorB('open');
+			actionCorpComment('1');
+			actionCorpMedia('1');
+			actionCorpNavigator('1','0','170');
+			actionCorpChess('1','250','100');
+			*/
+		</script>
+		
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-X66F5PQQB6"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'G-X66F5PQQB6');
+		</script>
+
+		<script type="text/javascript">
+
+			var vid = document.getElementById("linkSoundCloud");
+
+			function animOut(){
+				//vid.volume = 0.2;
+
+				screenWidth=$(window).width();
+				screenHeight=$(window).height();
+
+				$("#corpIntro").css({'display':'block','opacity':'0'});
+				
+				$( "#corpIntro" ).load( "ajax/outro.php", function() {
+					$("#corpIntro").animate({opacity: 1}, 5500);
+				});
+			}
+
+			function animOut2(){
+				//vid.volume = 0.2;
+				screenWidth=$(window).width();
+				screenHeight=$(window).height();
+
+				$("#corpIntro").css({'display':'block','opacity':'0'});
+			
+				$( "#corpIntro" ).load( "ajax/outro2.php", function() {
+					$("#corpIntro").animate({opacity: 1}, 5500);
+				});			
+			}
+
+			function edb() {
+			    let elements = [
+			    	"#corpMenu",
+			        ".corpInside",
+			        "#corpMedia",
+			        "#corpNavigator",
+			        "#corpComment",
+			        "#corpCredits"
+			    ];
+			    
+			    elements.forEach(selector => {
+			        document.querySelectorAll(selector).forEach(el => {
+			            el.style.border = "solid 1px red";
+			        });
+			    });
+
+			    console.log("Debug borders enabled.");
+			}
+
+			function ddb() {
+			    let elements = [
+			    	"#corpMenu",
+			        ".corpInside",
+			        "#corpMedia",
+			        "#corpNavigator",
+			        "#corpComment",
+			        "#corpCredits"
+			    ];
+			    
+			    elements.forEach(selector => {
+			        document.querySelectorAll(selector).forEach(el => {
+			            el.style.border = "";
+			        });
+			    });
+
+			    console.log("Debug borders disabled.");
+			}
+
+			let dbEnabled = false;
+
+			document.addEventListener('keydown', function(e) {
+			    if (e.key.toLowerCase() === 'h') {
+			        if (dbEnabled) {
+			            ddb();
+			        } else {
+			            edb();
+			        }
+			        dbEnabled = !dbEnabled;
+			    } else if (e.key === 'J' || e.key.toLowerCase() === 'j') {
+			        // $('.corpCommentNav-arrow').toggleClass('corpCommentNav-left');
+
+			        // if ($('.corpCommentNav-arrow-left').hasClass('corpCommentNav-left') || 
+			        // 	$('.corpCommentNav-arrow-right').hasClass('corpCommentNav-right')) {
+			        // 	$('.corpCommentNav-arrow-left').removeClass('corpCommentNav-left');
+			        // 	$('.corpCommentNav-arrow-right').removeClass('corpCommentNav-right');
+			        // } else {
+			        // 	$('.corpCommentNav-arrow-left').addClass('corpCommentNav-left');
+			        // 	$('.corpCommentNav-arrow-right').addClass('corpCommentNav-right');
+			        // }
+			    } else if (e.key === 'K' || e.key.toLowerCase() === 'k') {
+			        if ($('.mCSB_draggerRail').hasClass('grayRail')) {
+			        	$('.mCSB_draggerRail').removeClass('grayRail');
+			        } else {
+			        	$('.mCSB_draggerRail').addClass('grayRail');
+			        }
+			    }
+			});
+
+			function checkOverlaps() {
+				console.log('checking overlap');
+				
+			    // Get all div elements
+			    const divAs = document.querySelectorAll('.media-list-desc'); // Blue divs
+			    const divBs = document.querySelectorAll('.media-list-image'); // Green divs
+			    
+			    // Check each blue div against each green div
+			    divAs.forEach(divA => {
+			        const rectA = divA.getBoundingClientRect();
+			        const mediaListItemA = divA.closest('.media-list-item');
+			        const titleA = mediaListItemA ? mediaListItemA.querySelector('.media-list-title').textContent.trim() : 'no-title';
+			        
+			        divBs.forEach(divB => {
+			            const rectB = divB.getBoundingClientRect();
+			            const mediaListItemB = divB.closest('.media-list-item');
+			            const titleB = mediaListItemB ? mediaListItemB.querySelector('.media-list-title').textContent.trim() : 'no-title';
+			            
+			            // Check for overlap
+			            const overlap = !(
+			                rectA.right < rectB.left || 
+			                rectA.left > rectB.right || 
+			                rectA.bottom < rectB.top || 
+			                rectA.top > rectB.bottom
+			            );
+			            
+			            if (overlap) {
+			                console.log(`div (title: "${titleA}") -> over -> div (title: "${titleB}")`);
+			            }
+			        });
+			    });
+			}
+
+			function activeScrollNav($this) {
+		        $('.track-thumb').removeClass('active');
+		        $($this).addClass('active');
+			}
+
+			// Run initially
+			// checkOverlaps();
+
+			// Optional: Run on window resize and scroll if elements are dynamic
+			// window.addEventListener('resize', checkOverlaps);
+			// window.addEventListener('scroll', checkOverlaps);
+		</script>
+		
+		<div id="flashWhite" style="position:absolute;top:0;left:0;opacity:0;background-color:#ffffff;z-index:99999;"><!----></div>
+	</body>
+</html>

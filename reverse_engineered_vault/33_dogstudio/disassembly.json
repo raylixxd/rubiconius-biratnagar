@@ -1,0 +1,42 @@
+{
+  "id": "33_dogstudio",
+  "name": "Dogstudio",
+  "url": "https://dogstudio.co/",
+  "category": "3D & WebGL",
+  "tech_stack": [
+    "Next.js"
+  ],
+  "scripts_downloaded": 4,
+  "total_bundle_bytes": 106604,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#038"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/kikk-18/background-1015.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/kikk-18/background-1440.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/kikk-18/background-450.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/kikk-18/background-815.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/msi-chicago/background-1015.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/msi-chicago/background-1440.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/msi-chicago/background-450.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/msi-chicago/background-815.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/navy-pier/background-1015.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/navy-pier/background-1440.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/navy-pier/background-450.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/navy-pier/background-815.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/orw/background-1015.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/orw/background-1440.png",
+    "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/orw/background-450.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

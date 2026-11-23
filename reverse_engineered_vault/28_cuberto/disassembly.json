@@ -1,0 +1,45 @@
+{
+  "id": "28_cuberto",
+  "name": "Cuberto",
+  "url": "https://cuberto.com/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Next.js"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 81119,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#000",
+    "#fff"
+  ],
+  "motion_profile": {
+    "engine": "GSAP Native",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "/apple-touch-icon.png",
+    "/assets/projects/cisco/cover.jpg",
+    "/assets/projects/daoway/cover.jpg",
+    "/assets/projects/find/cover.jpg",
+    "/assets/projects/flipaclip/cover.jpg",
+    "/assets/projects/potion/cover.jpg",
+    "/assets/projects/puntopago/cover.jpg",
+    "/assets/projects/qvino/cover.jpg",
+    "/assets/projects/riyadh/cover.jpg",
+    "/assets/projects/sca/cover.jpg",
+    "/assets/projects/zelt/cover.jpg",
+    "/cover.png",
+    "/favicon-16x16.png",
+    "/favicon-32x32.png",
+    "https://cuberto.com/web-app-manifest-512x512.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

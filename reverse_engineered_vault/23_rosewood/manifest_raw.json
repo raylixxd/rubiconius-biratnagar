@@ -1,0 +1,207 @@
+{
+  "target": "Rosewood Hotels & Resorts",
+  "url": "https://www.rosewoodhotels.com/en/default",
+  "css_links": [
+    "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-base.lc-58f2bd45fd4cd14275eb3f1c388aa7d4-lc.min.css",
+    "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-site.lc-5be392f34b119e99417d38afff9aebe1-lc.min.css"
+  ],
+  "downloaded_css": [
+    {
+      "url": "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-base.lc-58f2bd45fd4cd14275eb3f1c388aa7d4-lc.min.css",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\css\\0_clientlib-base.lc-58f2bd45fd4cd14275eb3f1c388aa7d4-lc.min.css",
+      "size": 169077
+    },
+    {
+      "url": "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-site.lc-5be392f34b119e99417d38afff9aebe1-lc.min.css",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\css\\1_clientlib-site.lc-5be392f34b119e99417d38afff9aebe1-lc.min.css",
+      "size": 2805422
+    }
+  ],
+  "js_links": [
+    "https://rum.hlx.page/.rum/@adobe/helix-rum-js@%5E2/dist/micro.js",
+    "https://assets.adobedtm.com/96a4e35549e7/32fbc8bc569f/launch-864e2cd1ad08.min.js",
+    "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-newrelic-head.lc-7fc34c54504790663a4706c81a3d96da-lc.min.js",
+    "https://cdn-ukwest.onetrust.com/scripttemplates/otSDKStub.js",
+    "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-site.lc-9db35b75f2c285b0e689336dac14e1aa-lc.min.js",
+    "https://a42cdn.usablenet.com/a42/rosewoodhotels/default/prod/cs-start?position=bottom-right&breakpoint=767&mobile-size=small&lang=en",
+    "https://www.rosewoodhotels.com/etc.clientlibs/core/wcm/components/commons/site/clientlibs/container.lc-0a6aff292f5cc42142779cde92054524-lc.min.js",
+    "https://www.rosewoodhotels.com/etc.clientlibs/clientlibs/granite/jquery/granite/csrf.lc-652a558c3774088b61b0530c184710d1-lc.min.js",
+    "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-base.lc-01dd92e42aa4f22b2189137633a06ae1-lc.min.js"
+  ],
+  "downloaded_js": [
+    {
+      "url": "https://rum.hlx.page/.rum/@adobe/helix-rum-js@%5E2/dist/micro.js",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\0_micro.js",
+      "size": 843
+    },
+    {
+      "url": "https://assets.adobedtm.com/96a4e35549e7/32fbc8bc569f/launch-864e2cd1ad08.min.js",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\1_launch-864e2cd1ad08.min.js",
+      "size": 530762
+    },
+    {
+      "url": "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-newrelic-head.lc-7fc34c54504790663a4706c81a3d96da-lc.min.js",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\2_clientlib-newrelic-head.lc-7fc34c54504790663a4706c81a3d96da-lc.min.js",
+      "size": 77391
+    },
+    {
+      "url": "https://cdn-ukwest.onetrust.com/scripttemplates/otSDKStub.js",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\3_otSDKStub.js",
+      "size": 60167
+    },
+    {
+      "url": "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-site.lc-9db35b75f2c285b0e689336dac14e1aa-lc.min.js",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\4_clientlib-site.lc-9db35b75f2c285b0e689336dac14e1aa-lc.min.js",
+      "size": 1290907
+    },
+    {
+      "url": "https://a42cdn.usablenet.com/a42/rosewoodhotels/default/prod/cs-start?position=bottom-right&breakpoint=767&mobile-size=small&lang=en",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\5_cs-start.js",
+      "size": 19510
+    },
+    {
+      "url": "https://www.rosewoodhotels.com/etc.clientlibs/core/wcm/components/commons/site/clientlibs/container.lc-0a6aff292f5cc42142779cde92054524-lc.min.js",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\6_container.lc-0a6aff292f5cc42142779cde92054524-lc.min.js",
+      "size": 1271
+    },
+    {
+      "url": "https://www.rosewoodhotels.com/etc.clientlibs/clientlibs/granite/jquery/granite/csrf.lc-652a558c3774088b61b0530c184710d1-lc.min.js",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\7_csrf.lc-652a558c3774088b61b0530c184710d1-lc.min.js",
+      "size": 3618
+    },
+    {
+      "url": "https://www.rosewoodhotels.com/etc.clientlibs/rosewood-aem/clientlibs/clientlib-base.lc-01dd92e42aa4f22b2189137633a06ae1-lc.min.js",
+      "path": "C:\\Users\\Lenovo LOQ\\.gemini\\antigravity\\scratch\\reverse_engineered_vault\\23_rosewood\\js\\8_clientlib-base.lc-01dd92e42aa4f22b2189137633a06ae1-lc.min.js",
+      "size": 38198
+    }
+  ],
+  "font_links": [],
+  "media_count": 54,
+  "media_sample": [
+    {
+      "type": "img",
+      "src": "https://www.rosewoodhotels.com/content/dam/rosewoodhotels/icons/Left%20Icon.svg",
+      "alt": "hamburger"
+    },
+    {
+      "type": "img",
+      "src": "https://www.rosewoodhotels.com/content/dam/rosewoodhotels/icons/Wordmark.svg",
+      "alt": "rosewood-logo"
+    },
+    {
+      "type": "img",
+      "src": "https://www.rosewoodhotels.com/content/dam/rosewoodhotels/cross.svg",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/c212f50b-6bf1-44e9-830b-cb67ac2096e2/RHR_BrandCampaign_Wonder-in-a-New-Light_The-Dance-of-Light_169",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/07e6413e-ec16-45f7-8ca6-c4f0a435ae09/RWLGS_BrandEvent_Drift-Studios_3",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/fe88e83a-d192-4cb7-9467-186a57995bb6/RWAMS_Experiences_On-Property_Entertainment_Festive_2026_Dinner_14",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/bcd6418c-78ba-497c-a7dd-db295f042309/RWNCK_Destination_Lifestyle_Countryside-3",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/72fdfae6-012c-4054-8e8c-364226a36043/RWNCK_3-0_Brand-com_Assets_Destination_Lifestyle_Countryside-4",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/f76592cf-e1a6-4589-997d-9d1f5d42661e/RWMDR_3-0_Brand-com_Assets_Facilities_Suite_Ocean-View-Mountain-Studio-Suite_Terrace-with-Pool_Sunset",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/f2f5d2a5-2bfb-47b7-8a4a-775ce0993548/RWLDN_3-0_Brand-com_Assets_Accommodation_Suites_DeluxeSuite_1",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/2f763957-01fd-4b74-8572-3b37f9d78560/RR_LifestyleAssets_Destination",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/4878709e-a5c7-483d-b6dc-affb771033c3/RRLDK_Global_3-0_Brand-com_Assets_Renderings",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/4bddb5fd-9300-45fd-b534-35627b5d866d/RRBHL_Global_3-0_Brand-com_Assets_Renderings",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/77876c08-ee38-4db0-9f04-d0327aceee70/RWSPO_Facilities_MeetingsAndEvents_Pavillion-3",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/c23812ff-d09d-44ec-b258-e8fe64c7eb21/RWLGS_Facade_Building",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/c8350da3-a6f8-4012-bdeb-c73b671fb13c/RHR_Retail_Festive-Gift-Card_ECOM_High-Res",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/d28550cb-1f97-4133-b14d-a90b6738b966/RWHKG_3-0_Brand-com_Assets_Retail_L-Objet_Product-13",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/343309a5-82bc-4ff6-af1e-14fd666e80c5/RHR_Brand-Camapign_Sleep-Edit_Assets_Erdem-x-The-Chancery_3",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/7c5976a6-9596-42ad-9901-2f94145624bf/RWHKG_Occasion_Festive_2026-Christmas-Campaign?io=transform:fill,width:450,height:600&focuspoint=0.4094,0.2223&quality=80",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/b36fc92d-38aa-42cf-bb45-14d10f1377d0/RWKVL_Festive_Moana1?io=transform:fill,width:450,height:600&focuspoint=0.585,0.5917&quality=80",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/1e4ed398-1402-42d4-85b9-348b79559873/RWCRI_Facilities_Facade_Festive-decorations-1?io=transform:fill,width:450,height:600&focuspoint=0.4923,0.4707&quality=80",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/480a3c42-9cf8-4916-ae32-a4f571879c1e/RWCAR_3-0_Brand-com_Assets_RWCAR-Alpha-Smoot-Bemelmans-Bar-3?io=transform:fill,width:450,height:600&focuspoint=0.4919,0.2854&quality=80",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/1a34246c-3494-4df8-9786-4a0c9b5a842f/RWCDB_Experiences_SeasonalOccasions_Festive_BorgoDecorations?io=transform:fill,width:450,height:600&focuspoint=0.4972,0.8458&quality=80",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/66725880-22b9-4b66-ae0b-8174fa576f12/RWBJG_DesignDetails_Hero_JiaoTu_1-jpg?io=transform:fill,width:450,height:600&focuspoint=0.5,0.5&quality=80",
+      "alt": ""
+    },
+    {
+      "type": "img",
+      "src": "https://picasso.rosewoodhotelgroup.com/transform/3e6f8f4a-66e4-4ca1-92e6-9f5f343e89ad/RHR_Brand-Camapign_Brand-Launch_Brand-com_Assets_Monocle_SBM?io=transform:fill,width:450,height:600&focuspoint=0.3173,0.6745&quality=80",
+      "alt": ""
+    }
+  ]
+}

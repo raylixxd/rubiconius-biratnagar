@@ -1,0 +1,274 @@
+[
+  {
+    "url": "https://ottoobjects.com/",
+    "resource_type": "document"
+  },
+  {
+    "url": "https://ottoobjects.com/fonts/OTFAPR15-1110.woff2",
+    "resource_type": "font"
+  },
+  {
+    "url": "https://ottoobjects.com/img/hero/vase-bare-1600.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/assets/index-DthXjdRE-mwc16ezy.js",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://ottoobjects.com/assets/index-BzkraAQv-mwc16ezy.css",
+    "resource_type": "stylesheet"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-top-cut.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/after/contrast-1600.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/card/vase-u-I-front.svg",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/card/vase-u-II-front.svg",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/card/vase-u-III-front.svg",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/collection/vase-wide.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/collection/chair-wide.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/collection/table-wide.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/iii-column.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/iii-2.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/iii-1.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/ii-1.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/ii-2.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/i-1.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/iii-column-t.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/iii-2-t.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/iii-1-t.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/ii-1-t.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/ii-2-t.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/i-1-t.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+    "resource_type": "script"
+  },
+  {
+    "url": "blob:https://ottoobjects.com/b07a763c-a2dd-420b-9e2e-c42d4cac6378",
+    "resource_type": "script"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-34-480.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-front-480.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-above-480.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-top-480.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-top-empty-480.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/after/room-1600.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/after/close-1600.avif",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/data/vase-turn.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/data/vase-spin.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/data/vase-tophoto.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/data/vase-toiso.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/data/vase-dims.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/data/bouquet-sets.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/cdn-cgi/rum?",
+    "resource_type": "xhr"
+  },
+  {
+    "url": "https://ottoobjects.com/img/after/spiral-kitchen.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-above-960.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/after/spiral-living.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-34-960.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/after/spiral-column.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-front-960.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/after/spiral-hall.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/after/spiral-study.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/story/vase-top-960.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/data/bouquet-h.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/data/pdp-dims.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/data/vase-dims-pdp.json",
+    "resource_type": "fetch"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/i-white-c.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/ii-white-c.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/pdp/iii-white-c.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/plate-wide.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/A-studio-v2.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/vase-cutout-v2.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f1-lying-shadow.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f1-lying.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f1-standing.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f2-lying-shadow.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f2-lying.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f2-standing.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f3-lying-shadow.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f3-lying.webp",
+    "resource_type": "image"
+  },
+  {
+    "url": "https://ottoobjects.com/img/bouquet/h/f3-standing.webp",
+    "resource_type": "image"
+  }
+]

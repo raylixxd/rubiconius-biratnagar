@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fabout","\u002Fdemo","\u002Fhome-legacy","\u002Fservices","\u002Fstudio\u002F[[...tool]]","\u002Fwork\u002F[[...slug]]","\u002Fwriting\u002F[[...slug]]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

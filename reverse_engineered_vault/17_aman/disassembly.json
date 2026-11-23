@@ -1,0 +1,46 @@
+{
+  "id": "17_aman",
+  "name": "Aman Resorts",
+  "url": "https://www.aman.com/",
+  "category": "Architecture & Luxury",
+  "tech_stack": [
+    "Three.js",
+    "Next.js"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 504366,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#039",
+    "#f3eee7",
+    "#fff",
+    "#000"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    ".webp",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-114x114.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-120x120.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-144x144.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-152x152.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-180x180.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-57x57.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-60x60.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-72x72.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-76x76.png",
+    "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon.png",
+    "/themes/custom/aman/assets/dist/media/favicons/favicon-16x16.png",
+    "/themes/custom/aman/assets/dist/media/favicons/favicon-32x32.png",
+    "https://en.wikipedia.org/wiki/File:Vladislav-doronin-una-residences.jpg",
+    "https://www.aman.com/sites/default/files/2021-08/amanjiwo.jpg"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

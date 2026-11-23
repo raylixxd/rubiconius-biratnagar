@@ -1,0 +1,38 @@
+{
+  "id": "13_activetheory",
+  "name": "Active Theory",
+  "url": "https://activetheory.net/",
+  "category": "3D & WebGL",
+  "tech_stack": [
+    "PixiJS",
+    "Next.js"
+  ],
+  "scripts_downloaded": 1,
+  "total_bundle_bytes": 551251,
+  "typography_tokens": [
+    "Helvetica, Arial, sans-serif",
+    "nbarchitekt"
+  ],
+  "color_palette_sample": [
+    "#000000",
+    "#ffffff",
+    "#333333",
+    "#000"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "assets/meta/apple-touch-icon.png",
+    "assets/meta/favicon-16x16.png",
+    "assets/meta/favicon-32x32.png",
+    "https://storage.googleapis.com/activetheory-v6.appspot.com/media/social.jpg"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

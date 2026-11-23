@@ -1,0 +1,55 @@
+{
+  "id": "06_unseen",
+  "name": "Unseen Studio",
+  "url": "https://unseen.co/",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "GSAP",
+    "Draco Compression",
+    "Basis/KTX2 Transcoding",
+    "Web Audio API"
+  ],
+  "scripts_downloaded": 5,
+  "total_bundle_bytes": 2215987,
+  "discovered_models": [
+    "chair.glb",
+    "grass-simple.glb",
+    "land-group.glb",
+    "models/home/objectsData.glb",
+    "models/phone.glb",
+    "models/project-menu/arch-dc.glb",
+    "models/project-menu/butterfly.glb",
+    "models/project-menu/floor-dc.glb",
+    "models/world/grab.glb",
+    "models/world/grabbing.glb",
+    "models/world/pointer.glb",
+    "pillows.glb",
+    "rocks.glb",
+    "room-1.glb",
+    "room-2.glb"
+  ],
+  "discovered_textures": [
+    ".jpg",
+    ".png",
+    "images/gradient-noise.jpg",
+    "images/home/blade.jpg",
+    "images/iri-32.png",
+    "images/matcap-black.png",
+    "images/matcap-white.png",
+    "images/noise-small.png",
+    "images/project-menu/arch.ktx2",
+    "images/project-menu/butterfly-atlas-diffuse-1.png",
+    "images/project-menu/butterfly-atlas-normal-1.png",
+    "images/project-menu/sand-rotate.jpg",
+    "images/project-model-matcap-dark.png",
+    "images/project-model-matcap.png",
+    "images/world/grab.png"
+  ],
+  "discovered_audio": [],
+  "discovered_wasm": [
+    "basis_transcoder.wasm",
+    "draco_decoder.wasm"
+  ],
+  "shaders_extracted": 16
+}

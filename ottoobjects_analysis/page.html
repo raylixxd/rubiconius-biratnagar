@@ -1,0 +1,689 @@
+<!DOCTYPE html><html lang="en" class="lenis lenis-stopped" style="--vw: 1425px;"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <script>
+      if (/\.pages\.dev$/.test(location.hostname)) location.replace('https://ottoobjects.com' + location.pathname + location.search)
+      else if (/(^|\.)ottoobjects\.com$/.test(location.hostname)) {
+        var known = /^\/(about|checkout|vase-u)?(\/?)$/.exec(location.pathname)
+        if (!known) location.replace('/' + location.hash)
+        else if (known[1] && known[2]) location.replace('/' + known[1] + location.search + location.hash)
+      }
+    </script>
+    <title>OTTO — Vase U (III)</title>
+    <meta name="description" content="OTTO makes collectible objects. Vase U: steel and glass, in three sizes.">
+    <link rel="icon" href="./img/favicon-2.svg" type="image/svg+xml">
+    <link rel="icon" href="./img/favicon-2-48.png" type="image/png" sizes="48x48">
+    <link rel="apple-touch-icon" href="./img/share/apple-touch-icon-2.png">
+    <meta name="theme-color" content="#f2f2f2">
+    <link rel="canonical" href="https://ottoobjects.com/">
+    <meta property="og:url" content="https://ottoobjects.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="OTTO">
+    <meta property="og:title" content="OTTO — Vase U (III)">
+    <meta property="og:description" content="OTTO makes collectible objects. Vase U: steel and glass, in three sizes.">
+    <meta property="og:image" content="https://ottoobjects.com/img/share/og-2.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Vase U (III) with daisies">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preload" href="./fonts/OTFAPR15-1110.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" as="image" imagesrcset="img/hero/vase-bare-1600.avif 1600w, img/hero/vase-bare-2400.avif 2400w, img/hero/vase-bare-3200.avif 3200w" imagesizes="104.17vw" type="image/avif" fetchpriority="high">
+    <script>
+      document.documentElement.style.setProperty('--vw', document.documentElement.clientWidth + 'px')
+    </script>
+    <script type="module" crossorigin="" src="./assets/index-DthXjdRE-mwc16ezy.js"></script>
+    <link rel="stylesheet" crossorigin="" href="./assets/index-BzkraAQv-mwc16ezy.css">
+  </head>
+  <body>
+    <div class="preloader is-in" aria-hidden="true" style="position: fixed; inset: 0; z-index: 100; background: #1e1b1a">
+      <canvas class="preloader__mark" aria-hidden="true" height="88" width="88"></canvas>
+      <p class="preloader__name t12"><span class="line"><span class="line__in">OTTO</span></span></p>
+      <p class="preloader__count t12"><span class="line"><span class="line__in">95%</span></span></p>
+    </div>
+    <script type="text/plain" id="mark-worker">
+      var FRAG = 'precision highp float;uniform vec3 uDrop[12];uniform float uSigma,uPlate,uPx,uSize;const vec3 PAPER=vec3(.949);const vec3 INK=vec3(.1176,.1059,.1020);void main(){vec2 p=vec2(gl_FragCoord.x,uSize-gl_FragCoord.y)*uPx;float s=max(uSigma,uPx*.4);float clear=1.;for(int i=0;i<12;i++){float r=uDrop[i].z;float d=length(p-uDrop[i].xy)-r+s*s/(2.*max(r,.05));float a=(1.-exp(-r*r/(2.*s*s)))/(1.+exp(min(d/(s*.56),30.)));clear*=1.-a;}float w=max(.0625,uPx/(s*2.5066));float ink=clamp(.5+((1.-clear)-.4667-.0333*w)/w,0.,1.);vec2 q=abs(p-9.)-uPlate;float a=max(clamp(.5-max(q.x,q.y)/uPx,0.,1.),ink);gl_FragColor=vec4(mix(PAPER,INK,ink)*a,a);}'
+      var LARGE = { ring: 5.375, r: 2.486 }, SMALL = { ring: 6.865, r: 0.995 }, BUD = 4.4, TWIST = 1.5
+      function clamp(t) { return Math.min(1, Math.max(0, t)) }
+      function mix(a, b, t) { return a + (b - a) * t }
+      function soft(a, b, t) { var x = clamp((t - a) / (b - a)); return x * x * (3 - 2 * x) }
+      function curve(t, a, b) { return 3 * (1 - t) * (1 - t) * t * a + 3 * (1 - t) * t * t * b + t * t * t }
+      function ease(x, ax, ay, bx, by) {
+        var lo = 0, hi = 1
+        for (var i = 0; i < 20; i++) { var t = (lo + hi) / 2; if (curve(t, ax, bx) < x) lo = t; else hi = t }
+        return curve((lo + hi) / 2, ay, by)
+      }
+      function start(canvas) {
+        var gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false })
+        if (!gl) return postMessage({ fail: 1 })
+        function shader(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s }
+        var program = gl.createProgram()
+        gl.attachShader(program, shader(gl.VERTEX_SHADER, 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'))
+        gl.attachShader(program, shader(gl.FRAGMENT_SHADER, FRAG))
+        gl.bindAttribLocation(program, 0, 'a')
+        gl.linkProgram(program)
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return postMessage({ fail: 1 })
+        gl.useProgram(program)
+        gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW)
+        gl.enableVertexAttribArray(0)
+        gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0)
+        function u(n) { return gl.getUniformLocation(program, n) }
+        var uDrop = u('uDrop'), uSigma = u('uSigma'), uPlate = u('uPlate'), drops = new Float32Array(36)
+        gl.uniform1f(u('uPx'), 18 / canvas.width)
+        gl.uniform1f(u('uSize'), canvas.height)
+        function draw(t) {
+          var p = clamp((t - 0.1) / 2.4), bud = soft(0, 0.1, p)
+          for (var i = 0; i < 12; i++) {
+            var large = i % 2 === 1
+            var e = ease(clamp((p - 0.02 - (i / 12) * 0.08) / 0.9), 0.2, 0.2, 0.1, 1)
+            var angle = -Math.PI / 2 + (i / 12) * Math.PI * 2 + (1 - e) * TWIST
+            var ring = (large ? LARGE.ring : SMALL.ring) * e
+            drops[i * 3] = 9 + Math.cos(angle) * ring
+            drops[i * 3 + 1] = 9 + Math.sin(angle) * ring
+            drops[i * 3 + 2] = large ? mix(BUD * bud, LARGE.r, e) : SMALL.r * soft(0.35, 1, e)
+          }
+          gl.uniform3fv(uDrop, drops)
+          gl.uniform1f(uSigma, 0.34 * (1 - soft(0.72, 0.98, p)))
+          gl.uniform1f(uPlate, 9 * ease(Math.min(1, t / 0.95), 0.43, 0.195, 0.02, 1))
+          gl.clearColor(0, 0, 0, 0)
+          gl.clear(gl.COLOR_BUFFER_BIT)
+          gl.drawArrays(gl.TRIANGLES, 0, 3)
+        }
+        return draw
+      }
+      self.onmessage = function (m) {
+        var draw = start(m.data.canvas)
+        if (!draw) return
+        var next = self.requestAnimationFrame || function (f) { return setTimeout(function () { f(performance.now()) }, 16) }
+        if (m.data.at !== undefined) { draw(m.data.at); next(function () { draw(m.data.at); postMessage({ shown: 1 }) }); return }
+        var first = 0, last = 0, most = 0, over = 0, frames = 0
+        function tick() {
+          var now = performance.now()
+          if (!first) { first = now; postMessage({ live: 1 }) }
+          else { var gap = now - last; if (gap > most) most = gap; if (gap > 34) over++ }
+          last = now
+          frames++
+          var t = (now - first) / 1000
+          draw(Math.min(t, 2.5))
+          if (t < 2.5) next(tick)
+          else postMessage({ done: 1, most: Math.round(most), over: over, frames: frames })
+        }
+        next(tick)
+      }
+    </script>
+    <script>
+      ;(function () {
+        var mark = document.querySelector('canvas.preloader__mark')
+        var picture = function (src) {
+          var img = new Image()
+          img.className = 'preloader__mark'
+          img.alt = ''
+          img.src = src
+          mark.replaceWith(img)
+          mark = img
+        }
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return picture('/img/preloader/mark-end.png')
+        var webp = '/img/preloader/mark.webp'
+        if (!mark.transferControlToOffscreen || !window.Worker) return picture(webp)
+        try {
+          var side = Math.round((mark.getBoundingClientRect().width || 88) * Math.min(devicePixelRatio, 3))
+          mark.width = mark.height = side
+          var off = mark.transferControlToOffscreen()
+          var url = URL.createObjectURL(new Blob([document.getElementById('mark-worker').textContent], { type: 'text/javascript' }))
+          var worker = (window.__markWorker = new Worker(url))
+          var live = false
+          var late = setTimeout(function () { if (!live) { worker.terminate(); picture(webp) } }, 1200)
+          worker.onmessage = function (e) {
+            if (e.data.live) { live = true; clearTimeout(late) }
+            if (e.data.done) {
+              window.__markStats = e.data
+              window.dispatchEvent(new Event('mark:done'))
+            }
+            if (e.data.fail) { clearTimeout(late); worker.terminate(); picture(webp) }
+          }
+          worker.onerror = function () { clearTimeout(late); worker.terminate(); picture(webp) }
+          worker.postMessage({ canvas: off }, [off])
+        } catch (e) {
+          picture(webp)
+        }
+      })()
+    </script>
+    <script>
+      ;(function () {
+        var veil = document.querySelector('.preloader')
+        var go = function () { veil.classList.add('is-in') }
+        setTimeout(go, 1200)
+        if (document.fonts && document.fonts.load) document.fonts.load('12px "OTF APR15"', 'OTTO 0%').then(go, go)
+        else go()
+      })()
+    </script>
+    <script>
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual"
+      window.scrollTo(0, 0)
+    </script>
+    <header class="header" data-theme="dark">
+      <div class="header__row">
+        <a class="header__logo abs" href="/" style="--x: 20; --y: 15" aria-label="OTTO, home"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M18 18H0V0H18V18ZM9.00098 14.8711C8.45195 14.8713 8.00684 15.3171 8.00684 15.8662C8.00707 16.4151 8.4521 16.8601 9.00098 16.8604C9.55004 16.8604 9.99585 16.4152 9.99609 15.8662C9.99609 15.317 9.55019 14.8711 9.00098 14.8711ZM6.31445 11.168C4.94147 11.168 3.82812 12.2813 3.82812 13.6543C3.82824 15.0272 4.94154 16.1396 6.31445 16.1396C7.68725 16.1394 8.79969 15.027 8.7998 13.6543C8.7998 12.2815 7.68732 11.1682 6.31445 11.168ZM11.6885 11.168C10.3155 11.1681 9.20312 12.2814 9.20312 13.6543C9.20324 15.0271 10.3156 16.1395 11.6885 16.1396C13.0614 16.1396 14.1747 15.0272 14.1748 13.6543C14.1748 12.2813 13.0615 11.168 11.6885 11.168ZM3.05469 11.4385C2.50561 11.4386 2.06057 11.8835 2.06055 12.4326C2.06055 12.9816 2.50559 13.4266 3.05469 13.4268C3.6039 13.4268 4.0498 12.9817 4.0498 12.4326C4.04978 11.8834 3.60389 11.4385 3.05469 11.4385ZM14.9482 11.4385C14.399 11.4385 13.9531 11.8834 13.9531 12.4326C13.9531 12.9817 14.399 13.4268 14.9482 13.4268C15.4973 13.4265 15.9424 12.9816 15.9424 12.4326C15.9424 11.8836 15.4972 11.4387 14.9482 11.4385ZM3.62695 6.51367C2.2541 6.51367 1.14085 7.62622 1.14062 8.99902C1.14062 10.372 2.25397 11.4854 3.62695 11.4854C4.99981 11.4852 6.1123 10.3719 6.1123 8.99902C6.11208 7.62632 4.99967 6.51383 3.62695 6.51367ZM14.376 6.51367C13.0032 6.51374 11.8899 7.62627 11.8896 8.99902C11.8896 10.372 13.003 11.4853 14.376 11.4854C15.749 11.4854 16.8623 10.372 16.8623 8.99902C16.8621 7.62622 15.7488 6.51367 14.376 6.51367ZM6.31445 1.8584C4.94148 1.8584 3.82815 2.97174 3.82812 4.34473C3.82812 5.71771 4.94147 6.83105 6.31445 6.83105C7.68732 6.8308 8.7998 5.71755 8.7998 4.34473C8.79978 2.9719 7.68731 1.85866 6.31445 1.8584ZM11.6885 1.8584C10.3155 1.85857 9.20315 2.97185 9.20312 4.34473C9.20312 5.71761 10.3155 6.83088 11.6885 6.83105C13.0615 6.83105 14.1748 5.71771 14.1748 4.34473C14.1748 2.97174 13.0614 1.8584 11.6885 1.8584ZM3.05469 4.57227C2.50559 4.57242 2.06055 5.01739 2.06055 5.56641C2.06066 6.11544 2.50566 6.56039 3.05469 6.56055C3.60383 6.56055 4.04969 6.11554 4.0498 5.56641C4.0498 5.0173 3.6039 4.57227 3.05469 4.57227ZM14.9482 4.57227C14.399 4.57227 13.9531 5.0173 13.9531 5.56641C13.9532 6.11554 14.3991 6.56055 14.9482 6.56055C15.4972 6.5603 15.9423 6.11539 15.9424 5.56641C15.9424 5.01745 15.4973 4.57251 14.9482 4.57227ZM9.00098 1.13867C8.45205 1.13889 8.00699 1.58385 8.00684 2.13281C8.00684 2.68189 8.45195 3.12771 9.00098 3.12793C9.55019 3.12793 9.99609 2.68202 9.99609 2.13281C9.99594 1.58371 9.55009 1.13867 9.00098 1.13867Z" fill="currentColor"></path></svg>
+        </span></span></a>
+        <a class="t12 abs" href="/" style="--x: 44; --y: 18"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 187.5%);">otto</span></span></a>
+        <nav class="menu" aria-label="Objects">
+          <ol>
+            <li class="menu__group abs" style="--y: 18">
+              <span class="menu__n t12" aria-hidden="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">01</span></span></span>
+              <a class="menu__name t12" href="/vase-u"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Vase U</span></span></a>
+              <ol class="menu__sub t12">
+                <li><a href="/vase-u?size=III"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">V. U III</span></span></a></li>
+                <li><a href="/vase-u?size=II"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">V. U II</span></span></a></li>
+                <li><a href="/vase-u?size=I"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">V. U I</span></span></a></li>
+              </ol>
+            </li>
+            <li class="menu__group menu__group--more abs" style="--y: 85">
+              <span class="menu__n t12" aria-hidden="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">02</span></span></span></span>
+              <a class="menu__name t12" href="/chair-u" aria-disabled="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Chair U</span></span></span><span class="visually-hidden">, coming soon</span></a>
+              <ol class="menu__sub t12">
+                <li><a href="/chair-u?type=dining" aria-disabled="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">C. U. Dining</span></span></span><span class="visually-hidden">, coming soon</span></a></li>
+                <li><a href="/chair-u?type=bar" aria-disabled="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">C. U. Bar</span></span></span><span class="visually-hidden">, coming soon</span></a></li>
+                <li><a href="/chair-u?type=lounge" aria-disabled="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">C. U. Lounge</span></span></span><span class="visually-hidden">, coming soon</span></a></li>
+              </ol>
+            </li>
+            <li class="menu__group menu__group--more abs" style="--y: 152">
+              <span class="menu__n t12" aria-hidden="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">03</span></span></span></span>
+              <a class="menu__name t12" href="/table-u" aria-disabled="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Table U</span></span></span><span class="visually-hidden">, coming soon</span></a>
+              <ol class="menu__sub t12">
+                <li><a href="/table-u?type=dining" aria-disabled="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">T. U. Dining</span></span></span><span class="visually-hidden">, coming soon</span></a></li>
+                <li><a href="/table-u?type=side" aria-disabled="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">T. U. Side</span></span></span><span class="visually-hidden">, coming soon</span></a></li>
+                <li><a href="/table-u?type=coffee" aria-disabled="true"><span class="line"><span class="line__fold"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">T. U. Coffee</span></span></span><span class="visually-hidden">, coming soon</span></a></li>
+              </ol>
+            </li>
+          </ol>
+        </nav>
+        <h1 class="header__title t50" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);" aria-label="Vase U (III)"><span class="line"><span class="line__in" style="opacity: 1; visibility: inherit;"><span class="char" style="margin-right: -3.46875px; translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">V</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">a</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">s</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">e</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">&nbsp;</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">U</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">&nbsp;</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">(</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">I</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">I</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">I</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 140%);">)</span></span></span></h1>
+        <a class="t12 abs" href="/store" style="--x: 1082; --y: 18"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Store</span></span></a>
+        <a class="t12 abs" href="/about" style="--x: 1135; --y: 18"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">About</span></span></a>
+        <a class="t12 abs abs--r" href="/cart" style="--r: 1420; --y: 18"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Cart ( 0 )</span></span></a>
+      </div>
+    </header>
+    <main>
+      <section class="hero" aria-label="Vase U (III) with daisies">
+        <div class="hero__stage">
+        <picture class="hero__picture">
+          <source type="image/avif" srcset="img/hero/vase-bare-1600.avif 1600w, img/hero/vase-bare-2400.avif 2400w, img/hero/vase-bare-3200.avif 3200w" sizes="104.17vw">
+          <source type="image/webp" srcset="img/hero/vase-bare-1600.webp 1600w, img/hero/vase-bare-2400.webp 2400w, img/hero/vase-bare-3200.webp 3200w" sizes="104.17vw">
+          <img class="hero__img" src="./img/hero/vase-bare-2400.jpg" width="4096" height="4096" alt="Vase U (III) in polished steel, its glass tubes waiting for flowers" fetchpriority="high" decoding="async" loading="eager">
+        </picture>
+        <canvas class="hero__gl" aria-hidden="true"></canvas>
+        </div>
+        <div class="hero__shade" aria-hidden="true"></div>
+      </section>
+      <section class="story is-k" aria-labelledby="story-title" style="--travel: 1020px;">
+        <h2 class="story__title t120" id="story-title">
+          <span class="line"><span class="line__in" style="opacity: 1; visibility: inherit;"><span class="char" style="margin-right: -8.32812px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">V</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">a</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">s</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">e</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">&nbsp;</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">U</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">&nbsp;</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">(</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">I</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">I</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">I</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">)</span></span></span>
+          <span class="line"><span class="line__in" style="opacity: 1; visibility: inherit;"><span class="char" style="margin-right: -0.96875px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">m</span><span class="char" style="margin-right: -0.96875px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">a</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">d</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">e</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">&nbsp;</span><span class="char" style="margin-right: -2.14062px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">t</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">o</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">&nbsp;</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">h</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">o</span><span class="char" style="margin-right: -1.6875px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">l</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">d</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">&nbsp;</span><span class="char" style="margin-right: 0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">a</span></span></span>
+          <span class="line"><span class="line__in" style="opacity: 1; visibility: inherit;"><span class="char" style="margin-right: -1.6875px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">l</span><span class="char" style="margin-right: -1.1875px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">i</span><span class="char" style="margin-right: -0.96875px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">v</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">i</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">n</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">g</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">&nbsp;</span><span class="char" style="margin-right: -0.71875px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">m</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">o</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">m</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">e</span><span class="char" style="margin-right: -1.67188px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">n</span><span class="char" style="margin-right: 0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">t</span></span></span>
+        </h2>
+        <ol class="story__pictures" aria-label="Vase U (III), four views" style="translate: none; rotate: none; scale: none; transform: translate(0px, 54.45px);">
+          <li class="story__picture" style="--y: 244; translate: none; rotate: none; scale: none; transform: translate(0%, 90%); clip-path: none;">
+            <picture>
+              <source type="image/avif" srcset="img/story/vase-34-480.avif 480w, img/story/vase-34-960.avif 960w" sizes="11.12vw">
+              <source type="image/webp" srcset="img/story/vase-34-480.webp 480w, img/story/vase-34-960.webp 960w" sizes="11.12vw">
+              <img src="./img/story/vase-34-960.jpg" width="1856" height="2304" alt="Vase U (III) from three quarters" loading="eager" decoding="async" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
+            </picture>
+          </li>
+          <li class="story__picture" style="--y: 450; translate: none; rotate: none; scale: none; transform: translate(0%, 90%); clip-path: none;">
+            <picture>
+              <source type="image/avif" srcset="img/story/vase-front-480.avif 480w, img/story/vase-front-960.avif 960w" sizes="11.12vw">
+              <source type="image/webp" srcset="img/story/vase-front-480.webp 480w, img/story/vase-front-960.webp 960w" sizes="11.12vw">
+              <img src="./img/story/vase-front-960.jpg" width="1856" height="2304" alt="Vase U (III) from the front" loading="eager" decoding="async" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
+            </picture>
+          </li>
+          <li class="story__picture" style="--y: 656; translate: none; rotate: none; scale: none; transform: translate(0%, 90%); clip-path: none;">
+            <picture>
+              <source type="image/avif" srcset="img/story/vase-above-480.avif 480w, img/story/vase-above-960.avif 960w" sizes="11.12vw">
+              <source type="image/webp" srcset="img/story/vase-above-480.webp 480w, img/story/vase-above-960.webp 960w" sizes="11.12vw">
+              <img src="./img/story/vase-above-960.jpg" width="1856" height="2304" alt="Vase U (III) from above, at an angle" loading="eager" decoding="async" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
+            </picture>
+          </li>
+          <li class="story__picture" style="--y: 862; translate: none; rotate: none; scale: none; transform: translate(0%, 90%); clip-path: none;">
+            <picture>
+              <source type="image/avif" srcset="img/story/vase-top-480.avif 480w, img/story/vase-top-960.avif 960w" sizes="11.12vw">
+              <source type="image/webp" srcset="img/story/vase-top-480.webp 480w, img/story/vase-top-960.webp 960w" sizes="11.12vw">
+              <img src="./img/story/vase-top-960.jpg" width="1856" height="2304" alt="Vase U (III) from above" loading="eager" decoding="async" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px);">
+            </picture>
+            <picture class="story__plate" aria-hidden="true">
+              <source type="image/avif" srcset="img/story/vase-top-empty-480.avif 480w, img/story/vase-top-empty-960.avif 960w" sizes="11.12vw">
+              <source type="image/webp" srcset="img/story/vase-top-empty-480.webp 480w, img/story/vase-top-empty-960.webp 960w" sizes="11.12vw">
+              <img src="./img/story/vase-top-empty-960.jpg" width="1856" height="2304" alt="" loading="eager" decoding="async">
+            </picture>
+          </li>
+        </ol>
+        <dl class="story__specs t12s">
+          <div class="abs" style="--x: 20; --y: 646"><dt>Width</dt><dd>W 260 mm</dd></div>
+          <div class="abs" style="--x: 256; --y: 646"><dt>Depth</dt><dd>D 50 mm</dd></div>
+          <div class="abs" style="--x: 1082; --y: 646"><dt>Diameters</dt><dd>⌀50 shell / ⌀20 tube</dd></div>
+          <div class="abs abs--r" style="--r: 1420; --y: 646"><dt>Height</dt><dd>H 215 mm</dd></div>
+        </dl>
+        <p class="story__lead t30 abs abs--c" style="--cx: 720.5; --y: 1281">
+          <span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);"><span class="half" style="">The first c</span><span class="half" style="margin-left: -0.00947368em;">ollectible</span></span></span>
+          <span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);"><span class="half" style="">object by OTT</span><span class="half" style="margin-left: -0.0184211em;">O™ Vase U (III).</span></span></span>
+          <span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);"><span class="half" style="">An object</span><span class="half" style="margin-left: -0.000526316em;">&nbsp;made for</span></span></span>
+          <span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);"><span class="half" style="">living</span><span class="half" style="margin-left: -0.000526316em;">&nbsp;beauty.</span></span></span>
+        </p>
+        <p class="story__details t12s abs abs--c" style="--cx: 720; --y: 1424">
+          <span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);"><span class="half" style="">Dimen</span><span class="half" style="margin-left: -0.00131579em;">sions:</span></span></span>
+          <span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);"><span class="half" style="">W 260 × D 5</span><span class="half" style="margin-left: -0.00131579em;">0 × H 215 mm</span></span></span>
+          <span class="line" aria-hidden="true"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">&nbsp;</span></span>
+          <span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);"><span class="half" style="">In Steel a</span><span class="half" style="margin-left: -0.00131579em;">nd Glass</span></span></span>
+        </p>
+        <a class="story__buy t12 abs abs--c" href="/vase-u?size=III" style="--cx: 720.5; --y: 1502; opacity: 0;"><span class="line"><span class="line__in"><span class="half" style="">Buy</span><span class="half" style="margin-left: -0.00131579em;">&nbsp;now</span></span></span></a>
+        <div class="story__turn" aria-hidden="true"></div>
+        <div class="story__spin" aria-hidden="true"></div>
+        <div class="forms" aria-live="polite">
+          <ol class="forms__steps t12" aria-label="Vase U in three steps">
+            <li class="forms__n abs" style="--x: 20"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">01</span></span></li>
+            <li class="forms__step is-active abs" style="--x: 256" data-step="0"><span class="line roll"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">Four Forms</span></span></li>
+            <li class="forms__step abs" style="--x: 1082" data-step="1"><span class="line roll"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">Three tubes</span></span></li>
+            <li class="forms__step abs" style="--x: 1349" data-step="2"><span class="line roll"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">One object</span></span></li>
+          </ol>
+          <p class="forms__title t120w">
+            <span class="line is-active" data-step="0"><span class="line__in"><span class="char" style="margin-right: -0.859375px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">F</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">o</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">u</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">r</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">&nbsp;</span><span class="char" style="margin-right: -0.84375px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">f</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">o</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">r</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">m</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">s</span></span></span>
+            <span class="line" data-step="1"><span class="line__in"><span class="char" style="margin-right: -1.67188px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">T</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">h</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">r</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">e</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">e</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">&nbsp;</span><span class="char" style="margin-right: -1.42188px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">t</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">u</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">b</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">e</span><span class="char" style="margin-right: 0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">s</span></span></span>
+            <span class="line" data-step="2"><span class="line__in"><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">O</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">n</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">e</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">&nbsp;</span><span class="char" style="margin-right: -0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">o</span><span class="char" style="margin-right: -1.78125px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">b</span><span class="char" style="translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">j</span><span class="char" style="margin-right: -1.1875px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">e</span><span class="char" style="margin-right: -1.20312px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">c</span><span class="char" style="margin-right: 0.015625px; translate: none; rotate: none; scale: none; transform: translate(0%, 120%);">t</span></span></span>
+          </p>
+        </div>
+        <div class="story__flight" aria-hidden="true" style="">
+          <img src="./img/story/vase-top-cut.webp" width="295" height="1497" alt="" decoding="async" loading="eager" style="">
+        <svg class="story__drawing" aria-hidden="true" preserveAspectRatio="none" viewBox="564.87 877.63 180.26 914.73" style="opacity: 0;">
+    <defs>
+      <filter id="vase-ripple" filterUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.06 0.035" numOctaves="2" seed="7" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+      <filter id="vase-liquid-soft" filterUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <feTurbulence type="fractalNoise" baseFrequency="0.022 0.011" numOctaves="3" seed="3" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="48.389832344654465" xChannelSelector="R" yChannelSelector="G" result="d"></feDisplacementMap>
+        <feGaussianBlur in="d" stdDeviation="2.286825"></feGaussianBlur>
+      </filter>
+      <filter id="vase-liquid-crisp" filterUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.02" numOctaves="2" seed="3" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"></feDisplacementMap>
+        <feGaussianBlur in="d" stdDeviation="0"></feGaussianBlur>
+      </filter>
+      <mask id="vase-washed" maskUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <path class="washed-lines" fill="#fff" filter="url(#vase-liquid-crisp)"></path>
+      </mask>
+      <filter id="vase-liquid-wet" filterUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <feTurbulence type="fractalNoise" baseFrequency="0.03 0.012" numOctaves="2" seed="11" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="53.76648038294941" xChannelSelector="R" yChannelSelector="G" result="d"></feDisplacementMap>
+        <feGaussianBlur in="d" stdDeviation="7.31784"></feGaussianBlur>
+      </filter>
+      <mask id="vase-paint" maskUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <rect x="-5000" y="-5000" width="20000" height="20000" fill="#fff"></rect>
+        <path class="wet-photo" fill="#808080" filter="url(#vase-liquid-wet)" d=""></path>
+        <path class="washed-photo" fill="#000" filter="url(#vase-liquid-soft)" d=""></path>
+        <g class="drops" fill="#000" filter="url(#vase-liquid-soft)" style="display: none;"></g>
+      </mask>
+      
+      <filter id="vase-smear" filterUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <feGaussianBlur stdDeviation="0 16.13" result="b"></feGaussianBlur>
+        <feOffset in="b" dx="0" dy="18.82"></feOffset>
+      </filter>
+      <mask id="vase-smearband" maskUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <path class="smear-in" fill="#fff" filter="url(#vase-liquid-wet)" d="M204.35000000000002,-5000L1105.65,-5000L1105.65,2144.41L1101.55,2144.75L1097.46,2144.33L1093.36,2143.45L1089.26,2142.56L1085.17,2142.17L1081.07,2142.75L1076.97,2144.55L1072.88,2147.57L1068.78,2151.58L1064.68,2156.11L1060.59,2160.58L1056.49,2164.44L1052.39,2167.27L1048.29,2168.89L1044.20,2169.32L1040.10,2168.81L1036.00,2167.72L1031.91,2166.40L1027.81,2165.11L1023.71,2163.94L1019.62,2162.77L1015.52,2161.37L1011.42,2159.43L1007.33,2156.71L1003.23,2153.11L999.13,2148.76L995.04,2144.00L990.94,2139.33L986.84,2135.30L982.75,2132.39L978.65,2130.92L974.55,2130.92L970.46,2132.18L966.36,2134.27L962.26,2136.63L958.16,2138.72L954.07,2140.15L949.97,2140.72L945.87,2140.47L941.78,2139.64L937.68,2138.61L933.58,2137.74L929.49,2137.28L925.39,2137.32L921.29,2137.75L917.20,2138.31L913.10,2138.67L909.00,2138.54L904.91,2137.78L900.81,2136.45L896.71,2134.84L892.62,2133.37L888.52,2132.53L884.42,2132.76L880.33,2134.28L876.23,2137.11L872.13,2140.98L868.03,2145.40L863.94,2149.79L859.84,2153.56L855.74,2156.27L851.65,2157.70L847.55,2157.88L843.45,2157.04L839.36,2155.56L835.26,2153.83L831.16,2152.12L827.07,2150.55L822.97,2149.07L818.87,2147.44L814.78,2145.38L810.68,2142.63L806.58,2139.09L802.49,2134.84L798.39,2130.18L794.29,2125.59L790.20,2121.58L786.10,2118.63L782.00,2117.02L777.90,2116.80L773.81,2117.74L769.71,2119.40L765.61,2121.87L761.52,2167.96L757.42,2186.82L753.32,2158.47L749.23,2122.15L745.13,2120.15L741.03,2118.23L736.94,2121.67L732.84,2124.41L728.74,2125.99L724.65,2126.04L720.55,2142.62L716.45,2149.92L712.36,2149.74L708.26,2143.36L704.16,2129.66L700.07,2111.59L695.97,2110.55L691.87,2110.71L687.77,2131.34L683.68,2151.58L679.58,2175.81L675.48,2241.81L671.39,2290.40L667.29,2307.40L663.19,2280.99L659.10,2221.96L655.00,2165.01L650.90,2163.86L646.81,2161.43L642.71,2160.82L638.61,2156.17L634.52,2172.89L630.42,2183.05L626.32,2191.41L622.23,2219.03L618.13,2226.98L614.03,2218.95L609.94,2188.14L605.84,2163.43L601.74,2212.80L597.64,2225.12L593.55,2225.39L589.45,2229.94L585.35,2254.38L581.26,2255.62L577.16,2240.69L573.06,2202.60L568.97,2163.36L564.87,2163.74L560.77,2161.32L556.68,2155.99L552.58,2145.39L548.48,2142.79L544.39,2140.04L540.29,2137.43L536.19,2135.24L532.10,2133.66L528.00,2132.69L523.90,2132.15L519.81,2131.75L515.71,2131.22L511.61,2130.40L507.51,2129.31L503.42,2128.17L499.32,2127.35L495.22,2127.30L491.13,2128.40L487.03,2130.87L482.93,2134.71L478.84,2139.64L474.74,2145.17L470.64,2150.69L466.55,2155.60L462.45,2159.44L458.35,2161.97L454.26,2163.20L450.16,2163.38L446.06,2162.91L441.97,2162.23L437.87,2161.68L433.77,2161.45L429.68,2161.52L425.58,2161.69L421.48,2161.67L417.38,2161.18L413.29,2160.03L409.19,2158.21L405.09,2155.94L401.00,2153.57L396.90,2151.56L392.80,2150.30L388.71,2150.04L384.61,2150.79L380.51,2152.33L376.42,2154.20L372.32,2155.85L368.22,2156.73L364.13,2156.42L360.03,2154.74L355.93,2151.74L351.84,2147.76L347.74,2143.24L343.64,2138.69L339.55,2134.52L335.45,2130.99L331.35,2128.13L327.25,2125.79L323.16,2123.71L319.06,2121.63L314.96,2119.36L310.87,2116.91L306.77,2114.47L302.67,2112.37L298.58,2111.05L294.48,2110.88L290.38,2112.09L286.29,2114.67L282.19,2118.37L278.09,2122.70L274.00,2127.09L269.90,2130.93L265.80,2133.77L261.71,2135.38L257.61,2135.79L253.51,2135.26L249.42,2134.21L245.32,2133.11L241.22,2132.35L237.12,2132.14L233.03,2132.49L228.93,2133.21L224.83,2134.01L220.74,2134.57L216.64,2134.68L212.54,2134.27L208.45,2133.49L204.35,2132.66Z"></path>
+        <path class="smear-out" fill="#000" filter="url(#vase-liquid-wet)" d="M204.35000000000002,-5000L1105.65,-5000L1105.65,2016.34L1101.55,2016.69L1097.46,2016.27L1093.36,2015.39L1089.26,2014.49L1085.17,2014.11L1081.07,2014.69L1076.97,2016.48L1072.88,2019.51L1068.78,2023.52L1064.68,2028.04L1060.59,2032.51L1056.49,2036.38L1052.39,2039.21L1048.29,2040.83L1044.20,2041.26L1040.10,2040.75L1036.00,2039.66L1031.91,2038.34L1027.81,2037.05L1023.71,2035.87L1019.62,2034.71L1015.52,2033.31L1011.42,2031.37L1007.33,2028.64L1003.23,2025.05L999.13,2020.70L995.04,2015.94L990.94,2011.27L986.84,2007.24L982.75,2004.33L978.65,2002.85L974.55,2002.86L970.46,2004.12L966.36,2006.20L962.26,2008.56L958.16,2010.66L954.07,2012.09L949.97,2012.65L945.87,2012.40L941.78,2011.58L937.68,2010.55L933.58,2009.68L929.49,2009.22L925.39,2009.26L921.29,2009.69L917.20,2010.25L913.10,2010.60L909.00,2010.47L904.91,2009.72L900.81,2008.39L896.71,2006.78L892.62,2005.31L888.52,2004.47L884.42,2004.69L880.33,2006.22L876.23,2009.05L872.13,2012.92L868.03,2017.34L863.94,2021.73L859.84,2025.50L855.74,2028.21L851.65,2029.64L847.55,2029.81L843.45,2028.98L839.36,2027.50L835.26,2025.76L831.16,2024.05L827.07,2022.49L822.97,2021.01L818.87,2019.38L814.78,2017.32L810.68,2014.57L806.58,2011.02L802.49,2006.77L798.39,2002.12L794.29,1997.53L790.20,1993.52L786.10,1990.57L782.00,1988.96L777.90,1988.73L773.81,1989.67L769.71,1991.34L765.61,1993.55L761.52,2021.80L757.42,2033.39L753.32,2016.26L749.23,1993.99L745.13,1992.05L741.03,1990.06L736.94,1991.34L732.84,1992.40L728.74,1993.01L724.65,1992.93L720.55,2002.90L716.45,2007.33L712.36,2007.17L708.26,2003.13L704.16,1994.57L700.07,1983.34L695.97,1982.44L691.87,1982.58L687.77,1995.47L683.68,2008.68L679.58,2024.84L675.48,2066.52L671.39,2097.98L667.29,2110.50L663.19,2096.75L659.10,2062.99L655.00,2029.98L650.90,2029.94L646.81,2028.71L642.71,2028.32L638.61,2025.41L634.52,2035.34L630.42,2041.43L626.32,2046.51L622.23,2063.13L618.13,2067.83L614.03,2062.69L609.94,2043.59L605.84,2027.88L601.74,2056.44L597.64,2062.76L593.55,2062.04L589.45,2064.25L585.35,2078.85L581.26,2080.02L577.16,2071.86L573.06,2050.02L568.97,2027.47L564.87,2028.47L560.77,2027.38L556.68,2024.07L552.58,2017.15L548.48,2014.69L544.39,2011.98L540.29,2009.37L536.19,2007.18L532.10,2005.60L528.00,2004.63L523.90,2004.08L519.81,2003.68L515.71,2003.16L511.61,2002.34L507.51,2001.25L503.42,2000.11L499.32,1999.29L495.22,1999.24L491.13,2000.33L487.03,2002.81L482.93,2006.65L478.84,2011.58L474.74,2017.10L470.64,2022.63L466.55,2027.54L462.45,2031.38L458.35,2033.91L454.26,2035.14L450.16,2035.32L446.06,2034.85L441.97,2034.17L437.87,2033.62L433.77,2033.38L429.68,2033.45L425.58,2033.63L421.48,2033.61L417.38,2033.12L413.29,2031.96L409.19,2030.15L405.09,2027.87L401.00,2025.51L396.90,2023.50L392.80,2022.24L388.71,2021.97L384.61,2022.73L380.51,2024.27L376.42,2026.14L372.32,2027.79L368.22,2028.67L364.13,2028.36L360.03,2026.67L355.93,2023.68L351.84,2019.70L347.74,2015.18L343.64,2010.63L339.55,2006.46L335.45,2002.93L331.35,2000.06L327.25,1997.73L323.16,1995.65L319.06,1993.57L314.96,1991.30L310.87,1988.85L306.77,1986.40L302.67,1984.31L298.58,1982.99L294.48,1982.82L290.38,1984.02L286.29,1986.61L282.19,1990.30L278.09,1994.64L274.00,1999.03L269.90,2002.87L265.80,2005.71L261.71,2007.32L257.61,2007.73L253.51,2007.20L249.42,2006.15L245.32,2005.05L241.22,2004.29L237.12,2004.08L233.03,2004.42L228.93,2005.15L224.83,2005.95L220.74,2006.51L216.64,2006.61L212.54,2006.20L208.45,2005.43L204.35,2004.60Z"></path>
+      </mask>
+      
+      <mask id="vase-alpha" maskUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149" style="mask-type: alpha">
+        <image class="alpha-photo" preserveAspectRatio="none" href="https://ottoobjects.com/img/story/vase-top-cut.webp" x="564.87" y="877.63" width="180.26" height="914.73"></image>
+      </mask>
+      <filter id="vase-gloss" filterUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05 0.02" numOctaves="2" seed="3" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"></feDisplacementMap>
+        <feGaussianBlur in="d" stdDeviation="0"></feGaussianBlur>
+      </filter>
+      <mask id="vase-band" maskUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <path class="band" fill="#fff"></path>
+      </mask>
+      <mask id="vase-outside" maskUnits="userSpaceOnUse" x="427.6605" y="740.4205" width="454.679" height="1189.149">
+        <rect x="-5000" y="-5000" width="20000" height="20000" fill="#fff"></rect>
+        <path class="band" fill="#000"></path>
+      </mask>
+    </defs>
+    <image class="photo" preserveAspectRatio="none" mask="url(#vase-paint)" href="https://ottoobjects.com/img/story/vase-top-cut.webp" x="564.87" y="877.63" width="180.26" height="914.73"></image>
+    <g class="smear" mask="url(#vase-alpha)" style="display: none; opacity: 0.499617;"><image class="smear-photo" preserveAspectRatio="none" filter="url(#vase-smear)" mask="url(#vase-smearband)" href="https://ottoobjects.com/img/story/vase-top-cut.webp" x="564.87" y="877.63" width="180.26" height="914.73"></image></g>
+    <g class="lines"><g><path d="M655.0,1618.4L646.9,1618.8L638.8,1620.0L630.9,1622.0L623.2,1624.7L615.8,1628.2L608.9,1632.4L602.3,1637.3L596.3,1642.7L590.8,1648.8L585.9,1655.3L581.7,1662.3L578.3,1669.7L575.5,1677.4L573.5,1685.3L572.3,1693.3L571.9,1701.5L572.3,1709.6L573.5,1717.7L575.5,1725.6L578.3,1733.3L581.7,1740.6L585.9,1747.6L590.8,1754.2L596.3,1760.2L602.3,1765.7L608.9,1770.5L615.8,1774.7L623.2,1778.2L630.9,1781.0L638.8,1782.9L646.9,1784.1L655.0,1784.5L663.1,1784.1L671.2,1782.9L679.1,1781.0L686.8,1778.2L694.2,1774.7L701.1,1770.5L707.7,1765.7L713.7,1760.2L719.2,1754.2L724.1,1747.6L728.3,1740.6L731.7,1733.3L734.5,1725.6L736.5,1717.7L737.7,1709.6L738.1,1701.5L737.7,1693.3L736.5,1685.3L734.5,1677.4L731.7,1669.7L728.3,1662.3L724.1,1655.3L719.2,1648.8L713.7,1642.7L707.7,1637.3L701.1,1632.4L694.2,1628.2L686.8,1624.7L679.1,1622.0L671.2,1620.0L663.1,1618.8L655.0,1618.4" pathLength="1" style="opacity: 0;"></path><path d="M655.0,1374.1L646.9,1374.5L638.8,1375.7L630.9,1377.7L623.2,1380.4L615.8,1383.9L608.9,1388.1L602.3,1392.9L596.3,1398.4L590.8,1404.5L585.9,1411.0L581.7,1418.0L578.3,1425.4L575.5,1433.0L573.5,1441.0L572.3,1449.0L571.9,1457.2L572.3,1465.3L573.5,1473.4L575.5,1481.3L578.3,1488.9L581.7,1496.3L585.9,1503.3L590.8,1509.9L596.3,1515.9L602.3,1521.4L608.9,1526.2L615.8,1530.4L623.2,1533.9L630.9,1536.6L638.8,1538.6L646.9,1539.8L655.0,1540.2L663.1,1539.8L671.2,1538.6L679.1,1536.6L686.8,1533.9L694.2,1530.4L701.1,1526.2L707.7,1521.4L713.7,1515.9L719.2,1509.9L724.1,1503.3L728.3,1496.3L731.7,1488.9L734.5,1481.3L736.5,1473.4L737.7,1465.3L738.1,1457.2L737.7,1449.0L736.5,1441.0L734.5,1433.0L731.7,1425.4L728.3,1418.0L724.1,1411.0L719.2,1404.5L713.7,1398.4L707.7,1392.9L701.1,1388.1L694.2,1383.9L686.8,1380.4L679.1,1377.7L671.2,1375.7L663.1,1374.5L655.0,1374.1" pathLength="1" style="opacity: 0;"></path><path d="M655.0,1129.8L646.9,1130.2L638.8,1131.4L630.9,1133.4L623.2,1136.1L615.8,1139.6L608.9,1143.8L602.3,1148.6L596.3,1154.1L590.8,1160.1L585.9,1166.7L581.7,1173.7L578.3,1181.1L575.5,1188.7L573.5,1196.6L572.3,1204.7L571.9,1212.8L572.3,1221.0L573.5,1229.0L575.5,1237.0L578.3,1244.6L581.7,1252.0L585.9,1259.0L590.8,1265.5L596.3,1271.6L602.3,1277.1L608.9,1281.9L615.8,1286.1L623.2,1289.6L630.9,1292.3L638.8,1294.3L646.9,1295.5L655.0,1295.9L663.1,1295.5L671.2,1294.3L679.1,1292.3L686.8,1289.6L694.2,1286.1L701.1,1281.9L707.7,1277.1L713.7,1271.6L719.2,1265.5L724.1,1259.0L728.3,1252.0L731.7,1244.6L734.5,1237.0L736.5,1229.0L737.7,1221.0L738.1,1212.8L737.7,1204.7L736.5,1196.6L734.5,1188.7L731.7,1181.1L728.3,1173.7L724.1,1166.7L719.2,1160.1L713.7,1154.1L707.7,1148.6L701.1,1143.8L694.2,1139.6L686.8,1136.1L679.1,1133.4L671.2,1131.4L663.1,1130.2L655.0,1129.8" pathLength="1" style="opacity: 0;"></path><path d="M655.0,885.5L646.9,885.9L638.8,887.1L630.9,889.0L623.2,891.8L615.8,895.3L608.9,899.5L602.3,904.3L596.3,909.8L590.8,915.8L585.9,922.4L581.7,929.4L578.3,936.7L575.5,944.4L573.5,952.3L572.3,960.4L571.9,968.5L572.3,976.7L573.5,984.7L575.5,992.6L578.3,1000.3L581.7,1007.7L585.9,1014.7L590.8,1021.2L596.3,1027.3L602.3,1032.7L608.9,1037.6L615.8,1041.8L623.2,1045.3L630.9,1048.0L638.8,1050.0L646.9,1051.2L655.0,1051.6L663.1,1051.2L671.2,1050.0L679.1,1048.0L686.8,1045.3L694.2,1041.8L701.1,1037.6L707.7,1032.7L713.7,1027.3L719.2,1021.2L724.1,1014.7L728.3,1007.7L731.7,1000.3L734.5,992.6L736.5,984.7L737.7,976.7L738.1,968.5L737.7,960.4L736.5,952.3L734.5,944.4L731.7,936.7L728.3,929.4L724.1,922.4L719.2,915.8L713.7,909.8L707.7,904.3L701.1,899.5L694.2,895.3L686.8,891.8L679.1,889.0L671.2,887.1L663.1,885.9L655.0,885.5" pathLength="1" style="opacity: 0;"></path><path d="M567.7,1701.5L568.4,1690.4L570.7,1679.0L574.2,1668.5L579.3,1658.1L587.3,1646.4L597.2,1636.1L606.8,1628.8L613.6,1624.7L621.8,1620.6L625.5,1617.4L627.7,1613.6L628.6,1609.0L627.9,1604.4L625.9,1600.4L631.7,1606.6L638.7,1611.3L646.6,1614.3L655.0,1615.3L663.4,1614.3L671.3,1611.3L678.3,1606.6L684.1,1600.4L682.1,1604.4L681.4,1609.0L682.2,1613.3L684.5,1617.4L688.2,1620.6L696.8,1624.9L703.5,1628.9L712.8,1636.1L718.4,1641.5L723.5,1647.5L731.1,1658.8L736.2,1669.4L739.2,1678.7L741.5,1690.2L742.3,1701.9L741.9,1709.7L740.8,1717.4L738.5,1726.9L735.8,1734.3L731.7,1743.1L727.6,1749.8L723.0,1756.1L716.5,1763.4L709.2,1769.9L702.8,1774.4L694.4,1779.3L687.2,1782.5L678.0,1785.6L670.4,1787.4L662.6,1788.4L654.8,1788.7L645.0,1788.2L637.3,1786.9L627.9,1784.4L620.6,1781.6L613.5,1778.2L605.2,1773.1L599.0,1768.4L593.2,1763.1L586.7,1755.8L582.1,1749.5L578.1,1742.8L574.7,1735.7L571.4,1726.5L569.5,1718.9L568.1,1709.3L567.7,1701.5" pathLength="1" style="opacity: 0;"></path><path d="M567.7,1701.5L568.7,1688.3L571.5,1676.0L576.1,1664.2L582.3,1653.2L590.4,1642.8L599.6,1634.1L609.0,1627.3L621.4,1620.9L624.3,1618.7L627.3,1614.5L628.6,1609.5" pathLength="1" style="opacity: 0;"></path><path d="M681.4,1609.5L682.8,1614.8L686.1,1619.1L688.6,1620.9L700.2,1626.8L708.3,1632.4L717.1,1640.1L723.5,1647.5L730.1,1657.1L734.6,1665.8L738.1,1674.9L740.9,1686.3L742.2,1698.0L741.9,1709.7L740.0,1721.2L736.6,1732.5L731.7,1743.1L725.4,1753.0L717.9,1762.0L709.2,1769.9L699.5,1776.5L687.2,1782.5L676.1,1786.1L664.6,1788.2L652.8,1788.7L641.2,1787.6L627.9,1784.4L617.0,1780.0L606.8,1774.2L597.5,1767.1L589.2,1758.8L581.1,1747.8L574.7,1735.7L570.9,1724.6L568.5,1713.2L567.7,1701.5" pathLength="1" style="opacity: 0;"></path><path d="M567.7,1457.2L568.4,1446.1L570.7,1434.7L574.4,1423.8L579.3,1413.8L587.3,1402.1L597.2,1391.8L606.8,1384.4L613.6,1380.4L621.8,1376.3L625.5,1373.1L627.8,1369.0L628.6,1364.7L628.0,1360.3L625.9,1356.1L631.7,1362.3L638.7,1367.0L646.6,1370.0L655.0,1370.9L663.4,1370.0L671.3,1367.0L678.3,1362.3L684.1,1356.1L682.1,1360.1L681.4,1364.7L682.2,1369.0L684.5,1373.1L688.2,1376.3L696.4,1380.4L702.8,1384.1L712.8,1391.8L718.2,1396.9L723.0,1402.5L730.7,1413.8L735.8,1424.2L739.5,1435.2L741.6,1446.6L742.3,1457.2L741.6,1467.7L739.5,1479.1L735.8,1490.1L730.7,1500.5L726.8,1506.7L722.3,1512.6L712.8,1522.5L702.8,1530.2L696.4,1533.9L688.2,1538.0L684.5,1541.2L682.2,1545.3L681.4,1549.6L682.0,1554.0L684.1,1558.2L678.3,1552.0L671.3,1547.3L663.4,1544.4L655.0,1543.4L646.6,1544.4L638.7,1547.3L631.7,1552.0L625.9,1558.2L627.9,1554.3L628.6,1549.6L627.8,1545.3L625.5,1541.2L621.8,1538.0L613.6,1533.9L606.8,1529.9L597.2,1522.5L587.3,1512.2L579.3,1500.5L574.4,1490.6L570.7,1479.6L568.4,1468.2L567.7,1457.2" pathLength="1" style="opacity: 0;"></path><path d="M567.7,1457.2L568.7,1444.5L571.4,1432.2L576.1,1419.9L582.3,1408.9L590.4,1398.5L599.6,1389.8L609.0,1383.0L621.4,1376.6L624.3,1374.4L627.3,1370.2L628.6,1365.2" pathLength="1" style="opacity: 0;"></path><path d="M681.4,1365.2L682.7,1370.2L685.7,1374.4L688.6,1376.6L701.0,1383.0L710.4,1389.8L720.3,1399.3L728.0,1409.3L734.1,1420.4L738.6,1432.2L741.3,1444.5L742.3,1457.2L741.3,1469.8L738.6,1482.1L734.1,1493.9L728.0,1505.0L720.3,1515.0L710.4,1524.5L701.0,1531.3L688.6,1537.7L685.7,1539.9L682.7,1544.1L681.4,1549.1" pathLength="1" style="opacity: 0;"></path><path d="M628.6,1549.1L627.3,1544.1L624.3,1539.9L621.4,1537.7L609.0,1531.3L599.6,1524.5L590.1,1515.4L582.3,1505.4L576.1,1494.4L571.5,1482.6L568.7,1470.3L567.7,1457.2" pathLength="1" style="opacity: 0;"></path><path d="M567.7,1212.8L568.4,1201.8L570.7,1190.4L574.2,1179.9L579.3,1169.5L587.3,1157.8L597.2,1147.5L606.8,1140.1L613.6,1136.1L621.8,1132.0L625.5,1128.8L627.7,1124.9L628.6,1120.4L627.9,1115.7L625.9,1111.8L631.7,1118.0L638.7,1122.7L646.6,1125.6L655.0,1126.6L663.4,1125.6L671.3,1122.7L678.3,1118.0L684.1,1111.8L682.0,1116.0L681.4,1120.4L682.2,1124.7L684.5,1128.8L688.2,1132.0L696.4,1136.1L702.8,1139.8L712.8,1147.5L722.3,1157.4L726.8,1163.3L730.7,1169.5L735.8,1179.9L739.2,1189.9L741.5,1201.3L742.3,1212.8L741.5,1224.4L739.2,1235.8L735.8,1245.8L730.7,1256.2L723.0,1267.5L718.2,1273.1L712.8,1278.2L702.8,1285.9L696.4,1289.6L688.2,1293.7L684.5,1296.9L682.3,1300.8L681.4,1305.3L682.1,1309.9L684.1,1313.9L678.3,1307.7L671.3,1303.0L663.4,1300.0L655.0,1299.1L646.6,1300.0L638.7,1303.0L631.7,1307.7L625.9,1313.9L628.0,1309.7L628.6,1305.3L627.7,1300.8L625.5,1296.9L621.8,1293.7L613.6,1289.6L606.8,1285.6L597.2,1278.2L587.3,1267.9L579.3,1256.2L574.4,1246.2L570.7,1235.3L568.4,1223.9L567.7,1212.8" pathLength="1" style="opacity: 0;"></path><path d="M567.7,1212.8L568.7,1200.2L571.4,1187.9L576.1,1175.6L582.3,1164.6L590.4,1154.2L599.6,1145.5L609.0,1138.7L621.4,1132.3L624.3,1130.1L627.3,1125.9L628.6,1120.9" pathLength="1" style="opacity: 0;"></path><path d="M681.4,1120.9L682.7,1125.9L685.7,1130.1L688.6,1132.3L701.0,1138.7L710.4,1145.5L719.6,1154.2L728.0,1165.0L734.1,1176.1L738.6,1187.9L741.3,1200.2L742.3,1212.8L741.3,1225.5L738.6,1237.8L734.1,1249.6L728.0,1260.7L720.3,1270.7L710.4,1280.2L701.0,1287.0L688.6,1293.4L685.7,1295.6L682.7,1299.8L681.4,1304.8" pathLength="1" style="opacity: 0;"></path><path d="M628.6,1304.8L627.3,1299.8L624.3,1295.6L621.4,1293.4L609.0,1287.0L599.6,1280.2L590.1,1271.1L582.3,1261.1L576.1,1250.1L571.5,1238.3L568.7,1226.0L567.7,1212.8" pathLength="1" style="opacity: 0;"></path><path d="M567.7,968.5L568.2,960.0L569.4,951.5L571.5,943.2L574.4,935.1L578.0,927.4L582.5,920.1L587.6,913.2L593.3,906.8L599.6,901.1L606.5,896.0L613.9,891.6L621.6,887.9L629.7,885.0L638.0,883.0L646.4,881.7L655.0,881.3L663.6,881.7L672.0,883.0L680.3,885.0L688.4,887.9L696.1,891.6L703.5,896.0L710.4,901.1L716.7,906.8L722.4,913.2L727.5,920.1L732.0,927.4L735.6,935.1L738.5,943.2L740.6,951.5L741.8,960.0L742.3,968.5L741.5,980.1L739.3,991.0L735.6,1001.9L730.7,1011.9L722.7,1023.6L712.8,1033.9L703.2,1041.2L696.4,1045.3L688.2,1049.4L684.5,1052.6L682.3,1056.4L681.4,1061.0L682.0,1065.4L684.1,1069.6L678.3,1063.4L671.3,1058.7L663.4,1055.7L655.0,1054.7L646.6,1055.7L638.7,1058.7L631.7,1063.4L625.9,1069.6L628.0,1065.4L628.6,1061.0L627.8,1056.7L625.5,1052.6L621.8,1049.4L613.6,1045.3L606.8,1041.2L597.2,1033.9L587.3,1023.6L579.3,1011.9L574.4,1001.9L570.7,991.0L568.4,979.6L567.7,968.5" pathLength="1" style="opacity: 0;"></path><path d="M567.7,968.5L568.7,955.7L571.1,944.6L575.5,932.5L581.7,921.3L589.4,911.0L597.5,902.9L606.5,896.0L617.7,889.7L628.3,885.5L640.8,882.4L652.1,881.3L665.0,881.9L677.6,884.3L688.4,887.9L699.9,893.7L710.4,901.1L719.7,909.9L726.7,918.9L732.6,928.7L737.2,939.1L740.3,950.1L742.0,961.4L742.2,972.8L740.8,984.3L738.3,994.5L734.6,1004.4L729.7,1013.7L724.0,1021.9L716.7,1030.3L707.9,1037.9L699.7,1043.5L688.6,1049.1L686.1,1050.9L682.8,1055.2L681.4,1060.5" pathLength="1" style="opacity: 0;"></path><path d="M628.6,1060.5L627.3,1055.5L624.3,1051.3L621.4,1049.1L609.0,1042.7L599.6,1035.9L590.4,1027.2L582.3,1016.8L576.1,1005.8L571.4,993.5L568.7,981.1L567.7,968.5" pathLength="1" style="opacity: 0;"></path><path d="M628.4,1549.2L622.8,1555.4L618.5,1562.6L615.7,1571.0L614.9,1579.3L615.7,1587.6L618.3,1595.6L622.5,1602.8L628.4,1609.4" pathLength="1" style="opacity: 0;"></path><path d="M681.6,1609.4L687.5,1602.8L691.7,1595.6L694.3,1587.6L695.1,1579.3L694.3,1571.0L691.7,1563.0L687.5,1555.8L681.6,1549.2" pathLength="1" style="opacity: 0;"></path><path d="M628.4,1304.9L622.8,1311.1L618.5,1318.3L615.7,1326.7L614.9,1335.0L615.8,1343.8L618.5,1351.7L622.8,1358.9L628.4,1365.1" pathLength="1" style="opacity: 0;"></path><path d="M681.6,1365.1L687.2,1358.9L691.7,1351.3L694.3,1343.3L695.1,1335.0L694.2,1326.2L691.5,1318.3L687.2,1311.1L681.6,1304.9" pathLength="1" style="opacity: 0;"></path><path d="M628.4,1060.6L622.8,1066.8L618.5,1074.0L615.7,1082.4L614.9,1090.7L615.7,1099.0L618.3,1107.0L622.8,1114.6L628.4,1120.8" pathLength="1" style="opacity: 0;"></path><path d="M681.6,1120.8L687.5,1114.2L691.7,1107.0L694.3,1099.0L695.1,1090.7L694.3,1082.4L691.7,1074.4L687.5,1067.2L681.6,1060.6" pathLength="1" style="opacity: 0;"></path></g><g transform=""><path d="M655.0,1544.4L648.2,1545.1L641.6,1547.1L635.6,1550.3L630.3,1554.6L626.0,1559.9L622.8,1566.0L620.8,1572.5L620.1,1579.3L620.8,1586.1L622.8,1592.7L626.0,1598.7L630.3,1604.0L635.6,1608.3L641.6,1611.6L648.2,1613.5L655.0,1614.2L661.8,1613.5L668.4,1611.6L674.4,1608.3L679.7,1604.0L684.0,1598.7L687.2,1592.7L689.2,1586.1L689.9,1579.3L689.2,1572.5L687.2,1566.0L684.0,1559.9L679.7,1554.6L674.4,1550.3L668.4,1547.1L661.8,1545.1L655.0,1544.4" pathLength="1" style="opacity: 0;"></path><path d="M655.0,1549.6L649.2,1550.2L643.6,1551.9L638.5,1554.6L634.0,1558.3L630.3,1562.8L627.6,1568.0L625.9,1573.5L625.3,1579.3L625.9,1585.1L627.6,1590.7L630.3,1595.8L634.0,1600.3L638.5,1604.0L643.6,1606.7L649.2,1608.4L655.0,1609.0L660.8,1608.4L666.4,1606.7L671.5,1604.0L676.0,1600.3L679.7,1595.8L682.4,1590.7L684.1,1585.1L684.7,1579.3L684.1,1573.5L682.4,1568.0L679.7,1562.8L676.0,1558.3L671.5,1554.6L666.4,1551.9L660.8,1550.2L655.0,1549.6" pathLength="1" style="opacity: 0;"></path></g><g transform=""><path d="M655.0,1300.1L648.2,1300.8L641.6,1302.8L635.6,1306.0L630.3,1310.3L626.0,1315.6L622.8,1321.6L620.8,1328.2L620.1,1335.0L620.8,1341.8L622.8,1348.4L626.0,1354.4L630.3,1359.7L635.6,1364.0L641.6,1367.2L648.2,1369.2L655.0,1369.9L661.8,1369.2L668.4,1367.2L674.4,1364.0L679.7,1359.7L684.0,1354.4L687.2,1348.4L689.2,1341.8L689.9,1335.0L689.2,1328.2L687.2,1321.6L684.0,1315.6L679.7,1310.3L674.4,1306.0L668.4,1302.8L661.8,1300.8L655.0,1300.1" pathLength="1" style="opacity: 0;"></path><path d="M655.0,1305.3L649.2,1305.9L643.6,1307.6L638.5,1310.3L634.0,1314.0L630.3,1318.5L627.6,1323.6L625.9,1329.2L625.3,1335.0L625.9,1340.8L627.6,1346.4L630.3,1351.5L634.0,1356.0L638.5,1359.7L643.6,1362.4L649.2,1364.1L655.0,1364.7L660.8,1364.1L666.4,1362.4L671.5,1359.7L676.0,1356.0L679.7,1351.5L682.4,1346.4L684.1,1340.8L684.7,1335.0L684.1,1329.2L682.4,1323.6L679.7,1318.5L676.0,1314.0L671.5,1310.3L666.4,1307.6L660.8,1305.9L655.0,1305.3" pathLength="1" style="opacity: 0;"></path></g><g transform=""><path d="M655.0,1055.8L648.2,1056.5L641.6,1058.4L635.6,1061.7L630.3,1066.0L626.0,1071.3L622.8,1077.3L620.8,1083.9L620.1,1090.7L620.8,1097.5L622.8,1104.0L626.0,1110.1L630.3,1115.4L635.6,1119.7L641.6,1122.9L648.2,1124.9L655.0,1125.6L661.8,1124.9L668.4,1122.9L674.4,1119.7L679.7,1115.4L684.0,1110.1L687.2,1104.0L689.2,1097.5L689.9,1090.7L689.2,1083.9L687.2,1077.3L684.0,1071.3L679.7,1066.0L674.4,1061.7L668.4,1058.4L661.8,1056.5L655.0,1055.8" pathLength="1" style="opacity: 0;"></path><path d="M655.0,1061.0L649.2,1061.6L643.6,1063.3L638.5,1066.0L634.0,1069.7L630.3,1074.2L627.6,1079.3L625.9,1084.9L625.3,1090.7L625.9,1096.5L627.6,1102.0L630.3,1107.2L634.0,1111.7L638.5,1115.4L643.6,1118.1L649.2,1119.8L655.0,1120.4L660.8,1119.8L666.4,1118.1L671.5,1115.4L676.0,1111.7L679.7,1107.2L682.4,1102.0L684.1,1096.5L684.7,1090.7L684.1,1084.9L682.4,1079.3L679.7,1074.2L676.0,1069.7L671.5,1066.0L666.4,1063.3L660.8,1061.6L655.0,1061.0" pathLength="1" style="opacity: 0;"></path></g></g>
+    <g class="gloss" mask="url(#vase-alpha)" style="display: none;"><path filter="url(#vase-gloss)" style="opacity: 0;"></path></g>
+    <g class="edges"><path style="opacity: 0;"></path><path style="opacity: 0;"></path></g></svg></div>
+        <div class="story__dock" aria-hidden="true"></div>
+        <div class="story__gallery" aria-hidden="true"></div>
+        <div class="story__stack" aria-hidden="true"></div>
+        <div class="story__room" aria-hidden="true"></div>
+        <div class="gallery">
+          <ol class="gallery__track">
+            <li class="gallery__item gallery__item--photo" style="left: 370.974px; top: 245.548px; width: 682.812px; height: 432.448px;">
+              <picture>
+                <source type="image/avif" srcset="img/after/contrast-1600.avif 1600w, img/after/contrast-2400.avif 2400w" sizes="53vw">
+                <source type="image/webp" srcset="img/after/contrast-1600.webp 1600w, img/after/contrast-2400.webp 2400w" sizes="53vw">
+                <img src="./img/after/contrast-1600.jpg" width="4096" height="2748" alt="Vase U (III) in polished steel, in a slant of light" decoding="async" loading="eager" style="left: -260.431px; top: -187.509px; width: 1203.67px; height: 807.465px;">
+              </picture>
+              <div class="gallery__shade"></div>
+            </li>
+            <li class="gallery__item gallery__item--stack" style="left: 370.974px; top: 245.548px; width: 682.812px; height: 432.448px;">
+              <div class="gallery__inner">
+              <picture>
+                <source type="image/avif" srcset="img/after/room-1600.avif 1600w, img/after/room-2400.avif 2400w" sizes="53vw">
+                <source type="image/webp" srcset="img/after/room-1600.webp 1600w, img/after/room-2400.webp 2400w" sizes="53vw">
+                <img src="./img/after/room-1600.jpg" width="2528" height="1696" alt="Vase U (III) with harebells on a long steel counter, in front of a wall of glass blocks" loading="eager" decoding="async">
+              </picture>
+              </div>
+              <div class="gallery__shade"></div>
+            </li>
+            <li class="gallery__item gallery__item--stack" style="left: 370.974px; top: 245.548px; width: 682.812px; height: 432.448px;">
+              <div class="gallery__inner">
+              <picture>
+                <source type="image/avif" srcset="img/after/close-1600.avif 1600w, img/after/close-2400.avif 2400w" sizes="53vw">
+                <source type="image/webp" srcset="img/after/close-1600.webp 1600w, img/after/close-2400.webp 2400w" sizes="53vw">
+                <img src="./img/after/close-1600.jpg" width="2528" height="1696" alt="Close up: harebells in the glass tubes of Vase U (III)" loading="eager" decoding="async">
+              </picture>
+              </div>
+              <div class="gallery__shade"></div>
+            </li>
+            <li class="room__ground" aria-hidden="true"></li>
+            <li class="gallery__item gallery__item--card" style="left: 370.974px; top: 245.548px; width: 682.812px; height: 432.448px;">
+              <section class="card" aria-labelledby="card-title" style="--s: 0.9895833333333334px;">
+                <h2 class="card__title t30 abs abs--c" id="card-title" style="--cx: 340; --y: 16"><span class="line roll"><span class="line__in">Vase U (III)</span></span></h2>
+                <div class="card__sizes" role="radiogroup" aria-label="Size">
+                  <i class="card__frame abs" style="--x: 451; --y: 97; --r: 584;" aria-hidden="true"></i>
+                  <span class="card__label t12 abs abs--c" style="--cx: 171.5; --y: 79" aria-hidden="true">(I)</span>
+                  <button class="card__size abs" type="button" role="radio" aria-checked="false" aria-label="Vase U (I), one glass" data-size="1" style="--x: 105; --y: 97">
+                    <img src="./img/card/vase-u-I-front.svg" width="492" height="884" alt="" loading="eager">
+                  </button>
+                  <span class="card__label t12 abs abs--c" style="--cx: 345; --y: 79" aria-hidden="true">(II)</span>
+                  <button class="card__size abs" type="button" role="radio" aria-checked="false" aria-label="Vase U (II), two glasses" data-size="2" style="--x: 278; --y: 97">
+                    <img src="./img/card/vase-u-II-front.svg" width="772" height="884" alt="" loading="eager">
+                  </button>
+                  <span class="card__label t12 abs abs--c" style="--cx: 518; --y: 79" aria-hidden="true">(III)</span>
+                  <button class="card__size abs is-active" type="button" role="radio" aria-checked="true" aria-label="Vase U (III), three glasses" data-size="3" style="--x: 451; --y: 97">
+                    <img src="./img/card/vase-u-III-front.svg" width="1052" height="884" alt="" loading="eager">
+                  </button>
+                </div>
+                <p class="card__details t12s abs abs--c" style="--cx: 345; --y: 299">
+                  Dimensions:<br><span class="line roll card__dims"><span class="line__in">W 260 × D 50 × H 215 mm</span></span><br><br>In Steel and Glass
+                </p>
+                <a class="card__buy t12 abs abs--c" href="/vase-u?size=III" style="--cx: 345; --y: 407"><span class="line roll"><span class="line__in">Buy from €1090</span></span></a>
+              </section>
+            </li>
+          </ol><div class="shape"><div class="shape__world"><div class="shape__tile shape__tile--drawing"><li class="gallery__item gallery__item--photo shape__photo">
+              <picture>
+                <source type="image/avif" srcset="img/after/contrast-1600.avif 1600w, img/after/contrast-2400.avif 2400w" sizes="53vw">
+                <source type="image/webp" srcset="img/after/contrast-1600.webp 1600w, img/after/contrast-2400.webp 2400w" sizes="53vw">
+                <img src="./img/after/contrast-1600.jpg" width="4096" height="2748" alt="Vase U (III) in polished steel, in a slant of light" decoding="async" loading="eager" style="left: -260.431px; top: -187.509px; width: 1203.67px; height: 807.465px;">
+              </picture>
+              
+            </li><svg class="shape__drawing" preserveAspectRatio="none" viewBox="564.87 877.63 180.26 914.73"></svg><canvas class="shape__wash"></canvas></div><div class="shape__tile"><img src="./img/after/spiral-kitchen.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/story/vase-above-960.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/after/spiral-living.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/story/vase-34-960.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/after/spiral-column.webp" alt="" decoding="async" loading="eager"></div><li class="gallery__item gallery__item--card shape__tile">
+              <section class="card" aria-labelledby="card-title" style="--s: 0.9895833333333334px;">
+                <h2 class="card__title t30 abs abs--c" style="--cx: 340; --y: 16"><span class="line roll"><span class="line__in">Vase U (III)</span></span></h2>
+                <div class="card__sizes" role="radiogroup" aria-label="Size">
+                  <i class="card__frame abs" style="--x: 451; --y: 97; --r: 584;" aria-hidden="true"></i>
+                  <span class="card__label t12 abs abs--c" style="--cx: 171.5; --y: 79" aria-hidden="true">(I)</span>
+                  <button class="card__size abs" type="button" role="radio" aria-checked="false" aria-label="Vase U (I), one glass" data-size="1" style="--x: 105; --y: 97">
+                    <img src="./img/card/vase-u-I-front.svg" width="492" height="884" alt="" loading="eager">
+                  </button>
+                  <span class="card__label t12 abs abs--c" style="--cx: 345; --y: 79" aria-hidden="true">(II)</span>
+                  <button class="card__size abs" type="button" role="radio" aria-checked="false" aria-label="Vase U (II), two glasses" data-size="2" style="--x: 278; --y: 97">
+                    <img src="./img/card/vase-u-II-front.svg" width="772" height="884" alt="" loading="eager">
+                  </button>
+                  <span class="card__label t12 abs abs--c" style="--cx: 518; --y: 79" aria-hidden="true">(III)</span>
+                  <button class="card__size abs is-active" type="button" role="radio" aria-checked="true" aria-label="Vase U (III), three glasses" data-size="3" style="--x: 451; --y: 97">
+                    <img src="./img/card/vase-u-III-front.svg" width="1052" height="884" alt="" loading="eager">
+                  </button>
+                </div>
+                <p class="card__details t12s abs abs--c" style="--cx: 345; --y: 299">
+                  Dimensions:<br><span class="line roll card__dims"><span class="line__in">W 260 × D 50 × H 215 mm</span></span><br><br>In Steel and Glass
+                </p>
+                <a class="card__buy t12 abs abs--c" href="/vase-u?size=III" style="--cx: 345; --y: 407"><span class="line roll"><span class="line__in">Buy from €1090</span></span></a>
+              </section>
+            </li><div class="shape__tile"><img src="./img/story/vase-front-960.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/after/spiral-hall.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/pdp/ii-2.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/after/spiral-study.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/story/vase-top-960.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/after/spiral-column.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/story/vase-above-960.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/after/spiral-living.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/story/vase-front-960.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/after/spiral-hall.webp" alt="" decoding="async" loading="eager"></div><div class="shape__tile"><img src="./img/story/vase-34-960.webp" alt="" decoding="async" loading="eager"></div></div></div>
+          <svg class="room__scene" aria-hidden="true"><g class="room__lines"></g><g class="room__vases"></g><g class="room__dims"></g></svg>
+          <canvas class="gallery__wash" aria-hidden="true"></canvas>
+          <div class="gallery__labels t12">
+            <span class="gallery__n abs" style="--x: 20"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">01</span></span></span>
+            <span class="gallery__caption abs abs--r" style="--r: 1420"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">Vase U (III) in studio</span></span></span>
+          </div>
+          <div class="gallery__ruler t12" aria-hidden="true" style="left: 370.974px; top: 693.829px; width: 682.812px;">
+            <span class="gallery__mark">01</span><span class="gallery__mark">02</span><span class="gallery__mark">03</span><span class="gallery__mark">04</span>
+            <i class="gallery__track-line"><b class="gallery__thumb" style="width: 170.703px;"></b></i>
+          </div>
+          <svg class="gallery__defs" width="0" height="0" aria-hidden="true">
+            <filter id="gallery-smear" x="0" y="-15%" width="100%" height="130%"><feGaussianBlur stdDeviation="0 0"></feGaussianBlur></filter>
+          </svg>
+        </div>
+      </section>
+      <section class="collection" aria-label="Collection U">
+        <p class="collection__title t120 abs" style="--x: 14; --y: 12"><span class="line"><span class="line__in">U</span></span></p>
+        <p class="collection__count t12 abs" style="--x: 20; --y: 376">Collection (03):</p>
+        <h2 class="collection__title t120 abs" style="--x: 253; --y: 12"><span class="line"><span class="line__in">Collection</span></span></h2>
+        <p class="collection__title t120 abs abs--r" style="--r: 1423; --y: 12"><span class="line"><span class="line__in">(03)</span></span></p>
+        <a class="collection__card abs" href="#buy" data-label="Buy now" style="--x: 256; --y: 378; --w: 338; --h: 431.4; opacity: 0; clip-path: inset(7%);">
+          <span class="collection__pic" style="translate: none; rotate: none; scale: none; transform: scale(1.14, 1.14);"><img src="./img/collection/vase-wide.webp" width="1600" height="1987" alt="Vase U (III) in polished steel" decoding="async" style="--l: -39; --t: -43; --iw: 416.75; translate: none; rotate: none; scale: none; transform: translate(0%, -5%);" loading="eager"></span>
+        <span class="collection__label t12" aria-hidden="true"><span><span class="collection__plate">Buy now</span></span><span><span class="collection__arrow"><svg viewBox="0 0 18 18" aria-hidden="true"><path fill="currentColor" d="M12.956 8.99C12.41 9.419 11.981 9.809 11.63 10.16L10.98 10.81C10.629 11.161 10.291 11.551 9.966 11.98H8.367C8.913 11.551 9.342 11.161 9.693 10.81L10.343 10.16C10.577 9.926 10.798 9.692 11.019 9.419H6.3C5.78 9.419 5.39 9.445 5 9.549V8.418C5.39 8.522 5.78 8.548 6.3 8.548H11.019C10.798 8.288 10.577 8.054 10.343 7.82L9.693 7.17C9.342 6.819 8.913 6.429 8.367 6H9.966C10.291 6.429 10.629 6.819 10.98 7.17L11.63 7.82C11.981 8.171 12.41 8.561 12.956 8.99Z"></path></svg></span></span></span></a>
+        <a class="collection__card abs is-soon" href="#" aria-disabled="true" data-label="Coming soon" style="--x: 610; --y: 378; --w: 338; --h: 333; opacity: 0; clip-path: inset(7%);">
+          <span class="collection__pic" style="translate: none; rotate: none; scale: none; transform: scale(1.14, 1.14);"><img src="./img/collection/chair-wide.webp" width="1600" height="1987" alt="Chair U, in brushed steel" decoding="async" style="--l: -34.6; --t: -119.3; --iw: 408.7; translate: none; rotate: none; scale: none; transform: translate(0%, -5%);" loading="eager"></span><canvas class="collection__water" aria-hidden="true"></canvas>
+        <span class="collection__label t12" aria-hidden="true"><span><span class="collection__plate">Coming soon</span></span><span><span class="collection__arrow"><svg viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><circle cx="5.8" cy="9" r="0.85"></circle><circle cx="9" cy="9" r="0.85"></circle><circle cx="12.2" cy="9" r="0.85"></circle></g></svg></span></span></span></a>
+        <a class="collection__card abs is-soon" href="#" aria-disabled="true" data-label="Coming soon" style="--x: 964; --y: 378; --w: 456; --h: 582; opacity: 0; clip-path: inset(7%);">
+          <span class="collection__pic" style="translate: none; rotate: none; scale: none; transform: scale(1.14, 1.14);"><img src="./img/collection/table-wide.webp" width="1600" height="1987" alt="Table U, in brushed steel" decoding="async" style="--l: -60; --t: -241.7; --iw: 724.1; translate: none; rotate: none; scale: none; transform: translate(0%, -5%);" loading="eager"></span><canvas class="collection__water" aria-hidden="true"></canvas>
+        <span class="collection__label t12" aria-hidden="true"><span><span class="collection__plate">Coming soon</span></span><span><span class="collection__arrow"><svg viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><circle cx="5.8" cy="9" r="0.85"></circle><circle cx="9" cy="9" r="0.85"></circle><circle cx="12.2" cy="9" r="0.85"></circle></g></svg></span></span></span></a>
+        <p class="collection__name t12 abs" style="--x: 256; --y: 818"><span class="line"><span class="line__in">01</span></span><span class="line"><span class="line__in">Vase U</span></span></p>
+        <p class="collection__name t12 abs is-soon" style="--x: 610; --y: 719"><span class="line"><span class="line__in">02</span></span><span class="line"><span class="line__in">Chair U</span></span></p>
+        <p class="collection__name t12 abs is-soon" style="--x: 964; --y: 971"><span class="line"><span class="line__in">03</span></span><span class="line"><span class="line__in">Table U</span></span></p>
+        <p class="collection__dims abs" style="--x: 374; --y: 818">Dimensions:<br>W 260 × D 50 × H 215 mm</p>
+        <p class="collection__dims abs" style="--x: 728; --y: 719">Dimensions:<br>W 555 × D 480 × H 840 mm</p>
+        <p class="collection__dims abs" style="--x: 1082; --y: 971">Dimensions:<br>W 2000 × D 900 × H 740 mm</p>
+      </section>
+      <section class="bouquet is-studio is-dark" aria-label="Fill the vase" data-way="1" style="--bq-top: #0c0c0a; --bq-foot: #d8d4ce;">
+        <div class="bouquet__stage" style="translate: none; rotate: none; scale: none; transform: translate(0px, -72px);"><img src="./img/bouquet/h/plate-wide.webp" alt="" decoding="async" draggable="false" class="bouquet__plate" style="left: -25.182%; top: -50.716%; width: 150.363%; height: 201.172%;"><img src="./img/bouquet/h/A-studio-v2.webp" alt="" decoding="async" draggable="false" class="bouquet__vase-shadow" style="left: 0%; top: 0%; width: 100%; height: 100%;"><img src="./img/bouquet/h/f1-lying-shadow.webp" alt="" decoding="async" draggable="false" class="bouquet__shadow" style="left: 8.757%; top: 68.49%; width: 22.747%; height: 15.169%;"><img src="./img/bouquet/h/f1-lying.webp" alt="" decoding="async" draggable="false" class="bouquet__lying" style="left: 8.103%; top: 67.188%; width: 24.164%; height: 16.992%;"><img src="./img/bouquet/h/f2-lying-shadow.webp" alt="" decoding="async" draggable="false" class="bouquet__shadow" style="left: 37.536%; top: 76.367%; width: 25.945%; height: 19.01%;"><img src="./img/bouquet/h/f2-lying.webp" alt="" decoding="async" draggable="false" class="bouquet__lying" style="left: 36.882%; top: 74.479%; width: 28.198%; height: 22.201%;"><img src="./img/bouquet/h/f3-lying-shadow.webp" alt="" decoding="async" draggable="false" class="bouquet__shadow" style="left: 71.33%; top: 68.75%; width: 17.987%; height: 18.75%;"><img src="./img/bouquet/h/f3-lying.webp" alt="" decoding="async" draggable="false" class="bouquet__lying" style="left: 67.151%; top: 61.198%; width: 26.235%; height: 29.167%;"><img src="./img/bouquet/h/vase-cutout-v2.webp" alt="" decoding="async" draggable="false" class="bouquet__vase" style="left: 37.173%; top: 35.677%; width: 25.69%; height: 39.128%;"><img src="./img/bouquet/h/f1-standing.webp" alt="" decoding="async" draggable="false" class="bouquet__standing" style="left: 31.105%; top: 21.354%; width: 8.43%; height: 16.406%;"><img src="./img/bouquet/h/f2-standing.webp" alt="" decoding="async" draggable="false" class="bouquet__standing" style="left: 43.786%; top: 8.854%; width: 12.536%; height: 62.956%;"><img src="./img/bouquet/h/f3-standing.webp" alt="" decoding="async" draggable="false" class="bouquet__standing" style="left: 55.887%; top: 18.685%; width: 14.39%; height: 19.076%;"><button type="button" class="bouquet__hit" aria-label="Put the daisy into the vase (steel 1)" style="left: 8.103%; top: 67.188%; width: 24.164%; height: 16.992%; pointer-events: none;"></button><button type="button" class="bouquet__hit" aria-label="Put the daisy into the vase (glass 2)" style="left: 36.882%; top: 74.479%; width: 28.198%; height: 22.201%; pointer-events: none;"></button><button type="button" class="bouquet__hit" aria-label="Put the daisy into the vase (steel 4)" style="left: 67.151%; top: 61.198%; width: 26.235%; height: 29.167%; pointer-events: none;"></button><div class="bouquet__layer bq3-gl"><canvas class="bq3-canvas" width="300" height="150" style="width: 300px; height: 150px;"></canvas></div><div class="bouquet__layer bq3-ghosts"><div class="bq3-film" style="--i: 0;"><canvas class="bq3-film__still"></canvas><canvas class="bq3-film__wet"></canvas></div><div class="bq3-film" style="--i: 1;"><canvas class="bq3-film__still"></canvas><canvas class="bq3-film__wet"></canvas></div><div class="bq3-film" style="--i: 2;"><canvas class="bq3-film__still"></canvas><canvas class="bq3-film__wet"></canvas></div></div><div class="bouquet__layer bq3-ui"></div></div>
+        <div class="bouquet__words-track">
+          <ol class="bouquet__words t12">
+            <li class="abs" style="--x: 20"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">Vase U (III)</span></span></li>
+            <li class="abs" style="--x: 256"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);"><span class="line roll bouquet__click"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">Click</span></span> a flower</span></span></li>
+            <li class="abs" style="--x: 1082"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">Make a composition</span></span></li>
+            <li class="abs abs--r" style="--r: 1420"><a class="card__buy bouquet__buy t12" href="/vase-u?size=III" style="--ul-w: 0%;"><span class="line roll"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 150%);">Buy from €590</span></span></a></li>
+          </ol>
+        </div>
+      <div class="bouquet__switch t12"></div></section>
+    </main>
+    <footer class="footer" aria-label="OTTO">
+      <p class="footer__copy t12 abs" style="--x: 20; --y: 19"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">©2026. OTTO Objects.</span></span></p>
+      <nav class="menu footer__menu" aria-label="Objects">
+        <ol>
+          <li class="menu__group abs" style="--y: 19">
+            <span class="menu__n t12" aria-hidden="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">01</span></span></span>
+            <a class="menu__name t12" href="/vase-u"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Vase U</span></span></a>
+            <ol class="menu__sub t12">
+              <li><a href="/vase-u?size=III"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">V. U III</span></span></a></li>
+              <li><a href="/vase-u?size=II"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">V. U II</span></span></a></li>
+              <li><a href="/vase-u?size=I"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">V. U I</span></span></a></li>
+            </ol>
+          </li>
+          <li class="menu__group menu__group--more abs" style="--y: 86">
+            <span class="menu__n t12" aria-hidden="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">02</span></span></span>
+            <a class="menu__name t12" href="/chair-u" aria-disabled="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Chair U<span class="visually-hidden">, coming soon</span></span></span></a>
+            <ol class="menu__sub t12">
+              <li><a href="/chair-u?type=dining" aria-disabled="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">C. U. Dining<span class="visually-hidden">, coming soon</span></span></span></a></li>
+              <li><a href="/chair-u?type=bar" aria-disabled="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">C. U. Bar<span class="visually-hidden">, coming soon</span></span></span></a></li>
+              <li><a href="/chair-u?type=lounge" aria-disabled="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">C. U. Lounge<span class="visually-hidden">, coming soon</span></span></span></a></li>
+            </ol>
+          </li>
+          <li class="menu__group menu__group--more abs" style="--y: 153">
+            <span class="menu__n t12" aria-hidden="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">03</span></span></span>
+            <a class="menu__name t12" href="/table-u" aria-disabled="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Table U<span class="visually-hidden">, coming soon</span></span></span></a>
+            <ol class="menu__sub t12">
+              <li><a href="/table-u?type=dining" aria-disabled="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">T. U. Dining<span class="visually-hidden">, coming soon</span></span></span></a></li>
+              <li><a href="/table-u?type=side" aria-disabled="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">T. U. Side<span class="visually-hidden">, coming soon</span></span></span></a></li>
+              <li><a href="/table-u?type=coffee" aria-disabled="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">T. U. Coffee<span class="visually-hidden">, coming soon</span></span></span></a></li>
+            </ol>
+          </li>
+        </ol>
+      </nav>
+      <a class="t12 abs" href="/store" style="--x: 1082; --y: 19"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">Store</span></span></a>
+      <a class="t12 abs" href="/about" style="--x: 1135; --y: 19"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);">About</span></span></a>
+      <p class="footer__credit t12 abs abs--r" style="--r: 1420; --y: 19"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 125%);"><span class="footer__grey">Designed by</span> <a class="footer__obys" href="https://obys.agency" target="_blank" rel="noopener"><span class="line roll"><span class="line__in">Obys</span></span></a></span></span></p>
+      <svg class="footer__logo abs" style="--x: 20; --y: 473" viewBox="0 0 1400.36 300" aria-label="OTTO" role="img">
+          <g data-svg-origin="0 5.880000114440918" transform="matrix(1,0,0,1,0,330)" style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;"><svg viewBox="0 0 18 18" aria-hidden="true" x="0" y="5.88" width="288.03" height="288.03"><rect width="18" height="18" fill="#f2f2f2" x="0" y="0"></rect><filter id="preloader-liquid" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="0.34"></feGaussianBlur><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 16 -7"></feColorMatrix></filter><g filter="url(#preloader-liquid)"><circle fill="#1e1b1a" cx="9.00000195917492" cy="8.99999986106457" r="0"></circle><circle fill="#1e1b1a" cx="9.000001382829707" cy="9.000000672768236" r="7.112513226271269e-7"></circle><circle fill="#1e1b1a" cx="9.000001099909072" cy="9.000001627227537" r="0"></circle><circle fill="#1e1b1a" cx="9.00000010878047" cy="9.000001533949774" r="7.112513226271269e-7"></circle><circle fill="#1e1b1a" cx="8.99999914073415" cy="9.000001766162965" r="0"></circle><circle fill="#1e1b1a" cx="8.999998725950764" cy="9.000000861181539" r="7.112513226271269e-7"></circle><circle fill="#1e1b1a" cx="8.99999804082508" cy="9.00000013893543" r="0"></circle><circle fill="#1e1b1a" cx="8.999998617170293" cy="8.999999327231764" r="7.112513226271269e-7"></circle><circle fill="#1e1b1a" cx="8.999998900090928" cy="8.999998372772463" r="0"></circle><circle fill="#1e1b1a" cx="8.99999989121953" cy="8.999998466050226" r="7.112513226271269e-7"></circle><circle fill="#1e1b1a" cx="9.00000085926585" cy="8.999998233837035" r="0"></circle><circle fill="#1e1b1a" cx="9.000001274049236" cy="8.999999138818461" r="7.112513226271269e-7"></circle></g></svg></g><path class="footer__part" d="M288.034 293.915H0V5.88048H288.034V293.915ZM144.033 243.846C135.247 243.85 128.125 250.984 128.125 259.77C128.128 268.553 135.25 275.675 144.033 275.678C152.819 275.678 159.953 268.555 159.956 259.77C159.956 250.982 152.821 243.846 144.033 243.846ZM101.043 184.589C79.0728 184.589 61.2573 202.405 61.2573 224.375C61.2591 246.344 79.074 264.145 101.043 264.145C123.011 264.141 140.812 246.342 140.814 224.375C140.814 202.407 123.012 184.593 101.043 184.589ZM187.038 184.589C165.068 184.592 147.267 202.406 147.267 224.375C147.269 246.343 165.069 264.143 187.038 264.145C209.007 264.145 226.822 246.344 226.824 224.375C226.824 202.405 209.008 184.589 187.038 184.589ZM48.8808 188.918C40.0945 188.92 32.973 196.039 32.9727 204.826C32.9727 213.611 40.0942 220.732 48.8808 220.734C57.6692 220.734 64.8046 213.613 64.8046 204.826C64.8042 196.038 57.669 188.918 48.8808 188.918ZM239.2 188.918C230.412 188.918 223.277 196.038 223.276 204.826C223.276 213.613 230.412 220.734 239.2 220.734C247.986 220.73 255.108 213.61 255.108 204.826C255.108 196.04 247.985 188.922 239.2 188.918ZM58.0381 110.112C36.0699 110.112 18.2557 127.915 18.2522 149.882C18.2522 171.852 36.0677 189.668 58.0381 189.668C80.0064 189.665 97.8085 171.851 97.8085 149.882C97.8049 127.916 80.0042 110.114 58.0381 110.112ZM230.043 110.112C208.076 110.113 190.26 127.915 190.257 149.882C190.257 171.852 208.073 189.667 230.043 189.668C252.013 189.668 269.829 171.852 269.829 149.882C269.825 127.915 252.011 110.112 230.043 110.112ZM101.043 35.6184C79.0731 35.6184 61.2577 53.434 61.2573 75.4044C61.2573 97.3748 79.0728 115.19 101.043 115.19C123.012 115.186 140.814 97.3722 140.814 75.4044C140.813 53.4366 123.011 35.6225 101.043 35.6184ZM187.038 35.6184C165.068 35.6212 147.268 53.4357 147.267 75.4044C147.267 97.3731 165.068 115.188 187.038 115.19C209.008 115.19 226.824 97.3748 226.824 75.4044C226.823 53.434 209.008 35.6184 187.038 35.6184ZM48.8808 79.0454C40.0942 79.0479 32.9727 86.1683 32.9727 94.9536C32.9744 103.739 40.0953 110.859 48.8808 110.862C57.6681 110.862 64.8028 103.741 64.8046 94.9536C64.8046 86.1668 57.6692 79.0454 48.8808 79.0454ZM239.2 79.0454C230.412 79.0454 223.276 86.1668 223.276 94.9536C223.278 103.741 230.413 110.862 239.2 110.862C247.985 110.858 255.107 103.738 255.108 94.9536C255.108 86.1692 247.986 79.0493 239.2 79.0454ZM144.033 24.1014C135.249 24.1049 128.127 31.2251 128.125 40.0095C128.125 48.7958 135.247 55.9298 144.033 55.9333C152.821 55.9333 159.956 48.798 159.956 40.0095C159.954 31.2229 152.82 24.1014 144.033 24.1014Z" fill="currentColor" fill-rule="evenodd" style="visibility: hidden;"></path>
+          <path class="footer__part" d="M337.137 150C337.137 86.3014 372.89 27.5343 434.945 6.98631C449.739 2.05479 465.767 0 481.794 0C497.822 0 514.26 2.05479 529.055 6.98631C591.109 27.5343 626.863 86.3014 626.863 150C626.863 213.699 591.109 272.466 529.055 293.014C514.26 297.945 497.822 300 481.794 300C465.767 300 449.739 297.945 434.945 293.014C372.89 272.466 337.137 213.699 337.137 150ZM477.685 27.5343C464.534 27.5343 452.205 30.411 439.876 36.1644C399.602 55.0685 381.931 100.685 381.931 143.014C381.931 204.247 418.096 272.466 486.315 272.466C499.055 272.466 511.383 269.589 523.712 263.836C563.986 244.932 581.657 199.315 581.657 156.986C581.657 95.7534 545.904 27.5343 477.685 27.5343Z" fill="currentColor" fill-rule="evenodd" data-svg-origin="337.1369934082031 0" transform="matrix(1,0,0,1,0,330)" style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;"></path>
+          <path class="footer__part" d="M774.032 293.842H711.977C720.197 267.541 723.484 244.938 723.484 216.993V83.0202C723.484 66.1709 722.251 49.7325 719.375 33.2942C707.457 33.7052 695.95 32.8832 682.799 33.7052C663.073 34.938 644.58 40.6914 626.498 48.4997V6.1709H859.512V48.4997C841.43 40.6914 822.936 34.938 803.21 33.7052C790.06 32.8832 778.553 33.7052 766.635 33.2942C763.758 49.7325 762.525 66.1709 762.525 83.0202V216.993C762.525 244.938 765.813 267.541 774.032 293.842Z" fill="currentColor" fill-rule="evenodd" data-svg-origin="626.4979858398438 6.170899868011475" transform="matrix(1,0,0,1,0,330)" style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;"></path>
+          <path class="footer__part" d="M1024.86 293.842H962.808C971.027 267.541 974.314 244.938 974.314 216.993V83.02C974.314 66.1707 973.082 49.7324 970.205 33.294C958.287 33.705 946.78 32.883 933.63 33.705C913.904 34.9378 895.41 40.6913 877.328 48.4995V6.17072H1110.34V48.4995C1092.26 40.6913 1073.77 34.9378 1054.04 33.705C1040.89 32.883 1029.38 33.705 1017.47 33.294C1014.59 49.7324 1013.36 66.1707 1013.36 83.02V216.993C1013.36 244.938 1016.64 267.541 1024.86 293.842Z" fill="currentColor" fill-rule="evenodd" data-svg-origin="877.3280029296875 6.170720100402832" transform="matrix(1,0,0,1,0,330)" style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;"></path>
+          <path class="footer__part" d="M1110.64 150C1110.64 86.3014 1146.39 27.5343 1208.45 6.98631C1223.24 2.05479 1239.27 0 1255.3 0C1271.32 0 1287.76 2.05479 1302.56 6.98631C1364.61 27.5343 1400.36 86.3014 1400.36 150C1400.36 213.699 1364.61 272.466 1302.56 293.014C1287.76 297.945 1271.32 300 1255.3 300C1239.27 300 1223.24 297.945 1208.45 293.014C1146.39 272.466 1110.64 213.699 1110.64 150ZM1251.19 27.5343C1238.04 27.5343 1225.71 30.411 1213.38 36.1644C1173.1 55.0685 1155.43 100.685 1155.43 143.014C1155.43 204.247 1191.6 272.466 1259.82 272.466C1272.56 272.466 1284.89 269.589 1297.21 263.836C1337.49 244.932 1355.16 199.315 1355.16 156.986C1355.16 95.7534 1319.41 27.5343 1251.19 27.5343Z" fill="currentColor" fill-rule="evenodd" data-svg-origin="1110.6400146484375 0" transform="matrix(1,0,0,1,0,330)" style="translate: none; rotate: none; scale: none; transform-origin: 0px 0px;"></path>
+        </svg>
+    </footer>
+    <div class="pdp-dim" hidden=""></div><section class="pdp" id="vase-u" aria-label="Vase U" hidden="" data-lenis-prevent="">
+      <p class="pdp__name t12 abs" style="--x: 20; --y: 126"><span class="line roll"><span class="line__in">Vase U (III)</span></span></p>
+      <p class="pdp__label t12s abs" style="--x: 256; --y: 126" data-line=""><span class="line"><span class="line__in">Options:</span></span></p>
+      <div class="pdp__options t12 abs" style="--x: 257; --y: 146" role="radiogroup" aria-label="Size">
+        <button type="button" role="radio" data-size="I" aria-checked="false"><span class="line"><span class="line__in">(I)</span></span></button>
+        <button type="button" role="radio" data-size="II" aria-checked="false"><span class="line"><span class="line__in">(II)</span></span></button>
+        <button type="button" role="radio" data-size="III" aria-checked="true" class="is-on"><span class="line"><span class="line__in">(III)</span></span></button>
+      </div>
+      <div class="pdp__photos">
+        <div class="pdp__track">
+          <figure class="pdp__photo" data-size="III"><img src="./img/pdp/iii-column.webp" width="1280" height="1600" alt="Vase U (III) on Table U, by a tall window" decoding="async" loading="eager"></figure>
+          <figure class="pdp__photo" data-size="III"><img src="./img/pdp/iii-2.webp" width="1280" height="1600" alt="Vase U (III), polished steel" decoding="async" loading="eager"></figure>
+          <figure class="pdp__photo" data-size="III"><img src="./img/pdp/iii-1.webp" width="1280" height="1600" alt="Vase U (III) with daisies, in the studio" decoding="async" loading="eager"></figure>
+          <figure class="pdp__photo" data-size="II"><img src="./img/pdp/ii-1.webp" width="1280" height="1600" alt="Vase U (II) from the front" decoding="async" loading="eager"></figure>
+          <figure class="pdp__photo" data-size="II"><img src="./img/pdp/ii-2.webp" width="1280" height="1600" alt="Vase U (II) beside Vase U (I)" decoding="async" loading="eager"></figure>
+          <figure class="pdp__photo" data-size="I"><img src="./img/pdp/i-1.webp" width="1280" height="1600" alt="Vase U (I) from the front" decoding="async" loading="eager"></figure>
+        </div>
+      </div>
+      <p class="pdp__group t12 abs" style="--x: 963; --y: 126"><span class="line roll"><span class="line__in">(III)</span></span></p>
+      <div class="pdp__info">
+        <p class="pdp__price t12s"><span class="line roll"><span class="line__in">€1090</span></span></p>
+        <p class="pdp__desc t12s" data-lines="" data-text="Four steel lobes holding three tubes of glass, polished by hand. Calm on a table, made for one stem or many.">Four steel lobes holding three tubes of glass, polished by hand. Calm on a table, made for one stem or many.</p>
+        <p class="pdp__dims-label t12s" data-line=""><span class="line"><span class="line__in">Dimensions:</span></span></p>
+        <div class="pdp__dims" aria-hidden="true"></div>
+        <div class="pdp__acc">
+          <div class="pdp__row">
+            <button type="button" class="pdp__toggle t12s" aria-expanded="false"><span class="line"><span class="line__in">Details</span></span><i class="pdp__plus"></i></button>
+            <div class="pdp__more"><div class="pdp__text t12s">
+              <p>Vase U is crafted from stainless steel and borosilicate glass. Removable glass tubes make it easy to arrange flowers, refresh the water, and care for each stem.</p>
+              <p>A simple combination of materials, brought together through form and proportion.</p>
+            </div></div>
+          </div>
+          <div class="pdp__row">
+            <button type="button" class="pdp__toggle t12s" aria-expanded="false"><span class="line"><span class="line__in">Delivery and Returns</span></span><i class="pdp__plus"></i></button>
+            <div class="pdp__more"><div class="pdp__text t12s">
+              <p>Vase U is currently in production. We’re taking the time to make sure every detail is just right.</p>
+              <p>Once available, Vase U will be shipped worldwide. Delivery costs and estimated times will be provided at checkout.</p>
+              <p>Returns will be accepted within 14 days of delivery.</p>
+            </div></div>
+          </div>
+        </div>
+      </div>
+      <ol class="pdp__thumbs">
+        <li><button type="button" class="pdp__thumb" aria-label="Photo 1"><img src="./img/pdp/iii-column-t.webp" width="64" height="80" alt="" loading="eager"></button></li>
+        <li><button type="button" class="pdp__thumb" aria-label="Photo 2"><img src="./img/pdp/iii-2-t.webp" width="64" height="80" alt="" loading="eager"></button></li>
+        <li><button type="button" class="pdp__thumb" aria-label="Photo 3"><img src="./img/pdp/iii-1-t.webp" width="64" height="80" alt="" loading="eager"></button></li>
+        <li><button type="button" class="pdp__thumb" aria-label="Photo 4"><img src="./img/pdp/ii-1-t.webp" width="64" height="80" alt="" loading="eager"></button></li>
+        <li><button type="button" class="pdp__thumb" aria-label="Photo 5"><img src="./img/pdp/ii-2-t.webp" width="64" height="80" alt="" loading="eager"></button></li>
+        <li><button type="button" class="pdp__thumb" aria-label="Photo 6"><img src="./img/pdp/i-1-t.webp" width="64" height="80" alt="" loading="eager"></button></li>
+      </ol>
+      <div class="pdp__add-wrap"><button type="button" class="pdp__add t12"><span class="line roll"><span class="line__in">Add to Cart</span></span></button></div>
+    </section>
+    <section class="co" id="checkout" aria-label="Checkout" hidden="" data-lenis-prevent="">
+      <div class="co__grid">
+        <div class="co__head">
+          <a class="co__name t12s" href="/vase-u" data-line=""><span class="line"><span class="line__in">Vase U</span></span></a>
+        </div>
+        <div class="co__sel">
+          <div class="co__cols t12s">
+            <p class="co__step"><span class="co__ttl" data-line=""><span class="line"><span class="line__in">Checkout</span></span></span></p>
+            <span class="co__col-qty" data-line=""><span class="line"><span class="line__in">Qty</span></span></span>
+            <span class="co__col-price" data-line=""><span class="line"><span class="line__in">Price</span></span></span>
+          </div>
+          <ul class="co__items"></ul>
+          <p class="co__nothing t12s"><span class="co__nothing-a" data-line=""><span class="line"><span class="line__in">Your cart is empty.</span></span></span><br><span class="co__nothing-b" data-line=""><span class="line"><span class="line__in">Vase U comes in three forms: (I) (II) (III).</span></span></span></p>
+        </div>
+        <dl class="co__sum t12s">
+          <div class="co__sum-row"><dt data-line=""><span class="line"><span class="line__in">Subtotal:</span></span></dt><dd class="co__subtotal"><span class="line roll"><span class="line__in">€0</span></span></dd></div>
+          <div class="co__sum-row co__sum-now"><dt data-line=""><span class="line"><span class="line__in">Pay Now:</span></span></dt><dd class="co__now" data-line=""><span class="line"><span class="line__in">€0</span></span></dd></div>
+        </dl>
+        <form class="co__form" novalidate="">
+          <div class="co__ask">
+            <p class="co__words t12s" data-lines="" data-text="Vase U is currently in production. Bringing an object to life takes time, and we want to make sure every detail feels just right.">Vase U is currently in production. Bringing an object to life takes time, and we want to make sure every detail feels just right.</p>
+            <p class="co__words co__grey t12s" data-lines="" data-text="We'll only write to you with updates about Vase U.">We'll only write to you with updates about Vase U.</p>
+            <div class="co__fields">
+              <label class="co__field"><span class="co__flabel t12s" data-line=""><span class="line"><span class="line__in">Name</span></span></span><input type="text" name="name" autocomplete="name" placeholder=" " style=""></label>
+              <label class="co__field"><span class="co__flabel t12s" data-line=""><span class="line"><span class="line__in">Email</span></span></span><input type="email" name="email" autocomplete="email" required="" placeholder=" " style=""></label>
+            </div>
+          </div>
+          <div class="co__done" hidden="">
+            <p class="co__words co__thanks t12s" data-lines="" data-text="Thank you. You are on the waiting list.">Thank you. You are on the waiting list.</p>
+            <p class="co__words co__grey co__thanks-b t12s" data-lines="" data-text="Nothing has been charged. We'll only write to you with updates about Vase U.">Nothing has been charged. We'll only write to you with updates about Vase U.</p>
+          </div>
+          <p class="co__empty-note co__words co__grey t12s" data-lines="" data-text="There is nothing to put on the list yet.">There is nothing to put on the list yet.</p>
+          <p class="co__error t12s" aria-live="polite"></p>
+          <div class="co__send-wrap"><button type="submit" class="co__send t12"><span class="line roll"><span class="line__in">Join the waiting list</span></span></button></div>
+        </form>
+      </div>
+    </section>
+    <div class="cart" aria-hidden="true" hidden=""></div>
+    <aside class="cart__panel is-empty" role="dialog" aria-label="Cart" hidden="" data-lenis-prevent="">
+      <div class="cart__head">
+        <button type="button" class="cart__close t12" data-line=""><span class="line"><span class="line__in">Close</span></span></button>
+        <p class="cart__title t12"><span class="line roll"><span class="line__in">Cart ( 0 )</span></span></p>
+      </div>
+      <ul class="cart__items"></ul>
+      <p class="cart__empty t12s" data-line=""><span class="line"><span class="line__in">Your cart is empty.</span></span></p>
+      <div class="cart__foot">
+        <p class="cart__sub t12s"><span data-line=""><span class="line"><span class="line__in">Subtotal</span></span></span><span class="cart__total"><span class="line roll"><span class="line__in">€0</span></span></span></p>
+        <div class="cart__go-wrap"><a class="cart__go t12" href="/checkout"><span class="line roll"><span class="line__in">Checkout</span></span></a></div>
+        <div class="cart__go-wrap cart__on-wrap"><button type="button" class="cart__on t12"><span class="line roll"><span class="line__in">Continue shopping</span></span></button></div>
+      </div>
+    </aside>
+    <div class="store" aria-hidden="true" hidden=""></div>
+    <div class="store__panel" role="dialog" aria-label="Store" hidden="">
+      <span class="store__rule abs" style="--x: 20; --y: 49"></span>
+      <p class="store__count t12 abs" style="--x: 20; --y: 67" data-line=""><span class="line"><span class="line__in">Collection (03):</span></span></p>
+      <a class="collection__card store__card abs" href="/vase-u?size=III" data-label="Buy now" style="--x: 728; --y: 69; --w: 220; --h: 281">
+        <span class="collection__pic"><img src="./img/collection/vase-wide.webp" width="1600" height="1987" alt="Vase U (III) in polished steel" decoding="async" style="--l: -25.4; --t: -28; --iw: 271.3" loading="eager"></span>
+      <span class="collection__label t12" aria-hidden="true"><span><span class="collection__plate">Buy now</span></span><span><span class="collection__arrow"><svg viewBox="0 0 18 18" aria-hidden="true"><path fill="currentColor" d="M12.956 8.99C12.41 9.419 11.981 9.809 11.63 10.16L10.98 10.81C10.629 11.161 10.291 11.551 9.966 11.98H8.367C8.913 11.551 9.342 11.161 9.693 10.81L10.343 10.16C10.577 9.926 10.798 9.692 11.019 9.419H6.3C5.78 9.419 5.39 9.445 5 9.549V8.418C5.39 8.522 5.78 8.548 6.3 8.548H11.019C10.798 8.288 10.577 8.054 10.343 7.82L9.693 7.17C9.342 6.819 8.913 6.429 8.367 6H9.966C10.291 6.429 10.629 6.819 10.98 7.17L11.63 7.82C11.981 8.171 12.41 8.561 12.956 8.99Z"></path></svg></span></span></span></a>
+      <a class="collection__card store__card abs is-soon" href="#" aria-disabled="true" data-label="Coming soon" style="--x: 964; --y: 69; --w: 220; --h: 217">
+        <span class="collection__pic"><img src="./img/collection/chair-wide.webp" width="1600" height="1987" alt="Chair U, in brushed steel" decoding="async" style="--l: -22.5; --t: -77.7; --iw: 266" loading="eager"></span><canvas class="collection__water" aria-hidden="true"></canvas>
+      <span class="collection__label t12" aria-hidden="true"><span><span class="collection__plate">Coming soon</span></span><span><span class="collection__arrow"><svg viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><circle cx="5.8" cy="9" r="0.85"></circle><circle cx="9" cy="9" r="0.85"></circle><circle cx="12.2" cy="9" r="0.85"></circle></g></svg></span></span></span></a>
+      <a class="collection__card store__card abs is-soon" href="#" aria-disabled="true" data-label="Coming soon" style="--x: 1200; --y: 69; --w: 220; --h: 281">
+        <span class="collection__pic"><img src="./img/collection/table-wide.webp" width="1600" height="1987" alt="Table U, in brushed steel" decoding="async" style="--l: -28.9; --t: -116.6; --iw: 349.4" loading="eager"></span><canvas class="collection__water" aria-hidden="true"></canvas>
+      <span class="collection__label t12" aria-hidden="true"><span><span class="collection__plate">Coming soon</span></span><span><span class="collection__arrow"><svg viewBox="0 0 18 18" aria-hidden="true"><g fill="currentColor"><circle cx="5.8" cy="9" r="0.85"></circle><circle cx="9" cy="9" r="0.85"></circle><circle cx="12.2" cy="9" r="0.85"></circle></g></svg></span></span></span></a>
+      <p class="store__name t12 abs" style="--x: 728; --y: 360" data-line=""><span class="line"><span class="line__in"><span>01</span><span>Vase U</span></span></span></p>
+      <p class="store__dims t12s abs" style="--x: 728; --y: 379" data-line=""><span class="line"><span class="line__in">Dimensions:<br>W 260 × D 50 × H 215 mm</span></span></p>
+      <p class="store__name t12 abs" style="--x: 964; --y: 294" data-line=""><span class="line"><span class="line__in"><span>02</span><span>Chair U</span></span></span></p>
+      <p class="store__dims t12s abs" style="--x: 964; --y: 313" data-line=""><span class="line"><span class="line__in">Dimensions:<br>W 555 × D 480 × H 840 mm</span></span></p>
+      <p class="store__name t12 abs" style="--x: 1200; --y: 360" data-line=""><span class="line"><span class="line__in"><span>03</span><span>Table U</span></span></span></p>
+      <p class="store__dims t12s abs" style="--x: 1200; --y: 379" data-line=""><span class="line"><span class="line__in">Dimensions:<br>W 2000 × D 900 × H 740 mm</span></span></p>
+    </div>
+    <div class="about" id="about" role="dialog" aria-modal="true" aria-label="About us" hidden="">
+      <div class="about__page" data-lenis-prevent="">
+        <div class="about__row">
+          <p class="about__label t12s" data-line=""><span class="line"><span class="line__in">About Us:</span></span></p>
+          <div class="about__text">
+            <p data-lines="" data-text="At OTTO, our fascination with design has never been limited to a single discipline.">At OTTO, our fascination with design has never been limited to a single discipline.</p>
+            <p data-lines="" data-text="With roots in graphic design, we've always been drawn to the relationship between form, composition, proportion, and material. Over time, that curiosity naturally extended beyond the screen and into the physical world.">With roots in graphic design, we've always been drawn to the relationship between form, composition, proportion, and material. Over time, that curiosity naturally extended beyond the screen and into the physical world.</p>
+            <p data-lines="" data-text="Inspired by modernism and the beauty of everyday objects, we explore how simple forms, thoughtful proportions, and unexpected material combinations can give familiar things a new character.">Inspired by modernism and the beauty of everyday objects, we explore how simple forms, thoughtful proportions, and unexpected material combinations can give familiar things a new character.</p>
+            <p data-lines="" data-text="For us, OTTO is another way to express what we've always loved about design. Only this time, it's something you can touch, use, and live with.">For us, OTTO is another way to express what we've always loved about design. Only this time, it's something you can touch, use, and live with.</p>
+          </div>
+          <p class="about__slogan t12" data-line=""><span class="line"><span class="line__in">A love for design, in every form.</span></span></p>
+        </div>
+        <div class="about__row about__row--objects">
+          <p class="about__label t12s" data-line=""><span class="line"><span class="line__in">Objects:</span></span></p>
+          <ul class="about__objects t12s">
+            <li data-line=""><span class="line"><span class="line__in"><a href="/vase-u?size=III" data-product="III">Vase U (III)</a></span></span></li>
+            <li class="is-soon" data-line=""><span class="line"><span class="line__in">Chair U (Coming Soon)</span></span></li>
+            <li class="is-soon" data-line=""><span class="line"><span class="line__in">Table U (Coming Soon)</span></span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="about__copy t12" data-line=""><span class="line"><span class="line__in">©2026. OTTO Objects.</span></span></p>
+      <div class="about__mark" aria-hidden="true"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M18 18H0V0H18V18ZM9.00098 14.8711C8.45195 14.8713 8.00684 15.3171 8.00684 15.8662C8.00707 16.4151 8.4521 16.8601 9.00098 16.8604C9.55004 16.8604 9.99585 16.4152 9.99609 15.8662C9.99609 15.317 9.55019 14.8711 9.00098 14.8711ZM6.31445 11.168C4.94147 11.168 3.82812 12.2813 3.82812 13.6543C3.82824 15.0272 4.94154 16.1396 6.31445 16.1396C7.68725 16.1394 8.79969 15.027 8.7998 13.6543C8.7998 12.2815 7.68732 11.1682 6.31445 11.168ZM11.6885 11.168C10.3155 11.1681 9.20312 12.2814 9.20312 13.6543C9.20324 15.0271 10.3156 16.1395 11.6885 16.1396C13.0614 16.1396 14.1747 15.0272 14.1748 13.6543C14.1748 12.2813 13.0615 11.168 11.6885 11.168ZM3.05469 11.4385C2.50561 11.4386 2.06057 11.8835 2.06055 12.4326C2.06055 12.9816 2.50559 13.4266 3.05469 13.4268C3.6039 13.4268 4.0498 12.9817 4.0498 12.4326C4.04978 11.8834 3.60389 11.4385 3.05469 11.4385ZM14.9482 11.4385C14.399 11.4385 13.9531 11.8834 13.9531 12.4326C13.9531 12.9817 14.399 13.4268 14.9482 13.4268C15.4973 13.4265 15.9424 12.9816 15.9424 12.4326C15.9424 11.8836 15.4972 11.4387 14.9482 11.4385ZM3.62695 6.51367C2.2541 6.51367 1.14085 7.62622 1.14062 8.99902C1.14062 10.372 2.25397 11.4854 3.62695 11.4854C4.99981 11.4852 6.1123 10.3719 6.1123 8.99902C6.11208 7.62632 4.99967 6.51383 3.62695 6.51367ZM14.376 6.51367C13.0032 6.51374 11.8899 7.62627 11.8896 8.99902C11.8896 10.372 13.003 11.4853 14.376 11.4854C15.749 11.4854 16.8623 10.372 16.8623 8.99902C16.8621 7.62622 15.7488 6.51367 14.376 6.51367ZM6.31445 1.8584C4.94148 1.8584 3.82815 2.97174 3.82812 4.34473C3.82812 5.71771 4.94147 6.83105 6.31445 6.83105C7.68732 6.8308 8.7998 5.71755 8.7998 4.34473C8.79978 2.9719 7.68731 1.85866 6.31445 1.8584ZM11.6885 1.8584C10.3155 1.85857 9.20315 2.97185 9.20312 4.34473C9.20312 5.71761 10.3155 6.83088 11.6885 6.83105C13.0615 6.83105 14.1748 5.71771 14.1748 4.34473C14.1748 2.97174 13.0614 1.8584 11.6885 1.8584ZM3.05469 4.57227C2.50559 4.57242 2.06055 5.01739 2.06055 5.56641C2.06066 6.11544 2.50566 6.56039 3.05469 6.56055C3.60383 6.56055 4.04969 6.11554 4.0498 5.56641C4.0498 5.0173 3.6039 4.57227 3.05469 4.57227ZM14.9482 4.57227C14.399 4.57227 13.9531 5.0173 13.9531 5.56641C13.9532 6.11554 14.3991 6.56055 14.9482 6.56055C15.4972 6.5603 15.9423 6.11539 15.9424 5.56641C15.9424 5.01745 15.4973 4.57251 14.9482 4.57227ZM9.00098 1.13867C8.45205 1.13889 8.00699 1.58385 8.00684 2.13281C8.00684 2.68189 8.45195 3.12771 9.00098 3.12793C9.55019 3.12793 9.99609 2.68202 9.99609 2.13281C9.99594 1.58371 9.55009 1.13867 9.00098 1.13867Z" fill="currentColor"></path></svg></div>
+    </div>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;f4827b596baa4f658f095af1d8d9cdbf&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+<div class="reveal-label"></div><div class="soon t12" aria-hidden="true" style="translate: none; rotate: none; scale: none; transform-origin: 0% 0%; transform: scale(0.86, 0.86); opacity: 0; visibility: hidden;"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 130%);">Coming soon</span></span></div><div class="cursor-close t12" aria-hidden="true"><span class="line"><span class="line__in" style="translate: none; rotate: none; scale: none; transform: translate(0%, 110%);">Close</span></span></div></body></html>

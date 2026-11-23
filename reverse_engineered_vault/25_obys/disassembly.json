@@ -1,0 +1,48 @@
+{
+  "id": "25_obys",
+  "name": "Obys Agency",
+  "url": "https://obys.agency/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "PixiJS",
+    "Next.js"
+  ],
+  "scripts_downloaded": 1,
+  "total_bundle_bytes": 635768,
+  "typography_tokens": [
+    "Obys",
+    "Obys,serif"
+  ],
+  "color_palette_sample": [
+    "#ffffff",
+    "#fff",
+    "#000"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "https://cms.obys.agency/uploads/1_176ec7aa0f.webp",
+    "https://cms.obys.agency/uploads/1_fae12fb704.webp",
+    "https://cms.obys.agency/uploads/4_1eae03d525.webp",
+    "https://cms.obys.agency/uploads/AIM_Thumbnail_de091a7b48.webp",
+    "https://cms.obys.agency/uploads/Abetka_Thumbnail_25b7c61177.webp",
+    "https://cms.obys.agency/uploads/Ayocin_Thumbnail_0965a26e06.webp",
+    "https://cms.obys.agency/uploads/Black_Sheep_Thumbnail_09c8874314.webp",
+    "https://cms.obys.agency/uploads/DES_Thumbnail_41ecc849b9.webp",
+    "https://cms.obys.agency/uploads/Eminente_Thumbnail_d7767e1666.webp",
+    "https://cms.obys.agency/uploads/Glyphic_Biotechnologies_Thumbnail_50ecd8bb9a.webp",
+    "https://cms.obys.agency/uploads/Grids_Thumbnail_674aa5712c.webp",
+    "https://cms.obys.agency/uploads/Makhno_Thumbnail_e6008952f7.webp",
+    "https://cms.obys.agency/uploads/Miro_Thumbnail_413fefb05d.webp",
+    "https://cms.obys.agency/uploads/ODB_Thumbnail_ed9b4aa0f3.webp",
+    "https://cms.obys.agency/uploads/Odin_s_Crow_Thumbnail_4dc8764e8a.webp"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

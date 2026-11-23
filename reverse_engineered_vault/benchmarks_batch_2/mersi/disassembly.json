@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "id": "mersi",
+    "name": "MERSI",
+    "url": "https://mersi.com/",
+    "maker": "MERSI Studio",
+    "awards": "SOTD Apr 2026",
+    "focus": "GSAP horizontal layout and page transitions built specifically for luxury architecture"
+  },
+  "runtime": {
+    "title": "Massachusetts Eye Research and Surgery Institution",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": false,
+    "hasLenis": false,
+    "hasOGL": true,
+    "hasBarba": false,
+    "hasLocomotive": false,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 118,
+  "requests_sample": [
+    "https://mersi.com/",
+    "https://mersi.com/wp-content/plugins/gutentor/assets/library/magnific-popup/magnific-popup.min.css?ver=1.8.0",
+    "https://mersi.com/wp-content/plugins/gutentor/assets/library/slick/slick.min.css?ver=1.8.1",
+    "https://mersi.com/wp-content/plugins/gutentor/assets/library/fontawesome/css/all.min.css?ver=5.12.0",
+    "https://mersi.com/wp-content/plugins/gutentor/assets/library/wpness-grid/wpness-grid.min.css?ver=1.0.0",
+    "https://mersi.com/wp-content/plugins/gutentor/assets/library/animatecss/animate.min.css?ver=3.7.2",
+    "https://mersi.com/wp-includes/css/dist/theme/design-tokens.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-includes/css/dist/components/style.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-includes/css/dist/preferences/style.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-includes/css/dist/block-editor/style.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-includes/css/dist/reusable-blocks/style.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-includes/css/dist/patterns/style.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-includes/css/dist/media-utils/style.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-includes/css/dist/editor/style.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-includes/css/dashicons.min.css?ver=5276e628e284d6e495f7fe0f93e81728",
+    "https://mersi.com/wp-content/plugins/gutentor/dist/blocks.style.build.css?ver=4.0.7",
+    "https://mersi.com/wp-content/themes/hello-elementor/assets/css/reset.css?ver=3.5.2",
+    "https://mersi.com/wp-content/themes/hello-elementor/assets/css/theme.css?ver=3.5.2",
+    "https://mersi.com/wp-content/themes/hello-elementor/assets/css/header-footer.css?ver=3.5.2",
+    "https://mersi.com/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.4.1",
+    "https://mersi.com/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.4.1",
+    "https://mersi.com/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.4.1",
+    "https://mersi.com/wp-content/plugins/elementor-pro/assets/css/widget-search-form.min.css?ver=4.3.0",
+    "https://mersi.com/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3",
+    "https://mersi.com/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3"
+  ]
+}

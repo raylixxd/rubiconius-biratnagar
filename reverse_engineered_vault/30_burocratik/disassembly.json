@@ -1,0 +1,68 @@
+{
+  "id": "30_burocratik",
+  "name": "B\u00fcrocratik",
+  "url": "https://burocratik.com/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "WebGL 2.0",
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Lenis Smooth Scroll",
+    "Framer Motion",
+    "Next.js",
+    "Nuxt / Vue",
+    "Tailwind CSS",
+    "Web Audio API",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 661197,
+  "typography_tokens": [
+    "sans-serif,Arial",
+    "inherit",
+    "Commercial Gr\u00e4phik Web"
+  ],
+  "color_palette_sample": [
+    "#6600FF",
+    "#CC9933",
+    "#3366CC",
+    "#00CC33",
+    "#FF3333",
+    "#00CC00",
+    "#3366FF",
+    "#FF0033",
+    "#CC6633",
+    "#3399CC",
+    "#3399FF",
+    "#6633CC"
+  ],
+  "motion_profile": {
+    "engine": "Lenis",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/3f6758a3f933d88a3d3bec1c61900ec8a4b474de-180x140.webp",
+    "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/b8bbee9bad2077bc6b43e6c31fc745baccc3b9c2-180x140.jpg",
+    "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/d1ff7a9536b62ecbb2062ab822b9395522055fc7-180x140.jpg",
+    "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/e0f23c4a965369ef9a7cc0752134c7f20afe27fc-180x140.jpg",
+    "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/ea1a5ffe66b66687449864608c5301a36f9bd783-180x140.jpg",
+    "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/375c241e59608fdaa84f109c0eaa9744afaba3a3-3320x1720.jpg",
+    "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/3db67a6a6d7e71c564dc8c0462013828ff594f87-3320x1760.png",
+    "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/4ced33d2a6c1c9911944cec3bdfbc6ac987a6ad9-1640x1640.png",
+    "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/8bb91423681c40e84a36c1e29d85a93937a27c76-1660x860.jpg",
+    "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/a8a38282d20cb98a11b0b37cc48daa8439aaa82f-960x498.png",
+    "/_ipx/w_1700/https://cdn.sanity.io/images/zksivtxz/production/4ced33d2a6c1c9911944cec3bdfbc6ac987a6ad9-1640x1640.png",
+    "/_ipx/w_205/https://cdn.sanity.io/images/zksivtxz/production/046ddd711fde6b0bb56640ff43dddcd8bcd104da-1080x1080.jpg",
+    "/_ipx/w_205/https://cdn.sanity.io/images/zksivtxz/production/0c1328fb4cd85adf5f0687718c5e715f62e21a17-1080x1080.jpg",
+    "/_ipx/w_205/https://cdn.sanity.io/images/zksivtxz/production/0e80e03736ea48961b5d423b4938f7576c5d94ef-1080x1080.jpg",
+    "/_ipx/w_205/https://cdn.sanity.io/images/zksivtxz/production/28820f9c8e82e134dc7dd7d7e403da3559edcb62-1080x1080.jpg"
+  ],
+  "discovered_audio": [
+    ".mp3"
+  ],
+  "shaders_extracted": 1
+}

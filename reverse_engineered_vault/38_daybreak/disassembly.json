@@ -1,0 +1,36 @@
+{
+  "id": "38_daybreak",
+  "name": "Daybreak Studio",
+  "url": "https://daybreak.studio/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "Next.js"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 302373,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#000",
+    "#3D333D",
+    "#e8d4b8",
+    "#e8b4b8",
+    "#fff",
+    "#d4e8b8",
+    "#d4b8e8",
+    "#b8d4e8"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "/favicon.png",
+    "https://daybreak.studio/og-image.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

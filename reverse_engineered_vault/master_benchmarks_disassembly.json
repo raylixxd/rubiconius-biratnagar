@@ -1,0 +1,1486 @@
+[
+  {
+    "id": "13_activetheory",
+    "name": "Active Theory",
+    "url": "https://activetheory.net/",
+    "category": "3D & WebGL",
+    "tech_stack": [
+      "PixiJS",
+      "Next.js"
+    ],
+    "scripts_downloaded": 1,
+    "total_bundle_bytes": 551251,
+    "typography_tokens": [
+      "Helvetica, Arial, sans-serif",
+      "nbarchitekt"
+    ],
+    "color_palette_sample": [
+      "#000000",
+      "#ffffff",
+      "#333333",
+      "#000"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "assets/meta/apple-touch-icon.png",
+      "assets/meta/favicon-16x16.png",
+      "assets/meta/favicon-32x32.png",
+      "https://storage.googleapis.com/activetheory-v6.appspot.com/media/social.jpg"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "16_lusion",
+    "name": "Lusion",
+    "url": "https://lusion.co/",
+    "category": "3D & WebGL",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "WebGPU",
+      "PixiJS",
+      "Framer Motion",
+      "Next.js",
+      "Web Audio API",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 1858459,
+    "typography_tokens": [
+      "monospace"
+    ],
+    "color_palette_sample": [
+      "#2533c2",
+      "#F3F4F9",
+      "#ffece2",
+      "#bbb",
+      "#111a13",
+      "#ff383c",
+      "#E1E2E4",
+      "#000",
+      "#f6000e",
+      "#1a2ffb",
+      "#8c8c8c",
+      "#bb2bff"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "./assets/meta/apple-touch-icon.png",
+      "./assets/meta/dark/favicon-16x16.png",
+      "./assets/meta/dark/favicon-32x32.png",
+      "./assets/meta/favicon-16x16.png",
+      "./assets/meta/favicon-32x32.png",
+      ".webp",
+      "/home.webp",
+      "/home_depth.webp",
+      "/tunnels/desktop.png",
+      "/tunnels/tablet.png",
+      "LDR_RGB1_0.png",
+      "about/fog.png",
+      "about/ground_person_shadow.webp",
+      "about/person.webp",
+      "about/person_light.webp"
+    ],
+    "discovered_audio": [
+      ".ogg"
+    ],
+    "shaders_extracted": 88
+  },
+  {
+    "id": "17_aman",
+    "name": "Aman Resorts",
+    "url": "https://www.aman.com/",
+    "category": "Architecture & Luxury",
+    "tech_stack": [
+      "Three.js",
+      "Next.js"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 504366,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#039",
+      "#f3eee7",
+      "#fff",
+      "#000"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      ".webp",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-114x114.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-120x120.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-144x144.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-152x152.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-180x180.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-57x57.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-60x60.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-72x72.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon-76x76.png",
+      "/themes/custom/aman/assets/dist/media/favicons/apple-touch-icon.png",
+      "/themes/custom/aman/assets/dist/media/favicons/favicon-16x16.png",
+      "/themes/custom/aman/assets/dist/media/favicons/favicon-32x32.png",
+      "https://en.wikipedia.org/wiki/File:Vladislav-doronin-una-residences.jpg",
+      "https://www.aman.com/sites/default/files/2021-08/amanjiwo.jpg"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "19_norm_architects",
+    "name": "Norm Architects",
+    "url": "https://normcph.com/",
+    "category": "Architecture & Luxury",
+    "tech_stack": [],
+    "scripts_downloaded": 0,
+    "total_bundle_bytes": 7295,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#333",
+      "#e0e0e0"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "14_resn",
+    "name": "Resn",
+    "url": "https://resn.co.nz/",
+    "category": "3D & WebGL",
+    "tech_stack": [
+      "Next.js"
+    ],
+    "scripts_downloaded": 3,
+    "total_bundle_bytes": 78764,
+    "typography_tokens": [
+      "font"
+    ],
+    "color_palette_sample": [
+      "#9f9",
+      "#000",
+      "#173",
+      "#FF0",
+      "#121212",
+      "#fff",
+      "#000000"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "./20260721233115_1_0_a02666f/img/old-browser.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "18_olson_kundig",
+    "name": "Olson Kundig",
+    "url": "https://olsonkundig.com/",
+    "category": "Architecture & Luxury",
+    "tech_stack": [
+      "PixiJS",
+      "Next.js"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 1294138,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#5e5848",
+      "#555244",
+      "#837663",
+      "#978c80",
+      "#675b49",
+      "#918985",
+      "#4c4e50",
+      "#686b5e",
+      "#7a7c7e",
+      "#666975",
+      "#796c50",
+      "#5b6f77"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "https://olsonkundig.b-cdn.net/wp-content/themes/OK-Civilization-2025/i/favicon-circle.png",
+      "https://olsonkundig.b-cdn.net/wp-content/themes/OK-Civilization-2025/i/touch-icon.png",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2020/06/13002_00_N158_high-720x405.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2020/06/13002_00_N158_high_M-576x720.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2021/10/15054_00_N635_medium-720x485.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2021/10/15054_00_N674_medium-720x624.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2022/07/18016_00_N107_high300-720x481.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2022/07/18016_00_N108_high300-480x720.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2023/01/OlsonKundig_800FifthAve_photoAaronLeitz_04-651x720.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2023/01/OlsonKundig_LeachBotanicalGarden_AaronLeitz-06-720x717.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2023/05/08020_N3_medium-720x473.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2024/04/16056_00_N53_medium-720x540.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2024/04/16056_00_N80_medium-540x720.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2024/06/18040_00_N131_medium-720x540.jpg",
+      "https://olsonkundig.b-cdn.net/wp-content/uploads/2024/07/ok-home3-screenshot-720x403.jpg"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "20_snohetta",
+    "name": "Sn\u00f8hetta",
+    "url": "https://snohetta.com/",
+    "category": "Architecture & Luxury",
+    "tech_stack": [
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Next.js"
+    ],
+    "scripts_downloaded": 3,
+    "total_bundle_bytes": 503026,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#039",
+      "#000000",
+      "#ffffff",
+      "#5bbad5"
+    ],
+    "motion_profile": {
+      "engine": "GSAP Native",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [],
+    "discovered_audio": [
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/a4.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/a5.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/asharp4.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/asharp5.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/b4.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/b5.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/c5.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/c6.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/csharp5.mp3",
+      "/assets/static/pieces/operaen/samples/sso-chorus-female/d5.mp3"
+    ],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "23_rosewood",
+    "name": "Rosewood Hotels",
+    "url": "https://www.rosewoodhotels.com/",
+    "category": "Architecture & Luxury",
+    "tech_stack": [
+      "Framer Motion",
+      "Next.js",
+      "Tailwind CSS",
+      "Barba.js Paging"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 2104227,
+    "typography_tokens": [
+      "Courier New', monospace",
+      "Arial-BoldMT, Arial",
+      "monospace"
+    ],
+    "color_palette_sample": [
+      "#9a9a9a",
+      "#160",
+      "#000",
+      "#6cb6ff",
+      "#FFFFFF",
+      "#d4a76a",
+      "#169",
+      "#174",
+      "#808080",
+      "#fff",
+      "#FAFBF5",
+      "#D9D9D9"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/content/dam/rosewoodhotels/icons/Favicon.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "11_locomotive",
+    "name": "Locomotive",
+    "url": "https://locomotive.ca/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Lenis Smooth Scroll",
+      "Locomotive Scroll",
+      "PixiJS",
+      "Framer Motion",
+      "Next.js",
+      "Barba.js Paging",
+      "Web Audio API",
+      "Draco Compression",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 5,
+    "total_bundle_bytes": 3277008,
+    "typography_tokens": [
+      "ff(\"primary\")",
+      "inherit",
+      "monospace,monospace",
+      "var(--bs-ff)"
+    ],
+    "color_palette_sample": [
+      "#ddd",
+      "#312DFB",
+      "#000",
+      "#bbbcc4",
+      "#039",
+      "#FFFFFF",
+      "#ccc",
+      "#fff",
+      "#d6d7db",
+      "#6666ff",
+      "#DA382E",
+      "#000000"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [
+      "uploads/team/3d/fred2024_2-rigged.compressed.glb,uploads/team/3d/jeff-rigged.compressed.glb,uploads/team/3d/mat-rigged.compressed.glb,uploads/team/3d/dust2024-rigged.compressed.glb,uploads/team/3d/mc-rigged.compressed.glb,uploads/team/3d/bastien-rigged.compressed.glb,uploads/team/3d/julien-rigged.compressed.glb,uploads/team/3d/ben-rigged.compressed.glb,uploads/team/3d/chauncey-rigged.compressed.glb,uploads/team/3d/jeremy-rigged.compressed.glb,uploads/team/3d/arnaud-rigged.compressed.glb,uploads/team/3d/xavier-rigged.compressed.glb,uploads/team/3d/pascal-rigged.compressed.glb,uploads/team/3d/michel-rigged.compressed.glb,uploads/team/3d/charles-rigged-2.compressed.glb,uploads/team/3d/nath-rigged.compressed.glb,uploads/team/3d/maureen-rigged-2.compressed.glb,uploads/team/3d/simon-rigged.compressed.glb,uploads/team/3d/steph-rigged.compressed.glb,uploads/team/3d/lea-rigged.compressed.glb,uploads/team/3d/leo-rigged.compressed.glb,uploads/team/3d/laurence-rigged.compressed.glb,uploads/team/3d/alex-gatteffosse-compressed.glb,uploads/team/3d/rebeka-rigged.compressed.glb,uploads/team/3d/hugo-rigged.compressed.glb,uploads/team/3d/mathis-humbert_compressed.glb,uploads/team/3d/cath-dorion_rigged.compressed.glb,uploads/team/3d/olivier-tardif-compressed.glb"
+    ],
+    "discovered_textures": [
+      ".jpg",
+      "/assets/images/temp/pros-de-linternet-sand-cap-thumb.jpg",
+      "/assets/images/temp/pros-de-linternet-sand-cap.jpg",
+      "/assets/images/temp/pros-de-linternet-white-t-shirt-thumb.jpg",
+      "/assets/images/temp/pros-de-linternet-white-t-shirt.jpg",
+      "assets/images/favicons/apple-touch-icon.png",
+      "assets/images/favicons/favicon-16x16.png",
+      "assets/images/favicons/favicon-32x32.png",
+      "assets/images/temp/work-single/elektra/primary-thumb.png",
+      "face1.jpg",
+      "face2.jpg",
+      "https://locomotive.ca/assets/images/favicons/android-chrome-256x256.png",
+      "https://locomotive.ca/uploads/metadata/Open_Graph_Loco_%281%29.png",
+      "https://threejs.org/examples/files/arkit.png",
+      "uploads/projects/Dulcedo/dulcedo_listing_thumbnail-300w.jpg"
+    ],
+    "discovered_audio": [
+      ".mp3"
+    ],
+    "shaders_extracted": 28
+  },
+  {
+    "id": "15_makemepulse",
+    "name": "makemepulse",
+    "url": "https://makemepulse.com/",
+    "category": "3D & WebGL",
+    "tech_stack": [
+      "Three.js",
+      "GSAP",
+      "Lenis Smooth Scroll",
+      "Next.js",
+      "Nuxt / Vue",
+      "Tailwind CSS"
+    ],
+    "scripts_downloaded": 1,
+    "total_bundle_bytes": 433198,
+    "typography_tokens": [
+      "Biotif",
+      "inherit",
+      "Biotif,sans-serif",
+      "monospace",
+      "Beatrice Display"
+    ],
+    "color_palette_sample": [
+      "#a0aec0",
+      "#000",
+      "#896fff",
+      "#23382C",
+      "#ea6161",
+      "#F1EDE7",
+      "#bcbec0",
+      "#5b5b5b",
+      "#fff",
+      "#c4c4c4",
+      "#4C7036",
+      "#0f0f0f"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/_nuxt/makemeplay-background_2x.DqWCb8WO.avif",
+      "/_nuxt/makemeplay-background_2x.SG5vUHEp.webp",
+      "/_nuxt/mmp-newsletter.Co-btrvE.webp",
+      "/images/icons/apple-touch-icon.png",
+      "/images/icons/favicon-16x16.png",
+      "/images/icons/favicon-32x32.png",
+      "https://www.makemepulse.com/images/makemepulse_logo.png",
+      "https:\\u002F\\u002Fi.ytimg.com\\u002Fvi\\u002Fldzhgix4jug\\u002Fhqdefault.jpg"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "24_studio_freight",
+    "name": "Studio Freight",
+    "url": "https://studiofreight.com/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "Three.js",
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Lenis Smooth Scroll",
+      "Framer Motion",
+      "Next.js",
+      "Nuxt / Vue",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 938970,
+    "typography_tokens": [
+      "system-ui, sans-serif",
+      "var(--bs-ff)",
+      "publico-text-mono-roman",
+      "sans-serif,Arial",
+      "publico-text-mono-semibold"
+    ],
+    "color_palette_sample": [
+      "#00ff6a",
+      "#ff3b30",
+      "#ddd",
+      "#1f2024",
+      "#039",
+      "#f9f9f9",
+      "#c8cad0",
+      "#9acd32",
+      "#457DB6",
+      "#e0e0e0",
+      "#000",
+      "#bbbcc4"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/images/mark.png",
+      "https://a.storyblok.com/f/291823223305894/030dcd6c85/studiofreight-hyperbolic-mesh-2.png",
+      "https://a.storyblok.com/f/291823223305894/031258cc3e/studiofreight-zkpass-mesh-3.png",
+      "https://a.storyblok.com/f/291823223305894/059782cc6d/studiofreight-path-home-1.png",
+      "https://a.storyblok.com/f/291823223305894/0635be902a/studiofreight-patrickmahomes-mesh-2.png",
+      "https://a.storyblok.com/f/291823223305894/06cb47f26a/studiofreight-lamarzocco-mesh-4.png",
+      "https://a.storyblok.com/f/291823223305894/0cdb09499f/studiofreight-brex-mesh-2.png",
+      "https://a.storyblok.com/f/291823223305894/0d305be9b4/error_image.png",
+      "https://a.storyblok.com/f/291823223305894/0e29224a4d/studiofreight-argus-home-1.png",
+      "https://a.storyblok.com/f/291823223305894/0ec27f5404/studiofreight-iyo-home-1.png",
+      "https://a.storyblok.com/f/291823223305894/11673f8591/studiofreight-pysop-mesh-3.png",
+      "https://a.storyblok.com/f/291823223305894/121ab3d7b8/studiofreight-republic-mesh-4.png",
+      "https://a.storyblok.com/f/291823223305894/12c7858f2d/studiofreight-irys-mesh-4.png",
+      "https://a.storyblok.com/f/291823223305894/1500x2000/5940e6e27c/studiofreight-sf-mesh-5.png",
+      "https://a.storyblok.com/f/291823223305894/1500x2000/745df391d6/studiofreight-sf-mesh-3.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "12_videinfra",
+    "name": "Vide Infra (Sobha Privy)",
+    "url": "https://videinfra.com/",
+    "category": "Architecture & Luxury",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "WebGPU",
+      "Locomotive Scroll",
+      "PixiJS",
+      "Next.js",
+      "Barba.js Paging",
+      "Web Audio API",
+      "Draco Compression",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 5,
+    "total_bundle_bytes": 1945874,
+    "typography_tokens": [
+      "lil-gui",
+      "var(--font-family-mono)",
+      "var(--font-family)"
+    ],
+    "color_palette_sample": [
+      "#039",
+      "#020",
+      "#0ff",
+      "#002",
+      "#4f4f4f",
+      "#111111",
+      "#a2db3c",
+      "#ebebeb",
+      "#424242",
+      "#1f1f1f",
+      "#201",
+      "#f08"
+    ],
+    "motion_profile": {
+      "engine": "Locomotive",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [
+      "/assets/webgl/models/awwwards.glb",
+      "/assets/webgl/models/cssda.glb",
+      "/assets/webgl/models/fwa.glb",
+      "/assets/webgl/models/red.glb",
+      "/assets/webgl/models/webby.glb",
+      "/assets/webgl/trophy/trophy.glb"
+    ],
+    "discovered_textures": [
+      "/assets/images/media/landing/video/mobile-video.webp",
+      "/assets/images/media/landing/video/video@lg.webp",
+      "/assets/images/media/landing/video/video@md.webp",
+      "/assets/images/media/landing/video/video@xxl.webp",
+      "/assets/images/media/landing/video/video@xxxl.webp",
+      "/assets/webgl/trophy/studio.hdr",
+      "https://videinfra.com/assets/manifest/mstile-150x150.png",
+      "https://videinfra.com/assets/manifest/og.png",
+      "https://videinfra.com/media/cache/insights_xs/uploads/116/1080x540_1786350120.webp",
+      "https://videinfra.com/media/cache/insights_xs/uploads/121/1080x540_1791367265.webp",
+      "https://videinfra.com/media/cache/insights_xs/uploads/122/1080x540_1790331629.webp",
+      "https://videinfra.com/media/cache/work-preview_sm/uploads/100/img_1775813872.webp",
+      "https://videinfra.com/media/cache/work-preview_sm/uploads/122/img_2_1790326180.webp",
+      "https://videinfra.com/media/cache/work-preview_sm/uploads/52/preview-list_1711005647.webp",
+      "https://videinfra.com/media/cache/work-preview_sm/uploads/66/preview-list_1711370335.webp"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 12
+  },
+  {
+    "id": "25_obys",
+    "name": "Obys Agency",
+    "url": "https://obys.agency/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "PixiJS",
+      "Next.js"
+    ],
+    "scripts_downloaded": 1,
+    "total_bundle_bytes": 635768,
+    "typography_tokens": [
+      "Obys",
+      "Obys,serif"
+    ],
+    "color_palette_sample": [
+      "#ffffff",
+      "#fff",
+      "#000"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "https://cms.obys.agency/uploads/1_176ec7aa0f.webp",
+      "https://cms.obys.agency/uploads/1_fae12fb704.webp",
+      "https://cms.obys.agency/uploads/4_1eae03d525.webp",
+      "https://cms.obys.agency/uploads/AIM_Thumbnail_de091a7b48.webp",
+      "https://cms.obys.agency/uploads/Abetka_Thumbnail_25b7c61177.webp",
+      "https://cms.obys.agency/uploads/Ayocin_Thumbnail_0965a26e06.webp",
+      "https://cms.obys.agency/uploads/Black_Sheep_Thumbnail_09c8874314.webp",
+      "https://cms.obys.agency/uploads/DES_Thumbnail_41ecc849b9.webp",
+      "https://cms.obys.agency/uploads/Eminente_Thumbnail_d7767e1666.webp",
+      "https://cms.obys.agency/uploads/Glyphic_Biotechnologies_Thumbnail_50ecd8bb9a.webp",
+      "https://cms.obys.agency/uploads/Grids_Thumbnail_674aa5712c.webp",
+      "https://cms.obys.agency/uploads/Makhno_Thumbnail_e6008952f7.webp",
+      "https://cms.obys.agency/uploads/Miro_Thumbnail_413fefb05d.webp",
+      "https://cms.obys.agency/uploads/ODB_Thumbnail_ed9b4aa0f3.webp",
+      "https://cms.obys.agency/uploads/Odin_s_Crow_Thumbnail_4dc8764e8a.webp"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "21_studio_ko",
+    "name": "Studio KO",
+    "url": "https://studioko.fr/",
+    "category": "Architecture & Luxury",
+    "tech_stack": [
+      "PixiJS",
+      "Next.js"
+    ],
+    "scripts_downloaded": 5,
+    "total_bundle_bytes": 726410,
+    "typography_tokens": [
+      "Arial, sans-serif"
+    ],
+    "color_palette_sample": [
+      "#000000",
+      "#ffffff",
+      "#4a4a4a"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "images/favicon.png"
+    ],
+    "discovered_audio": [
+      "datas/audio/intro_sound.mp3",
+      "datas/audio/intro_sound.ogg",
+      "datas/audio/sound_stream.mp3",
+      "datas/audio/sound_stream.ogg"
+    ],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "28_cuberto",
+    "name": "Cuberto",
+    "url": "https://cuberto.com/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Next.js"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 81119,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#000",
+      "#fff"
+    ],
+    "motion_profile": {
+      "engine": "GSAP Native",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/apple-touch-icon.png",
+      "/assets/projects/cisco/cover.jpg",
+      "/assets/projects/daoway/cover.jpg",
+      "/assets/projects/find/cover.jpg",
+      "/assets/projects/flipaclip/cover.jpg",
+      "/assets/projects/potion/cover.jpg",
+      "/assets/projects/puntopago/cover.jpg",
+      "/assets/projects/qvino/cover.jpg",
+      "/assets/projects/riyadh/cover.jpg",
+      "/assets/projects/sca/cover.jpg",
+      "/assets/projects/zelt/cover.jpg",
+      "/cover.png",
+      "/favicon-16x16.png",
+      "/favicon-32x32.png",
+      "https://cuberto.com/web-app-manifest-512x512.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "22_kelly_wearstler",
+    "name": "Kelly Wearstler",
+    "url": "https://www.kellywearstler.com/",
+    "category": "Architecture & Luxury",
+    "tech_stack": [
+      "Lenis Smooth Scroll",
+      "Next.js"
+    ],
+    "scripts_downloaded": 5,
+    "total_bundle_bytes": 593486,
+    "typography_tokens": [
+      "ACaslonPro",
+      "DrukWide",
+      "ACaslonPro Fallback"
+    ],
+    "color_palette_sample": [
+      "#000000",
+      "#ffffff",
+      "#242424"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "29_mouthwash",
+    "name": "Mouthwash Studio",
+    "url": "https://mouthwash.studio/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Framer Motion",
+      "Next.js",
+      "Nuxt / Vue"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 716542,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#9B9C96",
+      "#a0a0a0",
+      "#222",
+      "#666666",
+      "#171717",
+      "#0a0a0a",
+      "#fff",
+      "#424242",
+      "#ededed",
+      "#767773",
+      "#000000"
+    ],
+    "motion_profile": {
+      "engine": "GSAP Native",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "35_aristide_benoist",
+    "name": "Aristide Benoist",
+    "url": "https://aristidebenoist.com/",
+    "category": "Editorial & Motion",
+    "tech_stack": [],
+    "scripts_downloaded": 0,
+    "total_bundle_bytes": 4448,
+    "typography_tokens": [
+      "TNY",
+      "Arial",
+      "jws"
+    ],
+    "color_palette_sample": [
+      "#000",
+      "#141414",
+      "#bac4b8",
+      "#171717",
+      "#fff",
+      "#0B0C0C"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "https://aristidebenoist.com/static/og/1200-630.jpg"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "31_basic_dept",
+    "name": "Basic/Dept",
+    "url": "https://www.basicagency.com/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "Three.js",
+      "Framer Motion",
+      "Next.js",
+      "Web Audio API"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 558634,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#c79494",
+      "#424e1b",
+      "#3e4146",
+      "#5c5137",
+      "#8c7972",
+      "#cbbfa6",
+      "#5f1b09",
+      "#dd9b9b",
+      "#9a797b",
+      "#bf6f3f",
+      "#6c4c14",
+      "#b8bbc0"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "BASIC-Applied-Gen-Alpha-Linkedin-Thumbnail.jpg",
+      "Blog.jpg",
+      "Iniatives-Menu_Thumbnail_BASIC\u00ae_Applied.png",
+      "Iniatives-Menu_Thumbnail_BASIC\u00ae_Brandbeats.png",
+      "Iniatives-Menu_Thumbnail_BASIC\u00ae_Crafted.png",
+      "Iniatives-Menu_Thumbnail_BASIC\u00ae_Moves.png",
+      "LLB-Thumb.png",
+      "Patagonia-Case-Study-Thumbnail.jpg",
+      "WIlson-Case-Study-Thumbnail.jpg",
+      "_DSF0189_resize.jpg",
+      "applied-gen-z-1@2x.jpg",
+      "https://cdn.sanity.io/images/8nn8fua5/production/11a5f82ab2838edc5756c262023dcc3ffe0bd0b8-1000x734.png",
+      "https://cdn.sanity.io/images/8nn8fua5/production/1e04aa777778cf8bd2395e66ee1e8b4d9b2e94a6-870x544.png",
+      "https://cdn.sanity.io/images/8nn8fua5/production/1f72d719b320cc973839fabfd6cff390d3aac1c4-1000x734.jpg",
+      "https://cdn.sanity.io/images/8nn8fua5/production/289c0ed79c95e098d09f508e3fc1aa86c241e878-870x544.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "32_immersive_garden",
+    "name": "Immersive Garden",
+    "url": "https://immersive-g.com/",
+    "category": "3D & WebGL",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Lenis Smooth Scroll",
+      "Framer Motion",
+      "Next.js",
+      "Nuxt / Vue",
+      "Web Audio API",
+      "Draco Compression",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 2736647,
+    "typography_tokens": [
+      "HelveticaNeueLight,sans-serif",
+      "monospace,monospace",
+      "HelveticaNeueRegular",
+      "var(--font-family)",
+      "HelveticaNeueRegular,sans-serif"
+    ],
+    "color_palette_sample": [
+      "#030303",
+      "#ddd",
+      "#173",
+      "#00FF00",
+      "#e8e8e8",
+      "#c8cad0",
+      "#362c1f",
+      "#000",
+      "#bbbcc4",
+      "#efefef",
+      "#0ff",
+      "#002"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [
+      ".glb",
+      "/webgl/about-detail/global_compressed.glb",
+      "/webgl/about-detail/scene_1_compressed.glb",
+      "/webgl/about-detail/scene_2_compressed.glb",
+      "/webgl/about-detail/scene_3_compressed.glb",
+      "/webgl/about-detail/scene_4_compressed.glb",
+      "/webgl/about-detail/scene_5_compressed.glb",
+      "/webgl/about-detail/scene_6_compressed.glb",
+      "/webgl/about/model/bg_low_draco.glb",
+      "/webgl/about/model/bg_ultralow_draco.glb"
+    ],
+    "discovered_textures": [
+      ".jpg",
+      ".ktx2",
+      "/images/favicon/apple-touch-icon.png",
+      "/images/favicon/favicon-16x16.png",
+      "/images/favicon/favicon-32x32.png",
+      "/images/projects/fish.jpg",
+      "/images/projects/matcap2.png",
+      "/webgl/about-detail/cursor_macos.png",
+      "/webgl/about-detail/cursor_windows.png",
+      "/webgl/about-detail/firefly_glow.png",
+      "/webgl/about-detail/fog.png",
+      "/webgl/about-detail/glow_1.png",
+      "/webgl/about-detail/glow_2.png",
+      "/webgl/about-detail/glow_3.png",
+      "/webgl/about-detail/glow_4.png"
+    ],
+    "discovered_audio": [
+      "/sounds/general/IG_AboutPage_v5_v5.mp3",
+      "/sounds/general/IG_Eventsounds_v3_Home_To_About_Thunder_1.mp3",
+      "/sounds/general/IG_FocusPage_v5_v8.mp3",
+      "/sounds/general/IG_HomePage_v5_v4.mp3",
+      "/sounds/general/Marble_Crack_10secLoop_no_filter.mp3",
+      "/sounds/general/actions.mp3"
+    ],
+    "shaders_extracted": 79
+  },
+  {
+    "id": "30_burocratik",
+    "name": "B\u00fcrocratik",
+    "url": "https://burocratik.com/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "WebGL 2.0",
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Lenis Smooth Scroll",
+      "Framer Motion",
+      "Next.js",
+      "Nuxt / Vue",
+      "Tailwind CSS",
+      "Web Audio API",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 661197,
+    "typography_tokens": [
+      "sans-serif,Arial",
+      "inherit",
+      "Commercial Gr\u00e4phik Web"
+    ],
+    "color_palette_sample": [
+      "#6600FF",
+      "#CC9933",
+      "#3366CC",
+      "#00CC33",
+      "#FF3333",
+      "#00CC00",
+      "#3366FF",
+      "#FF0033",
+      "#CC6633",
+      "#3399CC",
+      "#3399FF",
+      "#6633CC"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/3f6758a3f933d88a3d3bec1c61900ec8a4b474de-180x140.webp",
+      "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/b8bbee9bad2077bc6b43e6c31fc745baccc3b9c2-180x140.jpg",
+      "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/d1ff7a9536b62ecbb2062ab822b9395522055fc7-180x140.jpg",
+      "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/e0f23c4a965369ef9a7cc0752134c7f20afe27fc-180x140.jpg",
+      "/_ipx/f_auto,s_180x140/https://cdn.sanity.io/images/zksivtxz/production/ea1a5ffe66b66687449864608c5301a36f9bd783-180x140.jpg",
+      "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/375c241e59608fdaa84f109c0eaa9744afaba3a3-3320x1720.jpg",
+      "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/3db67a6a6d7e71c564dc8c0462013828ff594f87-3320x1760.png",
+      "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/4ced33d2a6c1c9911944cec3bdfbc6ac987a6ad9-1640x1640.png",
+      "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/8bb91423681c40e84a36c1e29d85a93937a27c76-1660x860.jpg",
+      "/_ipx/w_1290/https://cdn.sanity.io/images/zksivtxz/production/a8a38282d20cb98a11b0b37cc48daa8439aaa82f-960x498.png",
+      "/_ipx/w_1700/https://cdn.sanity.io/images/zksivtxz/production/4ced33d2a6c1c9911944cec3bdfbc6ac987a6ad9-1640x1640.png",
+      "/_ipx/w_205/https://cdn.sanity.io/images/zksivtxz/production/046ddd711fde6b0bb56640ff43dddcd8bcd104da-1080x1080.jpg",
+      "/_ipx/w_205/https://cdn.sanity.io/images/zksivtxz/production/0c1328fb4cd85adf5f0687718c5e715f62e21a17-1080x1080.jpg",
+      "/_ipx/w_205/https://cdn.sanity.io/images/zksivtxz/production/0e80e03736ea48961b5d423b4938f7576c5d94ef-1080x1080.jpg",
+      "/_ipx/w_205/https://cdn.sanity.io/images/zksivtxz/production/28820f9c8e82e134dc7dd7d7e403da3559edcb62-1080x1080.jpg"
+    ],
+    "discovered_audio": [
+      ".mp3"
+    ],
+    "shaders_extracted": 1
+  },
+  {
+    "id": "37_zajno",
+    "name": "Zajno",
+    "url": "https://zajno.com/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "PixiJS",
+      "Next.js"
+    ],
+    "scripts_downloaded": 1,
+    "total_bundle_bytes": 631791,
+    "typography_tokens": [
+      "s26",
+      "s",
+      "Arial"
+    ],
+    "color_palette_sample": [
+      "#000",
+      "#ebebeb",
+      "#1a1a1a",
+      "#fff"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "https://zajno.com/static/fav/android-chrome.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "33_dogstudio",
+    "name": "Dogstudio",
+    "url": "https://dogstudio.co/",
+    "category": "3D & WebGL",
+    "tech_stack": [
+      "Next.js"
+    ],
+    "scripts_downloaded": 4,
+    "total_bundle_bytes": 106604,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#038"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/kikk-18/background-1015.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/kikk-18/background-1440.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/kikk-18/background-450.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/kikk-18/background-815.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/msi-chicago/background-1015.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/msi-chicago/background-1440.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/msi-chicago/background-450.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/msi-chicago/background-815.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/navy-pier/background-1015.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/navy-pier/background-1440.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/navy-pier/background-450.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/navy-pier/background-815.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/orw/background-1015.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/orw/background-1440.png",
+      "https://dogstudio.co/app/themes/portfolio-2018/static/assets/images/cases/orw/background-450.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "26_basement",
+    "name": "Basement Studio",
+    "url": "https://basement.studio/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "GSAP",
+      "Next.js",
+      "Web Audio API",
+      "Rapier Physics (WASM)"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 671652,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#212121",
+      "#f0709b",
+      "#a0a0a0",
+      "#666666",
+      "#1A1A1A",
+      "#556bfc",
+      "#171717",
+      "#fff",
+      "#383d51",
+      "#0a0a0a",
+      "#ededed",
+      "#ffffff"
+    ],
+    "motion_profile": {
+      "engine": "GSAP Native",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "https://basement.studio/images/logobasement.png",
+      "https://basement.studio/images/twitter-image.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "34_14islands",
+    "name": "14islands",
+    "url": "https://14islands.com/",
+    "category": "3D & WebGL",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "WebGPU",
+      "Lenis Smooth Scroll",
+      "Framer Motion",
+      "Next.js",
+      "Web Audio API",
+      "Basis/KTX2 Textures",
+      "Rapier Physics (WASM)"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 2319946,
+    "typography_tokens": [
+      "Arial-BoldMT, Arial",
+      "Arial, sans-serif"
+    ],
+    "color_palette_sample": [
+      "#ffc0cb",
+      "#e6e6fa",
+      "#eae5df",
+      "#f5fffa",
+      "#fff0f5",
+      "#ff1493",
+      "#f8f8ff",
+      "#a2a2a9",
+      "#9acd32",
+      "#696969",
+      "#00ffff",
+      "#20b2aa"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/_next/static/media/CausticTextMaterial.2a14f48a.png",
+      "/_next/static/media/ripplesBrush.31b49553.png",
+      "https://cdn.sanity.io/images/f3tpxs09/production/fceb3fc54a25a6cc86fa77648390d1573e46499c-2400x1260.jpg"
+    ],
+    "discovered_audio": [
+      ".mp3"
+    ],
+    "shaders_extracted": 22
+  },
+  {
+    "id": "36_instrument",
+    "name": "Instrument",
+    "url": "https://www.instrument.com/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "Three.js",
+      "GSAP",
+      "Next.js",
+      "Nuxt / Vue",
+      "Tailwind CSS",
+      "Barba.js Paging",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 2,
+    "total_bundle_bytes": 3659101,
+    "typography_tokens": [
+      "var(--text-serif)",
+      "var(--text-sans)",
+      "var(--text-serif-italic)"
+    ],
+    "color_palette_sample": [
+      "#3E8DEB",
+      "#1E2E66",
+      "#039",
+      "#FEFB00",
+      "#FB6B39",
+      "#190B32",
+      "#C2684D",
+      "#FF6029",
+      "#F2F8FA",
+      "#394ACB",
+      "#FFFF00",
+      "#F5F6FE"
+    ],
+    "motion_profile": {
+      "engine": "GSAP Native",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/apple-touch-icon.png",
+      "https://a-us.storyblok.com/f/1004432/1000x1251/492c947d16/ms-parrot.png",
+      "https://a-us.storyblok.com/f/1004432/1000x969/89a002a329/pdx_inside_02.png",
+      "https://a-us.storyblok.com/f/1004432/1000x969/8fa77ab8a4/instrument_pdx_outside.png",
+      "https://a-us.storyblok.com/f/1004432/10148x6777/f9f63122c0/pagerduty-hero-1.png",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/0ab7345c9d/fastco_ibd_2026_experimental_design.png",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/111a32e2e0/micrsoft_unlocked_reading_coach_teaser_thumbnail.jpg",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/1245eb7b86/iru_teaser_thumbnail.jpg",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/2278acc3f6/oura-sleep-recovered-1.jpg",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/23c4906adf/fastco_bwi_2025_workpage-thumbnail_-1024x1024.png",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/349f9380e2/ea-thumbnail-1024x1024.png",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/5430259e19/teaser_thumbnail_feeld_app.png",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/5934f80534/highwire_teaser-tumbnail-1024x1024.png",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/aa3544af3d/campaign-us-aoty-winner.png",
+      "https://a-us.storyblok.com/f/1004432/1024x1024/ab77bcc7f9/the-drum-superbowl-2026.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "39_fantasy",
+    "name": "Fantasy",
+    "url": "https://fantasy.co/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Lenis Smooth Scroll",
+      "PixiJS",
+      "Next.js",
+      "Nuxt / Vue",
+      "Tailwind CSS",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 2034287,
+    "typography_tokens": [
+      "sans",
+      "sans-serif,Arial",
+      "inherit",
+      "condensed"
+    ],
+    "color_palette_sample": [
+      "#618dc9",
+      "#173",
+      "#db7832",
+      "#3a6685",
+      "#c88d58",
+      "#80807f",
+      "#6A97CB",
+      "#4167c5",
+      "#916911",
+      "#e45631",
+      "#000",
+      "#2fd062"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "https://image.mux.com/01Ruy6GLz01Z3MQAS7WiRe4nldO8uANCSu/thumbnail.jpg",
+      "https://image.mux.com/02T9ECGgH1gybRgruQuEy3RidXCixPYc00/thumbnail.jpg",
+      "https://image.mux.com/400d1bu7o3bu2vRUcC49mfPJNOcjzNiAw/thumbnail.jpg",
+      "https://image.mux.com/4n8I01Zu7XlUA5m97MEUJsP2wikPLwoaC/thumbnail.jpg",
+      "https://image.mux.com/5BUFcztpITRZDgBzVousdIZVxe700wPBY/thumbnail.jpg",
+      "https://image.mux.com/5LYaktaq4YVgAoAZZbXpNAgxnwzII7sd/thumbnail.jpg",
+      "https://image.mux.com/6E1ru5UoZfWYnFBffKxu1PpckbMd00aoQ/thumbnail.jpg",
+      "https://image.mux.com/7YOCY5GTcHIWueX1vmdQhk8VUeyS5UVo/thumbnail.jpg",
+      "https://image.mux.com/7hsnnwjcfqh02vkXvENfgCIxo00IWV5m00g/thumbnail.jpg",
+      "https://image.mux.com/8SFe00CAO4SFwA73Lb2g4aiUgVSpCAGOj/thumbnail.jpg",
+      "https://image.mux.com/8VPVCEgWRvL02t01wW48600LrLgk2JAclDW/thumbnail.jpg",
+      "https://image.mux.com/9N9QZ5BUAID1aX8eV9G902HOTJlrrjbrK/thumbnail.jpg",
+      "https://image.mux.com/AEYNxs00zwkuX9JEh4CG5ipSi9au35c02O/thumbnail.jpg",
+      "https://image.mux.com/DKRFWE7xYaff00cKqX81EK6GIqGPNVdfH/thumbnail.jpg",
+      "https://image.mux.com/FLOyF00qkVVSkZBn1T367rIJDGuN3rgt7/thumbnail.jpg"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 20
+  },
+  {
+    "id": "38_daybreak",
+    "name": "Daybreak Studio",
+    "url": "https://daybreak.studio/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "Next.js"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 302373,
+    "typography_tokens": [],
+    "color_palette_sample": [
+      "#000",
+      "#3D333D",
+      "#e8d4b8",
+      "#e8b4b8",
+      "#fff",
+      "#d4e8b8",
+      "#d4b8e8",
+      "#b8d4e8"
+    ],
+    "motion_profile": {
+      "engine": "CSS/Native Inertia",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 1.0,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/favicon.png",
+      "https://daybreak.studio/og-image.png"
+    ],
+    "discovered_audio": [],
+    "shaders_extracted": 0
+  },
+  {
+    "id": "27_monopo",
+    "name": "Monopo London",
+    "url": "https://monopo.london/",
+    "category": "Editorial & Motion",
+    "tech_stack": [
+      "Three.js",
+      "WebGL 2.0",
+      "GSAP",
+      "GSAP ScrollTrigger",
+      "Lenis Smooth Scroll",
+      "PixiJS",
+      "Next.js",
+      "Nuxt / Vue",
+      "Basis/KTX2 Textures"
+    ],
+    "scripts_downloaded": 6,
+    "total_bundle_bytes": 2742965,
+    "typography_tokens": [
+      "+R(a.c)+",
+      "sans-serif",
+      "monospace,monospace",
+      "Roobert\",Roboto,Arial,sans-serif",
+      "Roobert"
+    ],
+    "color_palette_sample": [
+      "#ffc0cb",
+      "#e6e6fa",
+      "#5E0E0E",
+      "#f08833",
+      "#f5fffa",
+      "#16254b",
+      "#5e68e8",
+      "#ed834e",
+      "#fff0f5",
+      "#D2DDA5",
+      "#ff1493",
+      "#f8f8ff"
+    ],
+    "motion_profile": {
+      "engine": "Lenis",
+      "smooth_wheel": true,
+      "inertia_duration": "1.15s - 1.25s",
+      "scrub_factor": 0.6,
+      "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "discovered_models": [],
+    "discovered_textures": [
+      "/arrow_scroll.png",
+      "/displace.png",
+      "/favicon/favicon-16x16.png",
+      "/favicon/favicon-32x32.png",
+      "/lense.png",
+      "/mask.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1204767029_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1204777185_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1216546003_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1298719672-c50b0d6c0184c6d758772710f8aff72f4e61aa08313e2c793_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1298722500-b4981dba4d170adf40e2f1091406983d0ca548e61f0ec8b94_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1298734524-934a5488896d75b5feab7f8f2709293e1ce2f7a4245770ec5_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1388294095-2b0052cb9eba40098dfab6db554c010bdcfa263ee6bd4a5404978d315b755a96-d_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1519405051-cc793ccfbe339d142e43ab631d4e2316bc7655b2bf1af595d9582ab56ec8eee4-d_295x166&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+      "https:\\u002F\\u002Fi.vimeocdn.com\\u002Ffilter\\u002Foverlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F1729322110-968c49b3c64f3948eef00ef1910e7a0fed54daaea7779e37ede775466225c25e-d_295x166&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png"
+    ],
+    "discovered_audio": [
+      "Ghost-case-study_VoiceOver.mp3",
+      "https:\\u002F\\u002Fmonopolondon.cdn.prismic.io\\u002Fmonopolondon\\u002Ff826f4f1-5926-4c21-abb2-06e6abcf393c_Ghost-case-study_VoiceOver.mp3"
+    ],
+    "shaders_extracted": 16
+  }
+]

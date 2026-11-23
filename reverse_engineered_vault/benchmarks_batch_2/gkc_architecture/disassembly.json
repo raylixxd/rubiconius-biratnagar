@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "id": "gkc_architecture",
+    "name": "GKC Architecture & Design",
+    "url": "https://gkc.ca/en",
+    "maker": "GKC Studio",
+    "awards": "SOTD Nov 2025",
+    "focus": "GSAP microinteractions, crisp photography-led project listing, disciplined studio typography"
+  },
+  "runtime": {
+    "title": "Home \u2014 GKC Architecture & Design",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": false,
+    "hasLenis": true,
+    "hasOGL": true,
+    "hasBarba": false,
+    "hasLocomotive": true,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 24,
+  "requests_sample": [
+    "https://gkc.ca/en",
+    "https://gkc.ca/assets/fonts/ABCDiatype-Bold.woff2",
+    "https://gkc.ca/assets/fonts/ABCDiatype-BoldItalic.woff2",
+    "https://gkc.ca/assets/fonts/ABCDiatype-Regular.woff2",
+    "https://gkc.ca/assets/fonts/ABCDiatype-RegularItalic.woff2",
+    "https://gkc.ca/assets/fonts/SuisseIntlCond-Regular.woff2",
+    "https://player.vimeo.com/progressive_redirect/playback/1093490661/rendition/1080p/file.mp4?loc=external&signature=5475c14919516958f123d8bb14e9fc4542da3a0f066449759a69cee9dbabd329",
+    "https://gkc.ca/assets/scripts/app.js?v=1773688474990",
+    "https://gkc.ca/assets/styles/main.css?v=1773688474990",
+    "https://www.googletagmanager.com/gtm.js?id=GTM-KMRV3NJQ",
+    "https://gkc.ca/assets/images/sprite.svg?=5",
+    "https://player.vimeo.com/progressive_redirect/playback/1064349362/rendition/1080p/file.mp4?loc=external&signature=ae9d462c80f9e836683acd7e9d2b4b66bea3397b93249259ebf701541ab3ec44",
+    "https://player.vimeo.com/progressive_redirect/playback/1093490661/rendition/1080p/file.mp4?loc=external&signature=5475c14919516958f123d8bb14e9fc4542da3a0f066449759a69cee9dbabd329",
+    "https://gkc.ca/uploads/pages/Accueil/Membres-equipe-GKC-Architecture-Design-revisent-un-plan-dans-un-entrepot-300x300.png",
+    "https://gkc.ca/uploads/projects/Metro_Terrebonne/07-GKC-Architecture-Design-Metro-Distribution-Centre-Terrebonne-Warehouse-Buildings-Rear-Facade-atAdrien-Williams-1440-1340x1460.jpg",
+    "https://download-video-ak.vimeocdn.com/v3-1/playback/dffb389b-7d1c-42e3-954d-e07f4d0e1969/47d7d53c-de685d0e?__token__=st=1795441020~exp=1795444620~acl=%2Fv3-1%2Fplayback%2Fdffb389b-7d1c-42e3-954d-e07f4d0e1969%2F47d7d53c-de685d0e%2A~hmac=d9da1bde1258d53c72e290bd00ce9094ed20d00e1ed3d60f529fb5a16344aeaa&r=dXMtY2VudHJhbDE%3D",
+    "https://download-video-ak.vimeocdn.com/v3-1/playback/dfe7aea0-a325-43c6-8818-0cead21386ea/5814df8e-9b5d534a?__token__=st=1795441020~exp=1795444620~acl=%2Fv3-1%2Fplayback%2Fdfe7aea0-a325-43c6-8818-0cead21386ea%2F5814df8e-9b5d534a%2A~hmac=2ea14b5dc77b62ee1e80e6b590d2724f7752332cb29f402976ccea62f5f76a04&r=dXMtZWFzdDE%3D",
+    "https://www.googletagmanager.com/gtag/js?id=G-W8TJXN5YQJ&cx=c&gtm=4e6bh1",
+    "https://download-video-ak.vimeocdn.com/v3-1/playback/dffb389b-7d1c-42e3-954d-e07f4d0e1969/47d7d53c-de685d0e?__token__=st=1795441021~exp=1795444621~acl=%2Fv3-1%2Fplayback%2Fdffb389b-7d1c-42e3-954d-e07f4d0e1969%2F47d7d53c-de685d0e%2A~hmac=9b0399ec5129f7de289b2a917ab3685c9f4e1c4f5281e3bb8de230297534c88b&r=dXMtY2VudHJhbDE%3D",
+    "https://download-video-ak.vimeocdn.com/v3-1/playback/dfe7aea0-a325-43c6-8818-0cead21386ea/5814df8e-9b5d534a?__token__=st=1795441020~exp=1795444620~acl=%2Fv3-1%2Fplayback%2Fdfe7aea0-a325-43c6-8818-0cead21386ea%2F5814df8e-9b5d534a%2A~hmac=2ea14b5dc77b62ee1e80e6b590d2724f7752332cb29f402976ccea62f5f76a04&r=dXMtZWFzdDE%3D",
+    "https://www.google-analytics.com/g/collect?v=2&tid=G-W8TJXN5YQJ&gtm=45je6bh1v9170367180za20ozb9249389889zd9249389889xf1&_p=1795441021126&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=EA&cid=1659073473.1795441023&frm=0&ir=1&ngs=1&pscdl=noapi&rcb=7&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=115938466~115938468~119860442~120213116~120385422~120469145~120469153~121246026~121246034&sid=1795441023&sct=1&seg=0&dl=https%3A%2F%2Fgkc.ca%2Fen&dt=Home%20%E2%80%94%20GKC%20Architecture%20%26%20Design&en=page_view&_fv=1&_nsi=1&_ss=1&_c=1&tfd=28139",
+    "https://gkc.ca/en",
+    "https://download-video-ak.vimeocdn.com/v3-1/playback/dffb389b-7d1c-42e3-954d-e07f4d0e1969/47d7d53c-de685d0e?__token__=st=1795441021~exp=1795444621~acl=%2Fv3-1%2Fplayback%2Fdffb389b-7d1c-42e3-954d-e07f4d0e1969%2F47d7d53c-de685d0e%2A~hmac=9b0399ec5129f7de289b2a917ab3685c9f4e1c4f5281e3bb8de230297534c88b&r=dXMtY2VudHJhbDE%3D",
+    "https://gkc.ca/uploads/projects/Lumen_Expansion/20250829_Lumen_34_LR-1340x1460.jpg"
+  ]
+}

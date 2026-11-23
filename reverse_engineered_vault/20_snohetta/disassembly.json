@@ -1,0 +1,42 @@
+{
+  "id": "20_snohetta",
+  "name": "Sn\u00f8hetta",
+  "url": "https://snohetta.com/",
+  "category": "Architecture & Luxury",
+  "tech_stack": [
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Next.js"
+  ],
+  "scripts_downloaded": 3,
+  "total_bundle_bytes": 503026,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#039",
+    "#000000",
+    "#ffffff",
+    "#5bbad5"
+  ],
+  "motion_profile": {
+    "engine": "GSAP Native",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [],
+  "discovered_audio": [
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/a4.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/a5.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/asharp4.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/asharp5.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/b4.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/b5.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/c5.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/c6.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/csharp5.mp3",
+    "/assets/static/pieces/operaen/samples/sso-chorus-female/d5.mp3"
+  ],
+  "shaders_extracted": 0
+}

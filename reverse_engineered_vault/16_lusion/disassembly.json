@@ -1,0 +1,64 @@
+{
+  "id": "16_lusion",
+  "name": "Lusion",
+  "url": "https://lusion.co/",
+  "category": "3D & WebGL",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "WebGPU",
+    "PixiJS",
+    "Framer Motion",
+    "Next.js",
+    "Web Audio API",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 1858459,
+  "typography_tokens": [
+    "monospace"
+  ],
+  "color_palette_sample": [
+    "#2533c2",
+    "#F3F4F9",
+    "#ffece2",
+    "#bbb",
+    "#111a13",
+    "#ff383c",
+    "#E1E2E4",
+    "#000",
+    "#f6000e",
+    "#1a2ffb",
+    "#8c8c8c",
+    "#bb2bff"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "./assets/meta/apple-touch-icon.png",
+    "./assets/meta/dark/favicon-16x16.png",
+    "./assets/meta/dark/favicon-32x32.png",
+    "./assets/meta/favicon-16x16.png",
+    "./assets/meta/favicon-32x32.png",
+    ".webp",
+    "/home.webp",
+    "/home_depth.webp",
+    "/tunnels/desktop.png",
+    "/tunnels/tablet.png",
+    "LDR_RGB1_0.png",
+    "about/fog.png",
+    "about/ground_person_shadow.webp",
+    "about/person.webp",
+    "about/person_light.webp"
+  ],
+  "discovered_audio": [
+    ".ogg"
+  ],
+  "shaders_extracted": 88
+}

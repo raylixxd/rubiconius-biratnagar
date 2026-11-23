@@ -1,0 +1,74 @@
+{
+  "id": "11_locomotive",
+  "name": "Locomotive",
+  "url": "https://locomotive.ca/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Lenis Smooth Scroll",
+    "Locomotive Scroll",
+    "PixiJS",
+    "Framer Motion",
+    "Next.js",
+    "Barba.js Paging",
+    "Web Audio API",
+    "Draco Compression",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 5,
+  "total_bundle_bytes": 3277008,
+  "typography_tokens": [
+    "ff(\"primary\")",
+    "inherit",
+    "monospace,monospace",
+    "var(--bs-ff)"
+  ],
+  "color_palette_sample": [
+    "#ddd",
+    "#312DFB",
+    "#000",
+    "#bbbcc4",
+    "#039",
+    "#FFFFFF",
+    "#ccc",
+    "#fff",
+    "#d6d7db",
+    "#6666ff",
+    "#DA382E",
+    "#000000"
+  ],
+  "motion_profile": {
+    "engine": "Lenis",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [
+    "uploads/team/3d/fred2024_2-rigged.compressed.glb,uploads/team/3d/jeff-rigged.compressed.glb,uploads/team/3d/mat-rigged.compressed.glb,uploads/team/3d/dust2024-rigged.compressed.glb,uploads/team/3d/mc-rigged.compressed.glb,uploads/team/3d/bastien-rigged.compressed.glb,uploads/team/3d/julien-rigged.compressed.glb,uploads/team/3d/ben-rigged.compressed.glb,uploads/team/3d/chauncey-rigged.compressed.glb,uploads/team/3d/jeremy-rigged.compressed.glb,uploads/team/3d/arnaud-rigged.compressed.glb,uploads/team/3d/xavier-rigged.compressed.glb,uploads/team/3d/pascal-rigged.compressed.glb,uploads/team/3d/michel-rigged.compressed.glb,uploads/team/3d/charles-rigged-2.compressed.glb,uploads/team/3d/nath-rigged.compressed.glb,uploads/team/3d/maureen-rigged-2.compressed.glb,uploads/team/3d/simon-rigged.compressed.glb,uploads/team/3d/steph-rigged.compressed.glb,uploads/team/3d/lea-rigged.compressed.glb,uploads/team/3d/leo-rigged.compressed.glb,uploads/team/3d/laurence-rigged.compressed.glb,uploads/team/3d/alex-gatteffosse-compressed.glb,uploads/team/3d/rebeka-rigged.compressed.glb,uploads/team/3d/hugo-rigged.compressed.glb,uploads/team/3d/mathis-humbert_compressed.glb,uploads/team/3d/cath-dorion_rigged.compressed.glb,uploads/team/3d/olivier-tardif-compressed.glb"
+  ],
+  "discovered_textures": [
+    ".jpg",
+    "/assets/images/temp/pros-de-linternet-sand-cap-thumb.jpg",
+    "/assets/images/temp/pros-de-linternet-sand-cap.jpg",
+    "/assets/images/temp/pros-de-linternet-white-t-shirt-thumb.jpg",
+    "/assets/images/temp/pros-de-linternet-white-t-shirt.jpg",
+    "assets/images/favicons/apple-touch-icon.png",
+    "assets/images/favicons/favicon-16x16.png",
+    "assets/images/favicons/favicon-32x32.png",
+    "assets/images/temp/work-single/elektra/primary-thumb.png",
+    "face1.jpg",
+    "face2.jpg",
+    "https://locomotive.ca/assets/images/favicons/android-chrome-256x256.png",
+    "https://locomotive.ca/uploads/metadata/Open_Graph_Loco_%281%29.png",
+    "https://threejs.org/examples/files/arkit.png",
+    "uploads/projects/Dulcedo/dulcedo_listing_thumbnail-300w.jpg"
+  ],
+  "discovered_audio": [
+    ".mp3"
+  ],
+  "shaders_extracted": 28
+}

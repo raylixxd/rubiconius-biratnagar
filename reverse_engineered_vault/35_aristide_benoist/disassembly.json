@@ -1,0 +1,35 @@
+{
+  "id": "35_aristide_benoist",
+  "name": "Aristide Benoist",
+  "url": "https://aristidebenoist.com/",
+  "category": "Editorial & Motion",
+  "tech_stack": [],
+  "scripts_downloaded": 0,
+  "total_bundle_bytes": 4448,
+  "typography_tokens": [
+    "TNY",
+    "Arial",
+    "jws"
+  ],
+  "color_palette_sample": [
+    "#000",
+    "#141414",
+    "#bac4b8",
+    "#171717",
+    "#fff",
+    "#0B0C0C"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "https://aristidebenoist.com/static/og/1200-630.jpg"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

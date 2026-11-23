@@ -1,0 +1,39 @@
+{
+  "id": "01_igloo",
+  "name": "Igloo Inc.",
+  "url": "https://www.igloo.inc/",
+  "tech_stack": [
+    "Three.js",
+    "WebGPU",
+    "Svelte",
+    "GSAP",
+    "Web Audio API",
+    "KTX2 DataTextures"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 1502849,
+  "discovered_models": [
+    "Procedural Parametric Geometries (GPU Instancing)"
+  ],
+  "discovered_textures": [
+    "frost-datatexture.ktx2",
+    "caustics.ktx2",
+    "wind_noise.ktx2",
+    "clouds_noise.ktx2",
+    "scroll-datatexture.ktx2",
+    "igloo/ground_glow.ktx2",
+    "igloo/mountain_color.ktx2"
+  ],
+  "discovered_audio": [
+    "shard.ogg",
+    "beeps.ogg",
+    "logo.ogg",
+    "click-project.ogg",
+    "wind.ogg",
+    "particles.ogg",
+    "igloo.ogg",
+    "music-highq.ogg"
+  ],
+  "discovered_wasm": [],
+  "shaders_extracted": 116
+}

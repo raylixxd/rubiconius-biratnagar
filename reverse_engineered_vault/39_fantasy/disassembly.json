@@ -1,0 +1,67 @@
+{
+  "id": "39_fantasy",
+  "name": "Fantasy",
+  "url": "https://fantasy.co/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Lenis Smooth Scroll",
+    "PixiJS",
+    "Next.js",
+    "Nuxt / Vue",
+    "Tailwind CSS",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 2034287,
+  "typography_tokens": [
+    "sans",
+    "sans-serif,Arial",
+    "inherit",
+    "condensed"
+  ],
+  "color_palette_sample": [
+    "#618dc9",
+    "#173",
+    "#db7832",
+    "#3a6685",
+    "#c88d58",
+    "#80807f",
+    "#6A97CB",
+    "#4167c5",
+    "#916911",
+    "#e45631",
+    "#000",
+    "#2fd062"
+  ],
+  "motion_profile": {
+    "engine": "Lenis",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "https://image.mux.com/01Ruy6GLz01Z3MQAS7WiRe4nldO8uANCSu/thumbnail.jpg",
+    "https://image.mux.com/02T9ECGgH1gybRgruQuEy3RidXCixPYc00/thumbnail.jpg",
+    "https://image.mux.com/400d1bu7o3bu2vRUcC49mfPJNOcjzNiAw/thumbnail.jpg",
+    "https://image.mux.com/4n8I01Zu7XlUA5m97MEUJsP2wikPLwoaC/thumbnail.jpg",
+    "https://image.mux.com/5BUFcztpITRZDgBzVousdIZVxe700wPBY/thumbnail.jpg",
+    "https://image.mux.com/5LYaktaq4YVgAoAZZbXpNAgxnwzII7sd/thumbnail.jpg",
+    "https://image.mux.com/6E1ru5UoZfWYnFBffKxu1PpckbMd00aoQ/thumbnail.jpg",
+    "https://image.mux.com/7YOCY5GTcHIWueX1vmdQhk8VUeyS5UVo/thumbnail.jpg",
+    "https://image.mux.com/7hsnnwjcfqh02vkXvENfgCIxo00IWV5m00g/thumbnail.jpg",
+    "https://image.mux.com/8SFe00CAO4SFwA73Lb2g4aiUgVSpCAGOj/thumbnail.jpg",
+    "https://image.mux.com/8VPVCEgWRvL02t01wW48600LrLgk2JAclDW/thumbnail.jpg",
+    "https://image.mux.com/9N9QZ5BUAID1aX8eV9G902HOTJlrrjbrK/thumbnail.jpg",
+    "https://image.mux.com/AEYNxs00zwkuX9JEh4CG5ipSi9au35c02O/thumbnail.jpg",
+    "https://image.mux.com/DKRFWE7xYaff00cKqX81EK6GIqGPNVdfH/thumbnail.jpg",
+    "https://image.mux.com/FLOyF00qkVVSkZBn1T367rIJDGuN3rgt7/thumbnail.jpg"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 20
+}

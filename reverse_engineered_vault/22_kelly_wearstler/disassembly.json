@@ -1,0 +1,33 @@
+{
+  "id": "22_kelly_wearstler",
+  "name": "Kelly Wearstler",
+  "url": "https://www.kellywearstler.com/",
+  "category": "Architecture & Luxury",
+  "tech_stack": [
+    "Lenis Smooth Scroll",
+    "Next.js"
+  ],
+  "scripts_downloaded": 5,
+  "total_bundle_bytes": 593486,
+  "typography_tokens": [
+    "ACaslonPro",
+    "DrukWide",
+    "ACaslonPro Fallback"
+  ],
+  "color_palette_sample": [
+    "#000000",
+    "#ffffff",
+    "#242424"
+  ],
+  "motion_profile": {
+    "engine": "Lenis",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

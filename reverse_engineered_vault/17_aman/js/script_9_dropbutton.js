@@ -1,0 +1,1 @@
+!function(t,o){t.extend(o.theme,{dropbuttonToggle:t=>`<li class="dropbutton-toggle"><button type="button" aria-labelledby="dropbutton-arrow-label"><span class="dropbutton-arrow"><span class="visually-hidden" id="dropbutton-arrow-label">${t.title}</span></span></button></li>`})}(jQuery,Drupal);

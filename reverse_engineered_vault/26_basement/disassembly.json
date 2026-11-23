@@ -1,0 +1,45 @@
+{
+  "id": "26_basement",
+  "name": "Basement Studio",
+  "url": "https://basement.studio/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "Three.js",
+    "WebGL 2.0",
+    "GSAP",
+    "Next.js",
+    "Web Audio API",
+    "Rapier Physics (WASM)"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 671652,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#212121",
+    "#f0709b",
+    "#a0a0a0",
+    "#666666",
+    "#1A1A1A",
+    "#556bfc",
+    "#171717",
+    "#fff",
+    "#383d51",
+    "#0a0a0a",
+    "#ededed",
+    "#ffffff"
+  ],
+  "motion_profile": {
+    "engine": "GSAP Native",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "https://basement.studio/images/logobasement.png",
+    "https://basement.studio/images/twitter-image.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

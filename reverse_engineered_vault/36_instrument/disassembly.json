@@ -1,0 +1,63 @@
+{
+  "id": "36_instrument",
+  "name": "Instrument",
+  "url": "https://www.instrument.com/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "Three.js",
+    "GSAP",
+    "Next.js",
+    "Nuxt / Vue",
+    "Tailwind CSS",
+    "Barba.js Paging",
+    "Basis/KTX2 Textures"
+  ],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 3659101,
+  "typography_tokens": [
+    "var(--text-serif)",
+    "var(--text-sans)",
+    "var(--text-serif-italic)"
+  ],
+  "color_palette_sample": [
+    "#3E8DEB",
+    "#1E2E66",
+    "#039",
+    "#FEFB00",
+    "#FB6B39",
+    "#190B32",
+    "#C2684D",
+    "#FF6029",
+    "#F2F8FA",
+    "#394ACB",
+    "#FFFF00",
+    "#F5F6FE"
+  ],
+  "motion_profile": {
+    "engine": "GSAP Native",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "/apple-touch-icon.png",
+    "https://a-us.storyblok.com/f/1004432/1000x1251/492c947d16/ms-parrot.png",
+    "https://a-us.storyblok.com/f/1004432/1000x969/89a002a329/pdx_inside_02.png",
+    "https://a-us.storyblok.com/f/1004432/1000x969/8fa77ab8a4/instrument_pdx_outside.png",
+    "https://a-us.storyblok.com/f/1004432/10148x6777/f9f63122c0/pagerduty-hero-1.png",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/0ab7345c9d/fastco_ibd_2026_experimental_design.png",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/111a32e2e0/micrsoft_unlocked_reading_coach_teaser_thumbnail.jpg",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/1245eb7b86/iru_teaser_thumbnail.jpg",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/2278acc3f6/oura-sleep-recovered-1.jpg",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/23c4906adf/fastco_bwi_2025_workpage-thumbnail_-1024x1024.png",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/349f9380e2/ea-thumbnail-1024x1024.png",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/5430259e19/teaser_thumbnail_feeld_app.png",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/5934f80534/highwire_teaser-tumbnail-1024x1024.png",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/aa3544af3d/campaign-us-aoty-winner.png",
+    "https://a-us.storyblok.com/f/1004432/1024x1024/ab77bcc7f9/the-drum-superbowl-2026.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

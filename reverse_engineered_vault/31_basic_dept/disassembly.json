@@ -1,0 +1,56 @@
+{
+  "id": "31_basic_dept",
+  "name": "Basic/Dept",
+  "url": "https://www.basicagency.com/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "Three.js",
+    "Framer Motion",
+    "Next.js",
+    "Web Audio API"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 558634,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#c79494",
+    "#424e1b",
+    "#3e4146",
+    "#5c5137",
+    "#8c7972",
+    "#cbbfa6",
+    "#5f1b09",
+    "#dd9b9b",
+    "#9a797b",
+    "#bf6f3f",
+    "#6c4c14",
+    "#b8bbc0"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "BASIC-Applied-Gen-Alpha-Linkedin-Thumbnail.jpg",
+    "Blog.jpg",
+    "Iniatives-Menu_Thumbnail_BASIC\u00ae_Applied.png",
+    "Iniatives-Menu_Thumbnail_BASIC\u00ae_Brandbeats.png",
+    "Iniatives-Menu_Thumbnail_BASIC\u00ae_Crafted.png",
+    "Iniatives-Menu_Thumbnail_BASIC\u00ae_Moves.png",
+    "LLB-Thumb.png",
+    "Patagonia-Case-Study-Thumbnail.jpg",
+    "WIlson-Case-Study-Thumbnail.jpg",
+    "_DSF0189_resize.jpg",
+    "applied-gen-z-1@2x.jpg",
+    "https://cdn.sanity.io/images/8nn8fua5/production/11a5f82ab2838edc5756c262023dcc3ffe0bd0b8-1000x734.png",
+    "https://cdn.sanity.io/images/8nn8fua5/production/1e04aa777778cf8bd2395e66ee1e8b4d9b2e94a6-870x544.png",
+    "https://cdn.sanity.io/images/8nn8fua5/production/1f72d719b320cc973839fabfd6cff390d3aac1c4-1000x734.jpg",
+    "https://cdn.sanity.io/images/8nn8fua5/production/289c0ed79c95e098d09f508e3fc1aa86c241e878-870x544.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

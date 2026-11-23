@@ -1,0 +1,41 @@
+{
+  "url": "https://burocratik.com/",
+  "stylesheets": [],
+  "scripts": [
+    "https://cloud.umami.is/script.js",
+    "https://www.googletagmanager.com/gtag/js?id=G-52YF8HGWG2",
+    "https://burocratik.com/_nuxt/static/1794584236/state.js",
+    "https://burocratik.com/_nuxt/4a88b9a.js",
+    "https://burocratik.com/_nuxt/79fb4b5.js",
+    "https://burocratik.com/_nuxt/8c9bb95.js",
+    "https://burocratik.com/_nuxt/1cdf22a.js",
+    "https://burocratik.com/_nuxt/da0c22a.js",
+    "https://burocratik.com/_nuxt/3399d13.js",
+    "https://burocratik.com/_nuxt/ac11b49.js",
+    "https://burocratik.com/_nuxt/c49cf9b.js",
+    "https://burocratik.com/_nuxt/c3d5f5e.js",
+    "https://burocratik.com/_nuxt/34b7000.js",
+    "https://burocratik.com/_nuxt/60b12a5.js",
+    "https://burocratik.com/_nuxt/f4b42a5.js",
+    "https://burocratik.com/signature.js"
+  ],
+  "downloaded_css": [],
+  "downloaded_js": [
+    "script_0_script.js",
+    "script_1_js.js",
+    "script_2_state.js",
+    "script_3_4a88b9a.js",
+    "script_4_79fb4b5.js",
+    "script_5_8c9bb95.js",
+    "script_6_1cdf22a.js",
+    "script_7_da0c22a.js",
+    "script_8_3399d13.js",
+    "script_9_ac11b49.js",
+    "script_10_c49cf9b.js",
+    "script_11_c3d5f5e.js",
+    "script_12_34b7000.js",
+    "script_13_60b12a5.js",
+    "script_14_f4b42a5.js",
+    "script_15_signature.js"
+  ]
+}

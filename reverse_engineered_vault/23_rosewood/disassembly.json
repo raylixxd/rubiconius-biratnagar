@@ -1,0 +1,46 @@
+{
+  "id": "23_rosewood",
+  "name": "Rosewood Hotels",
+  "url": "https://www.rosewoodhotels.com/",
+  "category": "Architecture & Luxury",
+  "tech_stack": [
+    "Framer Motion",
+    "Next.js",
+    "Tailwind CSS",
+    "Barba.js Paging"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 2104227,
+  "typography_tokens": [
+    "Courier New', monospace",
+    "Arial-BoldMT, Arial",
+    "monospace"
+  ],
+  "color_palette_sample": [
+    "#9a9a9a",
+    "#160",
+    "#000",
+    "#6cb6ff",
+    "#FFFFFF",
+    "#d4a76a",
+    "#169",
+    "#174",
+    "#808080",
+    "#fff",
+    "#FAFBF5",
+    "#D9D9D9"
+  ],
+  "motion_profile": {
+    "engine": "CSS/Native Inertia",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 1.0,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [
+    "/content/dam/rosewoodhotels/icons/Favicon.png"
+  ],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

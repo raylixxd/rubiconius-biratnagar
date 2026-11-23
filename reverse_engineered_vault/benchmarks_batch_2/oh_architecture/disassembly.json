@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "id": "oh_architecture",
+    "name": "OH Architecture",
+    "url": "https://www.oharchitecture.com.au/",
+    "maker": "MONOLOG",
+    "awards": "SOTD Apr 2025",
+    "focus": "Architectural preloader, horizontal works runway, draggable gallery, and seamless page transitions"
+  },
+  "runtime": {
+    "title": "OH Architecture \u2014 Award-winning Architecture Firm in Brisbane",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": true,
+    "hasLenis": true,
+    "hasOGL": true,
+    "hasBarba": true,
+    "hasLocomotive": false,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 31,
+  "requests_sample": [
+    "https://www.oharchitecture.com.au/",
+    "https://cdn.prod.website-files.com/6762bbe3294789635ee71fdb/css/oharch.webflow.shared.4e2b54fc0.min.css",
+    "https://www.oharchitecture.com.au/avljl2rk9q5pNjc2MmJiZTMyOTQ3ODk2MzVlZTcxZmRi/i3NzihMP9hivva1qYjDY7P5-ers",
+    "https://cdn.prod.website-files.com/678f62698d1043f9f15c0cec/67ec8689cc8598c18900f122_OH_POOLHOUSE%C2%A9ANDYMACPHERSON-2%20(1).avif",
+    "https://cdn.prod.website-files.com/678f62698d1043f9f15c0cec/686dd6b0cd8f85e1c0078336_OH_POOLHOUSE%C2%A9ANDYMACPHERSON-4%20(1)-p-1600.jpg",
+    "https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6762bbe3294789635ee71fdb",
+    "https://cdn.prod.website-files.com/6762bbe3294789635ee71fdb/js/webflow.a0aa6ca1.b7683852b8a60d8e.js",
+    "https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js",
+    "https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js",
+    "https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/Draggable.min.js",
+    "https://cdn.prod.website-files.com/67f069ef1ecc31c6fbcc448f/67f06b10e020f05e347a57f0_SplitText.txt",
+    "https://cdn.prod.website-files.com/6762bbe3294789635ee71fdb/67b700f77536326a03441610_CustomEase.txt",
+    "https://cdn.prod.website-files.com/6762bbe3294789635ee71fdb/67d8c02a713db99543ecccbc_InertiaPlugin.min.txt",
+    "https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.23/bundled/lenis.min.js",
+    "https://cdn.jsdelivr.net/npm/@barba/core",
+    "https://cdn.jsdelivr.net/npm/@vimeo/player@2.25.1/dist/player.min.js",
+    "https://cdn.jsdelivr.net/npm/@deltaclan/superform@2/dist/superform.js",
+    "http://localhost:6545/app.js",
+    "https://cdn.prod.website-files.com/6762bbe3294789635ee71fdb/676e04eee8e86cced1fcdb27_PPNeueMontreal-Variable.woff2",
+    "https://cdn.prod.website-files.com/6762bbe3294789635ee71fdb/67b686931de6bcfb778ce746_OH_SIDNEY%C2%A9ANDYMACPHERSON-15_EDIT_FILMGRAIN%20(1).avif",
+    "https://cdn.prod.website-files.com/6762bbe3294789635ee71fdb/68be5afed4c8805edd12506f_OG_HAIG%C2%A9ANDYMACPHERSON2-9%20(1)-p-800.jpg",
+    "https://cdn.prod.website-files.com/678f62698d1043f9f15c0cec/6a18fcd2d836578fedb92695_OHARCHITECURE_OFFICE2026%C2%A9AMSTUDIO-24%20(1).avif",
+    "https://cdn.prod.website-files.com/678f62698d1043f9f15c0cec/67ec89266a30d21bfc54e72a_OH_POOLHOUSE%C2%A9ANDYMACPHERSON-7%20(1).avif",
+    "https://cdn.prod.website-files.com/678f62698d1043f9f15c0cec/6812e7c68ea5cdd4757464f3_Web%202.avif",
+    "https://cdn.prod.website-files.com/678f62698d1043f9f15c0cec/6a1cf85e5fed8844a954d44e_Runic-7.avif"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "id": "telha_clarke",
+    "name": "Telha Clarke",
+    "url": "https://telhaclarke.com.au/",
+    "maker": "Telha Clarke Studio",
+    "awards": "SOTD Feb 2026",
+    "focus": "GSAP parallax grid, loader choreography, works list/grid toggle, next-project transition widget"
+  },
+  "runtime": {
+    "title": "Telha Clarke \u2014 Melbourne based Architecture & Interior Design studio",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": false,
+    "hasLenis": true,
+    "hasOGL": true,
+    "hasBarba": false,
+    "hasLocomotive": false,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 22,
+  "requests_sample": [
+    "https://telhaclarke.com.au/",
+    "https://www.googletagmanager.com/gtag/js?id=G-RV6THF0QP9",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/app-zv5Dj-Ty.css",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/app-OG-UIwzn.js",
+    "https://telhaclarke.com.au/wp-content/uploads/2025/09/Stanhope-3-2.jpg",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Europa-Grotesk-No2-Medium-B7a8PlH0.woff2",
+    "https://www.google-analytics.com/g/collect?v=2&tid=G-RV6THF0QP9&gtm=45je6bh1h1v9237195213za208zd9237195213xf1&_p=1795441019849&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=2082920427.1795441021&frm=0&ngs=1&pscdl=noapi&rcb=15&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=115616986~115938466~115938469~120213116~120385423~120469145~120469153~121246026~121246034&sid=1795441020&sct=1&seg=0&dl=https%3A%2F%2Ftelhaclarke.com.au%2F&dt=Telha%20Clarke%20%E2%80%94%20Melbourne%20based%20Architecture%20%26%20Interior%20Design%20studio&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=983",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Vision-7kp6hR-5.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/AnimationContext-CP5ToJZ_.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/WorksGrid-Xo_CtNmT.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Mousemove-DFax5kj8.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/CoverHome-CdDQk9kz.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/ParallaxImage-E1A5akqh.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Works-BGiIIN-8.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Process-CTXDWEEW.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Footer-DMPm7y3Z.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Title-DTrd4HXQ.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Subtitle-B65945zG.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Content-NTzR7v7T.js",
+    "https://telhaclarke.com.au/wp-content/themes/gl/public/build/assets/Newsletter-C1wmvMFC.js",
+    "https://telhaclarke.com.au/wp-content/uploads/2026/07/Timeline-1.mp4",
+    "https://www.google-analytics.com/g/collect?v=2&tid=G-RV6THF0QP9&gtm=45je6bh1h1v9237195213za200zd9237195213xf1&_p=1795441019849&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&cid=2082920427.1795441021&frm=0&ngs=1&pscdl=noapi&rcb=15&sr=1440x900&uaa=x86&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.4%7CHeadlessChrome%3B156.0.8078.4&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=2&tag_exp=115616986~115938466~115938469~120213116~120385423~120469145~120469153~121246026~121246034&sid=1795441020&sct=1&seg=0&dl=https%3A%2F%2Ftelhaclarke.com.au%2F&dt=Telha%20Clarke%20%E2%80%94%20Melbourne%20based%20Architecture%20%26%20Interior%20Design%20studio&en=scroll&epn.percent_scrolled=90&_et=93&tfd=6374"
+  ]
+}

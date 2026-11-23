@@ -1,0 +1,40 @@
+{
+  "id": "29_mouthwash",
+  "name": "Mouthwash Studio",
+  "url": "https://mouthwash.studio/",
+  "category": "Editorial & Motion",
+  "tech_stack": [
+    "GSAP",
+    "GSAP ScrollTrigger",
+    "Framer Motion",
+    "Next.js",
+    "Nuxt / Vue"
+  ],
+  "scripts_downloaded": 6,
+  "total_bundle_bytes": 716542,
+  "typography_tokens": [],
+  "color_palette_sample": [
+    "#9B9C96",
+    "#a0a0a0",
+    "#222",
+    "#666666",
+    "#171717",
+    "#0a0a0a",
+    "#fff",
+    "#424242",
+    "#ededed",
+    "#767773",
+    "#000000"
+  ],
+  "motion_profile": {
+    "engine": "GSAP Native",
+    "smooth_wheel": true,
+    "inertia_duration": "1.15s - 1.25s",
+    "scrub_factor": 0.6,
+    "easing": "cubic-bezier(0.25, 1, 0.5, 1)"
+  },
+  "discovered_models": [],
+  "discovered_textures": [],
+  "discovered_audio": [],
+  "shaders_extracted": 0
+}

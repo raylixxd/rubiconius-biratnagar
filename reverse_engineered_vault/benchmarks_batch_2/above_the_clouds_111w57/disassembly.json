@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "id": "above_the_clouds_111w57",
+    "name": "Above the Clouds (111 W 57)",
+    "url": "https://111w57.com/",
+    "maker": "Outpost & Jesper Landberg",
+    "awards": "SOTD May 2025",
+    "focus": "3D/360 spatial flythrough intro, room-to-room exploration, click-and-hold interaction mechanics"
+  },
+  "runtime": {
+    "title": "111 West 57th Street",
+    "canvasesCount": 0,
+    "canvases": [],
+    "hasThree": false,
+    "hasGSAP": false,
+    "hasLenis": true,
+    "hasOGL": true,
+    "hasBarba": false,
+    "hasLocomotive": false,
+    "hasFramerMotion": false
+  },
+  "captured_requests_count": 50,
+  "requests_sample": [
+    "https://111w57.com/",
+    "https://cdn-cookieyes.com/client_data/f85b5da93073f90cee6f1c40/script.js",
+    "https://111w57.com/_nuxt/default.B5XlaUE0.css",
+    "https://111w57.com/_nuxt/BaseButton.BvI5c6ct.css",
+    "https://111w57.com/_nuxt/Group.DcdO4AdQ.css",
+    "https://111w57.com/_nuxt/Explore.CtzUMXPQ.css",
+    "https://111w57.com/_payload.json?faef7fc7-9718-4160-a2ed-180e596734eb",
+    "https://111w57.com/_nuxt/CBNvUZDs.js",
+    "https://111w57.com/_nuxt/b997cr2Z.js",
+    "https://111w57.com/_nuxt/CdIW-jEo.js",
+    "https://111w57.com/_nuxt/DBowCj0B.js",
+    "https://111w57.com/_nuxt/CBFtUiR9.js",
+    "https://111w57.com/_nuxt/G1Bh6CqE.js",
+    "https://111w57.com/_nuxt/B_YQ4EL3.js",
+    "https://111w57.com/_nuxt/COu8zgeB.js",
+    "https://111w57.com/_nuxt/cKBz7f-Y.js",
+    "https://111w57.com/_nuxt/DifTvQAt.js",
+    "https://111w57.com/_nuxt/Dgp3fjvd.js",
+    "https://111w57.com/_nuxt/D_c2UHcx.js",
+    "https://111w57.com/_nuxt/Drx3RUsu.js",
+    "https://111w57.com/_nuxt/DAnDXZYf.js",
+    "https://111w57.com/_nuxt/builds/meta/faef7fc7-9718-4160-a2ed-180e596734eb.json",
+    "https://111w57.com/logo-horizontal-dark.svg",
+    "https://111w57.com/logo-dark.png",
+    "https://log.cookieyes.com/api/v1/log"
+  ]
+}

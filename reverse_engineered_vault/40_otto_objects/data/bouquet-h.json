@@ -1,0 +1,151 @@
+{
+ "frame": [
+  2752,
+  1536
+ ],
+ "name": "Hero",
+ "flowers": [
+  {
+   "id": "f1",
+   "tube": "steel-1",
+   "side": "left",
+   "lying": {
+    "src": "h/f1-lying.webp",
+    "rect": [
+     0.08103,
+     0.67188,
+     0.24164,
+     0.16992
+    ]
+   },
+   "lying_shadow": {
+    "src": "h/f1-lying-shadow.webp",
+    "rect": [
+     0.08757,
+     0.6849,
+     0.22747,
+     0.15169
+    ]
+   },
+   "standing": {
+    "src": "h/f1-standing.webp",
+    "rect": [
+     0.31105,
+     0.21354,
+     0.0843,
+     0.16406
+    ]
+   },
+   "in_glass_stem": null
+  },
+  {
+   "id": "f2",
+   "tube": "glass-2",
+   "side": "middle",
+   "lying": {
+    "src": "h/f2-lying.webp",
+    "rect": [
+     0.36882,
+     0.74479,
+     0.28198,
+     0.22201
+    ]
+   },
+   "lying_shadow": {
+    "src": "h/f2-lying-shadow.webp",
+    "rect": [
+     0.37536,
+     0.76367,
+     0.25945,
+     0.1901
+    ]
+   },
+   "standing": {
+    "src": "h/f2-standing.webp",
+    "rect": [
+     0.43786,
+     0.08854,
+     0.12536,
+     0.62956
+    ]
+   },
+   "in_glass_stem": null
+  },
+  {
+   "id": "f3",
+   "tube": "steel-4",
+   "side": "right",
+   "lying": {
+    "src": "h/f3-lying.webp",
+    "rect": [
+     0.67151,
+     0.61198,
+     0.26235,
+     0.29167
+    ]
+   },
+   "lying_shadow": {
+    "src": "h/f3-lying-shadow.webp",
+    "rect": [
+     0.7133,
+     0.6875,
+     0.17987,
+     0.1875
+    ]
+   },
+   "standing": {
+    "src": "h/f3-standing.webp",
+    "rect": [
+     0.55887,
+     0.18685,
+     0.1439,
+     0.19076
+    ]
+   },
+   "in_glass_stem": null
+  }
+ ],
+ "vase": {
+  "vase-cutout-v2": {
+   "src": "h/vase-cutout-v2.webp",
+   "rect": [
+    0.37173,
+    0.35677,
+    0.2569,
+    0.39128
+   ]
+  },
+  "plate-wide": {
+   "src": "h/plate-wide.webp",
+   "rect": [
+    -0.25182,
+    -0.50716,
+    1.50363,
+    2.01172
+   ]
+  },
+  "A-studio-v2": {
+   "src": "h/A-studio-v2.webp",
+   "rect": [
+    0,
+    0,
+    1,
+    1
+   ]
+  }
+ },
+ "water": {
+  "src": "h/water-mask.png",
+  "rect": [
+   0.30705,
+   0.08138,
+   0.40007,
+   0.64388
+  ]
+ },
+ "ground": [
+  "#0c0c0a",
+  "#d8d4ce"
+ ],
+ "dark": true
+}

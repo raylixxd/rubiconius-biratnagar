@@ -1,0 +1,13 @@
+{
+  "id": "03_star_atlas",
+  "name": "Star Atlas",
+  "url": "https://staratlas.com/",
+  "tech_stack": [],
+  "scripts_downloaded": 2,
+  "total_bundle_bytes": 51646,
+  "discovered_models": [],
+  "discovered_textures": [],
+  "discovered_audio": [],
+  "discovered_wasm": [],
+  "shaders_extracted": 0
+}
