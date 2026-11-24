@@ -1225,3 +1225,273 @@ html.is-showroom body {
     justify-content: space-around;
   }
 }
+
+/* ==========================================================================
+   Showroom Navigation Links (Header direct links to Home, Works, Practice)
+   ========================================================================== */
+
+.showroom-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-left: 0.5rem;
+}
+
+.showroom-nav-link {
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244, 242, 236, 0.72);
+  text-decoration: none;
+  padding: 0.35rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  transition: all 0.25s var(--ease-arch);
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.showroom-nav-link:hover {
+  color: #f4f2ec;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.showroom-works-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.95rem;
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #12100e;
+  background: #f4f2ec;
+  text-decoration: none;
+  min-height: 44px;
+  transition: all 0.25s var(--ease-arch);
+}
+
+.showroom-works-cta:hover {
+  background: #e6e2d8;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Architectural Showroom HUD Overlay (Materials, Daylight Slider & Camera)
+   ========================================================================== */
+
+.showroom-hud {
+  position: fixed;
+  bottom: clamp(4.5rem, 9vh, 6.2rem);
+  left: var(--gutter);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: min(440px, calc(100vw - var(--gutter) * 2));
+  background: rgba(18, 16, 14, 0.82);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: clamp(0.85rem, 1.8vw, 1.15rem);
+  color: #f4f2ec;
+  pointer-events: auto;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.showroom-root.has-drawer-open .showroom-hud {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+}
+
+.showroom-hud__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.showroom-hud__row + .showroom-hud__row {
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.showroom-hud__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+}
+
+.showroom-hud__tag {
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 242, 236, 0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+.showroom-hud__active-label,
+.showroom-hud__solar-readout {
+  font-variant-numeric: tabular-nums;
+  color: var(--c-accent, #cbb58c);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.showroom-hud__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.showroom-pill {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f4f2ec;
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  touch-action: manipulation;
+  transition: all 0.2s ease;
+}
+
+.showroom-pill:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.showroom-pill.is-active {
+  background: rgba(203, 181, 140, 0.16);
+  border-color: var(--c-accent, #cbb58c);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(203, 181, 140, 0.2);
+}
+
+.showroom-pill__swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.showroom-hud__solar-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.showroom-hud__slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.2rem;
+}
+
+.showroom-hud__slider-label {
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244, 242, 236, 0.55);
+  white-space: nowrap;
+}
+
+.showroom-solar-slider {
+  flex: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #ff9e54 0%, #fff4e8 35%, #ffd494 75%, #4a5d78 100%);
+  outline: none;
+  cursor: pointer;
+  touch-action: pan-x;
+}
+
+.showroom-solar-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f4f2ec;
+  border: 2px solid #161412;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  cursor: ew-resize;
+  transition: transform 0.15s ease;
+}
+
+.showroom-solar-slider::-webkit-slider-thumb:hover,
+.showroom-solar-slider::-webkit-slider-thumb:active {
+  transform: scale(1.22);
+}
+
+.showroom-solar-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f4f2ec;
+  border: 2px solid #161412;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  cursor: ew-resize;
+}
+
+.showroom-hud__slider-val {
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  font-variant-numeric: tabular-nums;
+  color: #f4f2ec;
+  min-width: 44px;
+  text-align: right;
+}
+
+.showroom-hud__row--meta {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.showroom-hud__gesture-hint {
+  font-family: var(--f-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: rgba(244, 242, 236, 0.45);
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .showroom-nav-links {
+    display: none;
+  }
+  .showroom-hud {
+    bottom: clamp(3.8rem, 8vh, 5.2rem);
+    max-width: calc(100vw - 1.5rem);
+    left: 0.75rem;
+    right: 0.75rem;
+    padding: 0.75rem;
+  }
+  .showroom-pill {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.72rem;
+    min-height: 44px;
+  }
+  .showroom-hud__gesture-hint {
+    display: none;
+  }
+}

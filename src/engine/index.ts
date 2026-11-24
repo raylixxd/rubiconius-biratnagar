@@ -3,6 +3,8 @@ import { initScroll, resetScroll, resizeScroll, startScroll, stopScroll, clearPa
 import { initReveals, ensureFontsReady, revertSplits } from './reveal';
 import { initGL, mountGL, unmountGL, setGLDusk } from './gl';
 import { mountSeam, unmountSeam } from './gl/seam';
+import { mountChromaticAberration, unmountChromaticAberration } from './gl/chromatic';
+import { unmountDissolvePass } from './gl/dissolve';
 import { bindFlipClicks, completeFlip } from './gl/flip';
 import { mountShowcase, unmountShowcase } from './showcase';
 import { initCursor, initMagnetic } from './interactions';
@@ -17,6 +19,36 @@ export { setLoaderFormat, setLoaderExit, registerLoaderTask } from './loader';
 export { hideGL, pauseGL, resumeGL, setBackground, clearBackground, glSupported, setGLDusk, getGLDusk } from './gl';
 export { ease, isTouch, isMobile, prefersReducedMotion, getQualityTier } from './env';
 export { studioAudio } from './audio';
+export {
+  ChromaticAberrationPass,
+  createChromaticPass,
+  mountChromaticAberration,
+  unmountChromaticAberration,
+  setChromaticVelocity,
+  setChromaticConfig,
+  getChromaticState,
+  isChromaticSupported,
+  CHROMATIC_VERT,
+  CHROMATIC_FRAG,
+  type ChromaticAberrationOptions,
+  type ChromaticPassState,
+} from './gl/chromatic';
+export {
+  BronzeDissolvePass,
+  createDissolvePass,
+  mountDissolvePass,
+  unmountDissolvePass,
+  triggerRouteDissolve,
+  setDissolveProgress,
+  getDissolveState,
+  isDissolveSupported,
+  DISSOLVE_VERT,
+  DISSOLVE_FRAG,
+  type DissolvePassOptions,
+  type RouteDissolveConfig,
+  type DissolvePassState,
+  type DissolveDirection,
+} from './gl/dissolve';
 
 export type PageFn = (page: { intro: gsap.core.Timeline; path: string }) => void | (() => void);
 const pageFns = new Set<PageFn>();
@@ -59,6 +91,7 @@ function initPage() {
   mountGL(document);
   mountSeam(document);
   mountShowcase(document);
+  mountChromaticAberration();
   ready = true;
   pageFns.forEach(runPageFn);
   requestAnimationFrame(() => {
@@ -97,6 +130,8 @@ export function cleanup() {
   revertSplits();
   unmountShowcase();
   unmountSeam();
+  unmountChromaticAberration();
+  unmountDissolvePass();
   ctx?.revert();
   ctx = null;
   unmountGL();

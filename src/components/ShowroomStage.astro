@@ -19,7 +19,7 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
   data-showroom-root
   data-showroom-mode={mode}
   style={`--track: ${trackViewports};`}
-  aria-label="Material Study — 3D concept preview of material palette"
+  aria-label="Material Study: 3D concept preview of material palette"
 >
   {!isInline && (
     <header class="showroom-chrome">
@@ -38,9 +38,20 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
           <span>{site.name}</span>
         </a>
         <span class="showroom-label">{showroom.label ?? 'Material Study'}</span>
+
+        <nav class="showroom-nav-links" aria-label="Studio links">
+          <a class="showroom-nav-link" href="/" aria-label="Home">Home</a>
+          <a class="showroom-nav-link" href="/works/" aria-label="Completed Works">Works</a>
+          <a class="showroom-nav-link" href="/practice/" aria-label="Practice & Studio">Practice</a>
+        </nav>
       </div>
 
       <div class="showroom-chrome__right">
+        <a class="showroom-works-cta" href="/works/" aria-label="Explore Works Dossiers">
+          <span>Explore Works</span>
+          <span aria-hidden="true">&#8599;</span>
+        </a>
+
         <button
           class="showroom-sound"
           type="button"
@@ -121,8 +132,163 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
       })}
     </div>
 
+    {!isInline && (
+      <div class="showroom-hud" data-showroom-hud aria-label="Architectural Showroom Controls">
+        <!-- PBR Material Switcher -->
+        <div class="showroom-hud__row showroom-hud__row--materials">
+          <div class="showroom-hud__heading">
+            <span class="showroom-hud__tag">PBR Finish</span>
+            <span class="showroom-hud__active-label" data-active-mat-label>Honed Kota Limestone</span>
+          </div>
+          <div class="showroom-hud__pills" role="radiogroup" aria-label="Select PBR material finish">
+            <button
+              type="button"
+              class="showroom-pill showroom-pill--mat is-active"
+              data-mat-preset="kota_stone"
+              role="radio"
+              aria-checked="true"
+              aria-label="Kota Stone: Honed matte limestone"
+            >
+              <span class="showroom-pill__swatch" style="background:#8E9988;" aria-hidden="true"></span>
+              <span>Kota Stone</span>
+            </button>
+            <button
+              type="button"
+              class="showroom-pill showroom-pill--mat"
+              data-mat-preset="sal_timber"
+              role="radio"
+              aria-checked="false"
+              aria-label="Sal Timber: Fluted Terai hardwood"
+            >
+              <span class="showroom-pill__swatch" style="background:#5C3A21;" aria-hidden="true"></span>
+              <span>Sal Timber</span>
+            </button>
+            <button
+              type="button"
+              class="showroom-pill showroom-pill--mat"
+              data-mat-preset="fluted_brass"
+              role="radio"
+              aria-checked="false"
+              aria-label="Fluted Brass: Patinated spun brass"
+            >
+              <span class="showroom-pill__swatch" style="background:#D4AF37;" aria-hidden="true"></span>
+              <span>Fluted Brass</span>
+            </button>
+            <button
+              type="button"
+              class="showroom-pill showroom-pill--mat"
+              data-mat-preset="plaster"
+              role="radio"
+              aria-checked="false"
+              aria-label="Plaster: Hand-trowelled mineral plaster"
+            >
+              <span class="showroom-pill__swatch" style="background:#D8D4CC;" aria-hidden="true"></span>
+              <span>Plaster</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Daylight & Sun Path Controller -->
+        <div class="showroom-hud__row showroom-hud__row--daylight">
+          <div class="showroom-hud__heading">
+            <span class="showroom-hud__tag">Daylight & Sun Path</span>
+            <span class="showroom-hud__solar-readout" data-solar-readout>12:00 Noon · 5500K High-CRI</span>
+          </div>
+          <div class="showroom-hud__solar-controls">
+            <div class="showroom-hud__pills" role="radiogroup" aria-label="Solar daylight presets">
+              <button
+                type="button"
+                class="showroom-pill showroom-pill--solar"
+                data-solar-preset="morning"
+                role="radio"
+                aria-checked="false"
+                aria-label="Morning daylight 08:30"
+              >
+                <span>Morning</span>
+              </button>
+              <button
+                type="button"
+                class="showroom-pill showroom-pill--solar is-active"
+                data-solar-preset="noon"
+                role="radio"
+                aria-checked="true"
+                aria-label="Solar noon 12:00"
+              >
+                <span>Noon</span>
+              </button>
+              <button
+                type="button"
+                class="showroom-pill showroom-pill--solar"
+                data-solar-preset="golden"
+                role="radio"
+                aria-checked="false"
+                aria-label="Golden dusk 17:30"
+              >
+                <span>Golden Dusk</span>
+              </button>
+              <button
+                type="button"
+                class="showroom-pill showroom-pill--solar"
+                data-solar-preset="night"
+                role="radio"
+                aria-checked="false"
+                aria-label="Candlelit night 22:00"
+              >
+                <span>Night</span>
+              </button>
+            </div>
+
+            <div class="showroom-hud__slider-wrap">
+              <label for="showroom-sun-slider" class="showroom-hud__slider-label">Sun Angle</label>
+              <input
+                id="showroom-sun-slider"
+                class="showroom-solar-slider"
+                type="range"
+                min="6"
+                max="22"
+                step="0.1"
+                value="12"
+                data-solar-slider
+                aria-label="Architectural sun angle scrub slider"
+              />
+              <span class="showroom-hud__slider-val" data-solar-val>12:00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode Toggle & Telemetry -->
+        <div class="showroom-hud__row showroom-hud__row--meta">
+          <div class="showroom-hud__pills" role="radiogroup" aria-label="Camera exploration mode">
+            <button
+              type="button"
+              class="showroom-pill showroom-pill--mode is-active"
+              data-cam-mode-btn="rail"
+              role="radio"
+              aria-checked="true"
+              aria-label="Walk Rail Mode"
+            >
+              <span>Walk Rail</span>
+            </button>
+            <button
+              type="button"
+              class="showroom-pill showroom-pill--mode"
+              data-cam-mode-btn="orbit"
+              role="radio"
+              aria-checked="false"
+              aria-label="Free Orbit Inspection Mode"
+            >
+              <span>Free Orbit</span>
+            </button>
+          </div>
+          <span class="showroom-hud__gesture-hint" data-gesture-hint>
+            Drag to look · Scroll to walk · Pinch to zoom
+          </span>
+        </div>
+      </div>
+    )}
+
     <footer class="showroom-footer">
-      <p class="showroom-caption">Concept preview of our material palette — not a specific completed project.</p>
+      <p class="showroom-caption">Concept preview of our material palette, not a specific completed project.</p>
       <p class="showroom-hint" data-showroom-hint>Scroll to walk &middot; Drag to look</p>
 
       <nav class="showroom-chapters-wrap" aria-label="Material study chapters">
@@ -209,7 +375,7 @@ const trackViewports = isInline ? 6 : showroom.trackViewports;
         <span class="showroom-drawer__code">Material Study</span>
         <h2 class="showroom-fallback__title">Five material concepts in Eastern Nepal daylight.</h2>
         <p class="showroom-drawer__summary">
-          Concept preview of our material palette — not a specific completed project. Honed Kota limestone, fluted dark Sal timber, deep Verde Alpi stone, and quiet mineral finishes across Biratnagar and Dharan.
+          Concept preview of our material palette, not a specific completed project. Honed Kota limestone, fluted dark Sal timber, deep Verde Alpi stone, and quiet mineral finishes across Biratnagar and Dharan.
         </p>
       </div>
 

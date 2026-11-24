@@ -6,6 +6,7 @@ import { getQualityTier, isTouch, prefersReducedMotion } from '../env';
 import { pauseGL, resumeGL } from '../gl';
 import { getScrollLimit, onScroll, resizeScroll, scrollState, scrollToTarget } from '../scroll';
 import { studioAudio } from '../audio';
+import { soundEngine } from '../soundEngine';
 import { holdEnter } from '../transition';
 import { registerLoaderTask } from '../loader';
 import { CameraRail } from './rail';
@@ -387,6 +388,244 @@ export function mountShowroom(
     return loadPromise;
   };
 
+  // Directional sun light for architectural illumination and solar choreography
+  const sunLight = new THREE.DirectionalLight(0xfffdf9, 1.6);
+  sunLight.position.set(5, 12, 6);
+  scene.add(sunLight);
+
+  // --------------------------------------------------------------------------
+  // PBR Material Switching System (Kota Stone, Sal Timber, Fluted Brass, Plaster)
+  // --------------------------------------------------------------------------
+  const PBR_PRESETS: Record<string, {
+    label: string;
+    color: string;
+    roughness: number;
+    metalness: number;
+    clearcoat?: number;
+    description: string;
+  }> = {
+    kota_stone: {
+      label: 'Honed Kota Limestone',
+      color: '#8E9988',
+      roughness: 0.88,
+      metalness: 0.0,
+      clearcoat: 0.0,
+      description: 'Honed Kota Limestone · Dolomitic sediment · Matte micro-cleft cleft surface · Cool tactile signature',
+    },
+    sal_timber: {
+      label: 'Fluted Sal Hardwood',
+      color: '#5C3A21',
+      roughness: 0.46,
+      metalness: 0.0,
+      clearcoat: 0.0,
+      description: 'Fluted Sal Hardwood · Shorea robusta · Terai timber · Anisotropy 0.88 · Longitudinal fiber sheen',
+    },
+    fluted_brass: {
+      label: 'Patinated Spun Brass',
+      color: '#D4AF37',
+      roughness: 0.28,
+      metalness: 0.98,
+      clearcoat: 0.32,
+      description: 'Patinated Spun Brass · C26000 alloy · Concentric lathe grain · Metalness 0.98 · Warm specular brilliance',
+    },
+    plaster: {
+      label: 'Hand-trowelled Mineral Plaster',
+      color: '#D8D4CC',
+      roughness: 0.82,
+      metalness: 0.0,
+      clearcoat: 0.0,
+      description: 'Hand-trowelled Mineral Plaster · Fine aggregate mottling · Roughness 0.82 · Low-glare diffuse reflection',
+    },
+  };
+
+  let activeMaterialKey = 'kota_stone';
+  const activeMatLabel = root.querySelector<HTMLElement>('[data-active-mat-label]');
+  const matPills = root.querySelectorAll<HTMLButtonElement>('[data-mat-preset]');
+
+  const applyPBRMaterial = (key: string) => {
+    const preset = PBR_PRESETS[key];
+    if (!preset) return;
+    activeMaterialKey = key;
+    if (activeMatLabel) activeMatLabel.textContent = preset.label;
+
+    matPills.forEach((btn) => {
+      const isActive = btn.dataset.matPreset === key;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-checked', String(isActive));
+    });
+
+    soundEngine.click();
+
+    if (loadedAsset?.object3D) {
+      const tint = new THREE.Color(preset.color);
+      loadedAsset.object3D.traverse((child) => {
+        const mesh = child as THREE.Mesh;
+        if (mesh.isMesh && mesh.material) {
+          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          for (const m of mats) {
+            if (/VideoWall|Courtyard_Water/i.test(mesh.name)) continue;
+            if ('roughness' in m) (m as THREE.MeshStandardMaterial).roughness = preset.roughness;
+            if ('metalness' in m) (m as THREE.MeshStandardMaterial).metalness = preset.metalness;
+            if (preset.clearcoat !== undefined && 'clearcoat' in m) {
+              (m as THREE.MeshPhysicalMaterial).clearcoat = preset.clearcoat;
+            }
+            if ('color' in m) {
+              (m as THREE.MeshStandardMaterial).color.lerp(tint, 0.25);
+            }
+            m.needsUpdate = true;
+          }
+        }
+      });
+    }
+  };
+
+  matPills.forEach((btn) => {
+    btn.addEventListener(
+      'click',
+      () => {
+        const k = btn.dataset.matPreset;
+        if (k) applyPBRMaterial(k);
+      },
+      { signal }
+    );
+  });
+
+  // --------------------------------------------------------------------------
+  // Daylight & Sun Angle Slider and Presets (Morning, Noon, Golden Dusk, Night)
+  // --------------------------------------------------------------------------
+  const solarSlider = root.querySelector<HTMLInputElement>('[data-solar-slider]');
+  const solarVal = root.querySelector<HTMLElement>('[data-solar-val]');
+  const solarReadout = root.querySelector<HTMLElement>('[data-solar-readout]');
+  const solarPills = root.querySelectorAll<HTMLButtonElement>('[data-solar-preset]');
+
+  const SOLAR_PRESETS: Record<string, { hour: number; label: string }> = {
+    morning: { hour: 8.5, label: '08:30 Morning · 4000K Crisp Daylight' },
+    noon: { hour: 12.0, label: '12:00 Noon · 5500K High-CRI Sun' },
+    golden: { hour: 17.5, label: '17:30 Golden Dusk · 3200K Raking Light' },
+    night: { hour: 22.0, label: '22:00 Night · 1800K Intimate Warmth' },
+  };
+
+  const applySolarHour = (hour: number, activePresetKey?: string) => {
+    const clampedHour = THREE.MathUtils.clamp(hour, 6, 22);
+    const hourNorm = (clampedHour - 6) / 16;
+    const azDeg = Math.round(82 + hourNorm * 180);
+    const altDeg = Math.round(Math.max(4, Math.sin(hourNorm * Math.PI) * 78));
+    const radAz = (azDeg * Math.PI) / 180;
+    const radAlt = (altDeg * Math.PI) / 180;
+
+    sunLight.position.set(
+      Math.cos(radAz) * Math.cos(radAlt) * 16,
+      Math.sin(radAlt) * 16,
+      Math.sin(radAz) * Math.cos(radAlt) * 16
+    );
+
+    let kelvin = 5500;
+    let duskFrac = 0;
+    if (clampedHour < 10) {
+      kelvin = Math.round(2200 + ((clampedHour - 6) / 4) * 2300);
+      duskFrac = Math.max(0, 1 - (clampedHour - 6) / 3) * 0.45;
+      sunLight.color.set('#FFF4E8');
+      sunLight.intensity = 1.35;
+    } else if (clampedHour <= 15) {
+      kelvin = 5500;
+      duskFrac = 0;
+      sunLight.color.set('#FFFDF9');
+      sunLight.intensity = 1.65;
+    } else if (clampedHour <= 18.5) {
+      kelvin = Math.round(5500 - ((clampedHour - 15) / 3.5) * 3300);
+      duskFrac = ((clampedHour - 15) / 3.5) * 0.85;
+      sunLight.color.set('#FFB366');
+      sunLight.intensity = 1.45;
+    } else {
+      kelvin = 1800;
+      duskFrac = 1.0;
+      sunLight.color.set('#8898B0');
+      sunLight.intensity = 0.42;
+    }
+
+    atmosphere.setDusk(duskFrac);
+
+    const h = Math.floor(clampedHour);
+    const m = Math.round((clampedHour - h) * 60);
+    const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+
+    if (solarSlider && Math.abs(parseFloat(solarSlider.value) - clampedHour) > 0.05) {
+      solarSlider.value = String(clampedHour);
+    }
+    if (solarVal) solarVal.textContent = timeStr;
+    if (solarReadout) {
+      const presetMatch = activePresetKey ? SOLAR_PRESETS[activePresetKey]?.label : undefined;
+      solarReadout.textContent =
+        presetMatch ?? `${timeStr} · ${kelvin}K · ${azDeg}° Az · ${altDeg}° Alt`;
+    }
+
+    solarPills.forEach((btn) => {
+      const isMatch = activePresetKey ? btn.dataset.solarPreset === activePresetKey : false;
+      btn.classList.toggle('is-active', isMatch);
+      btn.setAttribute('aria-checked', String(isMatch));
+    });
+  };
+
+  solarPills.forEach((btn) => {
+    btn.addEventListener(
+      'click',
+      () => {
+        const pKey = btn.dataset.solarPreset;
+        if (pKey && SOLAR_PRESETS[pKey]) {
+          soundEngine.click();
+          applySolarHour(SOLAR_PRESETS[pKey].hour, pKey);
+        }
+      },
+      { signal }
+    );
+  });
+
+  if (solarSlider) {
+    solarSlider.addEventListener(
+      'input',
+      () => {
+        const val = parseFloat(solarSlider.value);
+        applySolarHour(val);
+      },
+      { signal }
+    );
+  }
+
+  // --------------------------------------------------------------------------
+  // Camera Exploration Mode (Walk Rail vs Free Orbit)
+  // --------------------------------------------------------------------------
+  const modePills = root.querySelectorAll<HTMLButtonElement>('[data-cam-mode-btn]');
+  const gestureHint = root.querySelector<HTMLElement>('[data-gesture-hint]');
+
+  const setCameraInteractionMode = (nextMode: 'rail' | 'orbit') => {
+    tactile.setMode(nextMode);
+    soundEngine.click();
+
+    modePills.forEach((btn) => {
+      const isActive = btn.dataset.camModeBtn === nextMode;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-checked', String(isActive));
+    });
+
+    if (gestureHint) {
+      gestureHint.textContent =
+        nextMode === 'orbit'
+          ? '1-Finger Drag to Orbit · Pinch to Zoom · Bounded Limits'
+          : 'Drag to look · Scroll to walk · Click marker to inspect';
+    }
+  };
+
+  modePills.forEach((btn) => {
+    btn.addEventListener(
+      'click',
+      () => {
+        const m = btn.dataset.camModeBtn as 'rail' | 'orbit';
+        if (m) setCameraInteractionMode(m);
+      },
+      { signal }
+    );
+  });
+
   let visIo: IntersectionObserver | null = null;
   let loadIo: IntersectionObserver | null = null;
 
@@ -507,3 +746,15 @@ export function mountShowroom(
 
   return { ready, dispose };
 }
+
+// Re-export Cinematic HUD system and types
+export {
+  CinematicHUD,
+  createCinematicHUD,
+  type CinematicHUDOptions,
+  type HUDDensityMode,
+  type TelemetrySnapshot,
+  type ScreenshotExportOptions,
+  type ScreenshotExportResult,
+  type TitleBlockData,
+} from './cinematicHUD';

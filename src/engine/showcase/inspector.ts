@@ -139,7 +139,7 @@ export function mountShowcaseInspector(showcaseEl: HTMLElement): () => void {
     if (specEl) specEl.textContent = spec;
     document.getElementById('main')?.setAttribute('inert', '');
     if (ctaBtn) {
-      ctaBtn.dataset.drawerContext = baseContext ? `${baseContext} — ${title}` : title;
+      ctaBtn.dataset.drawerContext = baseContext ? `${baseContext} : ${title}` : title;
     }
     if (fallbackImg && img) {
       fallbackImg.src = img.currentSrc || img.src;

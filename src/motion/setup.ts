@@ -310,7 +310,7 @@ function initHeaderControls() {
   };
   backTopBtn?.addEventListener('click', onBackToTop);
 
-  // Son Daven Live Biratnagar Studio Clock & Operating Status (Sun–Fri 11:00–17:00 NPT)
+  // Son Daven Live Biratnagar Studio Clock & Operating Status (Sun to Fri 11:00 to 17:00 NPT)
   const clockEls = Array.from(document.querySelectorAll<HTMLElement>('[data-studio-clock]'));
   const formatStudioClock = () => {
     try {
@@ -625,7 +625,7 @@ function initStudioLocator() {
       if (addr && addrEl) addrEl.textContent = addr;
       if (coords && coordsEl) coordsEl.textContent = coords;
       if (mapUrl && directions) directions.href = mapUrl;
-      if (city) iframe.title = `Rubiconius Studio Map — ${city}`;
+      if (city) iframe.title = `Rubiconius Studio Map | ${city}`;
       if (embedUrl && iframe.src !== embedUrl) {
         iframe.classList.add('is-loading');
         window.clearTimeout(loadTimer);

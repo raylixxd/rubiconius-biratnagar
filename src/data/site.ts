@@ -69,10 +69,10 @@ export type MaterialStudyNote = {
 export const site = {
   name: 'Rubiconius',
   tagline: 'Measured interior architecture shaped around daylight, joinery, and quiet material proportion.',
-  commitmentQuote: 'Our word is our commitment — and when we commit, we pass into a point of no return.',
+  commitmentQuote: 'Our word is our commitment: and when we commit, we pass into a point of no return.',
   founder: 'Riya Agrawal',
   founderBio: [
-    'Each commission is composed around daylight, spatial proportion, and disciplined millwork — shaped around our clients’ daily rituals rather than passing ornamental trends.',
+    'Each commission is composed around daylight, spatial proportion, and disciplined millwork, shaped around our clients’ daily rituals rather than passing ornamental trends.',
     'Founded by Riya Agrawal after honing an eye for furnishings, textiles, and spatial detail in Kolkata, the practice brings architectural restraint and close collaboration with regional craftspeople to residences and offices across Biratnagar and Dharan.',
   ],
   city: 'Munal Path, Biratnagar & Gita Mandir Line, Dharan, Nepal',
@@ -98,7 +98,7 @@ export const site = {
       embedUrl: 'https://maps.google.com/maps?q=Gita+Mandir+Line,+Dharan+56701,+Nepal&z=16&output=embed',
     },
   ],
-  hours: 'Sun – Fri, 11 AM – 5 PM (Saturday closed)',
+  hours: 'Sun to Fri, 11:00 AM to 5:00 PM (Saturday closed)',
   phoneDisplay: '+977 981-2353149',
   whatsappNumber: '9779812353149',
   ratingScore: '5.0',
@@ -106,7 +106,7 @@ export const site = {
   bioLink: 'https://msha.ke/rubiconius',
   url: 'https://rubiconius.com.np',
   description:
-    'Rubiconius is an interior architecture and turnkey studio in Biratnagar and Dharan led by Riya Agrawal — composing residential and executive spaces with regional craftspeople.',
+    'Rubiconius is an interior architecture and turnkey studio in Biratnagar and Dharan led by Riya Agrawal, composing residential and executive spaces with regional craftspeople.',
   nav: [
     { label: 'Works', href: '/works/' },
     { label: 'About', href: '/practice/' },
@@ -122,7 +122,7 @@ export const site = {
     {
       index: '01',
       name: 'Turnkey Residential & Commercial',
-      detail: 'End-to-end execution across homes, 3BHK residences, and office renovations — including civil and electrical coordination.',
+      detail: 'End-to-end execution across homes, 3BHK residences, and office renovations, including civil and electrical coordination.',
     },
     {
       index: '02',
@@ -399,7 +399,7 @@ export const materialStudies: MaterialStudyNote[] = [
     key: 'fluted-suite',
     title: 'Honed Kota Limestone',
     category: 'Concept Study 02 · Flooring & Thermal Mass',
-    summary: 'Matte honed limestone paired with vertical dark timber fluting — a concept study for cool, low-glare surfaces through warm Eastern Nepal summers.',
+    summary: 'Matte honed limestone paired with vertical dark timber fluting: a concept study for cool, low-glare surfaces through warm Eastern Nepal summers.',
     image: rubiconiusPracticeStudio,
     alt: 'Limestone worktable arranged with fluted timber block, matte stone tiles, brass pull, and linen textile swatch',
     materials: [
@@ -412,7 +412,7 @@ export const materialStudies: MaterialStudyNote[] = [
     key: 'timber-hearth',
     title: 'Verde Alpi Stone & Sal Timber',
     category: 'Concept Study 03 · Joinery & Accent Stone',
-    summary: 'Deep veined green stone set beside seasoned dark timber joinery — studying tonal contrast, cabinet reveals, and tactile hardware in side-light.',
+    summary: 'Deep veined green stone set beside seasoned dark timber joinery: studying tonal contrast, cabinet reveals, and tactile hardware in side-light.',
     image: rubiconiusJoinery,
     alt: 'Fluted Sal timber cabinetry paired with veined Verde Alpi stone island and courtyard glazing',
     materials: [

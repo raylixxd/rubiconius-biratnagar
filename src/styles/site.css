@@ -356,6 +356,7 @@ html.header-dark .sound-btn[aria-pressed='true'] { border-color: var(--c-dark-fg
 .btn--light.is-filled, .btn--light:active { color: var(--c-dark-bg); }
 
 .menu-trigger {
+  position: relative;
   display: none; min-height: 44px; min-width: 44px; padding-inline: 0.25rem;
   border: 0; border-bottom: 1.5px solid currentColor; border-radius: 0; background: transparent;
   color: inherit; font-family: var(--f-body); font-size: 0.75rem; font-weight: 500;
@@ -370,6 +371,7 @@ html.header-dark .sound-btn[aria-pressed='true'] { border-color: var(--c-dark-fg
 }
 .mobile-menu[hidden] { display: none; }
 .mobile-menu__top {
+  position: relative;
   display: flex; justify-content: space-between; align-items: center;
   padding-bottom: 1rem; border-bottom: 1px solid var(--c-mortar);
 }
@@ -377,6 +379,7 @@ html.header-dark .sound-btn[aria-pressed='true'] { border-color: var(--c-dark-fg
   color: var(--c-subtle); font-size: 0.75rem; letter-spacing: 0.14em;
 }
 .mobile-menu__close {
+  position: relative;
   min-height: 44px; min-width: 44px; padding-inline: 0.5rem;
   border: 0; border-bottom: 1px solid var(--c-mortar); border-radius: 0; background: transparent;
   color: var(--c-ink-bronze); font-family: var(--f-body); font-size: 0.75rem; font-weight: 500;
