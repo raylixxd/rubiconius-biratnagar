@@ -935,6 +935,9 @@ html.is-showroom body {
 
 .showroom-fullscreen-shell .showroom-pins,
 .showroom-fullscreen-shell .showroom-footer {
+  pointer-events: none;
+}
+.showroom-fullscreen-shell .showroom-chapters-wrap {
   pointer-events: auto;
 }
 
@@ -1289,7 +1292,7 @@ html.is-showroom body {
   position: fixed;
   bottom: clamp(4.5rem, 9vh, 6.2rem);
   left: var(--gutter);
-  z-index: 15;
+  z-index: 30;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
