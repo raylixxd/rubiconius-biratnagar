@@ -1,0 +1,76 @@
+/* Homepage visual polish only — no new features / markup / behaviour.
+   OH: hairline grid + runway stagger · OTTO: proportional scale (--s = 100vw/1440)
+   ANUC: quiet-luxury restraint · Telha: asymmetric editorial offsets · DHK: obsidian/linen contrast */
+
+/* ---- Global rhythm (OTTO proportional unit) ---- */
+.works-sec,.atelier-band,.proof-sec{--s:calc(100vw / 1440)}
+.works-sec,.atelier-band{padding-block:clamp(4.5rem,calc(var(--s,1vw) * 92),7.5rem)}
+.proof-sec{padding-block:clamp(4rem,calc(var(--s,1vw) * 84),7rem)}
+.section-head{margin-bottom:calc(var(--s,1vw) * 10)}
+.section-head__title{font-size:clamp(2.1rem,3.6vw,3.9rem);line-height:1.02}
+.section-head__kicker,.section-kicker{color:var(--c-bronze);font-weight:600}
+
+/* ---- Hero (OH clean runway header + DHK obsidian) ---- */
+.cinema-hero__scrim{background:linear-gradient(180deg,rgba(5,5,5,.55) 0%,rgba(5,5,5,.04) 30%,transparent 52%,rgba(5,5,5,.28) 74%,rgba(5,5,5,.88) 100%),radial-gradient(ellipse 58% 68% at 16% 50%,rgba(5,5,5,.5) 0%,transparent 100%)}
+.cinema-hero__headline{font-size:clamp(2.7rem,5.2vw,5rem);line-height:.99;letter-spacing:-.03em;text-wrap:balance}
+.cinema-hero__sub{font-size:1.02rem;line-height:1.65;color:rgba(247,245,240,.82);max-width:42ch}
+.cinema-hero__giant{font-size:clamp(3rem,15.6vw,15.5rem);color:rgba(243,239,232,.97);letter-spacing:-.02em}
+.cinema-hero__foot{border-top-color:rgba(255,255,255,.22)}
+.cinema-pill-btn{background:rgba(10,10,9,.82);border-color:rgba(255,255,255,.38);backdrop-filter:blur(6px)}
+.cinema-hero__poster,.cinema-hero__video{filter:saturate(.88) contrast(1.06) brightness(.94)}
+
+/* ---- Works: asymmetric editorial runway (Telha + OH) ---- */
+.works-grid{gap:clamp(1.75rem,3vw,3rem)}
+.work-card__media{border-color:rgba(28,25,23,.18);box-shadow:none}
+.work-card__media img{transition:transform .9s var(--ease-arch),filter .9s var(--ease-arch)}
+.work-card__title{font-size:clamp(1.5rem,2vw,1.95rem)}
+.work-card__meta{padding-top:1rem;gap:.35rem}
+.work-card__sub{font-size:.84rem;letter-spacing:.02em}
+@media (min-width:1024px){
+  .works-grid>.work-card:nth-child(2){margin-top:clamp(2rem,4.5vw,4.5rem)}
+  .works-grid>.work-card:nth-child(3){margin-top:clamp(4rem,9vw,9rem)}
+  .works-grid>.work-card:nth-child(1) .work-card__media{aspect-ratio:4/5}
+  .works-grid>.work-card:nth-child(2) .work-card__media{aspect-ratio:3/3.6}
+  .works-grid>.work-card:nth-child(3) .work-card__media{aspect-ratio:4/4.6}
+}
+@media (hover:hover) and (pointer:fine){
+  .work-card__link:hover .work-card__media img{transform:scale(1.045)}
+  .works-grid:has(>.work-card:hover)>.work-card:not(:hover){opacity:.72}
+}
+
+/* ---- Atelier / services ledger (ANUC hairline discipline) ---- */
+.atelier-band{background:linear-gradient(180deg,transparent,rgba(229,224,215,.55) 18%,rgba(229,224,215,.55) 82%,transparent)}
+.atelier-band__title{font-size:clamp(2rem,3.4vw,3.4rem);line-height:1.04}
+.services-ledger li{padding-block:1.25rem;gap:1rem}
+.services-ledger__name{font-size:1.05rem;letter-spacing:-.01em}
+.services-ledger__detail{font-size:.92rem;line-height:1.6;color:var(--c-muted)}
+.services-ledger__idx{font-size:.8rem}
+.atelier-band__visual,.proof-sec__visual{border-color:rgba(28,25,23,.18)}
+.specimen-caption{padding-top:.35rem;font-size:.8rem;border-top:1px solid var(--c-line);padding-top:.7rem}
+
+/* ---- Proof: DHK obsidian contrast block ---- */
+.proof-sec{background:#111110;color:#f3efe8;padding-inline:clamp(1.25rem,3.5vw,3.5rem);border-top:none}
+.proof-sec::before,.proof-sec::after{color:var(--c-dark-accent)}
+.proof-sec .section-kicker{color:var(--c-dark-accent)}
+.proof-sec__statement{color:#f3efe8;font-size:clamp(1.9rem,3vw,3rem);line-height:1.1}
+.proof-sec__attribution{color:rgba(243,239,232,.65)}
+.fact-cell{border-top-color:rgba(243,239,232,.22)}
+.fact-cell__num{color:#f3efe8}
+.fact-cell__lbl{color:rgba(243,239,232,.68)}
+.proof-sec .specimen-caption{color:rgba(243,239,232,.65);border-top-color:rgba(243,239,232,.22)}
+.showroom-note-bar{border-top-color:rgba(243,239,232,.22)}
+.showroom-note-bar__copy{color:rgba(243,239,232,.75)}
+.proof-sec .arch-cta{color:#f3efe8}
+
+/* Hairline discipline everywhere */
+.works-sec,.atelier-band{border-top-color:rgba(28,25,23,.22)}
+.work-card__meta,.fact-cell{border-top-width:1px}
+
+@media (max-width:700px){
+  .cinema-hero__headline{font-size:clamp(2.3rem,11vw,3.2rem)}
+  .works-sec,.atelier-band,.proof-sec{padding-block:3.5rem}
+  .proof-sec{padding-inline:1.15rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .work-card__media img,.atelier-band__visual img,.proof-sec__visual img{transition:none}
+}

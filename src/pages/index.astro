@@ -1,8 +1,8 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import ShowroomStage from '../components/ShowroomStage.astro';
 import { commissions, craftPlate, parquetPlate, site } from '../data/site';
+import '../styles/home.css';
 ---
 <Base heroOverlay={true}>
   <!-- Band 1: Full-Bleed Architectural Poster Hero -->
@@ -198,7 +198,7 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
 
     <div class="showroom-note-bar">
       <p class="showroom-note-bar__copy">
-        Want to explore a standalone 3D material &amp; daylight concept study?
+        Explore our dedicated 3D material &amp; daylight concept study.
       </p>
       <a class="arch-cta" href="/showroom/">
         <span>Open Material Study (3D)</span>
@@ -206,6 +206,4 @@ import { commissions, craftPlate, parquetPlate, site } from '../data/site';
       </a>
     </div>
   </section>
-
-  <ShowroomStage mode="inline" />
 </Base>
