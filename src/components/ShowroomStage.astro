@@ -66,7 +66,7 @@ const timeOfDayModes = [
   data-showroom-root
   data-showroom-mode={mode}
   style={`--track: ${trackViewports};`}
-  aria-label="Material Study — 3D concept preview of material palette"
+  aria-label="Material Study, 3D concept preview of material palette"
 >
   {!isInline && (
     <header class="showroom-chrome">
@@ -309,7 +309,7 @@ const timeOfDayModes = [
 
     {/* Footer Chapter Rail */}
     <footer class="showroom-footer">
-      <p class="showroom-caption">Concept preview of our material palette — not a specific completed project.</p>
+      <p class="showroom-caption">Concept preview of our material palette, not a specific completed project.</p>
       <p class="showroom-hint" data-showroom-hint>Scroll to walk spline &middot; Space to free-orbit look</p>
 
       <nav class="showroom-chapters-wrap" aria-label="Material study chapters">
@@ -398,7 +398,7 @@ const timeOfDayModes = [
         <span class="showroom-drawer__code">Material Study</span>
         <h2 class="showroom-fallback__title">Five material concepts in {site.primaryRegion || 'Nepal'} daylight.</h2>
         <p class="showroom-drawer__summary">
-          Concept preview of our material palette — not a specific completed project. Honed stone, fluted timber, architectural metalwork, and quiet mineral finishes across {site.city}.
+          Concept preview of our material palette, not a specific completed project. Honed stone, fluted timber, architectural metalwork, and quiet mineral finishes across {site.city}.
         </p>
       </div>
 
@@ -466,9 +466,27 @@ const timeOfDayModes = [
 
     const mode = (root.dataset.showroomMode as 'fullscreen' | 'inline') || 'fullscreen';
     let handle: ShowroomHandle | null = null;
+    let disposedStage = false;
+    let mountIo: IntersectionObserver | null = null;
 
-    // Mount core reverse-engineered Three.js showroom engine
-    handle = mountShowroom(root, { mode });
+    const mountStageNow = () => {
+      if (handle || disposedStage) return;
+      mountIo?.disconnect();
+      mountIo = null;
+      handle = mountShowroom(root, { mode });
+    };
+
+    if (mode !== 'inline' || typeof IntersectionObserver === 'undefined') {
+      mountStageNow();
+    } else {
+      mountIo = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) mountStageNow();
+        },
+        { rootMargin: '1200px 0px' }
+      );
+      mountIo.observe(root);
+    }
 
     // ------------------------------------------------------------------------
     // 1. Time-of-Day Segmented Pill Controller
@@ -584,6 +602,10 @@ const timeOfDayModes = [
     const onKeyDown = (e: KeyboardEvent) => {
       // Ignore if user is inside form inputs
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) return;
+      if (mode === 'inline') {
+        const r = root.getBoundingClientRect();
+        if (r.top > window.innerHeight * 0.45 || r.bottom < window.innerHeight * 0.55) return;
+      }
 
       if (e.key >= '1' && e.key <= '4') {
         const idx = parseInt(e.key, 10) - 1;
@@ -650,6 +672,9 @@ const timeOfDayModes = [
 
     // Teardown hook
     const cleanup = () => {
+      disposedStage = true;
+      mountIo?.disconnect();
+      mountIo = null;
       cancelAnimationFrame(rafId);
       window.removeEventListener('keydown', onKeyDown);
       handle?.dispose();

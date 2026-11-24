@@ -83,9 +83,9 @@ function initHeaderControls() {
       header?.setAttribute('data-scrolled', String(scrolled));
     }
 
-    const headerProbe = y + 32;
+    const headerProbe = y + 16;
     let inDarkZone = darkZones.some((z) => z.top <= headerProbe && z.bottom >= headerProbe);
-    const overNonHeroDark = darkZones.some((z) => !z.isHero && z.top <= y + 72 && z.bottom >= y + 24);
+    const overNonHeroDark = darkZones.some((z) => !z.isHero && z.top <= y + 48 && z.bottom >= y + 16);
 
     if (heroHeader) {
       const nextTheme: 'dark' | 'light' = inDarkZone ? 'dark' : 'light';
@@ -134,6 +134,8 @@ function initHeaderControls() {
   const offScroll = onScroll(({ y }) => {
     syncHeaderState(y);
   });
+  const onNativeScroll = () => syncHeaderState(window.scrollY);
+  addEventListener('scroll', onNativeScroll, { passive: true });
 
   const soundBtn = document.querySelector<HTMLButtonElement>('[data-sound-toggle]');
   const updateSound = () => {
@@ -462,6 +464,7 @@ function initHeaderControls() {
     telTimers.forEach((t) => window.clearTimeout(t));
     telAbort.abort();
     offScroll();
+    removeEventListener('scroll', onNativeScroll);
     offSoundSync();
     citySelect?.removeEventListener('change', onCityManualChange);
     removeEventListener('resize', measureZones);

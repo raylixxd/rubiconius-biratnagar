@@ -34,8 +34,8 @@ export const TIME_OF_DAY_PRESETS: Record<TimeOfDayPreset, TimeOfDayConfig> = {
     intensity: 1.0,
     lightDirection: new THREE.Vector3(-0.38, -0.88, 0.28).normalize(),
     colorTint: new THREE.Color(0xf2f6ff), // Crisp clean architectural daylight
-    beamOpacity: 0.58,
-    dustGlow: 0.65,
+    beamOpacity: 0.16,
+    dustGlow: 0.45,
     dustColor: new THREE.Color(0xf8f3ea), // Warm lime/cream dust
     oscillationSpeed: 0.85,
     smokeSpeed: 0.16,
@@ -44,8 +44,8 @@ export const TIME_OF_DAY_PRESETS: Record<TimeOfDayPreset, TimeOfDayConfig> = {
     intensity: 1.45,
     lightDirection: new THREE.Vector3(-0.76, -0.42, 0.49).normalize(),
     colorTint: new THREE.Color(0xffaa4d), // Warm terracotta bronze / amber rake
-    beamOpacity: 0.85,
-    dustGlow: 1.15,
+    beamOpacity: 0.24,
+    dustGlow: 0.75,
     dustColor: new THREE.Color(0xffdfb3), // Golden illuminated particles
     oscillationSpeed: 1.1,
     smokeSpeed: 0.22,
@@ -54,8 +54,8 @@ export const TIME_OF_DAY_PRESETS: Record<TimeOfDayPreset, TimeOfDayConfig> = {
     intensity: 0.34,
     lightDirection: new THREE.Vector3(-0.22, -0.92, -0.32).normalize(),
     colorTint: new THREE.Color(0x6e88c7), // Atmospheric twilight indigo/silver
-    beamOpacity: 0.32,
-    dustGlow: 0.35,
+    beamOpacity: 0.12,
+    dustGlow: 0.28,
     dustColor: new THREE.Color(0x9db2de), // Cool lunar dust
     oscillationSpeed: 0.55,
     smokeSpeed: 0.09,

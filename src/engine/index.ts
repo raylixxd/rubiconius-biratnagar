@@ -13,7 +13,7 @@ import { playEnter, playLeave } from './transition';
 import { prefersReducedMotion } from './env';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export { onScroll, scrollState, getNormalizedVelocity, scrollToTarget, getScrollLimit, resizeScroll, stopScroll, startScroll } from './scroll';
+export { onScroll, scrollState, uniformBus, getNormalizedVelocity, scrollToTarget, getScrollLimit, resizeScroll, stopScroll, startScroll } from './scroll';
 export { setTransition, holdEnter } from './transition';
 export { setLoaderFormat, setLoaderExit, registerLoaderTask } from './loader';
 export { hideGL, pauseGL, resumeGL, setBackground, clearBackground, glSupported, setGLDusk, getGLDusk, setRunwayState } from './gl';
@@ -137,8 +137,12 @@ export function onPage(fn: PageFn) {
 
 function runPageFn(fn: PageFn) {
   ctx?.add(() => {
-    const c = fn({ intro: intro!, path: location.pathname });
-    if (typeof c === 'function') cleanups.push(c);
+    try {
+      const c = fn({ intro: intro!, path: location.pathname });
+      if (typeof c === 'function') cleanups.push(c);
+    } catch (err) {
+      console.error('[engine] page init error:', err);
+    }
   });
 }
 
@@ -180,8 +184,12 @@ export async function boot(setup?: () => void) {
   initCursor();
   bindFlipClicks();
   setup?.();
-  await ensureFontsReady();
-  initPage();
+  await Promise.race([ensureFontsReady(), new Promise((r) => setTimeout(r, 1500))]);
+  try {
+    initPage();
+  } catch (err) {
+    console.error('[engine] initPage error:', err);
+  }
   await runLoader();
   intro?.play();
 }

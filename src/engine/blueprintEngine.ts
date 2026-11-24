@@ -2999,7 +2999,7 @@ export class BlueprintEngine {
 
     const zoomX = availW / bounds.width;
     const zoomY = availH / bounds.height;
-    const targetZoom = Math.max(this.viewport.minZoom, Math.min(this.viewport.maxZoom, Math.min(zoomX, zoomY) * 0.95));
+    const targetZoom = Math.max(this.viewport.minZoom, Math.min(this.viewport.maxZoom, Math.min(zoomX, zoomY) * 0.72));
 
     const boundsCenterX = (bounds.minX + bounds.maxX) * 0.5;
     const boundsCenterY = (bounds.minY + bounds.maxY) * 0.5;
@@ -3259,6 +3259,7 @@ export class BlueprintEngine {
   };
 
   private handleWheel = (e: WheelEvent): void => {
+    if (!e.ctrlKey && !e.metaKey) return;
     e.preventDefault();
     if (!this.canvas) return;
 
@@ -4086,7 +4087,10 @@ export class BlueprintEngine {
     const tagW = m.width + 12 * dpr;
     const tagH = 18 * dpr;
 
-    ctx.fillStyle = 'rgba(7, 22, 38, 0.9)';
+    const hudCardBg = (this.theme.id === 'warm_vellum' || this.theme.id === 'monochrome_cad')
+      ? 'rgba(247, 245, 238, 0.94)'
+      : 'rgba(7, 22, 38, 0.9)';
+    ctx.fillStyle = hudCardBg;
     ctx.strokeStyle = this.theme.snapMarker;
     ctx.lineWidth = 1 * dpr;
     ctx.roundRect(sx + size + 6 * dpr, sy - tagH * 0.5, tagW, tagH, 3 * dpr);
@@ -4103,16 +4107,19 @@ export class BlueprintEngine {
 
   private renderScreenHUD(ctx: CanvasRenderingContext2D, width: number, height: number): void {
     const dpr = this.viewport.dpr;
+    const isLight = this.theme.id === 'warm_vellum' || this.theme.id === 'monochrome_cad';
+    const hudFill = isLight ? 'rgba(247, 245, 238, 0.94)' : 'rgba(7, 22, 38, 0.85)';
     ctx.save();
 
     // 1. Top-Left HUD Info Badge: Commission & Drawing Code
     const padding = 20 * dpr;
-    ctx.fillStyle = 'rgba(7, 22, 38, 0.85)';
+    ctx.fillStyle = hudFill;
     ctx.strokeStyle = this.theme.moduleLine;
     ctx.lineWidth = 1 * dpr;
 
-    const hudW = 320 * dpr;
+    const hudW = 390 * dpr;
     const hudH = 80 * dpr;
+    ctx.beginPath();
     ctx.roundRect(padding, padding, hudW, hudH, 6 * dpr);
     ctx.fill();
     ctx.stroke();
@@ -4140,8 +4147,9 @@ export class BlueprintEngine {
     const coordW = 280 * dpr;
     const coordY = height - padding - coordH;
 
-    ctx.fillStyle = 'rgba(7, 22, 38, 0.85)';
+    ctx.fillStyle = hudFill;
     ctx.strokeStyle = this.theme.moduleLine;
+    ctx.beginPath();
     ctx.roundRect(padding, coordY, coordW, coordH, 4 * dpr);
     ctx.fill();
     ctx.stroke();

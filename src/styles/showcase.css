@@ -15,6 +15,9 @@
 .case-showcase__header {
   margin-block-end: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
 }
+.has-hero-overlay .case-showcase__viewport .case-showcase__header {
+  padding-top: 2.75rem;
+}
 
 .case-showcase__hud {
   position: relative;

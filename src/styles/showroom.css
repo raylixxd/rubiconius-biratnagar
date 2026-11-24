@@ -1709,6 +1709,10 @@ html.is-showroom body {
   padding: 0 var(--gutter);
   pointer-events: none;
 }
+.showroom-inline-sticky .showroom-hud__datum--tl,
+.showroom-inline-sticky .showroom-hud__datum--tr {
+  top: calc(clamp(4.75rem, 8.2svh, 5.75rem) + 2.55rem);
+}
 
 .showroom-inline-kicker {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;

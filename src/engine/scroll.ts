@@ -32,20 +32,62 @@ function bindScrollEnd() {
 }
 
 export type ScrollState = { y: number; velocity: number; progress: number };
+export type UniformBus = {
+  progress: number;
+  velocity: number;
+  pointerX: number;
+  pointerY: number;
+  pointerVelocity: number;
+};
+
 const state: ScrollState = { y: 0, velocity: 0, progress: 0 };
+export const uniformBus: UniformBus = {
+  progress: 0,
+  velocity: 0,
+  pointerX: 0.5,
+  pointerY: 0.5,
+  pointerVelocity: 0,
+};
+
+let prevPtrX = 0.5;
+let prevPtrY = 0.5;
+let ptrBound = false;
+
+function bindUniformPointer() {
+  if (ptrBound || typeof window === 'undefined') return;
+  ptrBound = true;
+  window.addEventListener(
+    'pointermove',
+    (e) => {
+      const vw = window.innerWidth || 1;
+      const vh = window.innerHeight || 1;
+      const nx = e.clientX / vw;
+      const ny = e.clientY / vh;
+      const dv = Math.hypot(nx - prevPtrX, ny - prevPtrY);
+      prevPtrX = nx;
+      prevPtrY = ny;
+      uniformBus.pointerX = nx;
+      uniformBus.pointerY = ny;
+      uniformBus.pointerVelocity = Math.min(1, uniformBus.pointerVelocity * 0.65 + dv * 12);
+    },
+    { passive: true }
+  );
+}
 
 export function initScroll() {
   bindScrollEnd();
+  bindUniformPointer();
   if (lenis || prefersReducedMotion()) {
     if (!lenis) addEventListener('scroll', nativeTick, { passive: true });
     return;
   }
   lenis = new Lenis({
-    duration: 1.2,
+    autoRaf: false,
+    duration: 1.18,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
     wheelMultiplier: 1.0,
-    touchMultiplier: 1.2,
+    touchMultiplier: 1.5,
     syncTouch: true,
     anchors: true,
   });
@@ -53,10 +95,15 @@ export function initScroll() {
     state.y = l.scroll;
     state.velocity = l.velocity;
     state.progress = l.limit > 0 ? l.scroll / l.limit : 0;
+    uniformBus.progress = state.progress;
+    uniformBus.velocity = state.velocity;
     if (ScrollTrigger.getAll().length > 0) ScrollTrigger.update();
     dispatchScroll(state);
   });
-  gsap.ticker.add((time) => lenis?.raf(time * 1000), false, true);
+  gsap.ticker.add((time) => {
+    uniformBus.pointerVelocity *= 0.9;
+    lenis?.raf(time * 1000);
+  }, false, true);
   gsap.ticker.lagSmoothing(0);
 }
 
@@ -65,6 +112,8 @@ function nativeTick() {
   state.velocity = scrollY - state.y;
   state.y = scrollY;
   state.progress = max > 0 ? scrollY / max : 0;
+  uniformBus.progress = state.progress;
+  uniformBus.velocity = state.velocity;
   dispatchScroll(state);
 }
 

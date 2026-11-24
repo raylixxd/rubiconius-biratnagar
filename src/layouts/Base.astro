@@ -123,51 +123,24 @@ const jsonLd = {
               <path d="M35 97C46 105 74 105 85 97C86 112 75 119 66 123C62 125 60 130 61 135C52 130 48 122 50 116C52 112 46 109 42 114C37 110 34 103 35 97Z" fill="currentColor" />
             </svg>
           </a>
-          <a class="otto-t12 otto-abs otto-header__word" href="/" style="--x: 46; --y: 18">{site.name.toLowerCase()}</a>
+          <a class="otto-t12 otto-abs otto-header__word" href="/" style="--x: 48; --y: 18">{site.name.toLowerCase()}</a>
 
-          <nav class="otto-menu" aria-label="Commissions">
-            <ol>
-              <li class="otto-menu__group otto-abs" style="--y: 18">
-                <span class="otto-menu__n otto-t12" aria-hidden="true">01</span>
-                <a class="otto-menu__name otto-t12" href="/works/fluted-master-suite/">Fluted Suite</a>
-                <ol class="otto-menu__sub otto-t12">
-                  <li><a href="/works/fluted-master-suite/">F. S. III</a></li>
-                  <li><a href="/works/fluted-master-suite/#specs">F. S. II</a></li>
-                  <li><a href="/showroom/">F. S. I</a></li>
-                </ol>
-              </li>
-              <li class="otto-menu__group otto-menu__group--more otto-abs" style="--y: 85" data-otto-fold-group>
-                <span class="otto-menu__n otto-t12" aria-hidden="true">02</span>
-                <a class="otto-menu__name otto-t12" href="/works/formal-drawing-room/">Drawing Room</a>
-                <ol class="otto-menu__sub otto-t12">
-                  <li><a href="/works/formal-drawing-room/">D. R. Salon</a></li>
-                  <li><a href="/works/formal-drawing-room/#specs">D. R. Stone</a></li>
-                  <li><a href="/works/formal-drawing-room/#gallery">D. R. Cove</a></li>
-                </ol>
-              </li>
-              <li class="otto-menu__group otto-menu__group--more otto-abs" style="--y: 152" data-otto-fold-group>
-                <span class="otto-menu__n otto-t12" aria-hidden="true">03</span>
-                <a class="otto-menu__name otto-t12" href="/works/heritage-panelled-gallery/">Gallery Hall</a>
-                <ol class="otto-menu__sub otto-t12">
-                  <li><a href="/works/heritage-panelled-gallery/">G. H. Axis</a></li>
-                  <li><a href="/works/heritage-panelled-gallery/#specs">G. H. Brass</a></li>
-                  <li><a href="/works/heritage-panelled-gallery/#gallery">G. H. Sal</a></li>
-                </ol>
-              </li>
-            </ol>
-          </nav>
+          <div class="otto-header__coord otto-abs otto-t12" style="--x: 256; --y: 18" data-otto-fold-group>
+            <span class="otto-header__coord-primary">Biratnagar &middot; Dharan</span>
+            <span class="otto-header__coord-sub">26.4678&deg; N, 87.2767&deg; E</span>
+          </div>
 
-          <p class="otto-header__title otto-t50" data-otto-header-title>Fluted Suite (III)</p>
+          <p class="otto-header__title otto-t50" data-otto-header-title>Quiet Architecture</p>
 
           <a class="otto-t12 otto-abs otto-header__link" href="/works/" style="--x: 1082; --y: 18" data-text-reactive="roll">Works</a>
-          <a class="otto-t12 otto-abs otto-header__link" href="/practice/" style="--x: 1142; --y: 18" data-text-reactive="roll">About</a>
-          <a class="otto-t12 otto-abs otto-header__link" href="/showroom/" style="--x: 1200; --y: 18" data-text-reactive="roll">3D Study</a>
-          <button class="sound-btn hero-sound-btn otto-abs" type="button" data-sound-toggle aria-pressed="false" aria-label="Toggle studio sound" style="--x: 1278; --y: 12">
+          <a class="otto-t12 otto-abs otto-header__link" href="/practice/" style="--x: 1146; --y: 18" data-text-reactive="roll">Practice</a>
+          <a class="otto-t12 otto-abs otto-header__link" href="/showroom/" style="--x: 1218; --y: 18" data-text-reactive="roll">3D Study</a>
+          <button class="sound-btn hero-sound-btn otto-abs" type="button" data-sound-toggle aria-pressed="false" aria-label="Toggle studio sound" style="--x: 1296; --y: 12">
             <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
             <span class="sr-only" data-sound-label>Sound</span>
           </button>
           <button class="otto-t12 otto-abs otto-abs--r otto-header__cart" type="button" data-open-drawer style="--r: 1420; --y: 18">
-            Inquire ( 03 )
+            Inquire &#8599;
           </button>
           <button class="otto-t12 otto-phone-menu" type="button" data-menu-open aria-expanded="false" aria-controls="mobile-menu">
             Menu
@@ -251,8 +224,8 @@ const jsonLd = {
     </main>
 
     {!immersive && (
-    <footer class="site-footer">
-      <div class="arch-grid-lines arch-grid-lines--light" aria-hidden="true">
+    <footer class="site-footer" data-theme-zone="dark">
+      <div class="arch-grid-lines arch-grid-lines--dark" aria-hidden="true">
         <span></span><span></span><span></span><span></span><span></span><span></span>
       </div>
 
@@ -266,6 +239,15 @@ const jsonLd = {
           </a>
           <p class="footer-brand-name">{site.name}</p>
           <p class="footer-brand-loc">{site.city}</p>
+        </div>
+
+        <div class="footer-col">
+          <h2 class="footer-col__title">Enquiries</h2>
+          <ul class="footer-col__list">
+            <li><a href={`tel:+${site.whatsappNumber}`}>{site.phoneDisplay}</a></li>
+            <li><button type="button" data-open-drawer>Commission Brief</button></li>
+            <li><a href={`https://wa.me/${site.whatsappNumber}`} target="_blank" rel="noopener noreferrer">Direct WhatsApp</a></li>
+          </ul>
         </div>
 
         <div class="footer-col">
@@ -324,9 +306,26 @@ const jsonLd = {
       </div>
 
       <div class="footer-wordmark-wrap wrap">
-        <p class="footer-giant" data-text-reactive="proximity" aria-label={site.name}>
-          {site.name.toUpperCase()}
-        </p>
+        <svg
+          class="footer-monument-svg"
+          viewBox="0 0 1400 205"
+          role="img"
+          aria-label={site.name.toUpperCase()}
+        >
+          <text
+            x="700"
+            y="168"
+            text-anchor="middle"
+            fill="currentColor"
+            font-family="Boska, Georgia, serif"
+            font-size="186"
+            letter-spacing="-6"
+            textLength="1380"
+            lengthAdjust="spacingAndGlyphs"
+          >
+            {site.name.toUpperCase()}
+          </text>
+        </svg>
       </div>
 
       <div class="footer-bottom wrap">

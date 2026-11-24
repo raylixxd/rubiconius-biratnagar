@@ -302,7 +302,7 @@ uniform float uTime;
 uniform float uDusk;
 
 const vec3 LUM_WEIGHTS = vec3(0.2126, 0.7152, 0.0722);
-float luminance(in vec3 color) {
+float groundLuminance(in vec3 color) {
   return dot(color, LUM_WEIGHTS);
 }
 
@@ -374,7 +374,7 @@ void main() {
   col += vec3(0.96, 0.91, 0.83) * (spec * 0.40);
 
   // 9. Architectural Bronze Fluid Luminance Glow
-  float lum = luminance(abs(fluidDen.rgb)) + fluidSpeed * 0.35;
+  float lum = groundLuminance(abs(fluidDen.rgb)) + fluidSpeed * 0.35;
   vec3 glow = uBronzeColor * (lum * 0.80 * ao);
   col += glow;
 

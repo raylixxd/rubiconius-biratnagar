@@ -1,6 +1,16 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { prefersReducedMotion, studioAudio } from '../engine';
+import {
+  createBlueprintEngine,
+  prefersReducedMotion,
+  scrollToTarget,
+  studioAudio,
+  uniformBus,
+  type BlueprintEngine,
+  type BlueprintThemeId,
+  type BlueprintTool,
+  type RubiconiusCommissionId,
+} from '../engine';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -447,22 +457,23 @@ function initOttoHeroGL(): (() => void) | void {
     vel[0] = pVel.x;
     vel[1] = pVel.y;
 
+    const scrollVel = Math.min(35, Math.abs(uniformBus.velocity));
     gl.useProgram(program);
     gl.uniform1i(uBare, 0);
     gl.uniform1f(uNow, t);
     gl.uniform1f(uHover, hoverState.v);
-    gl.uniform1f(uActive, hoverState.v > 0.001 || t - lastSpawnTime < 1.2 ? 1.0 : 0.0);
+    gl.uniform1f(uActive, hoverState.v > 0.001 || t - lastSpawnTime < 1.2 || scrollVel > 1.5 ? 1.0 : 0.0);
     gl.uniform1f(uMotion, motionFlag);
     gl.uniform4fv(uDrops, drops);
     gl.uniform2fv(uVel, vel);
     gl.uniform1f(uEdge, 0.065);
     gl.uniform1f(uWobble, 14.0);
-    gl.uniform1f(uSmear, 0.0013);
+    gl.uniform1f(uSmear, 0.0013 + scrollVel * 0.00018);
     gl.uniform1f(uThrow, 0.22);
     gl.uniform1f(uSpread, 0.85);
     gl.uniform1f(uSink, 1.2);
-    gl.uniform1f(uSwell, 0.18);
-    gl.uniform1f(uBend, 9.5);
+    gl.uniform1f(uSwell, 0.18 + scrollVel * 0.008);
+    gl.uniform1f(uBend, 9.5 + scrollVel * 0.015 * 14);
     gl.uniform1f(uLens, 5.2);
     gl.uniform1f(uFilm, filmMode);
     gl.uniform1f(uWaveEvery, 3.8);
@@ -511,19 +522,19 @@ function initOttoHeaderAndStory(): (() => void) | void {
   const specs = Array.from(story?.querySelectorAll<HTMLElement>('.otto-story__specs .otto-abs') || []);
   const reduced = prefersReducedMotion();
 
-  if (!hero || !story || reduced) return;
+  if (!hero || reduced) return;
 
   const isDesktop = () => window.innerWidth >= 900;
   const cleanups: Array<() => void> = [];
 
-  // 1. Header title compression (`1 -> 0.24` centered top on desktop; smooth fade on mobile)
+  // 1. Header title compression (`1 -> 0.28` centered top on desktop; smooth fade on mobile)
   if (title) {
     if (isDesktop()) {
       const t = gsap.fromTo(
         title,
         { scale: 1, y: 0 },
         {
-          scale: 0.24,
+          scale: 0.28,
           y: () => 5 * (window.innerWidth / 1440),
           ease: 'none',
           transformOrigin: '50% 0%',
@@ -561,7 +572,7 @@ function initOttoHeaderAndStory(): (() => void) | void {
     }
   }
 
-  // 2. Fold 02/03 menu items upward past 12% hero scroll
+  // 2. Fold secondary header coordinate tag past 12% hero scroll
   if (header && foldGroups.length) {
     let folded = false;
     const setFold = (next: boolean) => {
@@ -588,23 +599,53 @@ function initOttoHeaderAndStory(): (() => void) | void {
     });
   }
 
-  // 3. Hero stage curtain parallax (`yPercent: 32`) + dusk shade as `#otto-story` rises over hero
-  if (stage && shade && isDesktop()) {
+  // 3. Hero stage vertical parallax (`yPercent: 18`, `scale: 1.08`) + dusk shade as next section rises
+  const nextSec = story || document.querySelector<HTMLElement>('#arch-story, #works, .arch-story');
+  if (stage && shade && isDesktop() && nextSec) {
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
-        trigger: story,
+        trigger: nextSec,
         start: 'top bottom',
         end: 'top top',
-        scrub: true,
+        scrub: 0.6,
         invalidateOnRefresh: true,
       },
     });
-    tl.to(stage, { yPercent: 32 }, 0).to(shade, { opacity: 0.55 }, 0);
+    tl.to(stage, { yPercent: 18, scale: 1.08 }, 0).to(shade, { opacity: 0.55 }, 0);
     cleanups.push(() => {
       tl.scrollTrigger?.kill();
       tl.kill();
       gsap.set([stage, shade], { clearProps: 'transform,opacity' });
+    });
+  }
+
+  // Asymmetric thesis plates parallax inside #arch-story
+  const storyPlates = Array.from(document.querySelectorAll<HTMLElement>('[data-story-plate]'));
+  if (storyPlates.length && isDesktop()) {
+    storyPlates.forEach((el, idx) => {
+      const fromY = idx === 0 ? 40 : 95;
+      const toY = idx === 0 ? -25 : -45;
+      const tw = gsap.fromTo(
+        el,
+        { y: fromY },
+        {
+          y: toY,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.6,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+      cleanups.push(() => {
+        tw.scrollTrigger?.kill();
+        tw.kill();
+        gsap.set(el, { clearProps: 'transform' });
+      });
     });
   }
 
@@ -652,14 +693,14 @@ function initOttoHeaderAndStory(): (() => void) | void {
   }
 
   // 5. Otto Objects Centerpiece Lift & Text-Parting Flight through .otto-story__lead & .otto-story__details
-  const flight = story.querySelector<HTMLElement>('[data-otto-story-flight]');
-  const spinStage = story.querySelector<HTMLElement>('[data-otto-spin-stage]');
+  const flight = story?.querySelector<HTMLElement>('[data-otto-story-flight]') ?? null;
+  const spinStage = story?.querySelector<HTMLElement>('[data-otto-spin-stage]') ?? null;
   const lastPic = pics[pics.length - 1];
-  const splitTargets = Array.from(
-    story.querySelectorAll<HTMLElement>('.otto-story__lead .otto-line__in, .otto-story__details .otto-line__in')
-  );
+  const splitTargets = story
+    ? Array.from(story.querySelectorAll<HTMLElement>('.otto-story__lead .otto-line__in, .otto-story__details .otto-line__in'))
+    : [];
 
-  if (flight && lastPic && splitTargets.length && isDesktop()) {
+  if (story && flight && lastPic && splitTargets.length && isDesktop()) {
     const originals = new Map<HTMLElement, string>();
     const partedLines: Array<{ line: HTMLElement; left: HTMLSpanElement; right: HTMLSpanElement }> = [];
 
@@ -828,28 +869,33 @@ function initOttoFormsPin(): (() => void) | void {
       pin: true,
       anticipatePin: 1,
       start: 'top top',
-      end: '+=180%',
+      end: '+=295%',
       scrub: 0.5,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const p = self.progress;
-        setStep(p < 0.34 ? 0 : p < 0.72 ? 1 : 2);
+        setStep(p < 0.34 ? 0 : p < 0.68 ? 1 : 2);
       },
     },
   });
 
   if (flightInner) {
-    tl.fromTo(flightInner, { scale: 0.92, rotateY: -8 }, { scale: 1.04, rotateY: 8, duration: 1 }, 0);
-  }
-  if (photo) {
-    // Stage 0 -> 1: photograph dissolves into blueprint elevation; Stage 2: returns richer architectural plate
-    tl.to(photo, { opacity: 0.14, duration: 0.4 }, 0.12).to(photo, { opacity: 0.92, duration: 0.32 }, 0.68);
+    tl.fromTo(flightInner, { scale: 0.94, rotateY: -5 }, { scale: 1.04, rotateY: 5, duration: 1 }, 0);
   }
   if (svg) {
-    tl.fromTo(svg, { opacity: 0 }, { opacity: 1, duration: 0.25 }, 0.06).to(svg, { opacity: 0.45, duration: 0.25 }, 0.72);
+    tl.fromTo(svg, { opacity: 0.72 }, { opacity: 1, duration: 0.3 }, 0);
   }
-  paths.forEach((path, i) => {
-    tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.35 }, 0.08 + i * 0.015);
+  const layer0 = paths.filter((p) => (p.dataset.cadStep || '0') === '0');
+  const layer1 = paths.filter((p) => p.dataset.cadStep === '1');
+  const layer2 = paths.filter((p) => p.dataset.cadStep === '2');
+  layer0.forEach((path, i) => {
+    tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.32 }, 0.02 + i * 0.015);
+  });
+  layer1.forEach((path, i) => {
+    tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.32 }, 0.34 + i * 0.015);
+  });
+  layer2.forEach((path, i) => {
+    tl.fromTo(path, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.32 }, 0.66 + i * 0.015);
   });
 
   return () => {
@@ -1367,12 +1413,289 @@ function initDhkManifesto(): (() => void) | void {
 }
 
 /**
+ * Act 3: OTTO-Style Pinned Horizontal Gallery & 01-04 Scrub Ruler with Counter-Parallax Frames.
+ */
+function initOttoGalleryPin(): (() => void) | void {
+  const root = document.querySelector<HTMLElement>('[data-otto-gallery]');
+  if (!root || prefersReducedMotion() || window.innerWidth < 768) return;
+
+  const track = root.querySelector<HTMLElement>('[data-gallery-track]');
+  const parallaxFrames = Array.from(root.querySelectorAll<HTMLElement>('[data-gallery-parallax]'));
+  const marks = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-gallery-mark]'));
+  const thumb = root.querySelector<HTMLElement>('[data-gallery-thumb]');
+  const activeIdxEl = root.querySelector<HTMLElement>('[data-gallery-active-idx]');
+  const activeCapEl = root.querySelector<HTMLElement>('[data-gallery-active-cap]');
+  const items = Array.from(root.querySelectorAll<HTMLElement>('[data-gallery-item]'));
+
+  if (!track || !items.length) return;
+
+  const captions = items.map((el) => el.dataset.caption || '');
+  let lastActive = 0;
+
+  const getDistance = () => Math.max(track.scrollWidth - window.innerWidth + window.innerWidth * 0.14, window.innerHeight * 2.2);
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: {
+      trigger: root,
+      pin: true,
+      anticipatePin: 1,
+      start: 'top top',
+      end: () => `+=${Math.max(window.innerHeight * 3.95, track.scrollWidth - window.innerWidth * 0.25)}`,
+      scrub: 0.6,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const p = self.progress;
+        if (thumb) {
+          thumb.style.transform = `translate3d(${(p * 300).toFixed(2)}%, 0, 0)`;
+        }
+        const idx = Math.min(items.length - 1, Math.max(0, Math.round(p * (items.length - 1))));
+        if (idx !== lastActive) {
+          lastActive = idx;
+          marks.forEach((m, i) => m.classList.toggle('is-now', i === idx));
+          if (activeIdxEl) activeIdxEl.textContent = `0${idx + 1}`;
+          if (activeCapEl && captions[idx]) activeCapEl.textContent = captions[idx];
+        }
+      },
+    },
+  });
+
+  tl.to(track, { x: () => -getDistance(), duration: 1 }, 0);
+  parallaxFrames.forEach((frame) => {
+    tl.fromTo(frame, { xPercent: -8 }, { xPercent: 8, duration: 1 }, 0);
+  });
+
+  const markHandlers: Array<() => void> = [];
+  marks.forEach((btn, idx) => {
+    const fn = () => {
+      const st = tl.scrollTrigger;
+      if (!st) return;
+      const frac = items.length > 1 ? idx / (items.length - 1) : 0;
+      const targetY = st.start + (st.end - st.start) * frac;
+      scrollToTarget(targetY, { duration: 1.0 });
+    };
+    btn.addEventListener('click', fn);
+    markHandlers.push(() => btn.removeEventListener('click', fn));
+  });
+
+  return () => {
+    markHandlers.forEach((f) => f());
+    tl.scrollTrigger?.kill();
+    tl.kill();
+    gsap.set([track, ...parallaxFrames, thumb].filter(Boolean) as HTMLElement[], { clearProps: 'transform' });
+  };
+}
+
+/**
+ * Act 4A: Telha Clarke [ Lookbook | Index ] Toggle + Floating Cursor Preview Plate.
+ */
+function initWorksViewToggle(): (() => void) | void {
+  const sec = document.querySelector<HTMLElement>('[data-works-atelier]');
+  if (!sec) return;
+
+  const btns = Array.from(sec.querySelectorAll<HTMLButtonElement>('[data-works-view]'));
+  const rows = Array.from(sec.querySelectorAll<HTMLElement>('[data-ledger-row]'));
+  const preview = sec.querySelector<HTMLElement>('[data-ledger-preview]');
+  const previewImg = preview?.querySelector<HTMLImageElement>('img');
+  const cleanups: Array<() => void> = [];
+
+  btns.forEach((btn) => {
+    const fn = () => {
+      const view = btn.dataset.worksView || 'lookbook';
+      sec.dataset.view = view;
+      btns.forEach((b) => {
+        const active = b === btn;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+      studioAudio.tick(490, 0.015);
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+    };
+    btn.addEventListener('click', fn);
+    cleanups.push(() => btn.removeEventListener('click', fn));
+  });
+
+  if (preview && previewImg && window.innerWidth >= 900 && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const moveX = gsap.quickTo(preview, 'x', { duration: 0.35, ease: 'power3.out' });
+    const moveY = gsap.quickTo(preview, 'y', { duration: 0.35, ease: 'power3.out' });
+    rows.forEach((row) => {
+      const onEnter = (e: PointerEvent) => {
+        const src = row.dataset.previewSrc;
+        if (src && previewImg.src !== src) previewImg.src = src;
+        gsap.set(preview, { x: e.clientX + 24, y: e.clientY - 120 });
+        gsap.to(preview, { opacity: 1, duration: 0.25, ease: 'power2.out' });
+      };
+      const onMove = (e: PointerEvent) => {
+        moveX(e.clientX + 24);
+        moveY(Math.max(24, Math.min(window.innerHeight - 320, e.clientY - 120)));
+      };
+      const onLeave = () => {
+        gsap.to(preview, { opacity: 0, duration: 0.2 });
+      };
+      row.addEventListener('pointerenter', onEnter);
+      row.addEventListener('pointermove', onMove);
+      row.addEventListener('pointerleave', onLeave);
+      cleanups.push(() => {
+        row.removeEventListener('pointerenter', onEnter);
+        row.removeEventListener('pointermove', onMove);
+        row.removeEventListener('pointerleave', onLeave);
+      });
+    });
+  }
+
+  return () => cleanups.forEach((f) => f());
+}
+
+/**
+ * Act 4B: Embedded Interactive 1:20 Vector CAD Elevation Sheet (Lazy Mounted via IntersectionObserver).
+ */
+function initHomeBlueprintSheet(): (() => void) | void {
+  const sec = document.querySelector<HTMLElement>('[data-home-cad-section]');
+  const canvas = sec?.querySelector<HTMLCanvasElement>('[data-home-cad-canvas]');
+  if (!sec || !canvas) return;
+
+  let engine: BlueprintEngine | null = null;
+  let disposed = false;
+
+  const ensureMounted = () => {
+    if (engine || disposed) return engine;
+    engine = createBlueprintEngine(canvas, {
+      commissionId: 'fluted_master_suite',
+      themeId: 'warm_vellum',
+      initialTool: 'measure',
+    });
+    return engine;
+  };
+
+  const io = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) ensureMounted();
+    },
+    { rootMargin: '500px' }
+  );
+  io.observe(sec);
+
+  const cleanups: Array<() => void> = [];
+  const commBtns = Array.from(sec.querySelectorAll<HTMLButtonElement>('[data-cad-comm]'));
+  const toolBtns = Array.from(sec.querySelectorAll<HTMLButtonElement>('[data-cad-tool]'));
+  const themeBtns = Array.from(sec.querySelectorAll<HTMLButtonElement>('[data-cad-theme]'));
+  const zoomBtns = Array.from(sec.querySelectorAll<HTMLButtonElement>('[data-cad-zoom]'));
+  const exportBtn = sec.querySelector<HTMLButtonElement>('[data-cad-export]');
+
+  commBtns.forEach((btn) => {
+    const fn = () => {
+      const e = ensureMounted();
+      const id = btn.dataset.cadComm as RubiconiusCommissionId;
+      if (e && id) {
+        e.setCommission(id);
+        e.fitToViewport(false);
+        commBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
+        studioAudio.tick(460, 0.015);
+      }
+    };
+    btn.addEventListener('click', fn);
+    cleanups.push(() => btn.removeEventListener('click', fn));
+  });
+
+  toolBtns.forEach((btn) => {
+    const fn = () => {
+      const e = ensureMounted();
+      const tool = btn.dataset.cadTool as BlueprintTool;
+      if (e && tool) {
+        e.setTool(tool);
+        toolBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
+        studioAudio.tick(520, 0.012);
+      }
+    };
+    btn.addEventListener('click', fn);
+    cleanups.push(() => btn.removeEventListener('click', fn));
+  });
+
+  themeBtns.forEach((btn) => {
+    const fn = () => {
+      const e = ensureMounted();
+      const theme = btn.dataset.cadTheme as BlueprintThemeId;
+      if (e && theme) {
+        e.setTheme(theme);
+        themeBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
+        studioAudio.tick(540, 0.012);
+      }
+    };
+    btn.addEventListener('click', fn);
+    cleanups.push(() => btn.removeEventListener('click', fn));
+  });
+
+  zoomBtns.forEach((btn) => {
+    const fn = () => {
+      const e = ensureMounted();
+      const action = btn.dataset.cadZoom;
+      if (!e) return;
+      if (action === 'in') e.zoomIn(1.25);
+      else if (action === 'out') e.zoomOut(1.25);
+      else e.fitToViewport(false);
+    };
+    btn.addEventListener('click', fn);
+    cleanups.push(() => btn.removeEventListener('click', fn));
+  });
+
+  if (exportBtn) {
+    const fn = () => {
+      ensureMounted()?.downloadSVG();
+      studioAudio.tick(620, 0.02);
+    };
+    exportBtn.addEventListener('click', fn);
+    cleanups.push(() => exportBtn.removeEventListener('click', fn));
+  }
+
+  return () => {
+    disposed = true;
+    io.disconnect();
+    cleanups.forEach((f) => f());
+    engine?.detachCanvas();
+    engine = null;
+  };
+}
+
+/**
+ * Act 6A: OTTO-Style 120svh Difference Material Selector Stage.
+ */
+function initAtelierCloseStage(): (() => void) | void {
+  const root = document.querySelector<HTMLElement>('[data-atelier-close]');
+  if (!root) return;
+
+  const btns = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-close-mat]'));
+  const plates = Array.from(root.querySelectorAll<HTMLImageElement>('[data-close-plate]'));
+  const activeLabel = root.querySelector<HTMLElement>('[data-close-active-label]');
+  const cleanups: Array<() => void> = [];
+
+  btns.forEach((btn, idx) => {
+    const fn = () => {
+      btns.forEach((b, i) => {
+        const on = i === idx;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+      plates.forEach((img, i) => img.classList.toggle('is-active', i === idx));
+      if (activeLabel && btn.dataset.closeMat) activeLabel.textContent = btn.dataset.closeMat;
+      studioAudio.tick(450 + idx * 45, 0.015);
+    };
+    btn.addEventListener('click', fn);
+    cleanups.push(() => btn.removeEventListener('click', fn));
+  });
+
+  return () => cleanups.forEach((f) => f());
+}
+
+/**
  * Master initializer for homepage custom Otto Objects Hero + Multi-Benchmark Choreography.
  */
 export function initHomeVisualChoreography(): (() => void) | void {
   const cleanHeroGL = initOttoHeroGL();
   const cleanOttoStory = initOttoHeaderAndStory();
   const cleanOttoForms = initOttoFormsPin();
+  const cleanOttoGallery = initOttoGalleryPin();
+  const cleanWorksToggle = initWorksViewToggle();
+  const cleanCadSheet = initHomeBlueprintSheet();
   const cleanOttoCard = initOttoCard();
   const cleanMega = initMegaHeader();
   const cleanTelha = initTelhaWorks();
@@ -1380,8 +1703,10 @@ export function initHomeVisualChoreography(): (() => void) | void {
   const cleanOttoCollection = initOttoCollection();
   const cleanAnuc = initAnucGrid();
   const cleanDhk = initDhkManifesto();
+  const cleanAtelierClose = initAtelierCloseStage();
 
   return () => {
+    cleanAtelierClose?.();
     cleanDhk?.();
     cleanAnuc?.();
     cleanOttoCollection?.();
@@ -1389,6 +1714,9 @@ export function initHomeVisualChoreography(): (() => void) | void {
     cleanTelha?.();
     cleanMega?.();
     cleanOttoCard?.();
+    cleanCadSheet?.();
+    cleanWorksToggle?.();
+    cleanOttoGallery?.();
     cleanOttoForms?.();
     cleanOttoStory?.();
     cleanHeroGL?.();

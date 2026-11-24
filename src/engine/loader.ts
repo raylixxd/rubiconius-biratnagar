@@ -6,8 +6,8 @@ export const setLoaderFormat = (fn: (p: number) => string) => { format = fn; };
 let exit: ((root: HTMLElement) => gsap.core.Timeline) | null = null;
 export const setLoaderExit = (fn: (root: HTMLElement) => gsap.core.Timeline) => { exit = fn; };
 
-const MIN = 0.25;
-const MAX = 0.65;
+const MIN = 0.65;
+const MAX = 1.05;
 const extraTasks: Promise<unknown>[] = [];
 
 export function registerLoaderTask(p: Promise<unknown>) {
@@ -23,10 +23,7 @@ function criticalAssets(): Promise<unknown>[] {
 export async function runLoader(): Promise<void> {
   const root = document.getElementById('loader');
   if (!root) return;
-  const seen = (() => {
-    try { return sessionStorage.getItem('rubiconius_seen') === '1'; } catch { return false; }
-  })();
-  if (prefersReducedMotion() || seen) {
+  if (prefersReducedMotion()) {
     finish(root);
     return;
   }
@@ -40,13 +37,23 @@ export async function runLoader(): Promise<void> {
   const start = performance.now();
 
   await new Promise<void>((resolve) => {
+    let done = false;
+    let safetyTimer = 0;
+    const complete = () => {
+      if (done) return;
+      done = true;
+      window.clearTimeout(safetyTimer);
+      gsap.ticker.remove(tick);
+      resolve();
+    };
     const tick = () => {
       const elapsed = (performance.now() - start) / 1000;
       const linear = Math.min(100, (elapsed / Math.max(0.05, minWait)) * 100);
       const pct = assetsReady && elapsed >= minWait ? 100 : elapsed >= maxWait ? 100 : Math.min(97, linear);
       if (count) count.textContent = format(pct);
-      if (pct >= 100) { gsap.ticker.remove(tick); resolve(); }
+      if (pct >= 100) complete();
     };
+    safetyTimer = window.setTimeout(complete, (maxWait + 0.25) * 1000);
     gsap.ticker.add(tick);
   });
 
@@ -66,6 +73,7 @@ export async function runLoader(): Promise<void> {
   const iris = { r: 0 };
 
   if (heroStage) gsap.set(heroStage, { scale: 1.07 });
+  if (mark) gsap.set(mark, { xPercent: -50, yPercent: -50 });
   root.classList.add('is-opening');
 
   await new Promise<void>((resolve) => {
@@ -74,20 +82,20 @@ export async function runLoader(): Promise<void> {
       tl.to(outs, { yPercent: -110, duration: 0.45, ease: 'power2.inOut', stagger: 0.04 }, 0);
     }
     if (mark) {
-      tl.to(mark, { scale: 0.84, opacity: 0, duration: 0.35, ease: ease.inOut }, 0.05);
+      tl.to(mark, { xPercent: -50, yPercent: -50, scale: 0.84, opacity: 0, duration: 0.35, ease: ease.inOut }, 0.05);
     }
     tl.to(
       iris,
       {
         r: maxHole,
-        duration: 0.95,
+        duration: 0.78,
         ease: 'power3.inOut',
         onUpdate: () => root.style.setProperty('--hole', `${Math.round(iris.r)}px`),
       },
-      0.12
+      0.08
     );
     if (heroStage) {
-      tl.to(heroStage, { scale: 1, duration: 1.55, ease: 'power3.out', clearProps: 'transform' }, 0.12);
+      tl.to(heroStage, { scale: 1, duration: 1.25, ease: 'power3.out', clearProps: 'transform' }, 0.08);
     }
   });
 
