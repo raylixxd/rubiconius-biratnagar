@@ -40,8 +40,13 @@ declare global {
         visible: boolean;
         debugFly: boolean;
         audio: ReturnType<typeof studioAudio.getDebugState>;
+        activeMaterial?: string;
+        cameraMode?: 'rail' | 'orbit';
       };
       jumpTo: (u: number, immediate?: boolean) => void;
+      setMaterial?: (key: string) => void;
+      setSolarHour?: (hour: number, presetKey?: string) => void;
+      setCameraMode?: (mode: 'rail' | 'orbit') => void;
       logWaypoint: () => { cam: number[]; target: number[] } | null;
     };
   }
@@ -689,6 +694,8 @@ export function mountShowroom(
       visible: isVisible,
       debugFly: debugFly.isActive(),
       audio: studioAudio.getDebugState(),
+      activeMaterial: activeMaterialKey,
+      cameraMode: tactile.getMode(),
     }),
     jumpTo: (u: number, immediate = false) => {
       const clamped = THREE.MathUtils.clamp(u, 0, 1);
@@ -708,6 +715,9 @@ export function mountShowroom(
         scrollToTarget(targetY, { duration: 1.0 });
       }
     },
+    setMaterial: (key: string) => applyPBRMaterial(key),
+    setSolarHour: (hour: number, presetKey?: string) => applySolarHour(hour, presetKey),
+    setCameraMode: (camMode: 'rail' | 'orbit') => setCameraInteractionMode(camMode),
     logWaypoint: () => (debugFly.isActive() ? debugFly.logWaypoint() : null),
   };
 
@@ -730,6 +740,8 @@ export function mountShowroom(
       loadedAsset = null;
     }
 
+    sunLight.dispose();
+    scene.remove(sunLight);
     atmosphere.dispose();
     renderer.dispose();
     try {
